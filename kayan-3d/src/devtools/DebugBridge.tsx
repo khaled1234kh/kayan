@@ -106,6 +106,46 @@ export function DebugBridge() {
         buildExperimentJson(res, new Date().toISOString()),
       exportCsv: (res: ExperimentResult) => buildExperimentCsv(res.runs),
     };
+    /**
+     * Arbitrary camera placement for automated stills. `__focus` only frames a
+     * fixed 3/4 view; this lets a render script choose an explicit eye and target
+     * (front-left, front, side, wide) and keep the orbit target in sync so
+     * OrbitControls does not immediately override the position.
+     */
+    w.__setCamera = (px: number, py: number, pz: number, tx: number, ty: number, tz: number) => {
+      camera.position.set(px, py, pz);
+      const c = controls as unknown as {
+        target?: THREE.Vector3;
+        update?: () => void;
+        minDistance?: number;
+        maxDistance?: number;
+      } | null;
+      if (c && c.target) {
+        // OrbitControls clamps to minDistance (7 by default), which silently
+        // overrides any close inspection placement. Relax it for stills.
+        if (c.minDistance !== undefined) c.minDistance = 0;
+        if (c.maxDistance !== undefined) c.maxDistance = 200;
+        c.target.set(tx, ty, tz);
+        c.update?.();
+      } else {
+        camera.lookAt(tx, ty, tz);
+      }
+      camera.updateProjectionMatrix();
+    };
+    /**
+     * Scene-load readiness. The five FBX actors are ~250 MB and stream in
+     * asynchronously, so a still taken on a fixed timer catches a half-built
+     * scene. Counts skinned meshes, which only exist once a model has loaded.
+     */
+    w.__sceneStats = () => {
+      let skinned = 0;
+      let bones = 0;
+      scene.traverse((o) => {
+        if ((o as THREE.SkinnedMesh).isSkinnedMesh) skinned++;
+        if ((o as THREE.Bone).isBone) bones++;
+      });
+      return { skinned, bones };
+    };
     return () => {
       delete w.__kayanStore;
       delete w.__project;
@@ -117,6 +157,8 @@ export function DebugBridge() {
       delete w.__auditRows;
       delete w.__securityEvidence;
       delete w.__experiment;
+      delete w.__setCamera;
+      delete w.__sceneStats;
     };
   }, [camera, size.width, size.height, gl, controls, scene]);
 

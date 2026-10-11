@@ -113,7 +113,13 @@ export function TaskBoard3D() {
   }, [cards, scratch]);
 
   return (
-    <group position={[-1.5, 0.98, -5.9]}>
+    /* Mounted on the LEFT side wall (x = -6.4), facing +X into the room.
+       It used to hang on the back glazing at (-1.5, 0.98, -5.9), which put a
+       dashboard across the city view and — at 4.6 wide against a 3.5 gap
+       between the back glass lines — drove a partition through its right third.
+       Mounted above the 1.45 partition line so it clears the frosted panels
+       entirely; the back wall is glazing again. Size unchanged. */
+    <group position={[-6.22, 2.08, 0]} rotation={[0, Math.PI / 2, 0]}>
       {/* backboard */}
       <mesh geometry={PANEL_GEO} material={BOARD_MATERIAL} scale={[BOARD_W, BOARD_H, 1]} />
       {/* one panel per column, sharing the geometry */}

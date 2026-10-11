@@ -5,7 +5,10 @@ import { useStore } from './state/useStore';
 import { ActorLayer } from './components/actors/ActorSeat';
 import { HandoffBeams } from './components/actors/HandoffBeams';
 import { SpeechBubbles } from './components/actors/SpeechBubbles';
-import { Floor, FloorGrid, MeetingTable, TrustGateRack, Walls, Zones, tileToWorld } from './components/office/Office';
+import { Floor, FloorGrid, MeetingTable, TrustGateRack, Walls, tileToWorld } from './components/office/Office';
+import { Partitions } from './components/office/Partitions';
+import { Decor } from './components/office/Decor';
+import { FloorLedPath } from './components/office/FloorLedPath';
 import { CameraRig } from './components/office/CameraRig';
 import SceneLighting from './components/scene/SceneLighting';
 import { DemoControls, EventFeed, Inspector, Legend, TopBar, TrustGatePanel } from './components/ui/Panels';
@@ -194,12 +197,22 @@ export default function App() {
               <SceneLighting />
               {import.meta.env.DEV && <DebugBridge />}
               <Floor />
+              <FloorLedPath />
               <FloorGrid />
-              <Zones />
+              {/* Zones removed — the reference floor is intentionally bare dark
+                  concrete. These floor tints were laid out against the ORIGINAL
+                  actor grid and were never realigned after the Phase C 2x2+1
+                  reposition, so they no longer lined up with any desk, one of
+                  them sat across the cross-aisle, and it masked the cyan arm of
+                  the floor LED cross. The ZONES data stays in layout.ts, so floor
+                  markings can be brought back with a correct layout if wanted. */}
+              {/* <Zones /> */}
               <Walls />
+              <Partitions />
               <MeetingTable />
               <TrustGateRack alerting={alerting} />
               <TaskBoard3D />
+              <Decor />
               <ActorLayer
                 actors={actors}
                 selectedId={selectedId}

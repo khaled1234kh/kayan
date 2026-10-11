@@ -3,28 +3,35 @@ import { COLORS, STATE_COLOR } from '../../data/layout';
 import { tileToWorld } from '../office/Office';
 import ActorModel from './ActorModel';
 import Chair from './Chair';
-import Keyboard from './Keyboard';
-import Mouse from './Mouse';
 import { AttentionBeacon } from './AttentionBeacon';
-import { MonitorScreen } from './MonitorScreen';
+import { DeskModel } from './DeskModel';
+import { DeskInput } from './DeskInput';
+import { DeskProps } from './DeskProps';
+import { Monitor } from './Monitor';
 import { StateMarker } from './StateMarker';
 import type { ActorRole } from './materials';
 
 /**
  * Where the seated actor sits relative to the desk tile centre.
  *
- * Measured, not guessed. At z = -0.95 the shoulder-to-keyboard distance was
- * 0.635 against an arm length of 0.539 — genuinely unreachable, which is why
- * the arms read as locked straight. At -0.60 the reach is 0.290 against the
- * same 0.539 arm, so the elbow has room to bend into a typing pose.
- *
- * Known trade-off: the seated character's knees reach z ≈ -0.22, which is inside
- * the desk's footprint (the desk is a solid block spanning z -0.45..0.45). That
- * interpenetration already existed at -0.70; moving forward makes it slightly
- * deeper. The proper fix is to rebuild the desk as a top plus legs rather than a
- * solid block.
+ * The desk is now a real slab with legs rather than a solid block, so the figure
+ * can sit at the front edge without the knees intersecting solid geometry. Reach
+ * was measured: at z = -0.95 the shoulder-to-keyboard distance was 0.635 against
+ * a 0.539 arm — genuinely unreachable, which is why the arms read as locked
+ * straight. At -0.60 the reach is 0.290, giving the elbow room to bend.
  */
 const ACTOR_Z = -0.6;
+
+/**
+ * The manager's platform raise was removed (Phase H Part 2).
+ *
+ * It existed to lift the manager's desk above the pods, but the Mixamo
+ * sitting-typing clip is shared by all five actors, so a raised manager pushed
+ * their hands 0.057 above everyone else's while the keyboard stayed on the
+ * common desk plane. The reference shows the manager at an ordinary desk, so
+ * the manager now sits on the same floor at the same height as everyone else.
+ */
+const MANAGER_RAISE = 0;
 
 /** Map a domain actor onto an attire set. */
 function roleFor(actor: Actor): ActorRole {
@@ -40,10 +47,12 @@ function roleFor(actor: Actor): ActorRole {
 }
 
 /**
- * Wrapper: places one actor at their desk on the floor and attaches the state
- * marker. Desk, monitor and ground disc are unchanged from the foundation build;
- * the figure now stands beside the desk (base at floor level, facing +Z) instead
- * of perching on the desktop.
+ * Places one actor at their desk on the floor and attaches the state marker.
+ *
+ * Every part of the workstation — desk, mat, input, monitors, props — is a child
+ * of this one group, which is positioned from the actor's gridPosition via
+ * `tileToWorld`. No world coordinate is hardcoded anywhere below: moving an actor
+ * in `data/actors.ts` moves the entire workstation with them.
  */
 export function ActorSeat({
   actor,
@@ -57,10 +66,13 @@ export function ActorSeat({
   const accent = STATE_COLOR[actor.state] ?? COLORS.muted;
   const [wx, wz] = tileToWorld(actor.gridPosition.x, actor.gridPosition.z);
   const role = roleFor(actor);
+  const isManager = role === 'ai-manager';
+  const raise = isManager ? MANAGER_RAISE : 0;
+  // Stable per-actor dressing variation, so desks are not clones of each other.
+  const variant = actor.id.length + actor.gridPosition.x + actor.gridPosition.z;
 
-  // Attention states carry a beacon so a blocked or approval-waiting actor is
-  // visible from the overview camera; the N shortcut cycles between them.
   const needsAttention = actor.state === 'awaiting_approval' || actor.state === 'blocked';
+  const isWorking = actor.state === 'working' || actor.state === 'completed';
 
   const select = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
@@ -75,62 +87,36 @@ export function ActorSeat({
   };
 
   return (
-    <group position={[wx, 0, wz]}>
-      {/* Desk */}
-      <mesh
-        position={[0, 0.4, 0]}
-        castShadow
-        receiveShadow
+    <group position={[wx, raise, wz]}>
+      {/* D1/D2/D6 — desk */}
+      <group
         onClick={select}
         onPointerOver={hoverOn}
         onPointerOut={hoverOff}
       >
-        <boxGeometry args={[1.4, 0.8, 0.9]} />
-        <meshStandardMaterial
-          color={COLORS.deskTop}
-          emissive={selected ? COLORS.teal : '#000000'}
-          emissiveIntensity={selected ? 0.3 : 0}
-          roughness={0.85}
-          metalness={0.06}
-        />
-      </mesh>
-
-      {/* Monitor: bezel + an abstract UI face (task graph / inventory grid /
-          quotation table). Rotated 180° about Y so the screen faces the actor,
-          who stands at local z = -0.95 and faces +Z — without this the actors
-          see the back of the casing. The screen stays 0.0005 proud of the
-          bezel's now-forward face (z = -0.2 - 0.0355) so it cannot z-fight. */}
-      <group position={[0, 0.98, -0.2]} rotation={[0, Math.PI, 0]}>
-        <mesh castShadow>
-          <boxGeometry args={[0.66, 0.42, 0.07]} />
-          <meshStandardMaterial
-            color={COLORS.monitor}
-            emissive={COLORS.teal}
-            emissiveIntensity={selected ? 0.4 : 0.18}
-            roughness={0.6}
-          />
-        </mesh>
-        <group position={[0, 0, 0.0355]}>
-          <MonitorScreen role={role} />
-        </group>
+        <DeskModel />
       </group>
 
-      {/* Keyboard: on the desk between the actor (z = -0.95) and the monitor
-          (z = -0.2). Desk top is y = 0.8, so the base rests on it. */}
-      <group position={[0, 0.8, -0.35]}>
-        <Keyboard />
-        <Mouse />
-      </group>
+      {/* D3 — monitors. The manager oversees four pods, so it gets two. Offset is
+          half the bezel width (0.32) plus a 0.06 gap, so the pair sits side by
+          side without intersecting: total span 1.40, inside the 1.6 desk. */}
+      <Monitor role={role} offsetX={isManager ? -0.38 : 0} active={isWorking || selected} />
+      {isManager && <Monitor role={role} offsetX={0.38} active={isWorking || selected} />}
+
+      {/* D4 — mat + keyboard + mouse */}
+      <DeskInput />
+
+      {/* D5 — plant, mug, notebook, pen holder, lamp. The lamp carries a real
+          point light (Phase F3) so it reads as a working light source. */}
+      <DeskProps variant={variant} lampLight />
 
       {/* Ground disc: quiet, persistent state cue at the actor's feet */}
-      <mesh position={[0, 0.03, -0.95]} rotation={[-Math.PI / 2, 0, 0]}>
+      <mesh position={[0, 0.03, ACTOR_Z - 0.35]} rotation={[-Math.PI / 2, 0, 0]}>
         <ringGeometry args={[0.42, 0.5, 32]} />
         <meshBasicMaterial color={accent} transparent opacity={0.65} />
       </mesh>
 
-      {/* Figure. Actor sits at z = -0.70: the desk front edge is z = -0.45, and at
-          the original -0.95 the keyboard was 0.59 away, which forced the arms
-          to full extension. -0.70 puts the keyboard within natural reach. */}
+      {/* Figure, facing +Z toward the desk and the room. */}
       <group
         position={[0, 0, ACTOR_Z]}
         onClick={select}

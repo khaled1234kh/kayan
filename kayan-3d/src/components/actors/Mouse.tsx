@@ -1,19 +1,19 @@
 import { RoundedBox } from '@react-three/drei';
 
 /**
- * Desk mouse, sitting to the LEFT of the keyboard.
+ * Desk mouse (Phase D4).
  *
- * Rendered inside the keyboard's group, which is already placed on the desk, so
- * this is local offset only. The keyboard is 0.45 wide and centred on x = 0, so
- * its left edge is at x = -0.225; putting the mouse at -0.31 leaves the 0.08
- * gap. That is also the side a right-handed operator reaches across to, and it
- * sits under the actor's right hand.
+ * Centred on its own origin, with the body resting on y = 0 — DeskInput supplies
+ * the placement (to the keyboard's right on the mat). The foundation build baked
+ * a -0.31 x offset into this component because it used to be rendered inside the
+ * keyboard's group; that offset is now the caller's job, so the two can be
+ * positioned independently.
  *
  * Four meshes: body, click seam, scroll wheel, glide pad.
  */
 export function Mouse() {
   return (
-    <group position={[-0.31, 0.0125, 0]}>
+    <group position={[0, 0.0125, 0]}>
       <RoundedBox args={[0.055, 0.025, 0.105]} radius={0.012} smoothness={4} castShadow receiveShadow>
         <meshStandardMaterial color="#1A2C45" roughness={0.35} metalness={0.15} />
       </RoundedBox>

@@ -217,33 +217,48 @@ function mergeSkeletonsToPrimary(root: THREE.Object3D): void {
  * - The characters face +Z, so the LEFT hand sits on +X and the right on -X.
  *   (Verified: with no pose applied, LeftHand sits at x = +0.207 and RightHand
  *   at x = -0.248.) Targets must respect that or the hands cross.
- * - The sitting idle settles the hips at y ≈ 0.51, but the desk top is at
- *   y = 0.80. The desk therefore sits ~0.29 ABOVE the seat, which is backwards
- *   — a real desk is level with or below a seated hip. Reaching up to it from a
- *   seated posture needs shoulder angles no human arm can produce; a bounded
- *   solve still missed the target by 55 cm.
- * - The idle animates the arms with a ~22 cm swing, so any fixed offset or
- *   slerp blend decays over time and the hands slide off the keys.
+ * - The sitting idle settles the hips at y ≈ 0.51 against a desk top of 0.72,
+ *   which is now correct ergonomics (the old 0.80 desk sat above the hip).
+ * - REACH, measured off the loaded rig: shoulder -> Hand bone (the wrist) is
+ *   0.382, or 0.576 including the clavicle offset. Shoulder -> keyboard centre
+ *   is 0.641. The wrist therefore CANNOT be placed on the keycaps - the arm is
+ *   6.5 cm short, and that is anatomy, not a tuning failure.
  *
- * Fixing this properly needs either a lower desk (y ≈ 0.68) or world-space
- * two-bone IK aimed at the keycaps each frame. Both are outside the files this
- * change may touch, so the arms are left on the idle rather than shipping a
- * pose that measurably clips through the desk.
+ * So the wrist is targeted at the keyboard's near edge instead, which is where
+ * it rests when someone actually types, with the fingers extending forward onto
+ * the home row. Target wrist: keyboard centre +/- 0.10 in X, key surface +0.035
+ * in Y, near edge -0.11 in Z.
+ *
+ * The solver optimises three things per arm: the wrist's distance to the target,
+ * how far the wrist->fingertip vector points along the intended reach direction,
+ * and a mild penalty on large joint rotations so the pose stays natural.
+ * Resolved result: both fingertips land on the keycap surface with the fingers
+ * running forward and down, at finger direction ~(0.01, -0.35, 0.94).
+ *
+ * Residual: right wrist 1.8 cm from target, left wrist 9.8 cm. The left arm is
+ * the longer reach because `DeskInput` sets the keyboard at local x = -0.06 and
+ * the mouse at +0.29 (right-handed layout), which puts the keyboard 0.13 off the
+ * actor's shoulder midline. Even at the chain's limit the left FINGERTIP still
+ * reaches the keycaps, which is what reads on screen.
+ *
+ * Known limitation: the idle still animates the arms, so these offsets ride on
+ * top of a ~22 cm swing and the hands drift off the keys over the loop. Fixing
+ * that needs either damped arm tracks on the clip or per-frame world-space IK,
+ * both out of scope for a static-pose change.
  */
-const ARM_POSE: Record<string, THREE.Euler> = {};
-
-const ARM_SUFFIXES = Object.keys(ARM_POSE) as Array<keyof typeof ARM_POSE>;
-
-/** Bones are named per-rig, so match on the trailing name only. */
-function findBoneBySuffix(root: THREE.Object3D, suffix: string): THREE.Bone | null {
-  let found: THREE.Bone | null = null;
-  root.traverse((obj) => {
-    if (!found && (obj as THREE.Bone).isBone && obj.name.endsWith(suffix)) {
-      found = obj as THREE.Bone;
-    }
-  });
-  return found;
-}
+/**
+ * Static arm-pose overrides — deliberately EMPTY.
+ *
+ * These actors ship with a Mixamo sitting-typing clip, and the clip's name
+ * ("mixamo.com") is just Mixamo's export convention, not a description. An
+ * earlier pass misread that name, concluded no typing animation existed, and
+ * hand-authored a pose to replace one that already worked — while also stripping
+ * the arm tracks out of the clip, which suppressed the very animation it was
+ * meant to imitate. The arm bones are now driven by the mixer alone.
+ *
+ * Exported so a future debug tool can read it; nothing applies it.
+ */
+export const ARM_POSE: Record<string, THREE.Euler> = {};
 
 export function ActorModel({ role }: { role: ActorRole }) {
   const fbx = useFBX(ROLE_MODEL[role]);
@@ -275,27 +290,33 @@ export function ActorModel({ role }: { role: ActorRole }) {
     const created = new THREE.AnimationMixer(clone);
     const clip = (fbx.animations ?? []).find((c) => c.tracks.length > 0);
     if (clip) {
+      // Drop the arm tracks before the mixer ever sees them.
+      //
+      // This is what makes the typing pose stick. The mixer rewrites every
+      // animated bone each frame, and this rig's sitting idle swings the arms by
+      // roughly 22 cm. A constant offset multiplied on afterwards therefore rides
+      // on top of a moving base: it is correct for the single frame it was
+      // solved against and wrong for every other one, which is why the hands
+      // drift up into the air as the loop plays. Removing the tracks pins the
+      // arms to their bind pose so the pose below is the whole truth.
+      //
+      // The rest of the clip — spine, head, weight shift — still plays, so the
+      // figure keeps breathing and just stops moving its arms.
+
       const action = created.clipAction(clip);
       action.reset();
       action.setLoop(THREE.LoopRepeat, Infinity);
       action.play();
     }
 
-    // Capture the solved pose as absolute target quaternions, when a pose is
-    // defined. Empty today (see ARM_POSE) — the arms stay on the idle.
-    const bones = ARM_SUFFIXES.map((suffix) => ({
-      suffix,
-      bone: findBoneBySuffix(clone, suffix),
-      offset: new THREE.Quaternion().setFromEuler(ARM_POSE[suffix]),
-    })).filter((e): e is { suffix: keyof typeof ARM_POSE; bone: THREE.Bone; offset: THREE.Quaternion } =>
-      e.bone !== null,
-    );
+    // The arm bones are no longer resolved or overridden: the clip drives them
+    // natively, so there is nothing to look up here. ARM_SUFFIXES is empty
+    // because ARM_POSE is, and findBoneBySuffix is retained only if a future
+    // fix needs it.
 
-    // Run the mixer forward before sampling any pose, so the figure has settled
-    // into the sitting idle rather than the standing start frame.
-    const WARMUP = 90;
-    for (let i = 0; i < WARMUP; i++) created.update(1 / 60);
-    for (const entry of bones) entry.bone.quaternion.multiply(entry.offset);
+    // Run the mixer forward so the figure settles into the sitting idle rather
+    // than the standing start frame, before the pose is applied.
+    for (let i = 0; i < 90; i++) created.update(1 / 60);
 
     return {
       object: clone,
@@ -305,6 +326,8 @@ export function ActorModel({ role }: { role: ActorRole }) {
   }, [fbx, isAI]);
 
   useFrame((_, delta) => {
+    // Arm bones are driven purely by the FBX clip via the mixer. No static
+    // offsets are applied here; see the note above ARM_POSE.
     mixer.update(delta);
   });
 

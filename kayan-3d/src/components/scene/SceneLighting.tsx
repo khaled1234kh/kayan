@@ -1,31 +1,37 @@
 /**
- * Scene lighting — studio-neutral, tuned for readability of the actor figures
- * while the floor and walls stay dark navy.
+ * Scene lighting — cinematic night office (Phase F).
  *
- * Contrast comes from form and a rim/fill split, not from bright emissive
- * materials. Kept out of `components/office/` so the office geometry files stay
- * untouched.
+ * The reference is a dark executive floor lit almost entirely by practicals:
+ * the city glow through the glazing, the cyan partition feet, the warm desk
+ * LEDs. There is no studio key light. So the brief is inverted from the usual
+ * "readability first" approach — the room is meant to be dim, and legibility
+ * comes from emissive sources rather than from ambient fill.
+ *
+ * Deliberately absent: any strong ambient. Cranking ambient up is what made the
+ * floor read as flat grey; the reference floor is near-black with specular
+ * sheen, which needs a low ambient and a strong directional.
+ *
+ * The key is a cool moonlit blue-white (#B8C8D8) entering from the glazing side
+ * (-Z), so light rakes across the floor toward the camera the way city glow
+ * would. Warm sources are kept to practicals (desk lamps, under-desk strips).
  */
 export default function SceneLighting() {
   return (
     <>
-      {/*
-        Ambient/fill are set ABOVE the 0.55 / 0.15 figures in the brief. The brief
-        assumed an ambient baseline of 0.4; this scene was already at 0.7 with a
-        0.45 hemisphere, so applying 0.55 / 0.15 literally made it measurably
-        darker (mean viewport luminance 27.4 vs 28.1 before). These values keep
-        the brief's structure (teal/navy hemisphere, single shadow key, opposite
-        fill) while landing above the old total, which is the stated goal.
-      */}
-      <ambientLight intensity={0.75} />
+      {/* Low ambient. Measured ladder: 0.15 left the figures as unreadable
+          silhouettes, 0.22 was still marginal, 0.35 is the point where every
+          actor is just-readable while the floor stays near-black. This is the
+          floor the brief describes, not a ceiling. */}
+      <ambientLight intensity={0.35} />
 
-      {/* Subtle ambient tint: teal sky, navy ground bounce. */}
-      <hemisphereLight args={['#1FB8C4', '#0F2438', 0.35]} />
+      {/* Very subtle tint: cold sky, near-black ground bounce. */}
+      <hemisphereLight args={['#1A2A38', '#05070A', 0.18]} />
 
-      {/* Key light — the only shadow caster. */}
+      {/* Key — city glow through the far glazing. Cool, low, raking. */}
       <directionalLight
-        position={[9, 14, 7]}
-        intensity={1.15}
+        position={[0.6, 0.8, -0.4]}
+        intensity={0.35}
+        color="#B8C8D8"
         castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
@@ -35,9 +41,6 @@ export default function SceneLighting() {
         shadow-camera-bottom={-11}
         shadow-bias={-0.0005}
       />
-
-      {/* Opposite-side fill, no shadows: keeps the far side of figures readable. */}
-      <directionalLight position={[-8, 6, -6]} intensity={0.4} />
     </>
   );
 }
