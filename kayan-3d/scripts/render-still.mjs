@@ -44,13 +44,25 @@ const PORT = Number(arg('port', '5173'));
 const TIME_ARG = arg('time', null);
 const TIME = TIME_ARG === null ? null : Number(TIME_ARG);
 
-/** CEO seat, in tile coordinates — the desk closest to the front-right. */
-const CEO_TILE = { x: 9.5, z: 2.5 };
+/**
+ * CEO seat, in tile coordinates — front-right pod.
+ *
+ * z was 2.5, which was the CEO's seat before the Phase C actor reposition; it
+ * framed an empty gap between two pods. The CEO is now at (9.5, 9.5), matching
+ * PLACEMENT in src/data/actors.ts.
+ */
+const CEO_TILE = { x: 9.5, z: 9.5 };
 const GRID = 12; // must match GRID in src/data/layout.ts
 const TILE = { x: CEO_TILE.x - GRID / 2, z: CEO_TILE.z - GRID / 2 };
 
-// Desk/keyboard live at the seat origin; the actor sits 0.6 behind it.
-const DESK = { x: TILE.x, y: 0.86, z: TILE.z - 0.35 };
+/**
+ * Desk/keyboard live at the seat origin; the actor sits 0.6 behind it.
+ *
+ * y was 0.86, hard-coded against the old DESK_TOP_Y of 0.72 (+0.14). The desk
+ * surface is now DESK_TOP_Y = 0.6325, derived from where the Mixamo typing
+ * clip actually puts the fingertips, so the same +0.14 offset gives 0.7725.
+ */
+const DESK = { x: TILE.x, y: 0.7725, z: TILE.z - 0.35 };
 
 const VIEWS = {
   // Elevated and off to one side: the keyboard sits *in front of* the monitor
