@@ -1,0 +1,10 @@
+2026-10-08 23:16:59,364 INFO     kayan: development endpoints enabled (/api/dev/*)
+2026-10-08 23:16:59,742 INFO     kayan: development endpoints enabled (/api/dev/*)
+2026-10-08 23:16:59,742 INFO     kayan: KAYAN backend starting (env=development)
+2026-10-08 23:16:59,798 INFO     app.db.seed: seeded 5 agent(s)
+2026-10-08 23:16:59,798 INFO     kayan: seeded 5 agent(s)
+2026-10-08 23:16:59,798 INFO     kayan: database ready: postgresql+psycopg://***@127.0.0.1:54321/kayan
+2026-10-08 23:16:59,843 INFO     app.api.ws: ws connected: stream=ws-stay after_sequence=0
+2026-10-08 23:16:59,886 INFO     app.api.ws: ws replay complete: stream=ws-stay sent 0 event(s) up to sequence 0 (cutoff 0)
+2026-10-08 23:16:59,889 INFO     app.api.ws: ws connected: stream=ws-stay after_sequence=0
+2026-10-08 23:16:59,892 INFO     app.api.ws: ws replay complete: stream=ws-stay sent 0 event(s) up to sequence 0 (cutoff 0)

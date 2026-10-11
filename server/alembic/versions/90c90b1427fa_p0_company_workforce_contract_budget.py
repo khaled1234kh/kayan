@@ -1,0 +1,366 @@
+"""P0 company, workforce, contract and budget schema.
+
+Adds the eight tables that let a company be configured, its employees be given
+contracts, and spend be bounded:
+
+* ``companies`` - the configured business, with a measurable target and one
+  currency. A partial unique index permits at most one ``active`` company, while
+  any number of drafts may exist.
+* ``role_templates`` - the versioned role catalogue. ``(key, config_version)`` is
+  the primary key, so redefining a role inserts a new version and a contract
+  generated from an older version stays explainable.
+* ``company_employees`` - configuration only. These rows are *not* inserted into
+  the canonical ``agents`` table and never reuse demo agent ids, so a configured
+  workforce cannot collide with the demo workforce.
+* ``contracts`` - the formal boundary for an employee's authority. Terms are
+  frozen at activation by the trigger below; only lifecycle columns may change,
+  and an activated contract is never deleted. One active contract per employee.
+* ``budget_accounts`` / ``budget_reservations`` / ``budget_ledger_entries`` - the
+  ceiling for a period, funds held for unsettled work, and an append-only record.
+  All money is ``Numeric(18, 6)``; no floating point is used for authorisation.
+
+Also adds ``events.clock_offset_ms``. Persisted ``timestamp`` is always real UTC;
+the offset carries the reproducible logical position of a workflow event, so the
+activity feed shows real time while experiment timing stays deterministic.
+
+Notes
+-----
+``company_employees.active_contract_id`` and ``contracts.employee_id`` reference
+each other. The former is added as a separate ``ALTER TABLE`` after both tables
+exist rather than inline, because the table is created first.
+
+The immutability triggers are PostgreSQL-only. On SQLite the equivalent rules are
+enforced in the service layer and covered by tests; SQLite has no PL/pgSQL.
+"""
+from __future__ import annotations
+
+from collections.abc import Sequence
+
+import sqlalchemy as sa
+from alembic import op
+from sqlalchemy.dialects import postgresql
+
+revision: str = '90c90b1427fa'
+down_revision: str | None = '17252b923d8c'
+branch_labels: str | Sequence[str] | None = None
+depends_on: str | Sequence[str] | None = None
+
+#: Every column that makes up the substance of a contract. ``activated_at`` is
+#: deliberately absent: it is what freezes these columns, and the lifecycle
+#: columns (``status``, ``activated_at``, ``superseded_at``, ``supersedes_id``)
+#: stay writable so a contract can still be superseded.
+CONTRACT_MATERIAL_COLUMNS = (
+    "company_id",
+    "employee_id",
+    "version_number",
+    "role",
+    "objective",
+    "responsibilities",
+    "data_scope",
+    "tool_scope",
+    "restrictions",
+    "task_scope",
+    "communication_policy",
+    "approval_rules",
+    "budget_per_task",
+    "budget_per_month",
+    "reports_to_employee_id",
+    "content_hash",
+)
+
+_IMMUTABLE_UPDATE_TRIGGER = """
+CREATE OR REPLACE FUNCTION kayan_guard_contract_terms() RETURNS trigger AS $$
+BEGIN
+    IF OLD.activated_at IS NOT NULL THEN
+        IF ({new_columns}) IS DISTINCT FROM ({old_columns}) THEN
+            RAISE EXCEPTION
+                'contract % is activated: its terms are immutable (attempted change to %)',
+                OLD.id, TG_ARGV[0]
+                USING ERRCODE = '23514';
+        END IF;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql
+"""
+
+_NO_DELETE_TRIGGER = """
+CREATE OR REPLACE FUNCTION kayan_guard_contract_delete() RETURNS trigger AS $$
+BEGIN
+    IF OLD.activated_at IS NOT NULL THEN
+        RAISE EXCEPTION
+            'contract % is activated and cannot be deleted; supersede it instead',
+            OLD.id
+            USING ERRCODE = '23514';
+    END IF;
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql
+"""
+
+
+def _contract_triggers() -> None:
+    """Create the contract immutability triggers (PostgreSQL only)."""
+    op.execute(_IMMUTABLE_UPDATE_TRIGGER.format(
+        new_columns=", ".join(f"NEW.{column}" for column in CONTRACT_MATERIAL_COLUMNS),
+        old_columns=", ".join(f"OLD.{column}" for column in CONTRACT_MATERIAL_COLUMNS),
+    ))
+    op.execute(
+        "CREATE TRIGGER trg_contract_terms_immutable BEFORE UPDATE ON contracts "
+        "FOR EACH ROW EXECUTE FUNCTION kayan_guard_contract_terms("
+        + ", ".join(f"'{column}'" for column in CONTRACT_MATERIAL_COLUMNS)
+        + ")"
+    )
+    op.execute(_NO_DELETE_TRIGGER)
+    op.execute(
+        "CREATE TRIGGER trg_contract_no_delete BEFORE DELETE ON contracts "
+        "FOR EACH ROW EXECUTE FUNCTION kayan_guard_contract_delete()"
+    )
+
+
+def _drop_contract_triggers() -> None:
+    op.execute("DROP TRIGGER IF EXISTS trg_contract_no_delete ON contracts")
+    op.execute("DROP TRIGGER IF EXISTS trg_contract_terms_immutable ON contracts")
+    op.execute("DROP FUNCTION IF EXISTS kayan_guard_contract_delete()")
+    op.execute("DROP FUNCTION IF EXISTS kayan_guard_contract_terms()")
+
+
+def upgrade() -> None:
+    # ### tables auto generated by Alembic - please adjust! ###
+    op.create_table('companies',
+    sa.Column('id', sa.String(length=64), nullable=False),
+    sa.Column('name', sa.String(length=160), nullable=False),
+    sa.Column('industry', sa.String(length=120), nullable=True),
+    sa.Column('template_key', sa.String(length=64), nullable=False),
+    sa.Column('target_description', sa.Text(), nullable=True),
+    sa.Column('target_metric', sa.String(length=64), nullable=True),
+    sa.Column('target_value', sa.Numeric(precision=18, scale=6), nullable=True),
+    sa.Column('target_unit', sa.String(length=32), nullable=True),
+    sa.Column('target_period', sa.String(length=32), nullable=True),
+    sa.Column('currency', sa.String(length=3), nullable=False),
+    sa.Column('status', sa.Enum('draft', 'active', 'paused', name='companystatus', native_enum=False, length=16), nullable=False),
+    sa.Column('revision', sa.Integer(), nullable=False),
+    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
+    sa.Column('updated_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
+    sa.CheckConstraint('length(currency) = 3', name='ck_company_currency_iso'),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_index(op.f('ix_companies_status'), 'companies', ['status'], unique=False)
+    op.create_index(op.f('ix_companies_template_key'), 'companies', ['template_key'], unique=False)
+    op.create_index('uq_one_active_company', 'companies', [sa.literal_column('status')], unique=True, sqlite_where=sa.text("status = 'active'"), postgresql_where=sa.text("status = 'active'"))
+    op.create_table('role_templates',
+    sa.Column('key', sa.String(length=64), nullable=False),
+    sa.Column('config_version', sa.Integer(), nullable=False),
+    sa.Column('label', sa.String(length=120), nullable=False),
+    sa.Column('kind', sa.String(length=16), nullable=False),
+    sa.Column('summary', sa.Text(), nullable=True),
+    sa.Column('responsibilities', postgresql.JSONB(astext_type=sa.Text()).with_variant(sa.JSON(), 'sqlite'), nullable=False),
+    sa.Column('task_categories', postgresql.JSONB(astext_type=sa.Text()).with_variant(sa.JSON(), 'sqlite'), nullable=False),
+    sa.Column('default_data_scope', postgresql.JSONB(astext_type=sa.Text()).with_variant(sa.JSON(), 'sqlite'), nullable=False),
+    sa.Column('default_tool_scope', postgresql.JSONB(astext_type=sa.Text()).with_variant(sa.JSON(), 'sqlite'), nullable=False),
+    sa.Column('default_restrictions', postgresql.JSONB(astext_type=sa.Text()).with_variant(sa.JSON(), 'sqlite'), nullable=False),
+    sa.Column('template_keys', postgresql.JSONB(astext_type=sa.Text()).with_variant(sa.JSON(), 'sqlite'), nullable=False),
+    sa.Column('active', sa.Boolean(), nullable=False),
+    sa.CheckConstraint('config_version >= 1', name='ck_role_template_version_positive'),
+    sa.PrimaryKeyConstraint('key', 'config_version')
+    )
+    op.create_table('budget_accounts',
+    sa.Column('id', sa.String(length=64), nullable=False),
+    sa.Column('company_id', sa.String(length=64), nullable=False),
+    sa.Column('currency', sa.String(length=3), nullable=False),
+    sa.Column('monthly_limit', sa.Numeric(precision=18, scale=6), nullable=False),
+    sa.Column('period_start', sa.DateTime(timezone=True), nullable=False),
+    sa.Column('period_end', sa.DateTime(timezone=True), nullable=False),
+    sa.Column('version', sa.Integer(), nullable=False),
+    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
+    sa.CheckConstraint('length(currency) = 3', name='ck_budget_currency_iso'),
+    sa.CheckConstraint('monthly_limit >= 0', name='ck_budget_limit_non_negative'),
+    sa.CheckConstraint('period_end > period_start', name='ck_budget_period_ordered'),
+    sa.ForeignKeyConstraint(['company_id'], ['companies.id'], ondelete='CASCADE'),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('company_id', 'period_start', name='uq_budget_account_period')
+    )
+    op.create_index(op.f('ix_budget_accounts_company_id'), 'budget_accounts', ['company_id'], unique=False)
+    op.create_table('company_employees',
+    sa.Column('id', sa.String(length=64), nullable=False),
+    sa.Column('company_id', sa.String(length=64), nullable=False),
+    sa.Column('display_name', sa.String(length=160), nullable=False),
+    sa.Column('kind', sa.String(length=16), nullable=False),
+    sa.Column('role_key', sa.String(length=64), nullable=False),
+    sa.Column('custom_role', sa.Text(), nullable=True),
+    sa.Column('objective', sa.Text(), nullable=True),
+    sa.Column('status', sa.Enum('draft', 'active', 'paused', 'retired', name='employeestatus', native_enum=False, length=16), nullable=False),
+    sa.Column('reports_to_id', sa.String(length=64), nullable=True),
+    sa.Column('active_contract_id', sa.String(length=64), nullable=True),
+    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
+    sa.CheckConstraint('reports_to_id <> id', name='ck_employee_not_self_reports'),
+    sa.ForeignKeyConstraint(['company_id'], ['companies.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['reports_to_id'], ['company_employees.id'], ondelete='SET NULL'),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_index(op.f('ix_company_employees_active_contract_id'), 'company_employees', ['active_contract_id'], unique=False)
+    op.create_index('ix_company_employees_company', 'company_employees', ['company_id', 'status'], unique=False)
+    op.create_index(op.f('ix_company_employees_reports_to_id'), 'company_employees', ['reports_to_id'], unique=False)
+    op.create_index(op.f('ix_company_employees_role_key'), 'company_employees', ['role_key'], unique=False)
+    op.create_table('budget_reservations',
+    sa.Column('id', sa.String(length=64), nullable=False),
+    sa.Column('account_id', sa.String(length=64), nullable=False),
+    sa.Column('company_id', sa.String(length=64), nullable=False),
+    sa.Column('employee_id', sa.String(length=64), nullable=True),
+    sa.Column('task_id', sa.String(length=64), nullable=True),
+    sa.Column('run_id', sa.String(length=64), nullable=True),
+    sa.Column('amount', sa.Numeric(precision=18, scale=6), nullable=False),
+    sa.Column('currency', sa.String(length=3), nullable=False),
+    sa.Column('status', sa.Enum('active', 'settled', 'released', name='budgetreservationstatus', native_enum=False, length=16), nullable=False),
+    sa.Column('idempotency_key', sa.String(length=128), nullable=False),
+    sa.Column('billable_operation_id', sa.String(length=64), nullable=True),
+    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
+    sa.Column('settled_at', sa.DateTime(timezone=True), nullable=True),
+    sa.CheckConstraint('amount > 0', name='ck_reservation_positive'),
+    sa.ForeignKeyConstraint(['account_id'], ['budget_accounts.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['company_id'], ['companies.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['employee_id'], ['company_employees.id'], ondelete='SET NULL'),
+    sa.ForeignKeyConstraint(['run_id'], ['workflow_runs.id'], ondelete='SET NULL'),
+    sa.ForeignKeyConstraint(['task_id'], ['tasks.id'], ondelete='SET NULL'),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('idempotency_key', name='uq_reservation_idempotency')
+    )
+    op.create_index(op.f('ix_budget_reservations_billable_operation_id'), 'budget_reservations', ['billable_operation_id'], unique=False)
+    op.create_index(op.f('ix_budget_reservations_company_id'), 'budget_reservations', ['company_id'], unique=False)
+    op.create_index(op.f('ix_budget_reservations_employee_id'), 'budget_reservations', ['employee_id'], unique=False)
+    op.create_index(op.f('ix_budget_reservations_run_id'), 'budget_reservations', ['run_id'], unique=False)
+    op.create_index(op.f('ix_budget_reservations_task_id'), 'budget_reservations', ['task_id'], unique=False)
+    op.create_index('ix_reservations_account_status', 'budget_reservations', ['account_id', 'status'], unique=False)
+    op.create_table('contracts',
+    sa.Column('id', sa.String(length=64), nullable=False),
+    sa.Column('company_id', sa.String(length=64), nullable=False),
+    sa.Column('employee_id', sa.String(length=64), nullable=False),
+    sa.Column('version_number', sa.Integer(), nullable=False),
+    sa.Column('status', sa.Enum('draft', 'active', 'superseded', name='contractstatus', native_enum=False, length=16), nullable=False),
+    sa.Column('role', sa.String(length=160), nullable=False),
+    sa.Column('objective', sa.Text(), nullable=True),
+    sa.Column('responsibilities', postgresql.JSONB(astext_type=sa.Text()).with_variant(sa.JSON(), 'sqlite'), nullable=False),
+    sa.Column('data_scope', postgresql.JSONB(astext_type=sa.Text()).with_variant(sa.JSON(), 'sqlite'), nullable=False),
+    sa.Column('tool_scope', postgresql.JSONB(astext_type=sa.Text()).with_variant(sa.JSON(), 'sqlite'), nullable=False),
+    sa.Column('restrictions', postgresql.JSONB(astext_type=sa.Text()).with_variant(sa.JSON(), 'sqlite'), nullable=False),
+    sa.Column('task_scope', postgresql.JSONB(astext_type=sa.Text()).with_variant(sa.JSON(), 'sqlite'), nullable=False),
+    sa.Column('communication_policy', postgresql.JSONB(astext_type=sa.Text()).with_variant(sa.JSON(), 'sqlite'), nullable=False),
+    sa.Column('approval_rules', postgresql.JSONB(astext_type=sa.Text()).with_variant(sa.JSON(), 'sqlite'), nullable=False),
+    sa.Column('budget_per_task', sa.Numeric(precision=18, scale=6), nullable=False),
+    sa.Column('budget_per_month', sa.Numeric(precision=18, scale=6), nullable=False),
+    sa.Column('reports_to_employee_id', sa.String(length=64), nullable=True),
+    sa.Column('effective_at', sa.DateTime(timezone=True), nullable=True),
+    sa.Column('activated_at', sa.DateTime(timezone=True), nullable=True),
+    sa.Column('superseded_at', sa.DateTime(timezone=True), nullable=True),
+    sa.Column('supersedes_id', sa.String(length=64), nullable=True),
+    sa.Column('content_hash', sa.String(length=64), nullable=False),
+    sa.Column('source', sa.String(length=32), nullable=False),
+    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
+    sa.CheckConstraint('budget_per_month >= 0', name='ck_contract_budget_non_negative'),
+    sa.CheckConstraint('budget_per_task >= 0', name='ck_contract_task_budget_non_negative'),
+    sa.CheckConstraint('reports_to_employee_id <> employee_id', name='ck_contract_not_self_reports'),
+    sa.CheckConstraint('version_number >= 1', name='ck_contract_version_positive'),
+    sa.ForeignKeyConstraint(['company_id'], ['companies.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['employee_id'], ['company_employees.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['reports_to_employee_id'], ['company_employees.id'], ondelete='SET NULL'),
+    sa.ForeignKeyConstraint(['supersedes_id'], ['contracts.id'], ondelete='SET NULL'),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('employee_id', 'version_number', name='uq_contract_version')
+    )
+    op.create_index('ix_contracts_company_status', 'contracts', ['company_id', 'status'], unique=False)
+    op.create_index(op.f('ix_contracts_employee_id'), 'contracts', ['employee_id'], unique=False)
+    op.create_index(op.f('ix_contracts_reports_to_employee_id'), 'contracts', ['reports_to_employee_id'], unique=False)
+    op.create_index('uq_contract_active_per_employee', 'contracts', ['employee_id'], unique=True, sqlite_where=sa.text("status = 'active'"), postgresql_where=sa.text("status = 'active'"))
+    op.create_table('budget_ledger_entries',
+    sa.Column('id', sa.String(length=64), nullable=False),
+    sa.Column('company_id', sa.String(length=64), nullable=False),
+    sa.Column('account_id', sa.String(length=64), nullable=True),
+    sa.Column('reservation_id', sa.String(length=64), nullable=True),
+    sa.Column('employee_id', sa.String(length=64), nullable=True),
+    sa.Column('task_id', sa.String(length=64), nullable=True),
+    sa.Column('run_id', sa.String(length=64), nullable=True),
+    sa.Column('category', sa.Enum('reservation_created', 'reservation_released', 'actual_cost_charged', 'refund_or_adjustment', 'budget_increased', 'budget_limit_reached', 'reservation_denied', name='budgetledgercategory', native_enum=False, length=32), nullable=False),
+    sa.Column('amount', sa.Numeric(precision=18, scale=6), nullable=False),
+    sa.Column('currency', sa.String(length=3), nullable=False),
+    sa.Column('balance_after', sa.Numeric(precision=18, scale=6), nullable=True),
+    sa.Column('idempotency_key', sa.String(length=128), nullable=False),
+    sa.Column('billable_operation_id', sa.String(length=64), nullable=True),
+    sa.Column('note', sa.Text(), nullable=True),
+    sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
+    sa.ForeignKeyConstraint(['account_id'], ['budget_accounts.id'], ondelete='SET NULL'),
+    sa.ForeignKeyConstraint(['company_id'], ['companies.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['employee_id'], ['company_employees.id'], ondelete='SET NULL'),
+    sa.ForeignKeyConstraint(['reservation_id'], ['budget_reservations.id'], ondelete='SET NULL'),
+    sa.ForeignKeyConstraint(['run_id'], ['workflow_runs.id'], ondelete='SET NULL'),
+    sa.ForeignKeyConstraint(['task_id'], ['tasks.id'], ondelete='SET NULL'),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('idempotency_key', name='uq_ledger_idempotency')
+    )
+    op.create_index(op.f('ix_budget_ledger_entries_account_id'), 'budget_ledger_entries', ['account_id'], unique=False)
+    op.create_index(op.f('ix_budget_ledger_entries_billable_operation_id'), 'budget_ledger_entries', ['billable_operation_id'], unique=False)
+    op.create_index(op.f('ix_budget_ledger_entries_company_id'), 'budget_ledger_entries', ['company_id'], unique=False)
+    op.create_index(op.f('ix_budget_ledger_entries_employee_id'), 'budget_ledger_entries', ['employee_id'], unique=False)
+    op.create_index(op.f('ix_budget_ledger_entries_reservation_id'), 'budget_ledger_entries', ['reservation_id'], unique=False)
+    op.create_index(op.f('ix_budget_ledger_entries_run_id'), 'budget_ledger_entries', ['run_id'], unique=False)
+    op.create_index(op.f('ix_budget_ledger_entries_task_id'), 'budget_ledger_entries', ['task_id'], unique=False)
+    op.create_index('ix_ledger_company_created', 'budget_ledger_entries', ['company_id', 'created_at'], unique=False)
+    op.add_column('events', sa.Column('clock_offset_ms', sa.Integer(), nullable=True))
+
+    # Both sides now exist, so the cycle between an employee and its effective
+    # contract can be closed.
+    op.create_foreign_key(
+        'fk_company_employees_active_contract',
+        'company_employees',
+        'contracts',
+        ['active_contract_id'],
+        ['id'],
+        ondelete='SET NULL',
+    )
+
+    if op.get_bind().dialect.name == 'postgresql':
+        _contract_triggers()
+    # ### end Alembic commands ###
+
+
+def downgrade() -> None:
+    # ### commands auto generated by Alembic - please adjust! ###
+    if op.get_bind().dialect.name == 'postgresql':
+        _drop_contract_triggers()
+    op.drop_constraint(
+        'fk_company_employees_active_contract', 'company_employees', type_='foreignkey'
+    )
+    op.drop_column('events', 'clock_offset_ms')
+    op.drop_index('ix_ledger_company_created', table_name='budget_ledger_entries')
+    op.drop_index(op.f('ix_budget_ledger_entries_task_id'), table_name='budget_ledger_entries')
+    op.drop_index(op.f('ix_budget_ledger_entries_run_id'), table_name='budget_ledger_entries')
+    op.drop_index(op.f('ix_budget_ledger_entries_reservation_id'), table_name='budget_ledger_entries')
+    op.drop_index(op.f('ix_budget_ledger_entries_employee_id'), table_name='budget_ledger_entries')
+    op.drop_index(op.f('ix_budget_ledger_entries_company_id'), table_name='budget_ledger_entries')
+    op.drop_index(op.f('ix_budget_ledger_entries_billable_operation_id'), table_name='budget_ledger_entries')
+    op.drop_index(op.f('ix_budget_ledger_entries_account_id'), table_name='budget_ledger_entries')
+    op.drop_table('budget_ledger_entries')
+    op.drop_index('uq_contract_active_per_employee', table_name='contracts', sqlite_where=sa.text("status = 'active'"), postgresql_where=sa.text("status = 'active'"))
+    op.drop_index(op.f('ix_contracts_reports_to_employee_id'), table_name='contracts')
+    op.drop_index(op.f('ix_contracts_employee_id'), table_name='contracts')
+    op.drop_index('ix_contracts_company_status', table_name='contracts')
+    op.drop_table('contracts')
+    op.drop_index('ix_reservations_account_status', table_name='budget_reservations')
+    op.drop_index(op.f('ix_budget_reservations_task_id'), table_name='budget_reservations')
+    op.drop_index(op.f('ix_budget_reservations_run_id'), table_name='budget_reservations')
+    op.drop_index(op.f('ix_budget_reservations_employee_id'), table_name='budget_reservations')
+    op.drop_index(op.f('ix_budget_reservations_company_id'), table_name='budget_reservations')
+    op.drop_index(op.f('ix_budget_reservations_billable_operation_id'), table_name='budget_reservations')
+    op.drop_table('budget_reservations')
+    op.drop_index(op.f('ix_company_employees_role_key'), table_name='company_employees')
+    op.drop_index(op.f('ix_company_employees_reports_to_id'), table_name='company_employees')
+    op.drop_index('ix_company_employees_company', table_name='company_employees')
+    op.drop_index(op.f('ix_company_employees_active_contract_id'), table_name='company_employees')
+    op.drop_table('company_employees')
+    op.drop_index(op.f('ix_budget_accounts_company_id'), table_name='budget_accounts')
+    op.drop_table('budget_accounts')
+    op.drop_table('role_templates')
+    op.drop_index('uq_one_active_company', table_name='companies', sqlite_where=sa.text("status = 'active'"), postgresql_where=sa.text("status = 'active'"))
+    op.drop_index(op.f('ix_companies_template_key'), table_name='companies')
+    op.drop_index(op.f('ix_companies_status'), table_name='companies')
+    op.drop_table('companies')
+    # ### end Alembic commands ###

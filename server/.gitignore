@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+
+# Local environment / secrets — never commit
+.env
+
+# Local PostgreSQL cluster created by app.scripts.devdb
+.pgdata/
+.pgdb.log
+.pgctl.out
+
+# Local SQLite fallback database
+*.db
+kayan_dev.db
+.pytest_kayan.db

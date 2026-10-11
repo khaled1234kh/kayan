@@ -1,0 +1,23 @@
+# KAYAN backend dependencies
+# Python 3.11+
+
+fastapi>=0.115
+uvicorn[standard]>=0.30
+# Pinned below 2.1: 2.0 ships a pure-Python fallback for the optional C
+# extensions, which matters on locked-down Windows hosts where Application
+# Control blocks the compiled .pyd files.
+sqlalchemy>=2.0,<2.1
+alembic>=1.13
+pydantic>=2.7
+pydantic-settings>=2.3
+
+# Database drivers
+psycopg[binary]>=3.2          # PostgreSQL (async-capable, used in sync mode here)
+
+# Local development convenience: runs a real PostgreSQL server from Python
+# without Docker. Optional — a normal DATABASE_URL works too.
+pgserver>=0.1.4 ; sys_platform == "win32" or sys_platform == "darwin" or sys_platform == "linux"
+
+# Testing
+pytest>=8.0
+httpx>=0.27

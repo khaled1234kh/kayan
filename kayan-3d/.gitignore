@@ -1,0 +1,10 @@
+node_modules
+dist
+dist-ssr
+*.local
+
+# Local backend-mode switch
+.env.local
+
+# Bundled output from the npm run check:* scripts (regenerated on demand)
+scripts/.out-*.mjs
