@@ -14,6 +14,8 @@ Workflow (mock)  →  KayanEvent  →  eventReducer  →  Zustand  →  UI / 3D
 
 Nothing downstream of the store knows where an event came from.
 
+![KAYAN Operations Floor](docs/images/hero-wide.png)
+
 ## Stack
 
 React 18 · TypeScript · Vite · Three.js · React Three Fiber · Drei · Zustand
@@ -51,6 +53,10 @@ src/
   components/ui/             top bar, demo controls, inspector, TrustGate panel, event feed
   devtools/DebugBridge.tsx   DEV-only store/projection/stats bridge
 ```
+
+For the office scene itself — workstation rebuild, native typing animation,
+derived desk height, and the verification tooling — see
+[3D Scene — Operations Floor](#3d-scene--operations-floor).
 
 ## Event architecture
 
@@ -379,3 +385,68 @@ order with the TrustGate denial, collaboration and audit evidence.
   operator cannot go under the floor; distance is clamped to 7–34 units.
 - The `DebugBridge` is gated behind `import.meta.env.DEV` and is absent from
   production builds.
+
+## 3D Scene — Operations Floor
+
+The `kayan-3d/` subpackage renders a three.js / React Three Fiber scene of the
+fictional KAYAN office. Five Mixamo-based actors sit at individual workstations
+on a 2×2+1 grid, each running the native sitting-typing animation.
+
+![Workstation detail](docs/images/hero-workstation.png)
+
+### What the scene contains
+
+- **Five workstations** — CEO, Employee, AI Manager, AI Sales, AI Operations —
+  each with a real desk model (slab top, 3-drawer pedestal, matte legs),
+  monitor, keyboard, mouse, mat, and desk props (plant, mug, notebook, pen
+  holder, lamp).
+- **Frosted glass partitions** between pods with cyan base LEDs.
+- **Floor LED cross** — cyan Z-axis, warm X-axis — through the central aisle.
+  The cyan arm is a deeper teal than the partition LEDs so the two read as
+  separate features.
+- **Glass curtain wall** with a procedurally generated night city backdrop.
+- **Cinematic lighting** — ambient 0.35, cool directional from the glazing,
+  warm point lights on each desk lamp.
+
+![Top-down detail](docs/images/hero-topdown.png)
+
+### Architecture notes for future work
+
+- **Desk height** `DESK_TOP_Y = 0.6325` is DERIVED, not guessed. It comes from
+  the animation's measured fingertip positions via `scripts/probe-fingertips.mjs`.
+  If the animation changes, re-run that probe and update `src/data/layout.ts`.
+- **Arm animation is native.** The clip named `mixamo.com` in each FBX IS the
+  typing animation. "mixamo.com" is Mixamo's export convention, not a
+  description of the clip's content. There is no separate "typing" clip — an
+  earlier pass read the name literally, hand-authored a pose to replace an
+  animation that already worked, and stripped the arm tracks out of the clip.
+- **No ARM_POSE, no IK, no arm-track stripping.** The mixer drives the arms
+  directly. Do not re-introduce any of those.
+- **No zone floor tints.** The floor is intentionally bare dark concrete,
+  matching the reference. See the `ZONES` comment in `src/data/layout.ts` — the
+  data is retained but not rendered.
+
+### Verification tooling
+
+All under `scripts/`:
+
+- `probe-fingertips.mjs` — prints fingertip world positions per actor at a given
+  time. Used to derive desk height.
+- `probe-clips.mjs` — prints animation clips per FBX.
+- `camera-search.mjs` — solver for a camera that fits required points. How the
+  presentation preset was found.
+- `verify-decor.mjs` / `verify-positions.mjs` — AABB collision and position
+  checks.
+- `calibrate-arms.mjs` — legacy pose calibrator (kept for reference; not used
+  with the native clip).
+
+Every geometry number in this scene was verified by one of these tools. If you
+change geometry, re-run the relevant probe.
+
+![Manager workstation](docs/images/hero-manager.png)
+
+### Future work
+
+- Monitor screens should display the live KAYAN agent session once the
+  session-overlay pipeline exists. Currently dark idle screens. See the TODO in
+  `src/components/actors/Monitor.tsx`.
