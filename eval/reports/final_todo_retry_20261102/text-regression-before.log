@@ -1,0 +1,23 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_________ test_authorization_activity_uses_readable_unicode_separator _________
+
+    def test_authorization_activity_uses_readable_unicode_separator():
+        e=object.__new__(live.LiveEngagement)
+        e.engagement_id='text-regression'
+        decision=SimpleNamespace(allowed=True,decision='ALLOW',reason='Scoped permit',audit_entry_id='audit',policy_id='policy')
+        e.trustgate=SimpleNamespace(authorize=lambda *a:decision)
+        captured=[]
+        e._record_activity=lambda agent,kind,task,content,details:captured.append(content)
+        agent=SimpleNamespace(agent_id='planner',role='planner_agent')
+        assert e._authorize(agent,'llm_inference',{'purpose':'coordinate'}) is decision
+>       assert captured==['ALLOW: llm_inference \u2014 Scoped permit']
+E       AssertionError: assert ['ALLOW: llm_...coped permit'] == ['ALLOW: llm_...coped permit']
+E         
+E         At index 0 diff: 'ALLOW: llm_inference â€” Scoped permit' != 'ALLOW: llm_inference — Scoped permit'
+E         Use -v to get more diff
+
+tests\test_planner_coordination.py:18: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_planner_coordination.py::test_authorization_activity_uses_readable_unicode_separator
+1 failed in 1.53s

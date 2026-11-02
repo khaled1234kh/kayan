@@ -1,0 +1,5 @@
+TrustGate ready on port 8000; reusing expected service.
+Owned lab ready on port 8888; reusing expected service.
+Console backend ready on port 8001; reusing expected service.
+3D office ready on port 5173; reusing expected service.
+Open http://127.0.0.1:5173/. Start Ollama separately for real-model assessments.

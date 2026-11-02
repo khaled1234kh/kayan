@@ -1,0 +1,47 @@
+{
+  "pattern_scan": "Tracked current files <=2 MB; no credential values printed",
+  "matches": [
+    {
+      "path": "pentagi_upstream/.env.example",
+      "line": 559,
+      "category": "provider_key"
+    },
+    {
+      "path": "pentagi_upstream/backend/cmd/installer/hardening/hardening.go",
+      "line": 89,
+      "category": "provider_key"
+    },
+    {
+      "path": "pentagi_upstream/backend/cmd/installer/hardening/hardening_test.go",
+      "line": 311,
+      "category": "provider_key"
+    },
+    {
+      "path": "pentagi_upstream/backend/docs/observability.md",
+      "line": 301,
+      "category": "provider_key"
+    },
+    {
+      "path": "pentagi_upstream/backend/pkg/config/config_test.go",
+      "line": 53,
+      "category": "provider_key"
+    },
+    {
+      "path": "pentagi_upstream/backend/pkg/config/config_test.go",
+      "line": 54,
+      "category": "provider_key"
+    },
+    {
+      "path": "pentagi_upstream/backend/pkg/config/config_test.go",
+      "line": 83,
+      "category": "provider_key"
+    },
+    {
+      "path": "pentagi_upstream/backend/pkg/config/config_test.go",
+      "line": 61,
+      "category": "aws_access_key"
+    }
+  ],
+  "historical_blobs_over_50MB": [],
+  "match_review": "Matches are in vendored example configuration, installer defaults and test fixtures; no local provider credential was identified. Runtime keys are ignored and were not read or uploaded."
+}

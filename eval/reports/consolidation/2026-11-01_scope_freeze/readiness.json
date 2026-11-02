@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-11-01T15:03:43.384168+00:00",
+  "http_status": {
+    "http://127.0.0.1:8000/health": 200,
+    "http://127.0.0.1:8001/health": 200,
+    "http://127.0.0.1:8888/": 200,
+    "http://127.0.0.1:5173/": 200,
+    "http://127.0.0.1:11434/api/tags": 200,
+    "http://127.0.0.1:8443/api/v1/info": 200
+  },
+  "existing_engagement": "7da73508-01e6-48e9-9093-be09c5fd734d",
+  "status": "completed",
+  "transcript_entries": 101,
+  "limit": "Read-only health/state checks, not browser acceptance; no new assessment or model call."
+}

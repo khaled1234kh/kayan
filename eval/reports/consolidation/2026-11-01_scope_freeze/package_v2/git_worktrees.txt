@@ -1,0 +1,7 @@
+worktree C:/Users/khale/Downloads/KAYAN-video/KAYAN-final
+HEAD 1aecc86427cdcad64cc85042b247a101e8f23eb1
+branch refs/heads/feature/dynamic-planner
+
+worktree C:/Users/khale/Downloads/KAYAN-video/kayan-company-office
+HEAD 300687a97bc379edb32035247060d1355f1fd2dd
+branch refs/heads/kayan-trustgate-console

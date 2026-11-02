@@ -1,0 +1,36 @@
+{
+  "cursor": 56,
+  "events": [
+    {
+      "sequence": 56,
+      "source": {
+        "tabId": 4
+      },
+      "method": "Runtime.consoleAPICalled",
+      "params": {
+        "args": [
+          {
+            "type": "string",
+            "value": "KAYAN_RENDER_PROBE {\"observedAtMs\":1793562255451,\"kind\":\"tool_result\",\"text\":\"9:44:15 PM\\n26. sql_injection_test: {\\\"vulnerable\\\": false, \\\"status_code\\\": 200, \\\"payload\\\": \\\"' OR 1=1 --\\\", \\\"response_excerpt\\\": \\\"<h1>Error: tuple index out of range</h1>\\\"}\"}"
+          }
+        ],
+        "executionContextId": 3,
+        "stackTrace": {
+          "callFrames": [
+            {
+              "columnNumber": 249,
+              "functionName": "scan",
+              "lineNumber": 0,
+              "scriptId": "129",
+              "url": ""
+            }
+          ]
+        },
+        "timestamp": 1793562255451.945,
+        "type": "info"
+      }
+    }
+  ],
+  "hasMore": false,
+  "truncated": false
+}

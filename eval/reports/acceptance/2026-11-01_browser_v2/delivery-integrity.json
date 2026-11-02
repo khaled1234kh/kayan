@@ -1,0 +1,32 @@
+{
+  "historical_hash_manifests_verified": {
+    "v1_grounding_artifact_hashes_2026-11-01.json": 3,
+    "performance/artifact_hashes.json": 6
+  },
+  "mandatory_unchecked_todos": 0,
+  "core_backend_source_unchanged": true,
+  "final_ui_checks": [
+    {
+      "command": "npm run check:office",
+      "exit_code": 0
+    },
+    {
+      "command": "npm run check:session-panel",
+      "exit_code": 0
+    },
+    {
+      "command": "npm run check:visual-feedback",
+      "exit_code": 0
+    },
+    {
+      "command": "npm run check:ta-alignment",
+      "exit_code": 0
+    },
+    {
+      "command": "npm run build",
+      "exit_code": 0
+    }
+  ],
+  "recording_hash_verified": true,
+  "current_document_links_verified": true
+}

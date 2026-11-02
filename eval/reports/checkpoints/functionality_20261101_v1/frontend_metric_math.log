@@ -1,0 +1,3 @@
+npm notice run kayan-3d@0.1.0 check:performance-metrics
+npm notice run esbuild scripts/performance-metrics-check.ts --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-performance-metrics.mjs --log-level=error && node scripts/.out-performance-metrics.mjs
+Synthetic metric calculations passed. No real browser FPS was measured by this check.

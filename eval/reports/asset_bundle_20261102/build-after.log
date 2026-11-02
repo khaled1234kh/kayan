@@ -1,0 +1,16 @@
+npm notice run kayan-trustgate-office@0.1.0 build
+npm notice run tsc --noEmit && vite build
+vite v5.4.21 building for production...
+transforming...
+✓ 1043 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                           1.12 kB │ gzip:   0.51 kB
+dist/assets/index-C4G_RN7a.css           49.78 kB │ gzip:   9.65 kB
+dist/assets/index-CJPMaOq7.js            76.67 kB │ gzip:  23.41 kB
+dist/assets/three-math-B_mXX7du.js       80.18 kB │ gzip:  23.78 kB
+dist/assets/react-BGQkUaTG.js           145.96 kB │ gzip:  47.12 kB
+dist/assets/three-shaders-CXxbwGep.js   157.24 kB │ gzip:  33.70 kB
+dist/assets/office-runtime-B8nT_Rg_.js  208.82 kB │ gzip:  67.88 kB
+dist/assets/three-engine-CxmXZIjN.js    476.70 kB │ gzip: 130.31 kB
+✓ built in 27.53s

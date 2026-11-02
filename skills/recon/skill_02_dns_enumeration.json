@@ -1,0 +1,12 @@
+{
+  "name": "DNS Enumeration",
+  "mitre_id": "T1590",
+  "mitre_name": "Gather Victim Network Information",
+  "description": "Enumerate DNS records, subdomains, and zone transfers",
+  "techniques": [
+    "DNS zone transfer",
+    "Subdomain brute force",
+    "Reverse DNS lookup"
+  ],
+  "detection": "DNS query logging, anomaly detection"
+}

@@ -1,0 +1,10 @@
+{
+  "checked_at": "2026-11-01T14:42:53.513969+00:00",
+  "decision": "Archive; root stale planning document removed. Original bytes retained below a warning banner.",
+  "old_path": "ACTION_PLAN_DELIVERABLES.md",
+  "archive_path": "docs/archive/ACTION_PLAN_DELIVERABLES_2026-10-31_STALE.md",
+  "original_sha256": "16ddb42ea77166b56f8c76227d1ba439358912c35cd32f657eb9e4266a801e0f",
+  "archive_sha256": "433507bc2496b3469f173f77384e7ef42cb9ee2da6a23cb1e0ebba2452b18216",
+  "original_bytes": 7707,
+  "preservation_verified": true
+}

@@ -1,0 +1,12 @@
+{
+  "name": "SSL/TLS Analysis",
+  "mitre_id": "T1592",
+  "mitre_name": "Gather Victim Host Information",
+  "description": "Analyze SSL/TLS configuration and certificates",
+  "techniques": [
+    "Certificate inspection",
+    "Cipher suite analysis",
+    "Protocol version check"
+  ],
+  "detection": "TLS monitoring"
+}

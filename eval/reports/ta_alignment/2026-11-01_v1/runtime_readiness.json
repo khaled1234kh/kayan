@@ -1,0 +1,9 @@
+{
+  "planning_api_status": 200,
+  "allowed_origin": "http://127.0.0.1:5173",
+  "source_modules_http_status": 200,
+  "current_engagement": "7da73508-01e6-48e9-9093-be09c5fd734d",
+  "status": "completed",
+  "transcript_entries": 101,
+  "limit": "HTTP/CORS/source readiness, not rendered browser acceptance"
+}

@@ -1,0 +1,12 @@
+{
+  "status": "rejected",
+  "reason": "GitHub push protection flagged Google OAuth credential-shaped test fixtures in unpublished historical commit 6665c94",
+  "path": "pentagi_upstream/backend/pkg/config/config_test.go",
+  "lines": [
+    73,
+    74
+  ],
+  "lfs_objects_uploaded": 10,
+  "action": "Replace fixtures with nonfunctional placeholders; publish a clean initial snapshot while retaining full local development history and recovery bundle",
+  "override_used": false
+}

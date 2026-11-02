@@ -1,0 +1,20 @@
+F..                                                                      [100%]
+================================== FAILURES ===================================
+___ test_collision_is_rejected_before_starting_or_reusing_foreign_listener ____
+
+    def test_collision_is_rejected_before_starting_or_reusing_foreign_listener():
+        result=invoke("""
+        function Test-NetConnection { return $true }
+        function Invoke-RestMethod { return @{info=@{title='Unrelated app'}} }
+        function Start-Process { throw 'MUST NOT LAUNCH' }
+        try { Start-Component 'Console backend' 8001 'python' @() '.'; exit 9 }
+        catch { Write-Output $_.Exception.Message; exit 0 }
+        """)
+>       assert result.returncode==0 and 'different service' in result.stdout
+E       AssertionError: assert (9 == 0)
+E        +  where 9 = CompletedProcess(args=['C:\\Users\\khale\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powersh...}\n    '], returncode=9, stdout='Console backend port 8001 already has a listener; leaving it unchanged.\n', stderr='').returncode
+
+tests\test_launcher.py:21: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_launcher.py::test_collision_is_rejected_before_starting_or_reusing_foreign_listener
+1 failed, 2 passed in 2.02s

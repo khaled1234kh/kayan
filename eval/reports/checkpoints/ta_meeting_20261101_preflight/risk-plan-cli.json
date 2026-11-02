@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "kind": "hypothetical_risk_plan",
+  "generated_at": "2026-11-01T20:00:53.693745+00:00",
+  "context": {
+    "company_size": "25 employees (synthetic evaluation fixture)",
+    "departments": "Operations and customer support",
+    "infrastructure_summary": "Public web application and API; review SQL injection and broken access control",
+    "network_architecture": "Office network and hosted application",
+    "data_storage": "Relational database with customer records",
+    "customer_touchpoints": "Customer web portal and login"
+  },
+  "context_label": "Descriptive context only — zero policy weight; not scope, authorization or verified evidence.",
+  "ranking_basis": "Descending TF-IDF text relevance, not measured likelihood, impact or vulnerability severity.",
+  "uncertainty": "Descriptions are unverified. Matches are hypotheses to review, not findings. No target was contacted.",
+  "target_accessed": false,
+  "status": "hypotheses_available",
+  "index_built_at": "2026-10-31T19:53:56.703352+00:00",
+  "risks": [
+    {
+      "id": "risk_1",
+      "priority": 1,
+      "title": "Risk 1: Customer Relationship Management Software",
+      "hypothesis": "The supplied description may warrant review of Customer Relationship Management Software; applicability has not been tested.",
+      "evidence_basis": "hypothetical_context_match",
+      "verified": false,
+      "reference": {
+        "id": "T1213.004",
+        "framework": "mitre-attack",
+        "name": "Customer Relationship Management Software",
+        "source_url": "https://attack.mitre.org/techniques/T1213/004",
+        "description": "Adversaries may leverage Customer Relationship Management (CRM) software to mine valuable information. CRM software is used to assist organizations in tracking and managing customer interactions, as well as storing customer data. Once adversaries gain access to a victim organization, they may mine CRM software for customer data. This may include personally identifiable information (PII) such as full names, emails, phone numbers, and addresses, as well as additional details such as purchase histories and IT support interactions. By collecting this data, an adversary may be able to send personalized Phishing emails, engage in SIM swapping, or otherwise target the organization’s customers in ways that enable financial gain or the compromise of additional organizations. CRM software may be hosted on-premises or in the cloud. Information stored in these solutions may vary based on the specifi",
+        "score": 0.176685
+      }
+    },
+    {
+      "id": "risk_2",
+      "priority": 2,
+      "title": "Risk 2: Web Portal Capture",
+      "hypothesis": "The supplied description may warrant review of Web Portal Capture; applicability has not been tested.",
+      "evidence_basis": "hypothetical_context_match",
+      "verified": false,
+      "reference": {
+        "id": "T1056.003",
+        "framework": "mitre-attack",
+        "name": "Web Portal Capture",
+        "source_url": "https://attack.mitre.org/techniques/T1056/003",
+        "description": "Adversaries may install code on externally facing portals, such as a VPN login page, to capture and transmit credentials of users who attempt to log into the service. For example, a compromised login page may log provided user credentials before logging the user in to the service. This variation on input capture may be conducted post-compromise using legitimate administrative access as a backup measure to maintain network access through External Remote Services and Valid Accounts or as part of the initial compromise by exploitation of the externally facing web service.",
+        "score": 0.152465
+      }
+    },
+    {
+      "id": "risk_3",
+      "priority": 3,
+      "title": "Risk 3: Exploit Public-Facing Application",
+      "hypothesis": "The supplied description may warrant review of Exploit Public-Facing Application; applicability has not been tested.",
+      "evidence_basis": "hypothetical_context_match",
+      "verified": false,
+      "reference": {
+        "id": "T1190",
+        "framework": "mitre-attack",
+        "name": "Exploit Public-Facing Application",
+        "source_url": "https://attack.mitre.org/techniques/T1190",
+        "description": "Adversaries may attempt to exploit a weakness in an Internet-facing host or system to initially access a network. The weakness in the system can be a software bug, a temporary glitch, or a misconfiguration. Exploited applications are often websites/web servers, but can also include databases (like SQL), standard services (like SMB or SSH), network device administration and management protocols (like SNMP and Smart Install), and any other system with Internet-accessible open sockets. On ESXi infrastructure, adversaries may exploit exposed OpenSLP services; they may alternatively exploit exposed VMware vCenter servers. Depending on the flaw being exploited, this may also involve Exploitation for Stealth or Exploitation for Client Execution. If an application is hosted on cloud-based infrastructure and/or is containerized, then exploiting it may lead to compromise of the underlying instance",
+        "score": 0.150175
+      }
+    }
+  ]
+}

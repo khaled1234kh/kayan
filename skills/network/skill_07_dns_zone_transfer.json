@@ -1,0 +1,11 @@
+{
+  "name": "DNS Zone Transfer",
+  "mitre_id": "T1590",
+  "mitre_name": "Gather Victim Network Information",
+  "description": "Attempt DNS zone transfers",
+  "techniques": [
+    "AXFR request",
+    "IXFR request"
+  ],
+  "detection": "DNS monitoring, query logging"
+}

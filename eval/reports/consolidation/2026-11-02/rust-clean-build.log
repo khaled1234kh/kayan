@@ -1,0 +1,172 @@
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.27
+   Compiling cfg-if v1.0.5
+   Compiling windows-link v0.2.1
+   Compiling getrandom v0.4.3
+   Compiling parking_lot_core v0.9.12
+   Compiling find-msvc-tools v0.1.15
+   Compiling shlex v2.0.1
+   Compiling scopeguard v1.2.0
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.18
+   Compiling log v0.4.35
+   Compiling smallvec v1.16.4
+   Compiling serde_core v1.0.229
+   Compiling bytes v1.12.1
+   Compiling pin-project-lite v0.2.17
+   Compiling equivalent v1.0.3
+   Compiling hashbrown v0.17.1
+   Compiling regex-syntax v0.8.11
+   Compiling stable_deref_trait v1.2.1
+   Compiling once_cell v1.21.4
+   Compiling rustversion v1.0.23
+   Compiling futures-core v0.3.34
+   Compiling version_check v0.9.5
+   Compiling dunce v1.0.5
+   Compiling fs_extra v1.3.0
+   Compiling serde v1.0.229
+   Compiling fnv v1.0.7
+   Compiling typenum v1.20.1
+   Compiling libc v0.2.191
+   Compiling windows-sys v0.61.2
+   Compiling object v0.39.1
+   Compiling slab v0.4.12
+   Compiling zmij v1.0.23
+   Compiling lock_api v0.4.14
+   Compiling writeable v0.6.4
+   Compiling aws-lc-rs v1.19.0
+   Compiling litemap v0.8.3
+   Compiling percent-encoding v2.3.2
+   Compiling utf_types v1.0.0
+   Compiling strsim v0.11.1
+   Compiling tracing-core v0.1.36
+   Compiling tower-service v0.3.3
+   Compiling icu_normalizer_data v2.4.0
+   Compiling serde_json v1.0.154
+   Compiling siphasher v1.0.4
+   Compiling generic-array v0.14.7
+   Compiling ident_case v1.0.1
+   Compiling icu_properties_data v2.4.0
+   Compiling zeroize v1.9.1
+   Compiling either v1.19.0
+   Compiling utf8_iter v1.1.0
+   Compiling futures-sink v0.3.34
+   Compiling aho-corasick v1.1.5
+   Compiling phf_shared v0.11.3
+   Compiling httparse v1.10.1
+   Compiling futures-task v0.3.34
+   Compiling fixedbitset v0.5.7
+   Compiling bit-vec v0.8.0
+   Compiling keccak v0.1.6
+   Compiling tracing v0.1.44
+   Compiling indexmap v2.14.2
+   Compiling http v1.5.0
+   Compiling foldhash v0.2.0
+   Compiling autocfg v1.5.1
+   Compiling precomputed-hash v0.1.1
+   Compiling new_debug_unreachable v1.0.6
+   Compiling bit-set v0.8.0
+   Compiling futures-util v0.3.34
+   Compiling itertools v0.14.0
+   Compiling rustls-pki-types v1.15.1
+   Compiling winapi-util v0.1.11
+error: failed to run custom build command for `serde_core v1.0.229`
+
+Caused by:
+  could not execute process `C:\Users\khale\Downloads\kayan-trustgate\.build/rust\debug\build\serde_core-d920d2f1a7714c24\build-script-build` (never executed)
+
+Caused by:
+  An Application Control policy has blocked this file. (os error 4551)
+warning: build failed, waiting for other jobs to finish...
+error: failed to run custom build command for `proc-macro2 v1.0.107`
+
+Caused by:
+  could not execute process `C:\Users\khale\Downloads\kayan-trustgate\.build/rust\debug\build\proc-macro2-fe8e542c2133d252\build-script-build` (never executed)
+
+Caused by:
+  An Application Control policy has blocked this file. (os error 4551)
+error: failed to run custom build command for `object v0.39.1`
+
+Caused by:
+  could not execute process `C:\Users\khale\Downloads\kayan-trustgate\.build/rust\debug\build\object-542741368d514b65\build-script-build` (never executed)
+
+Caused by:
+  An Application Control policy has blocked this file. (os error 4551)
+error: failed to run custom build command for `libc v0.2.191`
+
+Caused by:
+  could not execute process `C:\Users\khale\Downloads\kayan-trustgate\.build/rust\debug\build\libc-9b2afaf16760bf57\build-script-build` (never executed)
+
+Caused by:
+  An Application Control policy has blocked this file. (os error 4551)
+error: failed to run custom build command for `generic-array v0.14.7`
+
+Caused by:
+  could not execute process `C:\Users\khale\Downloads\kayan-trustgate\.build/rust\debug\build\generic-array-44f35ae9f7878e67\build-script-build` (never executed)
+
+Caused by:
+  An Application Control policy has blocked this file. (os error 4551)
+error: failed to run custom build command for `serde_json v1.0.154`
+
+Caused by:
+  could not execute process `C:\Users\khale\Downloads\kayan-trustgate\.build/rust\debug\build\serde_json-18967a3dd6a01a13\build-script-build` (never executed)
+
+Caused by:
+  An Application Control policy has blocked this file. (os error 4551)
+error: failed to run custom build command for `getrandom v0.4.3`
+
+Caused by:
+  could not execute process `C:\Users\khale\Downloads\kayan-trustgate\.build/rust\debug\build\getrandom-faab77a30411d148\build-script-build` (never executed)
+
+Caused by:
+  An Application Control policy has blocked this file. (os error 4551)
+error: failed to run custom build command for `quote v1.0.47`
+
+Caused by:
+  could not execute process `C:\Users\khale\Downloads\kayan-trustgate\.build/rust\debug\build\quote-e167a30f3768d6a4\build-script-build` (never executed)
+
+Caused by:
+  An Application Control policy has blocked this file. (os error 4551)
+error: failed to run custom build command for `zmij v1.0.23`
+
+Caused by:
+  could not execute process `C:\Users\khale\Downloads\kayan-trustgate\.build/rust\debug\build\zmij-f01f35a6034cff6d\build-script-build` (never executed)
+
+Caused by:
+  An Application Control policy has blocked this file. (os error 4551)
+error: failed to run custom build command for `serde v1.0.229`
+
+Caused by:
+  could not execute process `C:\Users\khale\Downloads\kayan-trustgate\.build/rust\debug\build\serde-e329f3b96886e2fc\build-script-build` (never executed)
+
+Caused by:
+  An Application Control policy has blocked this file. (os error 4551)
+error: failed to run custom build command for `rustversion v1.0.23`
+
+Caused by:
+  could not execute process `C:\Users\khale\Downloads\kayan-trustgate\.build/rust\debug\build\rustversion-89759b769b7dc38f\build-script-build` (never executed)
+
+Caused by:
+  An Application Control policy has blocked this file. (os error 4551)
+error: failed to run custom build command for `icu_normalizer_data v2.4.0`
+
+Caused by:
+  could not execute process `C:\Users\khale\Downloads\kayan-trustgate\.build/rust\debug\build\icu_normalizer_data-780ad97c497c1b59\build-script-build` (never executed)
+
+Caused by:
+  An Application Control policy has blocked this file. (os error 4551)
+error: failed to run custom build command for `parking_lot_core v0.9.12`
+
+Caused by:
+  could not execute process `C:\Users\khale\Downloads\kayan-trustgate\.build/rust\debug\build\parking_lot_core-962d4b501702c5b6\build-script-build` (never executed)
+
+Caused by:
+  An Application Control policy has blocked this file. (os error 4551)
+error: failed to run custom build command for `httparse v1.10.1`
+
+Caused by:
+  could not execute process `C:\Users\khale\Downloads\kayan-trustgate\.build/rust\debug\build\httparse-a60166dc581003a3\build-script-build` (never executed)
+
+Caused by:
+  An Application Control policy has blocked this file. (os error 4551)

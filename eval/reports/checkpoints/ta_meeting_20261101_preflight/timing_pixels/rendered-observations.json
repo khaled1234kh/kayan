@@ -1,0 +1,52 @@
+{
+  "checked_at_utc": "2026-11-01T19:54:28.639677+00:00",
+  "observations": [
+    {
+      "engagement_id": "31a60c71-26bb-459e-bae4-2a99c0644c7b",
+      "kind": "tool_started",
+      "task_id": "tool-2c67dc3818b646d4bb812099dccd93d7",
+      "before_publish_ms": 1793562717549,
+      "after_publish_ms": 1793562717576,
+      "frame": "started-0003.jpg",
+      "frame_metadata": {
+        "deviceHeight": 1244,
+        "deviceWidth": 1412,
+        "monotonicTimestamp": 29830.287063,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1793562718.465031
+      },
+      "captured_after_publication_ms": 916.031,
+      "observed_pixels": "Web-App working, current task sql_injection_test, Tier A and new Executing transcript entry are visibly rendered.",
+      "sha256": "eae5ddffadc2106f9b61bdea6c4ff1ab01eb3fea878baefe8cb5dc465fb2b1e1"
+    },
+    {
+      "engagement_id": "31a60c71-26bb-459e-bae4-2a99c0644c7b",
+      "kind": "tool_result",
+      "task_id": "tool-2c67dc3818b646d4bb812099dccd93d7",
+      "before_publish_ms": 1793562766745,
+      "after_publish_ms": 1793562766784,
+      "frame": "result-0298.jpg",
+      "frame_metadata": {
+        "deviceHeight": 1244,
+        "deviceWidth": 1412,
+        "monotonicTimestamp": 29882.115271,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1793562770.293239
+      },
+      "captured_after_publication_ms": 3548.239,
+      "observed_pixels": "No active task and the matching tool-result response are visibly rendered.",
+      "sha256": "3c70152a0305ee18a7348ae88d87b114f600376c1760b933888fb93c7f8393ed"
+    }
+  ],
+  "criterion": "Step 3 requires task/current-state and matching started entry within roughly 2s; result must clear the task and expand, without a specified pixel timing bound.",
+  "start_result": "Observed rendered start within 916.031ms in this one deterministic local fixture; first-paint latency itself is not known.",
+  "result_limit": "Result capture has a 3548.239ms post-publication observation gap; it does not establish a <2s result pixel bound. Separate DOM sample was 51ms.",
+  "method": "Supported original IAB Page.screencastFrame JPEGs with browser epoch timestamps, matched to the real Python event-sink publication. No synthetic event/console state inserted. Temporary screencast stopped.",
+  "not_claimed": "No new actual-model run, grounding efficacy, universal latency/FPS or final-video replacement."
+}

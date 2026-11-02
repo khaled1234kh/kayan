@@ -1,0 +1,12 @@
+{
+  "name": "Banner Grabbing",
+  "mitre_id": "T1592",
+  "mitre_name": "Gather Victim Host Information",
+  "description": "Extract service banners and version information",
+  "techniques": [
+    "HTTP banner grab",
+    "SMTP banner grab",
+    "SSH banner grab"
+  ],
+  "detection": "Intrusion detection systems"
+}

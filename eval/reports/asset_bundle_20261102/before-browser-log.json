@@ -1,0 +1,92 @@
+[
+  {
+    "level": "warn",
+    "message": "THREE.FBXLoader: %s map is not supported in three.js, skipping texture. ShininessExponent",
+    "timestamp": "2026-11-02T20:16:39.037Z",
+    "url": "http://127.0.0.1:5173/.vite/deps/chunk-SXUIJQWF.js?v=f9f2e154"
+  },
+  {
+    "level": "warn",
+    "message": "THREE.FBXLoader: Vertex has more than 4 skinning weights assigned to vertex. Deleting additional weights.",
+    "timestamp": "2026-11-02T20:16:39.064Z",
+    "url": "http://127.0.0.1:5173/.vite/deps/chunk-SXUIJQWF.js?v=f9f2e154"
+  },
+  {
+    "level": "warn",
+    "message": "THREE.FBXLoader: %s map is not supported in three.js, skipping texture. ShininessExponent",
+    "timestamp": "2026-11-02T20:16:39.799Z",
+    "url": "http://127.0.0.1:5173/.vite/deps/chunk-SXUIJQWF.js?v=f9f2e154"
+  },
+  {
+    "level": "warn",
+    "message": "THREE.FBXLoader: Vertex has more than 4 skinning weights assigned to vertex. Deleting additional weights.",
+    "timestamp": "2026-11-02T20:16:39.799Z",
+    "url": "http://127.0.0.1:5173/.vite/deps/chunk-SXUIJQWF.js?v=f9f2e154"
+  },
+  {
+    "level": "warn",
+    "message": "THREE.FBXLoader: Vertex has more than 4 skinning weights assigned to vertex. Deleting additional weights.",
+    "timestamp": "2026-11-02T20:16:39.846Z",
+    "url": "http://127.0.0.1:5173/.vite/deps/chunk-SXUIJQWF.js?v=f9f2e154"
+  },
+  {
+    "level": "warn",
+    "message": "THREE.FBXLoader: Vertex has more than 4 skinning weights assigned to vertex. Deleting additional weights.",
+    "timestamp": "2026-11-02T20:16:39.851Z",
+    "url": "http://127.0.0.1:5173/.vite/deps/chunk-SXUIJQWF.js?v=f9f2e154"
+  },
+  {
+    "level": "warn",
+    "message": "THREE.FBXLoader: Vertex has more than 4 skinning weights assigned to vertex. Deleting additional weights.",
+    "timestamp": "2026-11-02T20:16:39.886Z",
+    "url": "http://127.0.0.1:5173/.vite/deps/chunk-SXUIJQWF.js?v=f9f2e154"
+  },
+  {
+    "level": "warn",
+    "message": "THREE.FBXLoader: %s map is not supported in three.js, skipping texture. ShininessExponent",
+    "timestamp": "2026-11-02T20:16:40.500Z",
+    "url": "http://127.0.0.1:5173/.vite/deps/chunk-SXUIJQWF.js?v=f9f2e154"
+  },
+  {
+    "level": "warn",
+    "message": "THREE.FBXLoader: Vertex has more than 4 skinning weights assigned to vertex. Deleting additional weights.",
+    "timestamp": "2026-11-02T20:16:40.503Z",
+    "url": "http://127.0.0.1:5173/.vite/deps/chunk-SXUIJQWF.js?v=f9f2e154"
+  },
+  {
+    "level": "warn",
+    "message": "THREE.FBXLoader: Vertex has more than 4 skinning weights assigned to vertex. Deleting additional weights.",
+    "timestamp": "2026-11-02T20:16:40.549Z",
+    "url": "http://127.0.0.1:5173/.vite/deps/chunk-SXUIJQWF.js?v=f9f2e154"
+  },
+  {
+    "level": "warn",
+    "message": "THREE.FBXLoader: Vertex has more than 4 skinning weights assigned to vertex. Deleting additional weights.",
+    "timestamp": "2026-11-02T20:16:40.559Z",
+    "url": "http://127.0.0.1:5173/.vite/deps/chunk-SXUIJQWF.js?v=f9f2e154"
+  },
+  {
+    "level": "warn",
+    "message": "THREE.FBXLoader: %s map is not supported in three.js, skipping texture. ShininessExponent",
+    "timestamp": "2026-11-02T20:16:41.130Z",
+    "url": "http://127.0.0.1:5173/.vite/deps/chunk-SXUIJQWF.js?v=f9f2e154"
+  },
+  {
+    "level": "warn",
+    "message": "THREE.FBXLoader: Vertex has more than 4 skinning weights assigned to vertex. Deleting additional weights.",
+    "timestamp": "2026-11-02T20:16:41.153Z",
+    "url": "http://127.0.0.1:5173/.vite/deps/chunk-SXUIJQWF.js?v=f9f2e154"
+  },
+  {
+    "level": "warn",
+    "message": "THREE.FBXLoader: Vertex has more than 4 skinning weights assigned to vertex. Deleting additional weights.",
+    "timestamp": "2026-11-02T20:16:41.165Z",
+    "url": "http://127.0.0.1:5173/.vite/deps/chunk-SXUIJQWF.js?v=f9f2e154"
+  },
+  {
+    "level": "warn",
+    "message": "THREE.FBXLoader: Vertex has more than 4 skinning weights assigned to vertex. Deleting additional weights.",
+    "timestamp": "2026-11-02T20:16:41.216Z",
+    "url": "http://127.0.0.1:5173/.vite/deps/chunk-SXUIJQWF.js?v=f9f2e154"
+  }
+]

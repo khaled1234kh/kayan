@@ -1,0 +1,16 @@
+[
+  {
+    "engagement_id": "85d8fb6c-d438-4be8-94b8-7c5948335ddb",
+    "kind": "tool_started",
+    "task_id": "tool-9136201ea94d486898f5d239b9d5e34b",
+    "before_publish_ms": 1793561832471,
+    "after_publish_ms": 1793561832510
+  },
+  {
+    "engagement_id": "85d8fb6c-d438-4be8-94b8-7c5948335ddb",
+    "kind": "tool_result",
+    "task_id": "tool-9136201ea94d486898f5d239b9d5e34b",
+    "before_publish_ms": 1793562067351,
+    "after_publish_ms": 1793562067373
+  }
+]

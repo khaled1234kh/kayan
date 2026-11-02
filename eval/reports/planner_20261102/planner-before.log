@@ -1,0 +1,87 @@
+FFF..F                                                                   [100%]
+================================== FAILURES ===================================
+____________ test_planner_remains_working_until_reporting_finishes ____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000276CA227200>
+
+    def test_planner_remains_working_until_reporting_finishes(monkeypatch):
+        e,calls,contexts,closed=harness(monkeypatch)
+        report=e.run()
+        assert [r for r,s in calls]==ROLES[:3]
+>       assert all(s=='working' for r,s in calls)
+E       assert False
+E        +  where False = all(<generator object test_planner_remains_working_until_reporting_finishes.<locals>.<genexpr> at 0x00000276CD2C4E10>)
+
+tests\test_planner_coordination.py:44: AssertionError
+_ test_specialist_failure_continues_to_reporting_with_explicit_partial_coverage _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000276CD2BC680>
+
+    def test_specialist_failure_continues_to_reporting_with_explicit_partial_coverage(monkeypatch):
+        e,calls,contexts,closed=harness(monkeypatch,failure='webapp_agent')
+>       report=e.run()
+               ^^^^^^^
+
+tests\test_planner_coordination.py:53: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+pentagi\live_engagement.py:286: in run
+    self._specialist(active_agent, assignment.task)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+a = <pentagi.live_engagement.ReasoningAgent object at 0x00000276CD2BC950>
+task = 'Inspect owned lab'
+
+    def specialist(a,task):
+        calls.append((a.role,e.agent_states['planner']['status']))
+>       if a.role==failure:raise live.SpecialistRecoveryExhausted('bounded test failure')
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       pentagi.live_engagement.SpecialistRecoveryExhausted: bounded test failure
+
+tests\test_planner_coordination.py:33: SpecialistRecoveryExhausted
+___________ test_invalid_dependency_order_never_dispatches[roles0] ____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000276CD2BCB90>
+roles = ['network_agent', 'webapp_agent', 'recon_agent', 'reporting_agent']
+
+    @pytest.mark.parametrize('roles',[
+     ['network_agent','webapp_agent','recon_agent','reporting_agent'],
+     ['recon_agent','recon_agent','network_agent','reporting_agent'],
+     ['reporting_agent','recon_agent','webapp_agent','network_agent'],
+    ])
+    def test_invalid_dependency_order_never_dispatches(monkeypatch,roles):
+        e,calls,contexts,closed=harness(monkeypatch,roles=roles)
+>       with pytest.raises(RuntimeError,match='roster/dependency'):e.run()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\test_planner_coordination.py:71: Failed
+________ test_reporting_failure_marks_coordinator_failed_not_completed ________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000276CD2BF500>
+
+    def test_reporting_failure_marks_coordinator_failed_not_completed(monkeypatch):
+        e,calls,contexts,closed=harness(monkeypatch)
+        monkeypatch.setattr(e.reporting_agent,'save_report',lambda *a:(_ for _ in ()).throw(OSError('disk unavailable')))
+        with pytest.raises(OSError):e.run()
+        assert e.status=='failed' and e.report is None
+>       assert e.agent_states['planner']['status']=='blocked'
+E       AssertionError: assert 'completed' == 'blocked'
+E         
+E         - blocked
+E         + completed
+
+tests\test_planner_coordination.py:82: AssertionError
+============================== warnings summary ===============================
+tests/test_planner_coordination.py::test_planner_remains_working_until_reporting_finishes
+tests/test_planner_coordination.py::test_invalid_dependency_order_never_dispatches[roles0]
+tests/test_planner_coordination.py::test_reporting_failure_marks_coordinator_failed_not_completed
+  C:\Users\khale\Downloads\kayan-trustgate\pentagi\agents\reporting_agent.py:91: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "generated_at": datetime.utcnow().isoformat(),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_planner_coordination.py::test_planner_remains_working_until_reporting_finishes
+FAILED tests/test_planner_coordination.py::test_specialist_failure_continues_to_reporting_with_explicit_partial_coverage
+FAILED tests/test_planner_coordination.py::test_invalid_dependency_order_never_dispatches[roles0]
+FAILED tests/test_planner_coordination.py::test_reporting_failure_marks_coordinator_failed_not_completed
+4 failed, 2 passed, 3 warnings in 1.88s

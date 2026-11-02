@@ -1,0 +1,12 @@
+{
+  "name": "XXE",
+  "mitre_id": "T1190",
+  "mitre_name": "Exploit Public-Facing Application",
+  "description": "Test for XML External Entity injection",
+  "techniques": [
+    "File disclosure",
+    "SSRF via XXE",
+    "Denial of service"
+  ],
+  "detection": "XML parser hardening, input validation"
+}

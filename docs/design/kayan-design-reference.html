@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KAYAN TrustGate - Design Reference</title>
+<style>
+/* =====================================================================
+   KAYAN TrustGate design reference. HTML + CSS only, no JavaScript.
+   Copy the :root tokens into console/office/ and replace one-off colors.
+   Tabs, expanders, segmented control and toggles below use only
+   <input>/<label>/<details> + :checked, so the agent can re-implement them
+   with real component logic.
+   ===================================================================== */
+
+:root {
+  /* Surfaces (darkest to lightest) */
+  --bg-0: #0B0F14;       /* app background */
+  --bg-1: #111821;       /* panels, cards */
+  --bg-2: #1A2430;       /* raised: inputs, hovered rows */
+  --bg-3: #223041;       /* selected / pressed */
+  --border: #26323F;     /* 1px subtle borders */
+  --border-strong: #35465A;
+
+  /* Text. All pass WCAG AA (4.5:1) on bg-1 */
+  --text-1: #E6EDF3;     /* primary */
+  --text-2: #9FB0C0;     /* secondary */
+  --text-3: #8497AB;     /* tertiary / hints (still >= 4.5:1 on bg-1) */
+
+  /* One accent */
+  --accent: #2DD4BF;
+  --accent-strong: #14B8A6;
+  --accent-ink: #06201C;                    /* text on accent buttons */
+  --accent-soft: rgba(45, 212, 191, .12);   /* tinted backgrounds */
+
+  /* Semantic */
+  --allow: #34D399;  --allow-soft: rgba(52, 211, 153, .12);
+  --deny:  #F87171;  --deny-soft:  rgba(248, 113, 113, .12);
+  --wait:  #FBBF24;  --wait-soft:  rgba(251, 191, 36, .12);
+  --info:  #60A5FA;  --info-soft:  rgba(96, 165, 250, .12);
+
+  /* Team identity (role chips only) */
+  --red-team:  #F87171;
+  --blue-team: #60A5FA;
+  --coordinator: #A78BFA;
+
+  /* Type */
+  --font: Inter, "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
+  --fs-12: 12px; --fs-14: 14px; --fs-16: 16px; --fs-20: 20px; --fs-28: 28px;
+
+  /* Spacing (8px steps), radius, shadow */
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px;
+  --radius: 12px; --radius-sm: 8px; --radius-pill: 999px;
+  --shadow: 0 8px 28px rgba(0, 0, 0, .45);
+  --focus: 0 0 0 2px var(--bg-0), 0 0 0 4px var(--accent);
+}
+
+* { box-sizing: border-box; }
+html { background: var(--bg-0); }
+body {
+  margin: 0; color: var(--text-1); background: var(--bg-0);
+  font: 400 var(--fs-14)/1.5 var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, p { margin: 0; }
+h1 { font-size: var(--fs-28); font-weight: 650; letter-spacing: -.02em; line-height: 1.2; }
+h2 { font-size: var(--fs-20); font-weight: 600; letter-spacing: -.01em; }
+h3 { font-size: var(--fs-16); font-weight: 600; }
+h4 { font-size: var(--fs-12); font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); }
+.muted { color: var(--text-2); }
+.hint  { color: var(--text-3); font-size: var(--fs-12); }
+.mono  { font-family: var(--mono); font-size: var(--fs-12); }
+
+a, button, summary, label, input, select { font: inherit; }
+:focus-visible { outline: none; box-shadow: var(--focus); border-radius: var(--radius-sm); }
+
+.doc { max-width: 1280px; margin: 0 auto; padding: var(--s6) var(--s5) var(--s7); display: grid; gap: var(--s7); }
+.doc > section { display: grid; gap: var(--s4); }
+.section-head { display: grid; gap: var(--s1); }
+.grid { display: grid; gap: var(--s3); }
+.g2 { grid-template-columns: repeat(2, 1fr); }
+.g3 { grid-template-columns: repeat(3, 1fr); }
+.g4 { grid-template-columns: repeat(4, 1fr); }
+.g6 { grid-template-columns: repeat(6, 1fr); }
+.row { display: flex; align-items: center; gap: var(--s2); flex-wrap: wrap; }
+.card { background: var(--bg-1); border: 1px solid var(--border); border-radius: var(--radius); padding: var(--s4); }
+.stack { display: grid; gap: var(--s3); }
+
+/* ---------- Swatches ---------- */
+.sw { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--bg-1); }
+.sw i { display: block; height: 56px; }
+.sw div { padding: var(--s2) var(--s3); display: grid; gap: 2px; }
+.sw b { font-size: var(--fs-12); font-weight: 600; }
+.sw code { font-family: var(--mono); font-size: 11px; color: var(--text-2); }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: var(--s2); height: 36px; padding: 0 var(--s4);
+  border-radius: var(--radius-sm); border: 1px solid var(--border-strong);
+  background: var(--bg-2); color: var(--text-1); font-weight: 500; cursor: pointer; text-decoration: none;
+}
+.btn:hover { background: var(--bg-3); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.btn.primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
+.btn.ghost { background: transparent; border-color: transparent; color: var(--text-2); }
+.btn.ghost:hover { background: var(--bg-2); color: var(--text-1); }
+.btn.danger { background: var(--deny-soft); border-color: rgba(248,113,113,.4); color: var(--deny); }
+.btn.sm { height: 28px; padding: 0 var(--s3); font-size: var(--fs-12); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+
+/* ---------- Badges / chips ---------- */
+.badge {
+  display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 var(--s2);
+  border-radius: var(--radius-pill); font-size: 12px; font-weight: 600; border: 1px solid transparent; white-space: nowrap;
+}
+.badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.badge.nodot::before { display: none; }
+.b-allow { color: var(--allow); background: var(--allow-soft); border-color: rgba(52,211,153,.3); }
+.b-deny  { color: var(--deny);  background: var(--deny-soft);  border-color: rgba(248,113,113,.3); }
+.b-wait  { color: var(--wait);  background: var(--wait-soft);  border-color: rgba(251,191,36,.3); }
+.b-info  { color: var(--info);  background: var(--info-soft);  border-color: rgba(96,165,250,.3); }
+.b-idle  { color: var(--text-2); background: var(--bg-2); border-color: var(--border); }
+.b-red   { color: var(--red-team); background: var(--deny-soft); }
+.b-blue  { color: var(--blue-team); background: var(--info-soft); }
+.b-coord { color: var(--coordinator); background: rgba(167,139,250,.12); }
+.chip {
+  display: inline-flex; align-items: center; height: 22px; padding: 0 var(--s2);
+  border-radius: 6px; border: 1px solid var(--border-strong); background: var(--bg-2);
+  font: 500 12px var(--mono); color: var(--text-2);
+}
+.hypo { color: var(--wait); background: var(--wait-soft); border-color: rgba(251,191,36,.3); }
+
+/* ---------- Banner ---------- */
+.banner { display: flex; gap: var(--s3); padding: var(--s3) var(--s4); border-radius: var(--radius); border: 1px solid; font-size: var(--fs-14); }
+.banner.info { background: var(--info-soft); border-color: rgba(96,165,250,.35); color: #CFE3FF; }
+.banner .ic { font-weight: 700; color: var(--info); }
+
+/* =====================================================================
+   CONSOLE MOCKUP (layout: slim top bar / 3 zones / legend bar)
+   ===================================================================== */
+.console {
+  display: grid; grid-template-rows: 48px 1fr 40px;
+  height: 760px; border: 1px solid var(--border); border-radius: var(--radius);
+  overflow: hidden; background: var(--bg-0);
+}
+.topbar {
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  padding: 0 var(--s4); background: var(--bg-1); border-bottom: 1px solid var(--border);
+}
+.brand { display: flex; align-items: center; gap: var(--s2); font-weight: 650; letter-spacing: .02em; }
+.brand .logo { width: 22px; height: 22px; border-radius: 6px; background: linear-gradient(135deg, var(--accent), #0EA5E9); }
+.brand small { color: var(--text-3); font-weight: 500; letter-spacing: 0; }
+.nav { display: flex; gap: 2px; padding: 3px; background: var(--bg-0); border: 1px solid var(--border); border-radius: 10px; }
+.nav a { padding: 5px var(--s4); border-radius: 7px; color: var(--text-2); text-decoration: none; font-weight: 500; }
+.nav a.on { background: var(--bg-3); color: var(--text-1); }
+.conn { justify-self: end; }
+
+.zones { display: grid; grid-template-columns: 280px 1fr 380px; min-height: 0; }
+.left, .right { background: var(--bg-1); padding: var(--s4); overflow: hidden; display: flex; flex-direction: column; gap: var(--s4); }
+.left { border-right: 1px solid var(--border); }
+.right { border-left: 1px solid var(--border); padding: 0; }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 6px var(--s3); font-size: var(--fs-14); }
+.kv dt { color: var(--text-3); }
+.kv dd { margin: 0; text-align: right; }
+
+/* 5-stage progress strip */
+.stages { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.stages li { display: grid; grid-template-columns: 20px 1fr auto; gap: var(--s3); align-items: center; padding: 8px 0; position: relative; }
+.stages li:not(:last-child)::after { content: ""; position: absolute; left: 9px; top: 28px; bottom: -8px; width: 2px; background: var(--border-strong); }
+.stages .dot { width: 20px; height: 20px; border-radius: 50%; border: 2px solid var(--border-strong); background: var(--bg-1); z-index: 1; display: grid; place-items: center; font-size: 11px; font-weight: 700; }
+.stages .done .dot  { border-color: var(--allow); background: var(--allow); color: #04261A; }
+.stages .live .dot  { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+.stages .fail .dot  { border-color: var(--deny); background: var(--deny); color: #2B0A0A; }
+.stages .idle .dot  { border-color: var(--border-strong); }
+.stages .name { font-weight: 500; }
+.stages .idle .name { color: var(--text-3); }
+
+/* 3D stage placeholder (agent builds the real R3F scene here) */
+.stage3d {
+  position: relative; overflow: hidden;
+  background:
+    radial-gradient(900px 480px at 50% 55%, rgba(45,212,191,.10), transparent 60%),
+    radial-gradient(700px 400px at 50% 100%, rgba(96,165,250,.08), transparent 70%),
+    linear-gradient(180deg, #0D131A, #080C11);
+}
+.stage3d::before { /* floor grid */
+  content: ""; position: absolute; left: 6%; right: 6%; top: 34%; bottom: 8%;
+  background:
+    linear-gradient(var(--border) 1px, transparent 1px) 0 0 / 48px 48px,
+    linear-gradient(90deg, var(--border) 1px, transparent 1px) 0 0 / 48px 48px;
+  transform: perspective(700px) rotateX(58deg); transform-origin: center bottom; opacity: .55;
+  mask-image: radial-gradient(closest-side, #000 55%, transparent 100%);
+}
+.desk { position: absolute; width: 150px; height: 74px; border-radius: 10px; background: linear-gradient(180deg, #1F2B38, #17212C); border: 1px solid var(--border-strong); box-shadow: 0 18px 30px rgba(0,0,0,.5); }
+.desk::after { content: ""; position: absolute; left: 30%; right: 30%; top: -26px; height: 28px; border-radius: 4px 4px 0 0; background: #0C1218; border: 1px solid var(--border-strong); }
+.pill { /* agent label: small, consistent, never overlapping desks */
+  position: absolute; transform: translate(-50%, 0); display: inline-flex; align-items: center; gap: 6px;
+  height: 26px; padding: 0 10px; border-radius: var(--radius-pill);
+  background: rgba(17,24,33,.92); border: 1px solid var(--border-strong); font-size: 12px; font-weight: 600; white-space: nowrap;
+}
+.pill i { width: 7px; height: 7px; border-radius: 50%; background: var(--text-3); }
+.pill.s-done i { background: var(--allow); }
+.pill.s-live i { background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.pill.s-fail i { background: var(--deny); }
+.pill.sel { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); color: var(--accent); }
+.stage-note { position: absolute; left: var(--s4); top: var(--s4); }
+
+/* Right panel: header + CSS-only tabs */
+.agent-head { padding: var(--s4); border-bottom: 1px solid var(--border); display: grid; gap: var(--s3); }
+.agent-head .title { display: flex; justify-content: space-between; align-items: center; }
+.task { background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: var(--s3); }
+.tabset { display: flex; flex-direction: column; min-height: 0; flex: 1; }
+.tabset > input { position: absolute; opacity: 0; pointer-events: none; }
+.tablist { display: flex; gap: 2px; padding: 0 var(--s3); border-bottom: 1px solid var(--border); }
+.tablist label { padding: var(--s3) var(--s3); color: var(--text-2); font-weight: 500; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; }
+.tablist label:hover { color: var(--text-1); }
+.panels { padding: var(--s4); overflow: hidden; flex: 1; }
+.panels > section { display: none; gap: var(--s3); }
+#t1:checked ~ .tablist label[for=t1], #t2:checked ~ .tablist label[for=t2],
+#t3:checked ~ .tablist label[for=t3], #t4:checked ~ .tablist label[for=t4] { color: var(--accent); border-bottom-color: var(--accent); }
+#t1:checked ~ .panels .p1, #t2:checked ~ .panels .p2,
+#t3:checked ~ .panels .p3, #t4:checked ~ .panels .p4 { display: grid; }
+#t1:focus-visible ~ .tablist label[for=t1], #t2:focus-visible ~ .tablist label[for=t2],
+#t3:focus-visible ~ .tablist label[for=t3], #t4:focus-visible ~ .tablist label[for=t4] { box-shadow: var(--focus); }
+
+.entry { display: grid; grid-template-columns: 64px 1fr; gap: var(--s3); padding: var(--s3); border-radius: var(--radius-sm); background: var(--bg-2); border-left: 3px solid var(--border-strong); }
+.entry.allow { border-left-color: var(--allow); } .entry.deny { border-left-color: var(--deny); }
+.entry time { font: 500 12px var(--mono); color: var(--text-3); }
+.finding { display: flex; justify-content: space-between; align-items: center; gap: var(--s3); padding: var(--s3); border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg-2); }
+.decision { display: grid; gap: var(--s3); }
+.copyrow { display: flex; align-items: center; justify-content: space-between; gap: var(--s2); padding: 6px var(--s3); background: var(--bg-2); border-radius: var(--radius-sm); border: 1px solid var(--border); }
+.copyrow code { font: 12px var(--mono); color: var(--text-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 220px; }
+textarea.msg { width: 100%; min-height: 84px; resize: none; background: var(--bg-2); color: var(--text-1); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); padding: var(--s3); }
+textarea.msg::placeholder { color: var(--text-3); }
+
+.legendbar { display: flex; justify-content: space-between; align-items: center; padding: 0 var(--s4); background: var(--bg-1); border-top: 1px solid var(--border); font-size: 12px; color: var(--text-2); }
+.legendbar .row { gap: var(--s4); }
+.legendbar .k { display: inline-flex; gap: 6px; align-items: center; }
+.legendbar .k i { width: 8px; height: 8px; border-radius: 50%; }
+
+/* =====================================================================
+   PLANNING WORKSPACE (guided 3-step drawer)
+   ===================================================================== */
+.scrim { position: relative; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: #070A0E; min-height: 900px; display: flex; justify-content: flex-end; }
+.scrim .ghost3d { position: absolute; inset: 0; opacity: .35; }
+.drawer { position: relative; width: min(760px, 100%); background: var(--bg-1); border-left: 1px solid var(--border-strong); box-shadow: var(--shadow); display: flex; flex-direction: column; }
+.drawer header { display: flex; justify-content: space-between; align-items: flex-start; padding: var(--s5) var(--s5) var(--s4); gap: var(--s4); }
+.drawer .body { padding: 0 var(--s5) var(--s5); display: grid; gap: var(--s4); flex: 1; }
+.drawer footer { position: sticky; bottom: 0; display: flex; justify-content: space-between; align-items: center; gap: var(--s4); padding: var(--s4) var(--s5); background: var(--bg-1); border-top: 1px solid var(--border); }
+
+.stepper { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s2); padding: 0 var(--s5) var(--s4); list-style: none; margin: 0; }
+.stepper li { display: flex; align-items: center; gap: var(--s2); padding: var(--s2) var(--s3); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text-3); font-weight: 500; }
+.stepper b { width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; background: var(--bg-2); border: 1px solid var(--border-strong); color: var(--text-2); }
+.stepper .done { color: var(--text-2); } .stepper .done b { background: var(--allow); color: #04261A; border-color: var(--allow); }
+.stepper .cur { color: var(--text-1); border-color: var(--accent); background: var(--accent-soft); }
+.stepper .cur b { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+
+details.expander { border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg-2); }
+details.expander summary { cursor: pointer; padding: var(--s3) var(--s4); color: var(--text-2); font-weight: 500; list-style: none; display: flex; justify-content: space-between; }
+details.expander summary::after { content: "+"; color: var(--text-3); }
+details.expander[open] summary::after { content: "\2212"; }
+details.expander .inner { padding: 0 var(--s4) var(--s4); color: var(--text-2); display: grid; gap: var(--s2); }
+.form2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s3); }
+.field { display: grid; gap: 6px; } .field label { font-size: 12px; color: var(--text-2); font-weight: 600; }
+.field input, .field select { height: 36px; background: var(--bg-1); color: var(--text-1); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); padding: 0 var(--s3); }
+.field input::placeholder { color: var(--text-3); }
+
+.risk { display: grid; grid-template-columns: 28px 1fr; gap: var(--s3); padding: var(--s4); background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius); }
+.risk .n { width: 28px; height: 28px; border-radius: 8px; background: var(--bg-3); display: grid; place-items: center; font-weight: 700; color: var(--accent); }
+.risk .meta { display: flex; gap: var(--s2); flex-wrap: wrap; margin-top: var(--s2); }
+
+/* segmented control (radio-based) */
+.seg { display: inline-grid; grid-auto-flow: column; padding: 3px; gap: 2px; background: var(--bg-0); border: 1px solid var(--border); border-radius: 10px; }
+.seg input { position: absolute; opacity: 0; pointer-events: none; }
+.seg label { padding: 7px var(--s4); border-radius: 7px; cursor: pointer; color: var(--text-2); font-weight: 500; text-align: center; }
+.seg input:checked + label { background: var(--bg-3); color: var(--text-1); box-shadow: inset 0 0 0 1px var(--border-strong); }
+.seg input:focus-visible + label { box-shadow: var(--focus); }
+
+.rec { display: grid; grid-template-columns: auto 1fr auto; gap: var(--s4); align-items: center; padding: var(--s4); background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius); }
+.rec.off { opacity: .55; }
+.rec .pts { text-align: right; } .rec .pts b { font-size: var(--fs-20); display: block; line-height: 1; }
+/* toggle (checkbox-based) */
+.tgl { position: relative; width: 38px; height: 22px; }
+.tgl input { position: absolute; inset: 0; opacity: 0; margin: 0; cursor: pointer; }
+.tgl span { position: absolute; inset: 0; border-radius: var(--radius-pill); background: var(--border-strong); transition: background .15s; pointer-events: none; }
+.tgl span::after { content: ""; position: absolute; width: 16px; height: 16px; left: 3px; top: 3px; border-radius: 50%; background: var(--text-1); transition: transform .15s; }
+.tgl input:checked + span { background: var(--accent); }
+.tgl input:checked + span::after { transform: translateX(16px); background: var(--accent-ink); }
+.tgl input:focus-visible + span { box-shadow: var(--focus); }
+
+.summary { display: flex; justify-content: space-between; align-items: center; gap: var(--s4); padding: var(--s3) var(--s4); background: var(--bg-0); border: 1px solid var(--border-strong); border-radius: var(--radius); }
+.summary b { font-size: var(--fs-20); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1100px) {
+  .zones { grid-template-columns: 1fr; }
+  .left, .right { border: 0; }
+  .console { height: auto; }
+  .stage3d { min-height: 360px; }
+  .g4, .g6 { grid-template-columns: repeat(2, 1fr); }
+  .g3, .g2, .form2, .stepper { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<main class="doc">
+
+<!-- ===================== INTRO ===================== -->
+<section>
+  <div class="section-head">
+    <span class="badge b-info nodot">Design reference</span>
+    <h1>KAYAN TrustGate: visual design system</h1>
+    <p class="muted">Calm, dark, high-contrast security-operations look (Linear / Vercel / CrowdStrike Falcon feel). One accent, semantic colors only where state matters, very little text on screen at once. The 3D office is the hero. This file is static HTML/CSS: it shows what to build, not how it behaves.</p>
+  </div>
+  <div class="card stack">
+    <h3>Rules the implementation must follow</h3>
+    <ul class="muted" style="margin:0; padding-left:20px; display:grid; gap:6px">
+      <li>Copy the <span class="mono">:root</span> tokens from this file's CSS into the app and delete one-off colors, sizes and fonts.</li>
+      <li>One accent color (teal). Green/red/amber/blue are reserved for state (allow / deny / waiting / info). Never decorative.</li>
+      <li>Body text is at least 14px in the console and 16px in Presentation mode. Secondary text must stay at or above 4.5:1 contrast.</li>
+      <li>Use the status vocabulary: ALLOW / DENY / Waiting / Idle / Completed. Never show raw UUIDs or policy strings as main content: truncate, with a copy button.</li>
+      <li>Keep every honesty label: "Hypothesis, not tested", the verbatim illustrative-points disclaimer, "zero policy weight", and the grounding-failure statement in evidence views.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===================== PALETTE ===================== -->
+<section>
+  <div class="section-head"><h2>1. Color palette</h2><p class="muted">Surfaces layer from darkest (app) to lightest (selected). Borders are 1px and subtle.</p></div>
+
+  <h4>Surfaces and borders</h4>
+  <div class="grid g6">
+    <div class="sw"><i style="background:var(--bg-0)"></i><div><b>bg-0 App</b><code>#0B0F14</code></div></div>
+    <div class="sw"><i style="background:var(--bg-1)"></i><div><b>bg-1 Panel / card</b><code>#111821</code></div></div>
+    <div class="sw"><i style="background:var(--bg-2)"></i><div><b>bg-2 Raised / input</b><code>#1A2430</code></div></div>
+    <div class="sw"><i style="background:var(--bg-3)"></i><div><b>bg-3 Selected</b><code>#223041</code></div></div>
+    <div class="sw"><i style="background:var(--border)"></i><div><b>border</b><code>#26323F</code></div></div>
+    <div class="sw"><i style="background:var(--border-strong)"></i><div><b>border-strong</b><code>#35465A</code></div></div>
+  </div>
+
+  <h4>Text</h4>
+  <div class="grid g3">
+    <div class="sw"><i style="background:var(--bg-1); color:var(--text-1); display:grid; place-items:center; font-weight:600">Aa Primary</i><div><b>text-1</b><code>#E6EDF3</code></div></div>
+    <div class="sw"><i style="background:var(--bg-1); color:var(--text-2); display:grid; place-items:center; font-weight:600">Aa Secondary</i><div><b>text-2</b><code>#9FB0C0</code></div></div>
+    <div class="sw"><i style="background:var(--bg-1); color:var(--text-3); display:grid; place-items:center; font-weight:600">Aa Hint</i><div><b>text-3</b><code>#8497AB</code></div></div>
+  </div>
+
+  <h4>Accent and semantic</h4>
+  <div class="grid g6">
+    <div class="sw"><i style="background:var(--accent)"></i><div><b>accent</b><code>#2DD4BF</code></div></div>
+    <div class="sw"><i style="background:var(--allow)"></i><div><b>allow / done</b><code>#34D399</code></div></div>
+    <div class="sw"><i style="background:var(--deny)"></i><div><b>deny / failed</b><code>#F87171</code></div></div>
+    <div class="sw"><i style="background:var(--wait)"></i><div><b>waiting / queued</b><code>#FBBF24</code></div></div>
+    <div class="sw"><i style="background:var(--info)"></i><div><b>info / Blue Team</b><code>#60A5FA</code></div></div>
+    <div class="sw"><i style="background:var(--coordinator)"></i><div><b>coordinator</b><code>#A78BFA</code></div></div>
+  </div>
+</section>
+
+<!-- ===================== TYPE ===================== -->
+<section>
+  <div class="section-head"><h2>2. Typography and spacing</h2><p class="muted">One family (Inter, with system fallbacks) plus monospace for IDs, references and code. Scale: 12 / 14 / 16 / 20 / 28. Spacing steps: 4, 8, 12, 16, 24, 32, 48. Radius: 12px cards, 8px controls.</p></div>
+  <div class="card stack">
+    <div class="row" style="justify-content:space-between"><h1>28 Page title</h1><span class="hint">28 / 650 / -0.02em</span></div>
+    <div class="row" style="justify-content:space-between"><h2>20 Section title</h2><span class="hint">20 / 600</span></div>
+    <div class="row" style="justify-content:space-between"><h3>16 Card title and Presentation body</h3><span class="hint">16 / 600</span></div>
+    <div class="row" style="justify-content:space-between"><p>14 Body text for the console</p><span class="hint">14 / 400</span></div>
+    <div class="row" style="justify-content:space-between"><p class="hint">12 Hints, timestamps, chips</p><span class="hint">12 / 400-600</span></div>
+    <div class="row" style="justify-content:space-between"><h4>Overline label</h4><span class="hint">12 / 600 / uppercase / +0.08em</span></div>
+    <div class="row" style="justify-content:space-between"><span class="mono">T1213.006 &middot; 7da73508-01e6&hellip;734d</span><span class="hint">mono 12</span></div>
+  </div>
+</section>
+
+<!-- ===================== COMPONENTS ===================== -->
+<section>
+  <div class="section-head"><h2>3. Components</h2></div>
+  <div class="grid g2">
+    <div class="card stack">
+      <h4>Buttons</h4>
+      <div class="row">
+        <button class="btn primary">Generate risk plan</button>
+        <button class="btn">Secondary</button>
+        <button class="btn ghost">Ghost</button>
+        <button class="btn danger">Stop assessment</button>
+        <button class="btn" disabled>Disabled</button>
+        <button class="btn sm">Small</button>
+      </div>
+      <p class="hint">One primary button per view. Focus ring is always visible (2px accent offset).</p>
+    </div>
+    <div class="card stack">
+      <h4>Status badges</h4>
+      <div class="row">
+        <span class="badge b-allow">ALLOW</span><span class="badge b-deny">DENY</span>
+        <span class="badge b-wait">Waiting</span><span class="badge b-info">Completed</span>
+        <span class="badge b-idle">Idle</span>
+      </div>
+      <h4>Role and tier</h4>
+      <div class="row">
+        <span class="badge b-red nodot">Red Team</span><span class="badge b-blue nodot">Blue Team</span>
+        <span class="badge b-coord nodot">Coordinator</span><span class="chip">Tier A</span><span class="chip">qwen2.5:7b</span>
+      </div>
+      <h4>Reference and evidence chips</h4>
+      <div class="row"><span class="chip">T1213.006</span><span class="chip">OWASP A03</span><span class="badge hypo nodot">Hypothesis, not tested</span><span class="badge b-allow nodot">2 verified findings</span></div>
+    </div>
+    <div class="card stack">
+      <h4>Info banner (disclaimers go here, verbatim)</h4>
+      <div class="banner info"><span class="ic">i</span><span>Illustrative relative effort/cost only. Points are comparison weights, not prices, quotes or measured implementation effort.</span></div>
+    </div>
+    <div class="card stack">
+      <h4>Controls</h4>
+      <div class="row">
+        <span class="seg">
+          <input type="radio" name="demo-seg" id="demo-a" checked><label for="demo-a">Option A</label>
+          <input type="radio" name="demo-seg" id="demo-b"><label for="demo-b">Option B</label>
+        </span>
+        <label class="tgl"><input type="checkbox" checked aria-label="Include"><span></span></label>
+        <label class="tgl"><input type="checkbox" aria-label="Exclude"><span></span></label>
+      </div>
+      <details class="expander"><summary>How this works</summary><div class="inner">Long explanations live in expanders and tooltips, never in the main flow.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONSOLE MOCKUP ===================== -->
+<section>
+  <div class="section-head"><h2>4. Console layout (main screen)</h2><p class="muted">Slim top bar, three zones with one job each, one-line legend. Shown here in the state of the saved rehearsal run with Planner selected. Click the tabs in the right panel to see the four views (CSS only).</p></div>
+
+  <div class="console">
+    <div class="topbar">
+      <div class="brand"><span class="logo"></span>KAYAN <small>TrustGate</small></div>
+      <nav class="nav" aria-label="Views"><a class="on" href="#">Live</a><a href="#">Planning</a><a href="#">Presentation</a><a href="#">Audit</a></nav>
+      <span class="badge b-allow conn">Console connected</span>
+    </div>
+
+    <div class="zones">
+      <!-- LEFT: engagement -->
+      <aside class="left">
+        <div class="stack">
+          <h4>Engagement</h4>
+          <dl class="kv">
+            <dt>Status</dt><dd><span class="badge b-info">Completed</span></dd>
+            <dt>Target</dt><dd class="mono">127.0.0.1:8888</dd>
+            <dt>Run</dt><dd class="mono">7da73508&hellip;734d</dd>
+            <dt>Result</dt><dd>2 findings</dd>
+            <dt>Decisions</dt><dd>29 allow &middot; 1 deny</dd>
+          </dl>
+        </div>
+        <div class="stack">
+          <button class="btn primary" style="justify-content:center">New assessment</button>
+          <button class="btn" style="justify-content:center">Risk planning &amp; mitigation</button>
+        </div>
+        <div class="stack">
+          <h4>Progress</h4>
+          <ol class="stages">
+            <li class="done"><span class="dot">&#10003;</span><span class="name">Planner</span><span class="badge b-allow nodot">Done</span></li>
+            <li class="done"><span class="dot">&#10003;</span><span class="name">Recon</span><span class="badge b-allow nodot">Done</span></li>
+            <li class="done"><span class="dot">&#10003;</span><span class="name">Web-App</span><span class="badge b-allow nodot">Done</span></li>
+            <li class="fail"><span class="dot">!</span><span class="name">Network</span><span class="badge b-deny nodot">Stopped</span></li>
+            <li class="idle"><span class="dot"></span><span class="name">Reporting</span><span class="badge b-idle nodot">Partial</span></li>
+          </ol>
+          <p class="hint">Partial or failed runs must be visible here, never implied complete. (Example state for layout only.)</p>
+        </div>
+      </aside>
+
+      <!-- CENTER: 3D hero -->
+      <div class="stage3d" aria-label="3D office placeholder">
+        <span class="stage-note badge b-idle nodot">3D office: placeholder</span>
+        <span class="desk" style="left:12%; top:34%"></span>
+        <span class="desk" style="left:40%; top:26%"></span>
+        <span class="desk" style="left:68%; top:34%"></span>
+        <span class="desk" style="left:24%; top:62%"></span>
+        <span class="desk" style="left:56%; top:62%"></span>
+        <span class="pill s-done" style="left:calc(12% + 75px); top:calc(34% + 84px)"><i></i>Recon</span>
+        <span class="pill s-done" style="left:calc(40% + 75px); top:calc(26% + 84px)"><i></i>Web-App</span>
+        <span class="pill s-fail" style="left:calc(68% + 75px); top:calc(34% + 84px)"><i></i>Network</span>
+        <span class="pill s-done sel" style="left:calc(24% + 75px); top:calc(62% + 84px)"><i></i>Planner</span>
+        <span class="pill" style="left:calc(56% + 75px); top:calc(62% + 84px)"><i></i>Reporting</span>
+      </div>
+
+      <!-- RIGHT: agent panel with CSS-only tabs -->
+      <aside class="right">
+        <div class="agent-head">
+          <div class="title"><h2>Planner</h2><span class="badge b-coord nodot">Coordinator</span></div>
+          <div class="row"><span class="chip">Tier A</span><span class="chip">qwen2.5:7b</span><span class="badge b-info">Completed</span></div>
+          <div class="task"><h4>Current task</h4><p>Hand-off to Reporting complete. No active task.</p></div>
+        </div>
+
+        <div class="tabset">
+          <input type="radio" name="agent-tab" id="t1" checked>
+          <input type="radio" name="agent-tab" id="t2">
+          <input type="radio" name="agent-tab" id="t3">
+          <input type="radio" name="agent-tab" id="t4">
+          <div class="tablist">
+            <label for="t1">Activity</label><label for="t2">Findings</label><label for="t3">Decision</label><label for="t4">Message</label>
+          </div>
+          <div class="panels">
+            <section class="p1">
+              <div class="entry"><time>3:58:00</time><span>Planning the authorized assessment</span></div>
+              <div class="entry allow"><time>3:58:00</time><span><span class="badge b-allow">ALLOW</span> llm_inference. Permitted by signed scope.</span></div>
+              <div class="entry"><time>3:58:01</time><span>Plan specialist assignments</span></div>
+              <div class="entry"><time>3:58:10</time><span>Model plan validated against the signed ROE</span></div>
+              <button class="btn ghost sm" style="justify-self:start">Show raw entries</button>
+            </section>
+            <section class="p2">
+              <div class="finding"><span><b>XSS (reflected)</b><br><span class="hint">Web-App &middot; reproduced</span></span><span class="chip">T1190</span></div>
+              <div class="finding"><span><b>Command injection</b><br><span class="hint">Web-App &middot; reproduced</span></span><span class="chip">T1059</span></div>
+              <p class="hint">Findings are shown only when independently reproduced.</p>
+            </section>
+            <section class="p3">
+              <div class="decision">
+                <div class="row" style="justify-content:space-between"><h3>Latest decision</h3><span class="badge b-allow">ALLOW</span></div>
+                <dl class="kv"><dt>Subject</dt><dd>Planner</dd><dt>Action</dt><dd class="mono">llm_inference</dd><dt>Reason</dt><dd>Permitted by scope, role and time window</dd></dl>
+                <div class="copyrow"><code>cedar:7da73508-01e6-48e9-9093-be09c5fd734d:planning</code><button class="btn ghost sm">Copy</button></div>
+                <div class="copyrow"><code>audit 7b3a03bf-67b6-4504-9108-017724ce9c1c</code><button class="btn ghost sm">Copy</button></div>
+              </div>
+            </section>
+            <section class="p4">
+              <div class="field"><label for="delivery">Delivery</label><select id="delivery"><option>Status question (live)</option><option>Task instruction (queued at safe boundary)</option></select></div>
+              <textarea class="msg" placeholder="Ask about recorded progress or queue an instruction&hellip;"></textarea>
+              <button class="btn primary" style="justify-content:center">Send through TrustGate</button>
+            </section>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="legendbar">
+      <div class="row">
+        <span class="k"><i style="background:var(--allow)"></i>Working / completed</span>
+        <span class="k"><i style="background:var(--wait)"></i>Waiting</span>
+        <span class="k"><i style="background:var(--deny)"></i>Blocked / failed</span>
+        <span class="k"><i style="background:var(--text-3)"></i>Idle</span>
+      </div>
+      <div class="row"><span class="hint">Drag to orbit &middot; Scroll to zoom</span><button class="btn sm">Reset view</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PLANNING WORKSPACE ===================== -->
+<section>
+  <div class="section-head"><h2>5. Planning workspace (guided 3 steps)</h2><p class="muted">A right-side drawer so the 3D scene stays visible behind it. Replaces the single long scroll. Step 2 is shown with Option A selected. The sticky footer always holds the one next action.</p></div>
+
+  <div class="scrim">
+    <div class="ghost3d stage3d"></div>
+    <div class="drawer">
+      <header>
+        <div class="stack" style="gap:var(--s1)">
+          <h2>Risk planning and mitigation</h2>
+          <p class="muted">Reads descriptions and local references only. No target testing. No verified findings.</p>
+        </div>
+        <button class="btn ghost sm">Close</button>
+      </header>
+
+      <ol class="stepper">
+        <li class="done"><b>&#10003;</b>Risk plan</li>
+        <li class="cur"><b>2</b>Mitigation</li>
+        <li><b>3</b>Review &amp; export</li>
+      </ol>
+
+      <div class="body">
+        <!-- Step 1 recap (collapsed) -->
+        <details class="expander">
+          <summary>Step 1 &middot; Risk plan (3 hypothetical risks)</summary>
+          <div class="inner">
+            <details class="expander" style="background:var(--bg-1)">
+              <summary>Optional organization context (zero policy weight)</summary>
+              <div class="inner">
+                <div class="form2">
+                  <div class="field"><label for="f1">Company size</label><input id="f1" placeholder="e.g. 50-200 employees"></div>
+                  <div class="field"><label for="f2">Departments</label><input id="f2" placeholder="e.g. Sales, Support, IT"></div>
+                  <div class="field"><label for="f3">Infrastructure summary</label><input id="f3" placeholder="e.g. Hybrid cloud, SQL database"></div>
+                  <div class="field"><label for="f4">Network architecture</label><input id="f4" placeholder="e.g. Flat office network, VPN"></div>
+                  <div class="field"><label for="f5">Data storage</label><input id="f5" placeholder="e.g. Customer records in CRM"></div>
+                  <div class="field"><label for="f6">Customer touchpoints</label><input id="f6" placeholder="e.g. Web portal, mobile app"></div>
+                </div>
+                <div class="row"><button class="btn sm">Use sample</button><span class="hint">Context is descriptive only. It never grants scope or authorization.</span></div>
+              </div>
+            </details>
+            <div class="risk"><span class="n">1</span><div><h3>Possible exposure of stored database data</h3><p class="muted">The description suggests database content may be reachable. Worth reviewing.</p><div class="meta"><span class="chip">T1213.006</span><span class="badge hypo nodot">Hypothesis, not tested</span></div></div></div>
+            <div class="risk"><span class="n">2</span><div><h3>Customer data held in a CRM system</h3><p class="muted">CRM access controls may warrant review.</p><div class="meta"><span class="chip">T1213.004</span><span class="badge hypo nodot">Hypothesis, not tested</span></div></div></div>
+            <div class="risk"><span class="n">3</span><div><h3>Misuse of stored database procedures</h3><p class="muted">Stored procedures may need privilege review.</p><div class="meta"><span class="chip">T1505.001</span><span class="badge hypo nodot">Hypothesis, not tested</span></div></div></div>
+            <p class="hint">Ranked by text relevance, not measured likelihood, impact or severity. These are hypotheses to review, not findings.</p>
+          </div>
+        </details>
+
+        <!-- Step 2 -->
+        <div class="row" style="justify-content:space-between">
+          <span class="seg">
+            <input type="radio" name="opt" id="opt-a" checked><label for="opt-a">Option A &middot; Direct mitigation</label>
+            <input type="radio" name="opt" id="opt-b"><label for="opt-b">Option B &middot; From assessment</label>
+          </span>
+          <span class="badge hypo nodot">Hypothetical, no testing</span>
+        </div>
+
+        <div class="banner info"><span class="ic">i</span><span>Illustrative relative effort/cost only. Points are comparison weights, not prices, quotes or measured implementation effort.</span></div>
+
+        <div class="row" style="justify-content:space-between">
+          <div class="field" style="grid-auto-flow:column; align-items:center; gap:var(--s3)"><label for="grp">Group by</label>
+            <select id="grp"><option>All</option><option>Defense in Depth</option><option>Zero Trust</option></select></div>
+          <span class="hint">Filtering changes the view, not what is included.</span>
+        </div>
+
+        <div class="rec">
+          <label class="tgl"><input type="checkbox" checked aria-label="Include recommendation 1"><span></span></label>
+          <div><h3>Review layered preventive and detective controls</h3><div class="meta row" style="margin-top:6px"><span class="chip">Defense in Depth</span><span class="chip">T1213.006</span></div></div>
+          <div class="pts"><b>1</b><span class="hint">point</span></div>
+        </div>
+        <div class="rec">
+          <label class="tgl"><input type="checkbox" checked aria-label="Include recommendation 2"><span></span></label>
+          <div><h3>Restrict access to customer records by role</h3><div class="meta row" style="margin-top:6px"><span class="chip">Zero Trust</span><span class="chip">T1213.004</span></div></div>
+          <div class="pts"><b>2</b><span class="hint">points</span></div>
+        </div>
+        <div class="rec off">
+          <label class="tgl"><input type="checkbox" aria-label="Include recommendation 3"><span></span></label>
+          <div><h3>Review stored procedure privileges</h3><div class="meta row" style="margin-top:6px"><span class="chip">Defense in Depth</span><span class="chip">T1505.001</span></div></div>
+          <div class="pts"><b>1</b><span class="hint">point</span></div>
+        </div>
+        <details class="expander"><summary>How this works</summary><div class="inner">Option A passes the Phase 1 hypotheses to the Reporting agent's deterministic mitigation builder with local references. No extra model call, no target testing, zero verified findings. Option B uses a saved or live governed assessment.</div></details>
+      </div>
+
+      <footer>
+        <div class="summary" style="flex:1"><span><b>2</b> included &middot; <b>3</b> illustrative points</span><span class="hint">Selection is presentation only</span></div>
+        <div class="row"><button class="btn">Back</button><button class="btn primary">Continue to review</button></div>
+      </footer>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== STATES ===================== -->
+<section>
+  <div class="section-head"><h2>6. Empty, loading and error states</h2><p class="muted">Every view needs a deliberate state. Plain language, one next action.</p></div>
+  <div class="grid g3">
+    <div class="card stack"><span class="badge b-idle">Empty</span><h3>No assessment running</h3><p class="muted">Start a new assessment, or load the saved rehearsal to review recorded evidence.</p><button class="btn primary" style="justify-self:start">New assessment</button></div>
+    <div class="card stack"><span class="badge b-info">Loading</span><h3>Connecting to the console&hellip;</h3><p class="muted">Waiting for the backend on port 8001.</p><div style="height:6px; border-radius:6px; background:var(--bg-2); overflow:hidden"><div style="width:40%; height:100%; background:var(--accent)"></div></div></div>
+    <div class="card stack"><span class="badge b-wait">Degraded</span><h3>Gate unavailable: recorded evidence mode</h3><p class="muted">Live assessments are disabled. Planning and the saved report still work.</p><button class="btn" style="justify-self:start">Open recorded run</button></div>
+  </div>
+</section>
+
+<!-- ===================== PRESENTATION ===================== -->
+<section>
+  <div class="section-head"><h2>7. Presentation mode (projector scale)</h2><p class="muted">Minimum 16px body text, minimal chrome, one idea per screen, no debug-looking text.</p></div>
+  <div class="card" style="padding:var(--s6); display:grid; gap:var(--s4)">
+    <span class="badge b-info nodot" style="justify-self:start">Step 2 of 3</span>
+    <h1>Direct mitigation from hypothetical risks</h1>
+    <p style="font-size:var(--fs-16)" class="muted">Three hypothetical risks were turned into three recommendations. Nothing was tested, and no findings are claimed.</p>
+    <div class="grid g3">
+      <div class="card"><h4>Hypotheses</h4><h1>3</h1></div>
+      <div class="card"><h4>Recommendations</h4><h1>3</h1></div>
+      <div class="card"><h4>Verified findings</h4><h1>0</h1></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MAPPING ===================== -->
+<section>
+  <div class="section-head"><h2>8. Where each element maps in the app</h2></div>
+  <div class="card">
+    <table style="width:100%; border-collapse:collapse; font-size:14px">
+      <thead><tr style="text-align:left; color:var(--text-3)"><th style="padding:8px 0">Reference element</th><th>Build it in</th></tr></thead>
+      <tbody class="muted">
+        <tr style="border-top:1px solid var(--border)"><td style="padding:10px 0">Tokens (:root)</td><td>A single global stylesheet or theme module in <span class="mono">console/office/src</span></td></tr>
+        <tr style="border-top:1px solid var(--border)"><td style="padding:10px 0">Top bar, left card, progress strip</td><td>Console layout components. Progress derives from real session state and must show partial or failed runs honestly</td></tr>
+        <tr style="border-top:1px solid var(--border)"><td style="padding:10px 0">Agent panel and tabs</td><td>Existing agent detail panel, restructured into Activity / Findings / Decision / Message</td></tr>
+        <tr style="border-top:1px solid var(--border)"><td style="padding:10px 0">Agent pills in the 3D scene</td><td>Existing label overlay. Small and constant size, no overlap with desks or each other</td></tr>
+        <tr style="border-top:1px solid var(--border)"><td style="padding:10px 0">Planning drawer and stepper</td><td>Existing planning dialog, converted into the three-step drawer. Do not change retrieval, ranking or policy behavior</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

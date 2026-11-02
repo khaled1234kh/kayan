@@ -1,0 +1,13 @@
+{
+  "recorded_at": "2026-11-01T13:15:44.914971+00:00",
+  "source": "User reply to revised-scene question",
+  "reply_verbatim": "Renders; spot checks look correct",
+  "asked_checks": [
+    "scene renders",
+    "small labels",
+    "floor brightness",
+    "monitor text",
+    "selected Network decision"
+  ],
+  "limit": "Human text spot feedback, not a fresh screenshot or the six-step live walkthrough; ceiling artifact was not separately named in this reply"
+}

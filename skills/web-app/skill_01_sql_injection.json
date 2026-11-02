@@ -1,0 +1,13 @@
+{
+  "name": "SQL Injection",
+  "mitre_id": "T1190",
+  "mitre_name": "Exploit Public-Facing Application",
+  "description": "Test for SQL injection vulnerabilities",
+  "techniques": [
+    "Union-based SQLi",
+    "Error-based SQLi",
+    "Blind SQLi",
+    "Time-based SQLi"
+  ],
+  "detection": "WAF, database monitoring, error logging"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Lateral Movement Simulation",
+  "mitre_id": "T1021",
+  "mitre_name": "Remote Services",
+  "description": "Simulate lateral movement between hosts",
+  "techniques": [
+    "SSH tunneling",
+    "RDP connections",
+    "SMB enumeration"
+  ],
+  "detection": "Network monitoring, authentication logs"
+}

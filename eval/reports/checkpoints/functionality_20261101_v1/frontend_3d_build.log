@@ -1,0 +1,16 @@
+npm notice run kayan-3d@0.1.0 build
+npm notice run tsc --noEmit && vite build
+vite v5.4.21 building for production...
+transforming...
+✓ 697 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                     0.72 kB │ gzip:   0.41 kB
+dist/assets/index-Bb_9Jfle.css     32.15 kB │ gzip:   6.40 kB
+dist/assets/index-0JCm0MzU.js   1,237.67 kB │ gzip: 343.33 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 18.39s

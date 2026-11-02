@@ -1,0 +1,19 @@
+{
+  "architecture": "A",
+  "provider": "ollama",
+  "base_url": "http://127.0.0.1:11434",
+  "model": "qwen2.5:7b",
+  "fallback_model": "qwen2.5:1.5b",
+  "num_ctx": 4096,
+  "num_predict": 384,
+  "concurrency": 1,
+  "max_actions_per_specialist": 3,
+  "max_action_retries": 2,
+  "compute_budget": {
+    "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+    "vram_total_mib_observed": 8151,
+    "system_ram_gib_observed": 31.2,
+    "note": "One shared model and one inference at a time; 3D graphics share the GPU. Actual VRAM residency must be measured, not assumed."
+  },
+  "operator_interaction": "status_live_instructions_queued_at_safe_boundaries"
+}

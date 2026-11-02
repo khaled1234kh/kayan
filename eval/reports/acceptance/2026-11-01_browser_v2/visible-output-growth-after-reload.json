@@ -1,0 +1,83 @@
+[
+  {
+    "engagement_id": "546daa0c-43e6-4501-b391-f9d55253e207",
+    "id": "d04002222022482794fae0d32484c478",
+    "lastKey": "output",
+    "output": "{\n  \"assignments\": [\n    {\n      \"role\": \"recon_agent\",\n      \"task\": \"http_probe 127",
+    "streaming": true,
+    "time": "2026-11-01T16:16:00.159Z",
+    "screenshot": "30-visible-stream-00.jpg"
+  },
+  {
+    "engagement_id": "546daa0c-43e6-4501-b391-f9d55253e207",
+    "id": "d04002222022482794fae0d32484c478",
+    "lastKey": "output",
+    "output": "{\n  \"assignments\": [\n    {\n      \"role\": \"recon_agent\",\n      \"task\": \"http_probe 127.0.0.1\"\n    },\n    {\n      \"",
+    "streaming": true,
+    "time": "2026-11-01T16:16:00.335Z",
+    "screenshot": "30-visible-stream-01.jpg"
+  },
+  {
+    "engagement_id": "546daa0c-43e6-4501-b391-f9d55253e207",
+    "id": "d04002222022482794fae0d32484c478",
+    "lastKey": "output",
+    "output": "{\n  \"assignments\": [\n    {\n      \"role\": \"recon_agent\",\n      \"task\": \"http_probe 127.0.0.1\"\n    },\n    {\n      \"role\": \"webapp_agent\",\n      \"task\": \"",
+    "streaming": true,
+    "time": "2026-11-01T16:16:00.584Z",
+    "screenshot": "30-visible-stream-02.jpg"
+  },
+  {
+    "engagement_id": "546daa0c-43e6-4501-b391-f9d55253e207",
+    "id": "d04002222022482794fae0d32484c478",
+    "lastKey": "output",
+    "output": "{\n  \"assignments\": [\n    {\n      \"role\": \"recon_agent\",\n      \"task\": \"http_probe 127.0.0.1\"\n    },\n    {\n      \"role\": \"webapp_agent\",\n      \"task\": \"xss_test 127.0.0.1",
+    "streaming": true,
+    "time": "2026-11-01T16:16:00.831Z",
+    "screenshot": "30-visible-stream-03.jpg"
+  },
+  {
+    "engagement_id": "546daa0c-43e6-4501-b391-f9d55253e207",
+    "id": "d04002222022482794fae0d32484c478",
+    "lastKey": "output",
+    "output": "{\n  \"assignments\": [\n    {\n      \"role\": \"recon_agent\",\n      \"task\": \"http_probe 127.0.0.1\"\n    },\n    {\n      \"role\": \"webapp_agent\",\n      \"task\": \"xss_test 127.0.0.1\"\n    },\n    {\n      \"role\": \"network_agent\",\n",
+    "streaming": true,
+    "time": "2026-11-01T16:16:01.157Z",
+    "screenshot": "30-visible-stream-04.jpg"
+  },
+  {
+    "engagement_id": "546daa0c-43e6-4501-b391-f9d55253e207",
+    "id": "d04002222022482794fae0d32484c478",
+    "lastKey": "output",
+    "output": "{\n  \"assignments\": [\n    {\n      \"role\": \"recon_agent\",\n      \"task\": \"http_probe 127.0.0.1\"\n    },\n    {\n      \"role\": \"webapp_agent\",\n      \"task\": \"xss_test 127.0.0.1\"\n    },\n    {\n      \"role\": \"network_agent\",\n      \"task\": \"port_scan 127.0",
+    "streaming": true,
+    "time": "2026-11-01T16:16:01.400Z",
+    "screenshot": "30-visible-stream-05.jpg"
+  },
+  {
+    "engagement_id": "546daa0c-43e6-4501-b391-f9d55253e207",
+    "id": "d04002222022482794fae0d32484c478",
+    "lastKey": "output",
+    "output": "{\n  \"assignments\": [\n    {\n      \"role\": \"recon_agent\",\n      \"task\": \"http_probe 127.0.0.1\"\n    },\n    {\n      \"role\": \"webapp_agent\",\n      \"task\": \"xss_test 127.0.0.1\"\n    },\n    {\n      \"role\": \"network_agent\",\n      \"task\": \"port_scan 127.0.0.1\"\n    },\n    {\n      \"role\":",
+    "streaming": true,
+    "time": "2026-11-01T16:16:01.638Z",
+    "screenshot": "30-visible-stream-06.jpg"
+  },
+  {
+    "engagement_id": "546daa0c-43e6-4501-b391-f9d55253e207",
+    "id": "d04002222022482794fae0d32484c478",
+    "lastKey": "output",
+    "output": "{\n  \"assignments\": [\n    {\n      \"role\": \"recon_agent\",\n      \"task\": \"http_probe 127.0.0.1\"\n    },\n    {\n      \"role\": \"webapp_agent\",\n      \"task\": \"xss_test 127.0.0.1\"\n    },\n    {\n      \"role\": \"network_agent\",\n      \"task\": \"port_scan 127.0.0.1\"\n    },\n    {\n      \"role\": \"reporting_agent\",\n      \"task\": \"compile_report ",
+    "streaming": true,
+    "time": "2026-11-01T16:16:01.872Z",
+    "screenshot": "30-visible-stream-07.jpg"
+  },
+  {
+    "engagement_id": "546daa0c-43e6-4501-b391-f9d55253e207",
+    "id": "d04002222022482794fae0d32484c478",
+    "lastKey": "output",
+    "output": "{\n  \"assignments\": [\n    {\n      \"role\": \"recon_agent\",\n      \"task\": \"http_probe 127.0.0.1\"\n    },\n    {\n      \"role\": \"webapp_agent\",\n      \"task\": \"xss_test 127.0.0.1\"\n    },\n    {\n      \"role\": \"network_agent\",\n      \"task\": \"port_scan 127.0.0.1\"\n    },\n    {\n      \"role\": \"reporting_agent\",\n      \"task\": \"compile_report 127.0.0.1\"\n    }\n  ]\n}",
+    "streaming": true,
+    "time": "2026-11-01T16:16:02.209Z",
+    "screenshot": "30-visible-stream-08.jpg"
+  }
+]

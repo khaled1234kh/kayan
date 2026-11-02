@@ -1,0 +1,42 @@
+[
+  {
+    "file": "AIManager.fbx",
+    "before_sha256": "1818e226b87786981d59860970e930d89da59fbc238583800c780822d95fa606",
+    "after_sha256": "c567c96851f30f9fe73bba88c55352131fd9e908211c2f68f996234f9cdf3a4b",
+    "skins": 7,
+    "vertices": 29056,
+    "over_four_before": 195,
+    "max_before": 7,
+    "removed_ignored_maps": 1
+  },
+  {
+    "file": "AIOps.fbx",
+    "before_sha256": "514f4161f1ca5ff350618fa643cb4115266b40e5bb49a1bdbcf262ac0bbdf570",
+    "after_sha256": "f75e95a1b0ad5e0952f09c5bc2bddf2cc2d0206531fc14e037cc18def3b689d1",
+    "skins": 1,
+    "vertices": 34719,
+    "over_four_before": 234,
+    "max_before": 6,
+    "removed_ignored_maps": 1
+  },
+  {
+    "file": "AISales.fbx",
+    "before_sha256": "bdaa66b9f427ef4b5e3bf26773051662b6fc8ccca0aee0064c1d5ac56dcbd733",
+    "after_sha256": "3e0068b1045a1f983577898aed609f5879a9cecc36319c1e88b066e1a5d809b2",
+    "skins": 7,
+    "vertices": 29698,
+    "over_four_before": 306,
+    "max_before": 7,
+    "removed_ignored_maps": 1
+  },
+  {
+    "file": "Employee.fbx",
+    "before_sha256": "747bfd4e946c56ce8c8ce599d0b19e36f33ae34755cff0e46f8ff80d3592ce80",
+    "after_sha256": "b1b62381fb1eb32276e15a0a923596e8fcdfb8bc870cccbc316313d723bdd303",
+    "skins": 8,
+    "vertices": 30535,
+    "over_four_before": 878,
+    "max_before": 7,
+    "removed_ignored_maps": 1
+  }
+]

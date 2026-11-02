@@ -1,0 +1,12 @@
+{
+  "commits_scanned": 23,
+  "method": "git grep filenames only; selected credential signatures, not a comprehensive secret guarantee",
+  "matching_paths": [
+    "pentagi_upstream/.env.example",
+    "pentagi_upstream/backend/cmd/installer/hardening/hardening.go",
+    "pentagi_upstream/backend/cmd/installer/hardening/hardening_test.go",
+    "pentagi_upstream/backend/docs/observability.md",
+    "pentagi_upstream/backend/pkg/config/config_test.go",
+    "skills/library_index.json"
+  ]
+}

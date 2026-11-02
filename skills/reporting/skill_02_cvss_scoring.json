@@ -1,0 +1,12 @@
+{
+  "name": "CVSS Scoring",
+  "mitre_id": "T1190",
+  "mitre_name": "Exploit Public-Facing Application",
+  "description": "Assign CVSS scores to vulnerabilities",
+  "techniques": [
+    "Base score calculation",
+    "Temporal score",
+    "Environmental score"
+  ],
+  "detection": "N/A - reporting only"
+}

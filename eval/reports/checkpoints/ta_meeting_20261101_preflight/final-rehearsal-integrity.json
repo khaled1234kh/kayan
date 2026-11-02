@@ -1,0 +1,16 @@
+{
+  "checked_at_utc": "2026-11-01T19:59:29.603945+00:00",
+  "engagement_id": "7da73508-01e6-48e9-9093-be09c5fd734d",
+  "status": "completed",
+  "transcript_entries": 101,
+  "state_unchanged": true,
+  "audit_unchanged": true,
+  "audit_sha256": "a59c814258217d19f5788e52b61fbc691ab0842884264104834ee115fa1fb163",
+  "actual_model_assessment_started": false,
+  "final_browser_viewport": {
+    "width": 1159,
+    "height": 764
+  },
+  "temporary_viewport_reset": true,
+  "browser_error_entries": 0
+}

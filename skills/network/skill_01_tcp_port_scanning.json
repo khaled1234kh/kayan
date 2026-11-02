@@ -1,0 +1,12 @@
+{
+  "name": "TCP Port Scanning",
+  "mitre_id": "T1046",
+  "mitre_name": "Network Service Discovery",
+  "description": "Discover open TCP ports on target hosts",
+  "techniques": [
+    "Connect scan",
+    "SYN scan",
+    "ACK scan"
+  ],
+  "detection": "IDS/IPS, firewall logs"
+}

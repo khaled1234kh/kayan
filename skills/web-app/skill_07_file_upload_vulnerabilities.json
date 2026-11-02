@@ -1,0 +1,12 @@
+{
+  "name": "File Upload Vulnerabilities",
+  "mitre_id": "T1190",
+  "mitre_name": "Exploit Public-Facing Application",
+  "description": "Test file upload functionality",
+  "techniques": [
+    "Unrestricted file upload",
+    "Extension bypass",
+    "Content-Type manipulation"
+  ],
+  "detection": "File monitoring, AV scanning"
+}

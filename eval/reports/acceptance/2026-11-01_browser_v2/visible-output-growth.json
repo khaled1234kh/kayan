@@ -1,0 +1,74 @@
+[
+  {
+    "engagement_id": "cc795340-23cd-4d29-8971-7456cd84a6f2",
+    "id": "c53edcceb18946ca9bcdeb4581d78f0d",
+    "output": "{\n  \"assignments\": [\n    {\n      \"role\": \"recon_agent\",\n      \"task\": \"http_probe 127.0",
+    "streaming": true,
+    "time": "2026-11-01T16:13:36.305Z",
+    "screenshot": "29-planner-stream-00.jpg"
+  },
+  {
+    "engagement_id": "cc795340-23cd-4d29-8971-7456cd84a6f2",
+    "id": "c53edcceb18946ca9bcdeb4581d78f0d",
+    "output": "{\n  \"assignments\": [\n    {\n      \"role\": \"recon_agent\",\n      \"task\": \"http_probe 127.0.0.1\"\n    },\n    {\n      \"role\":",
+    "streaming": true,
+    "time": "2026-11-01T16:13:36.565Z",
+    "screenshot": "29-planner-stream-01.jpg"
+  },
+  {
+    "engagement_id": "cc795340-23cd-4d29-8971-7456cd84a6f2",
+    "id": "c53edcceb18946ca9bcdeb4581d78f0d",
+    "output": "{\n  \"assignments\": [\n    {\n      \"role\": \"recon_agent\",\n      \"task\": \"http_probe 127.0.0.1\"\n    },\n    {\n      \"role\": \"webapp_agent\",\n      \"task\": \"xss_test",
+    "streaming": true,
+    "time": "2026-11-01T16:13:36.814Z",
+    "screenshot": "29-planner-stream-02.jpg"
+  },
+  {
+    "engagement_id": "cc795340-23cd-4d29-8971-7456cd84a6f2",
+    "id": "c53edcceb18946ca9bcdeb4581d78f0d",
+    "output": "{\n  \"assignments\": [\n    {\n      \"role\": \"recon_agent\",\n      \"task\": \"http_probe 127.0.0.1\"\n    },\n    {\n      \"role\": \"webapp_agent\",\n      \"task\": \"xss_test 127.0.0.1\"\n    },\n",
+    "streaming": true,
+    "time": "2026-11-01T16:13:37.064Z",
+    "screenshot": "29-planner-stream-03.jpg"
+  },
+  {
+    "engagement_id": "cc795340-23cd-4d29-8971-7456cd84a6f2",
+    "id": "c53edcceb18946ca9bcdeb4581d78f0d",
+    "output": "{\n  \"assignments\": [\n    {\n      \"role\": \"recon_agent\",\n      \"task\": \"http_probe 127.0.0.1\"\n    },\n    {\n      \"role\": \"webapp_agent\",\n      \"task\": \"xss_test 127.0.0.1\"\n    },\n    {\n      \"role\": \"network_agent\",\n      \"task",
+    "streaming": true,
+    "time": "2026-11-01T16:13:37.316Z",
+    "screenshot": "29-planner-stream-04.jpg"
+  },
+  {
+    "engagement_id": "cc795340-23cd-4d29-8971-7456cd84a6f2",
+    "id": "c53edcceb18946ca9bcdeb4581d78f0d",
+    "output": "{\n  \"assignments\": [\n    {\n      \"role\": \"recon_agent\",\n      \"task\": \"http_probe 127.0.0.1\"\n    },\n    {\n      \"role\": \"webapp_agent\",\n      \"task\": \"xss_test 127.0.0.1\"\n    },\n    {\n      \"role\": \"network_agent\",\n      \"task\": \"port_scan 127.0.0.",
+    "streaming": true,
+    "time": "2026-11-01T16:13:37.551Z",
+    "screenshot": "29-planner-stream-05.jpg"
+  },
+  {
+    "engagement_id": "cc795340-23cd-4d29-8971-7456cd84a6f2",
+    "id": "c53edcceb18946ca9bcdeb4581d78f0d",
+    "output": "{\n  \"assignments\": [\n    {\n      \"role\": \"recon_agent\",\n      \"task\": \"http_probe 127.0.0.1\"\n    },\n    {\n      \"role\": \"webapp_agent\",\n      \"task\": \"xss_test 127.0.0.1\"\n    },\n    {\n      \"role\": \"network_agent\",\n      \"task\": \"port_scan 127.0.0.1\"\n    },\n    {\n      \"role\": \"reporting",
+    "streaming": true,
+    "time": "2026-11-01T16:13:37.865Z",
+    "screenshot": "29-planner-stream-06.jpg"
+  },
+  {
+    "engagement_id": "cc795340-23cd-4d29-8971-7456cd84a6f2",
+    "id": "c53edcceb18946ca9bcdeb4581d78f0d",
+    "output": "{\n  \"assignments\": [\n    {\n      \"role\": \"recon_agent\",\n      \"task\": \"http_probe 127.0.0.1\"\n    },\n    {\n      \"role\": \"webapp_agent\",\n      \"task\": \"xss_test 127.0.0.1\"\n    },\n    {\n      \"role\": \"network_agent\",\n      \"task\": \"port_scan 127.0.0.1\"\n    },\n    {\n      \"role\": \"reporting_agent\",\n      \"task\": \"compile_report 127",
+    "streaming": true,
+    "time": "2026-11-01T16:13:38.103Z",
+    "screenshot": "29-planner-stream-07.jpg"
+  },
+  {
+    "engagement_id": "cc795340-23cd-4d29-8971-7456cd84a6f2",
+    "id": "c53edcceb18946ca9bcdeb4581d78f0d",
+    "output": "{\n  \"assignments\": [\n    {\n      \"role\": \"recon_agent\",\n      \"task\": \"http_probe 127.0.0.1\"\n    },\n    {\n      \"role\": \"webapp_agent\",\n      \"task\": \"xss_test 127.0.0.1\"\n    },\n    {\n      \"role\": \"network_agent\",\n      \"task\": \"port_scan 127.0.0.1\"\n    },\n    {\n      \"role\": \"reporting_agent\",\n      \"task\": \"compile_report 127.0.0.1\"\n    }\n  ]\n}",
+    "streaming": false,
+    "time": "2026-11-01T16:13:38.364Z",
+    "screenshot": "29-planner-stream-08.jpg"
+  }
+]

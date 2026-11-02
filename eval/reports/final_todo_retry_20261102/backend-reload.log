@@ -1,0 +1,3 @@
+Console backend ready on port 8001.
+Restored the original completed demo; no assessment started.
+Open http://127.0.0.1:5173/. Start Ollama separately for real-model assessments.

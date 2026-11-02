@@ -1,0 +1,40 @@
+{
+  "name": "kayan-trustgate-office",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Live TrustGate security operations console",
+  "scripts": {
+    "dev": "vite",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --port 4173",
+    "check:trustgate": "esbuild scripts/trustgate-check.ts --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-trustgate.mjs --log-level=error && node scripts/.out-trustgate.mjs",
+    "check:trustgate:live": "esbuild scripts/trustgate-live-check.ts --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-trustgate-live.mjs --log-level=error && node scripts/.out-trustgate-live.mjs",
+    "check:session-panel": "esbuild scripts/session-panel-check.tsx --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-session-panel.mjs --log-level=error && node scripts/.out-session-panel.mjs",
+    "check:office": "esbuild scripts/office-geometry-check.tsx --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-office.mjs --log-level=error && node scripts/.out-office.mjs",
+    "check:actor-picking": "esbuild scripts/actor-picking-check.ts --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-actor-picking.mjs --log-level=error && node scripts/.out-actor-picking.mjs",
+    "check:visual-feedback": "esbuild scripts/visual-feedback-check.tsx --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-visual-feedback.mjs --log-level=error && node scripts/.out-visual-feedback.mjs",
+    "check:performance-metrics": "esbuild scripts/performance-metrics-check.ts --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-performance-metrics.mjs --log-level=error && node scripts/.out-performance-metrics.mjs",
+    "check:ta-alignment": "esbuild scripts/ta-alignment-check.tsx --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-ta-alignment.mjs --log-level=error && node scripts/.out-ta-alignment.mjs",
+    "check:audit": "esbuild scripts/audit-check.tsx --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-audit.mjs --log-level=error && node scripts/.out-audit.mjs",
+    "check:redesign": "esbuild scripts/redesign-check.tsx --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-redesign.mjs --log-level=error && node scripts/.out-redesign.mjs",
+    "check:bundle": "node scripts/bundle-check.mjs"
+  },
+  "dependencies": {
+    "@react-three/drei": "^9.121.0",
+    "@react-three/fiber": "^8.18.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "three": "^0.170.0",
+    "zustand": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@types/three": "^0.170.0",
+    "@vitejs/plugin-react": "^4.3.2",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.8"
+  }
+}

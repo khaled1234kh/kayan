@@ -1,0 +1,13 @@
+{
+  "canonical_root": "C:\\Users\\khale\\Downloads\\KAYAN-video\\kayan-company-office\\kayan-3d",
+  "files": {
+    "src/components/ui/EngagementContextFields.tsx": "c452ef7b23e9329f03c17efb78b44ef9297671d30f58208c4ae73a254e057f53",
+    "src/components/ui/OperatorControls.tsx": "2c5a7bf6c011720655b6baede06883e05e2e47bca895cea50b2776af73ae09ef",
+    "src/components/ui/PlanningPanel.tsx": "8b8000b82b94318f94d2062afaa655eb756db6c84a5aae833639d015ddce276b",
+    "src/components/ui/mitigationPresentation.ts": "52c5cdaa7ad4dabc2f278347c6c33169a71b50a548d77a125abe9a597553cc83",
+    "scripts/ta-alignment-check.tsx": "9c57ccd62baa01a8266b6223dea59ba28a84a2bfab9164a988db02030c9fec40",
+    "src/styles.css": "8a1a8edd42b2cb9ed56542d3973eb3c4f852f431dd76bd722bd6f30338bb3bff",
+    "package.json": "d87f76f0a822216bafe33d968fa5963df830f385a28cd97deacd33156d17dc15"
+  },
+  "limit": "Active worktree Git metadata is broken; copies preserve this pass without resetting it. Browser rendering was not inspected."
+}

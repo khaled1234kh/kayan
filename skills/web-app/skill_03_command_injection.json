@@ -1,0 +1,12 @@
+{
+  "name": "Command Injection",
+  "mitre_id": "T1059",
+  "mitre_name": "Command and Scripting Interpreter",
+  "description": "Test for OS command injection",
+  "techniques": [
+    "Shell command injection",
+    "Code injection",
+    "Template injection"
+  ],
+  "detection": "Application monitoring, anomaly detection"
+}

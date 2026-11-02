@@ -1,0 +1,8 @@
+...............                                                          [100%]
+============================== warnings summary ===============================
+tests/test_planner_coordination.py: 11 warnings
+  C:\Users\khale\Downloads\kayan-trustgate\pentagi\agents\reporting_agent.py:91: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "generated_at": datetime.utcnow().isoformat(),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+15 passed, 11 warnings in 1.97s

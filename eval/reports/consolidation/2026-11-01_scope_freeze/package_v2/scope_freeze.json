@@ -1,0 +1,21 @@
+{
+  "checked_at": "2026-11-01T15:05:44.072492+00:00",
+  "scope": "frozen; consolidation, verification and packaging only",
+  "feature_root_revision": "9759d92b2c3df9b6228ca99024125e94509c2421",
+  "console_revision": "300687a97bc379edb32035247060d1355f1fd2dd",
+  "git_repair": "resolved",
+  "stale_action_plan": "archived, root removed",
+  "canonical_handoff": "consolidated",
+  "visual_3d_acceptance": "OPEN",
+  "planning_ui_acceptance": "OPEN",
+  "three_path_recording": "NOT STARTED; both acceptance passes required",
+  "user_authorization": "User delegated visual check and explicitly granted full permission",
+  "browser_access": "Original browser tool still denied twice by saved permission/managed policy; no alternate surface attempted",
+  "new_live_assessment_started": false,
+  "application_source_changed": false,
+  "backup_files_unchanged": 135,
+  "original_grounding_and_performance_hashes": "preserved",
+  "phase_one_option_a_hypotheses_match": true,
+  "review_archive": "C:\\Users\\khale\\Downloads\\KAYAN-frozen-review-2026-11-01_v2.zip",
+  "review_archive_is_final_submission": false
+}

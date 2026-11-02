@@ -1,0 +1,12 @@
+{
+  "name": "Compliance Mapping",
+  "mitre_id": "T1595",
+  "mitre_name": "Active Scanning",
+  "description": "Map findings to compliance frameworks",
+  "techniques": [
+    "OWASP Top 10",
+    "NIST CSF",
+    "PCI DSS"
+  ],
+  "detection": "N/A - reporting only"
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Executive Summary",
+  "mitre_id": "T1595",
+  "mitre_name": "Active Scanning",
+  "description": "High-level summary for non-technical stakeholders",
+  "techniques": [
+    "Risk assessment",
+    "Business impact",
+    "Priority ranking"
+  ],
+  "detection": "N/A - reporting only"
+}

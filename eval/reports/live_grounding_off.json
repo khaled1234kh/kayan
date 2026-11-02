@@ -1,0 +1,125 @@
+{
+  "checked_at": "2026-10-31T21:01:34.773646+00:00",
+  "engagement_id": "e5122eda-87d3-44ce-ae9e-3ec719715855",
+  "execution_engine": "local_llm",
+  "grounding_enabled": false,
+  "models": [
+    "qwen2.5:7b"
+  ],
+  "findings": 1,
+  "finding_types": [
+    "xss"
+  ],
+  "allowed": 23,
+  "denied": 1,
+  "counts_basis": "All audit decisions after assessment and status reply, excluding ROE load; includes one deliberately tainted input denial",
+  "finding_reproduction_rate": 100.0,
+  "accuracy_limit": "Harness fresh-nonce reproduction only, not blinded classification accuracy; XSS browser execution not checked",
+  "mitre_coverage_percent": 20.0,
+  "mitre_coverage_basis": "Existing EngagementOrchestrator._compute_mitre_coverage; live roles declare no MITRE lists, so findings count",
+  "techniques_observed": [
+    "T1046",
+    "T1190",
+    "T1592"
+  ],
+  "techniques_possible": [
+    "T1046",
+    "T1059",
+    "T1190",
+    "T1590",
+    "T1592"
+  ],
+  "llm_calls": 10,
+  "retrieved_context_calls": 0,
+  "websocket_frames": 158,
+  "incremental_output_verified": true,
+  "sessions": {
+    "recon_agent": 20,
+    "webapp_agent": 21,
+    "network_agent": 21,
+    "reporting_agent": 10,
+    "planner_agent": 4
+  },
+  "operator_messages": [
+    {
+      "id": "62a9adba5d6b4d1b840e529c1dc55103",
+      "agent_id": "reporting-a60b44ce",
+      "kind": "instruction",
+      "text": "Summarize only independently reproduced findings; explicitly state evidence limitations.",
+      "operator_id": "Local verification operator",
+      "status": "delivered_at_task_boundary",
+      "audit_entry_id": "f293e4fc-10c1-4fbd-be23-e5e11868b676"
+    },
+    {
+      "id": "bb507f64a52c4a21946e1a015b979967",
+      "agent_id": "recon-de4d799e",
+      "kind": "status",
+      "text": "State only your recorded current status and verified findings. Do not change the task.",
+      "operator_id": "Local verification operator",
+      "status": "answered",
+      "audit_entry_id": "3aed0b70-4660-49a7-ade0-4d9c67c27233"
+    }
+  ],
+  "tainted_input_rejection": {
+    "detail": {
+      "reason": "Tainted arguments detected: [\"body\"]",
+      "audit_entry_id": "34d7f946-3168-48fb-ae48-b837a1f34f06"
+    }
+  },
+  "actual_findings": [
+    {
+      "id": "e5122eda-87d3-44ce-ae9e-3ec719715855:verified:2bfcf736",
+      "type": "xss",
+      "agent": "webapp_agent",
+      "target": "http://127.0.0.1:8888",
+      "mitre": "T1190",
+      "verified": true,
+      "data": {
+        "supported": true,
+        "verification": false,
+        "marker": "KAYAN_f38c1bcfc9520bc2",
+        "payload": "<script>/*KAYAN_f38c1bcfc9520bc2*/</script>",
+        "status_code": 200,
+        "response_excerpt": "<html><body><h1>Search Results for: <script>/*KAYAN_f38c1bcfc9520bc2*/</script></h1><p>No results found.</p></body></html>"
+      },
+      "verification": {
+        "result": {
+          "supported": true,
+          "verification": true,
+          "marker": "KAYAN_07a0b0a928b07626",
+          "payload": "<script>/*KAYAN_07a0b0a928b07626*/</script>",
+          "status_code": 200,
+          "response_excerpt": "<html><body><h1>Search Results for: <script>/*KAYAN_07a0b0a928b07626*/</script></h1><p>No results found.</p></body></html>"
+        },
+        "audit_entry_id": "cfb19932-b89b-47e0-a1ef-e5f2a5cc1689"
+      }
+    }
+  ],
+  "visual_verification": false,
+  "observed_tool_mitre_coverage_percent": 60.0,
+  "mitre_coverage_tracker": {
+    "covered_techniques": {
+      "T1190": "Exploit Public-Facing Application"
+    },
+    "coverage_count": 1,
+    "total_known": 5,
+    "coverage_pct": 20.0
+  },
+  "accuracy": {
+    "metric": "evidence-backed vulnerability-report precision",
+    "supported": 1,
+    "reported": 1,
+    "percentage": 100.0,
+    "classification_accuracy_pct": null,
+    "limitation": "No blinded positive/negative dataset. Informational discoveries excluded. A detector's vulnerable flag alone is not proof.",
+    "results": [
+      {
+        "finding_id": "e5122eda-87d3-44ce-ae9e-3ec719715855:verified:2bfcf736",
+        "type": "xss",
+        "evidence_supported": true,
+        "criterion": "Unescaped script payload reflected in lab HTML; browser execution not asserted"
+      }
+    ]
+  },
+  "metric_replay_note": "Existing coverage/evidence functions executed against saved actual run findings; engagement was not repeated to cherry-pick a result"
+}

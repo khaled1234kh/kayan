@@ -1,0 +1,11 @@
+{
+  "name": "UDP Port Scanning",
+  "mitre_id": "T1046",
+  "mitre_name": "Network Service Discovery",
+  "description": "Discover open UDP ports",
+  "techniques": [
+    "UDP scan",
+    "Protocol-specific probes"
+  ],
+  "detection": "Network monitoring"
+}

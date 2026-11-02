@@ -1,0 +1,14 @@
+{
+  "checked_at": "2026-11-01T19:33:53.560361+00:00",
+  "status": "passed",
+  "risk_count": 3,
+  "option_a_findings": 0,
+  "option_a_recommendations": 3,
+  "option_b_source_engagement": "7da73508-01e6-48e9-9093-be09c5fd734d",
+  "option_b_verified_findings": 2,
+  "option_b_recommendations": 2,
+  "audit_unchanged": true,
+  "audit_sha256": "4899629d9bb56c38df0296e066051ad3e669a3c43b38d60d68fddc550d8a9352",
+  "console_state_unchanged": true,
+  "limits": "Actual local HTTP calls and offline report generation. Option B reuses saved verified findings; no new live assessment, model comparison, mitigation effectiveness, browser click/visual acceptance or actual pricing measurement."
+}

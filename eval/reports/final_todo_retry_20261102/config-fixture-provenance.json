@@ -1,0 +1,7 @@
+{
+  "fixture": "pentagi_upstream/backend/pkg/config/testdata/upstream-docker-compose.yml",
+  "sha256": "b7d4eb6a4ee4b607e41874e2121352bd46068156376b9b4b38fedfbc9c946305",
+  "bytes": 13742,
+  "source": "Two matching pre-consolidation recovery copies of the upstream deployment template",
+  "use": "Configuration test input only; not invoked by Start-Kayan.ps1"
+}

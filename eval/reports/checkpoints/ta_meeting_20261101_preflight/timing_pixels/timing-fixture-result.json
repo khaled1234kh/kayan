@@ -1,0 +1,8 @@
+{
+  "engagement_id": "31a60c71-26bb-459e-bae4-2a99c0644c7b",
+  "execution_engine": "deterministic_baseline",
+  "reported_findings": 9,
+  "allowed": 9,
+  "denied": 0,
+  "limit": "Timing/visual fixture only; baseline reported findings are not verified exploits."
+}

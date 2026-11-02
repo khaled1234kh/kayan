@@ -1,0 +1,12 @@
+{
+  "path": "C:\\Users\\khale\\Downloads\\KAYAN-final-delivery-2026-11-01_v1.zip",
+  "bytes": 96554687,
+  "sha256": "3d86b40d87f901302bcfe179ab3cb08c6a6c57281723b6d5c10e00c9c9508550",
+  "members": 250,
+  "verified": "ZIP CRC and every curated member SHA-256 checked; final video hash and original Option B hash verified",
+  "source_revisions": {
+    "trustgate_accepted_delivery": "267cc487a1fa6a0ddcc28fab2e2a3a0c964a74a5",
+    "kayan_3d_accepted_ui": "e4a1519380b7dcc3447df430b5810cada486927f",
+    "scoped_go": "7b64a4b0922d44550dcccf838dcc432b2742ed0c"
+  }
+}

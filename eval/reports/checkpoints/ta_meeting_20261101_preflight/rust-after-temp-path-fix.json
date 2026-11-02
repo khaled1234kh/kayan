@@ -1,0 +1,13 @@
+{
+  "command": [
+    "cargo",
+    "test",
+    "--offline",
+    "--manifest-path",
+    "trustgate/service/Cargo.toml",
+    "--target-dir",
+    "C:\\Users\\khale\\Documents\\Codex\\2026-10-31\\stop-what-you-re-doing-and\\work\\trustgate-target-20261101"
+  ],
+  "exit_code": 0,
+  "change": "Two existing audit tests use unique platform temporary files; runtime/policy source unchanged."
+}

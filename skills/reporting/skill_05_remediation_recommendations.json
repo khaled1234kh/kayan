@@ -1,0 +1,12 @@
+{
+  "name": "Remediation Recommendations",
+  "mitre_id": "T1190",
+  "mitre_name": "Exploit Public-Facing Application",
+  "description": "Provide actionable remediation guidance",
+  "techniques": [
+    "Patch recommendations",
+    "Configuration hardening",
+    "WAF rules"
+  ],
+  "detection": "N/A - reporting only"
+}

@@ -1,0 +1,266 @@
+[
+  {
+    "file": "live_grounding_off.json",
+    "sha256": "404D7974BAFD65C532E47A268C11A80C2CA067DEF7D665E3C7346316422A28C9",
+    "engagement_id": "e5122eda-87d3-44ce-ae9e-3ec719715855",
+    "findings": 1,
+    "finding_count": null,
+    "allowed": 23,
+    "denied": 1,
+    "coverage": 20.0,
+    "accuracy": {
+      "metric": "evidence-backed vulnerability-report precision",
+      "supported": 1,
+      "reported": 1,
+      "percentage": 100.0,
+      "classification_accuracy_pct": null,
+      "limitation": "No blinded positive/negative dataset. Informational discoveries excluded. A detector's vulnerable flag alone is not proof.",
+      "results": [
+        {
+          "finding_id": "e5122eda-87d3-44ce-ae9e-3ec719715855:verified:2bfcf736",
+          "type": "xss",
+          "evidence_supported": true,
+          "criterion": "Unescaped script payload reflected in lab HTML; browser execution not asserted"
+        }
+      ]
+    },
+    "reproduction": 100.0,
+    "legacy": null,
+    "go_only_allowed": null
+  },
+  {
+    "file": "live_grounding_on.json",
+    "sha256": "A60D3FC9118143323D7C59075044A41D0BA66073069B1B2A14F8935841AF8253",
+    "engagement_id": "58e65511-41de-4a3b-9904-cc384a6caeab",
+    "findings": 0,
+    "finding_count": null,
+    "allowed": 23,
+    "denied": 2,
+    "coverage": 0.0,
+    "accuracy": {
+      "metric": "evidence-backed vulnerability-report precision",
+      "supported": 0,
+      "reported": 0,
+      "percentage": null,
+      "classification_accuracy_pct": null,
+      "limitation": "No blinded positive/negative dataset. Informational discoveries excluded. A detector's vulnerable flag alone is not proof.",
+      "results": []
+    },
+    "reproduction": null,
+    "legacy": null,
+    "go_only_allowed": null
+  },
+  {
+    "file": "live_grounding_off_v2_bounded_retry.json",
+    "sha256": "E7CE14B33E2680AA86FCC90BAA795F85A7D3E09953C539CC40C797762962658A",
+    "engagement_id": "d71c66c6-2c0c-4678-be2b-f038e3cb74a8",
+    "findings": 2,
+    "finding_count": null,
+    "allowed": 29,
+    "denied": 1,
+    "coverage": 40.0,
+    "accuracy": {
+      "metric": "evidence-backed vulnerability-report precision",
+      "supported": 1,
+      "reported": 2,
+      "percentage": 50.0,
+      "classification_accuracy_pct": null,
+      "limitation": "No blinded positive/negative dataset. Informational discoveries excluded. A detector's vulnerable flag alone is not proof.",
+      "results": [
+        {
+          "finding_id": "d71c66c6-2c0c-4678-be2b-f038e3cb74a8:verified:91bca104",
+          "type": "xss",
+          "evidence_supported": true,
+          "criterion": "Unescaped script payload reflected in lab HTML; browser execution not asserted"
+        },
+        {
+          "finding_id": "d71c66c6-2c0c-4678-be2b-f038e3cb74a8:verified:c9ab07f7",
+          "type": "command_injection",
+          "evidence_supported": false,
+          "criterion": "Standalone whoami identity output; an echoed payload/error is insufficient"
+        }
+      ]
+    },
+    "reproduction": 100.0,
+    "legacy": null,
+    "go_only_allowed": null
+  },
+  {
+    "file": "live_grounding_on_v2_bounded_retry.json",
+    "sha256": "CB341E53D07D7250B277C07CAC48C918CD42B26E52E1ECE50CC11C065049611F",
+    "engagement_id": "1c7e41da-8830-408f-877c-0ad3b9ebfcff",
+    "findings": 2,
+    "finding_count": null,
+    "allowed": 29,
+    "denied": 1,
+    "coverage": 40.0,
+    "accuracy": {
+      "metric": "evidence-backed vulnerability-report precision",
+      "supported": 1,
+      "reported": 2,
+      "percentage": 50.0,
+      "classification_accuracy_pct": null,
+      "limitation": "No blinded positive/negative dataset. Informational discoveries excluded. A detector's vulnerable flag alone is not proof.",
+      "results": [
+        {
+          "finding_id": "1c7e41da-8830-408f-877c-0ad3b9ebfcff:verified:bc7b467a",
+          "type": "xss",
+          "evidence_supported": true,
+          "criterion": "Unescaped script payload reflected in lab HTML; browser execution not asserted"
+        },
+        {
+          "finding_id": "1c7e41da-8830-408f-877c-0ad3b9ebfcff:verified:65fe99ea",
+          "type": "command_injection",
+          "evidence_supported": false,
+          "criterion": "Standalone whoami identity output; an echoed payload/error is insufficient"
+        }
+      ]
+    },
+    "reproduction": 100.0,
+    "legacy": null,
+    "go_only_allowed": null
+  },
+  {
+    "file": "pentagi_go_governed_local_v3_worker_scope_verified.json",
+    "sha256": "6B2BD4CB8513B4712C42C40662EBC64D7E160FED6632D0C26B0D84A54DF63842",
+    "engagement_id": "9b85c45c-8b0e-4c72-b536-979f60626be8",
+    "findings": [
+      {
+        "type": "xss",
+        "flow_id": 3,
+        "toolcall_id": 8,
+        "marker": "KAYAN_33bfdd2d4056e712",
+        "observed_response": "<html><body><h1>Search Results for: <script>/*KAYAN_33bfdd2d4056e712*/</script></h1><p>No results found.</p></body></html>\n[exit code: 0]",
+        "verification_gate": {
+          "decision": "ALLOW",
+          "reason": "Cedar permit matched authenticated ROE capability, target and time window",
+          "audit_entry_id": "630c6d01-6e6b-487c-86ed-39859ae3849a"
+        },
+        "verification": {
+          "supported": true,
+          "verification": true,
+          "marker": "KAYAN_5163fe10337a9acd",
+          "payload": "<script>/*KAYAN_5163fe10337a9acd*/</script>",
+          "status_code": 200,
+          "response_excerpt": "<html><body><h1>Search Results for: <script>/*KAYAN_5163fe10337a9acd*/</script></h1><p>No results found.</p></body></html>"
+        },
+        "mitre_technique": "T1190",
+        "verified": true
+      },
+      {
+        "type": "command_injection",
+        "flow_id": 3,
+        "toolcall_id": 9,
+        "marker": "KAYAN_e0e35e05c5603146",
+        "observed_response": "<pre>\r\nPinging 127.0.0.1 with 32 bytes of data:\r\nReply from 127.0.0.1: bytes=32 time<1ms TTL=128\r\n\r\nPing statistics for 127.0.0.1:\r\n    Packets: Sent = 1, Received = 1, Lost = 0 (0% loss),\r\nApproximate round trip times in milli-seconds:\r\n    Minimum = 0ms, Maximum = 0ms, Average = 0ms\r\nKAYAN_e0e35e05c5603146\r\n\r\n</pre>\n[exit code: 0]",
+        "verification_gate": {
+          "decision": "ALLOW",
+          "reason": "Cedar permit matched authenticated ROE capability, target and time window",
+          "audit_entry_id": "a3311961-59b6-4031-99f0-acd001ac2cda"
+        },
+        "verification": {
+          "supported": true,
+          "verification": true,
+          "marker": "KAYAN_99fa29eef47f454a",
+          "payload": "127.0.0.1 & echo KAYAN_99fa29eef47f454a",
+          "status_code": 200,
+          "response_excerpt": "<pre>\nPinging 127.0.0.1 with 32 bytes of data:\nReply from 127.0.0.1: bytes=32 time<1ms TTL=128\n\nPing statistics for 127.0.0.1:\n    Packets: Sent = 1, Received = 1, Lost = 0 (0% loss),\nApproximate round trip times in milli-seconds:\n    Minimum = 0ms, Maximum = 0ms, Average = 0ms\nKAYAN_99fa29eef47f454a\n\n</pre>"
+        },
+        "mitre_technique": "T1059",
+        "verified": true
+      },
+      {
+        "type": "path_traversal",
+        "flow_id": 3,
+        "toolcall_id": 10,
+        "marker": "KAYAN_ecc9d1349b469b9c",
+        "observed_response": "<pre>KAYAN_ecc9d1349b469b9c</pre>\n[exit code: 0]",
+        "verification_gate": {
+          "decision": "ALLOW",
+          "reason": "Cedar permit matched authenticated ROE capability, target and time window",
+          "audit_entry_id": "b0babd33-e984-47c7-9968-8de4460aee3d"
+        },
+        "verification": {
+          "supported": true,
+          "verification": true,
+          "marker": "KAYAN_d5fe8ce03513d2e9",
+          "payload": "../kayan-trustgate/lab/fixtures/verification_marker.txt",
+          "status_code": 200,
+          "response_excerpt": "<pre>KAYAN_d5fe8ce03513d2e9</pre>"
+        },
+        "mitre_technique": "T1190",
+        "verified": true
+      }
+    ],
+    "finding_count": 3,
+    "allowed": 19,
+    "denied": 15,
+    "coverage": 40.0,
+    "accuracy": null,
+    "reproduction": null,
+    "legacy": {
+      "metric": "evidence-backed vulnerability-report precision",
+      "supported": 1,
+      "reported": 3,
+      "percentage": 33.33,
+      "classification_accuracy_pct": null,
+      "limitation": "No blinded positive/negative dataset. Informational discoveries excluded. A detector's vulnerable flag alone is not proof.",
+      "results": [
+        {
+          "finding_id": "3:8",
+          "type": "xss",
+          "evidence_supported": true,
+          "criterion": "Unescaped script payload reflected in lab HTML; browser execution not asserted"
+        },
+        {
+          "finding_id": "3:9",
+          "type": "command_injection",
+          "evidence_supported": false,
+          "criterion": "Standalone whoami identity output; an echoed payload/error is insufficient"
+        },
+        {
+          "finding_id": "3:10",
+          "type": "path_traversal",
+          "evidence_supported": false,
+          "criterion": "Actual passwd account record; an error containing the filename is insufficient"
+        }
+      ]
+    },
+    "go_only_allowed": 16
+  },
+  {
+    "file": "live_grounding_on_functionality_rehearsal_recorded_20261101_v2.json",
+    "sha256": "DEE6CCB012F3F2EF4CD671BFFDA2ECCB55BF49389A18A4D2AB736CC3E2D29B10",
+    "engagement_id": "7da73508-01e6-48e9-9093-be09c5fd734d",
+    "findings": 2,
+    "finding_count": null,
+    "allowed": 29,
+    "denied": 1,
+    "coverage": 40.0,
+    "accuracy": {
+      "metric": "evidence-backed vulnerability-report precision",
+      "supported": 1,
+      "reported": 2,
+      "percentage": 50.0,
+      "classification_accuracy_pct": null,
+      "limitation": "No blinded positive/negative dataset. Informational discoveries excluded. A detector's vulnerable flag alone is not proof.",
+      "results": [
+        {
+          "finding_id": "7da73508-01e6-48e9-9093-be09c5fd734d:verified:afd04a1b",
+          "type": "xss",
+          "evidence_supported": true,
+          "criterion": "Unescaped script payload reflected in lab HTML; browser execution not asserted"
+        },
+        {
+          "finding_id": "7da73508-01e6-48e9-9093-be09c5fd734d:verified:b5f8aff1",
+          "type": "command_injection",
+          "evidence_supported": false,
+          "criterion": "Standalone whoami identity output; an echoed payload/error is insufficient"
+        }
+      ]
+    },
+    "reproduction": 100.0,
+    "legacy": null,
+    "go_only_allowed": null
+  }
+]

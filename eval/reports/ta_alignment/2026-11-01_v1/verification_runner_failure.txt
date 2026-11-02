@@ -1,0 +1,3 @@
+Verification wrapper failed printing a successful build's Unicode checkmark to a cp1252 console:
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2713' in position 164: character maps to <undefined>
+frontend_build subprocess exit code was 0 and its full output had already been saved. Remaining checks were run separately; no runtime defect inferred.

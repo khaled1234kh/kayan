@@ -1,0 +1,25 @@
+{
+  "artifacts": [
+    {
+      "file": "three-path.mp4",
+      "status": 206,
+      "content_range": "bytes 0-1023/1497340",
+      "mime": "video/mp4"
+    },
+    {
+      "file": "proposal.pdf",
+      "status": 200,
+      "hash_matches": true,
+      "mime": "application/pdf"
+    },
+    {
+      "file": "rehearsal-7da73508.mp4",
+      "status": 206,
+      "content_range": "bytes 0-1023/77261135",
+      "mime": "video/mp4"
+    }
+  ],
+  "saved_engagement": "7da73508-01e6-48e9-9093-be09c5fd734d",
+  "entries": 101,
+  "new_assessment_started": false
+}

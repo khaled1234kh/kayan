@@ -1,0 +1,12 @@
+{
+  "name": "Firewall Evasion",
+  "mitre_id": "T1595",
+  "mitre_name": "Active Scanning",
+  "description": "Techniques to evade firewall detection",
+  "techniques": [
+    "Fragmented packets",
+    "Decoy scanning",
+    "Timing manipulation"
+  ],
+  "detection": "IDS/IPS, traffic analysis"
+}

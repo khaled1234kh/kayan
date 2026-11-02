@@ -1,0 +1,31 @@
+............F                                                            [100%]
+================================== FAILURES ===================================
+__ test_planner_session_exposes_coordinated_findings_without_changing_owner ___
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001B5B8EB3E00>
+
+    def test_planner_session_exposes_coordinated_findings_without_changing_owner(monkeypatch):
+        from console.backend import main
+        from fastapi.testclient import TestClient
+        finding={'id':'f1','agent':'webapp_agent','type':'xss','mitre':'T1190'}
+        monkeypatch.setattr(main,'_engagement_state',{'engagement_id':'unit','agents':[
+            {'agent_id':'p','role':'planner_agent'}, {'agent_id':'w','role':'webapp_agent'}],
+            'findings':[finding],'transcript':[]})
+        with TestClient(main.app) as client:
+            data=client.get('/agents/p/session?engagement_id=unit').json()
+>           assert data['findings']==[finding] and data['findings_scope']=='coordinated_assessment'
+E           AssertionError: assert ([] == [{'id': 'f1',...re': 'T1190'}]
+E             
+E             Right contains one more item: {'id': 'f1', 'agent': 'webapp_agent', 'type': 'xss', 'mitre': 'T1190'}
+E             Use -v to get more diff)
+
+tests\test_planner_coordination.py:179: AssertionError
+============================== warnings summary ===============================
+tests/test_planner_coordination.py: 11 warnings
+  C:\Users\khale\Downloads\kayan-trustgate\pentagi\agents\reporting_agent.py:91: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "generated_at": datetime.utcnow().isoformat(),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_planner_coordination.py::test_planner_session_exposes_coordinated_findings_without_changing_owner
+1 failed, 12 passed, 11 warnings in 2.34s

@@ -1,0 +1,11 @@
+{
+  "name": "OS Fingerprinting",
+  "mitre_id": "T1592",
+  "mitre_name": "Gather Victim Host Information",
+  "description": "Identify operating system and version",
+  "techniques": [
+    "TCP/IP stack fingerprinting",
+    "ICMP response analysis"
+  ],
+  "detection": "Network monitoring"
+}

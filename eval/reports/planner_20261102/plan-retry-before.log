@@ -1,0 +1,65 @@
+.........F.                                                              [100%]
+================================== FAILURES ===================================
+____ test_one_invalid_plan_can_be_corrected_without_fabricated_assignments ____
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001A253E8D460>
+
+    def test_one_invalid_plan_can_be_corrected_without_fabricated_assignments(monkeypatch):
+        e,calls,contexts,closed=harness(monkeypatch)
+        base=e._model_call;attempts=[]
+        def model(a,p,c,shape):
+            if shape is live.Plan:
+                attempts.append(p)
+                if len(attempts)==1:
+                    return live.Plan(assignments=[live.Assignment(role=r,task='Inspect owned lab') for r in reversed(ROLES)])
+            return base(a,p,c,shape)
+        e._model_call=model
+>       e.run()
+
+tests\test_planner_coordination.py:140: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <pentagi.live_engagement.LiveEngagement object at 0x000001A253F92AE0>
+target = 'http://127.0.0.1:8888'
+
+    def run(self, target="http://127.0.0.1:8888"):
+        if self.planner is None:
+            raise RuntimeError("Signed ROE must be loaded before the engine starts")
+        self.tools = LabTools(target)
+        self.target = target
+        self.status = "active"
+        active_agent = self.planner
+        try:
+            self._record_activity(self.planner, "agent_started", "plan", "Planning the authorized assessment", {})
+            context = self._context(self.planner, "Decompose ROE into safe specialist assignments", {
+                "available_tools_by_role": ROLE_TOOLS,
+                "operator_instructions": self._instructions(self.planner),
+                "instruction": "Assign exactly once each: recon_agent, webapp_agent, network_agent, reporting_agent. Use this order: Recon, Web-App, Network, Reporting. Use only the listed tools and short concrete lab tasks. No file/source analysis or traffic monitoring tools exist."})
+            plan = self._model_call(self.planner, "Plan specialist assignments", context, Plan)
+            guidance = self._instructions(self.planner)
+            if guidance:
+                context["task_context"].update(operator_instructions=guidance, previous_plan=plan.model_dump())
+                plan = self._model_call(self.planner, "Revise plan at a governed task boundary", context, Plan)
+            roles = [assignment.role for assignment in plan.assignments]
+            if roles != ["recon_agent", "webapp_agent", "network_agent", "reporting_agent"]:
+>               raise RuntimeError("Model plan failed roster/dependency validation; no specialist actions dispatched")
+E               RuntimeError: Model plan failed roster/dependency validation; no specialist actions dispatched
+
+pentagi\live_engagement.py:253: RuntimeError
+============================== warnings summary ===============================
+tests/test_planner_coordination.py::test_planner_remains_working_until_reporting_finishes
+tests/test_planner_coordination.py::test_specialist_failure_continues_to_reporting_with_explicit_partial_coverage
+tests/test_planner_coordination.py::test_reporting_failure_marks_coordinator_failed_not_completed
+tests/test_planner_coordination.py::test_partial_report_markdown_keeps_coverage_warning
+tests/test_planner_coordination.py::test_planner_panel_state_has_coordination_task_and_tier
+tests/test_planner_coordination.py::test_saved_option_b_preserves_partial_assessment_notice
+tests/test_planner_coordination.py::test_saved_option_b_preserves_partial_assessment_notice
+tests/test_planner_coordination.py::test_saved_option_b_preserves_partial_assessment_notice
+tests/test_planner_coordination.py::test_report_gate_denial_never_saves_and_blocks_coordinator
+  C:\Users\khale\Downloads\kayan-trustgate\pentagi\agents\reporting_agent.py:91: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "generated_at": datetime.utcnow().isoformat(),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_planner_coordination.py::test_one_invalid_plan_can_be_corrected_without_fabricated_assignments
+1 failed, 10 passed, 9 warnings in 2.20s

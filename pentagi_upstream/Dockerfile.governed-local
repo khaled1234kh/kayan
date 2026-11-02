@@ -1,0 +1,7 @@
+# Reuse the already built local dependency/toolchain image. No cloud credentials.
+FROM pentagi-minimal:latest
+WORKDIR /app/backend
+COPY backend/ .
+RUN CGO_ENABLED=0 go build -trimpath -o /pentagi ./cmd/pentagi
+EXPOSE 8080
+CMD ["/pentagi"]

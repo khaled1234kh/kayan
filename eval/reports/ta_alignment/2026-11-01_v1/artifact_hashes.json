@@ -1,0 +1,124 @@
+{
+  "files": {
+    "eval/reports/ta_alignment/2026-11-01_v1/3d_source_hashes.json": {
+      "sha256": "4093ba0b0cfa0e153118d3d2aa6c6e58b1ff294bb677f6adcc2497aaa38cda14",
+      "bytes": 1003
+    },
+    "eval/reports/ta_alignment/2026-11-01_v1/frontend_build.log": {
+      "sha256": "eebf22326f8581d38ad7f2857d87110b7f5a392b9c2f2fab2099174f7888a96b",
+      "bytes": 750
+    },
+    "eval/reports/ta_alignment/2026-11-01_v1/frontend_build_final.log": {
+      "sha256": "f16655c77fa5a308037ce2e9c79fc2f628bf2688fb60d03b6e769dac1a77d0d2",
+      "bytes": 750
+    },
+    "eval/reports/ta_alignment/2026-11-01_v1/initial_build_failure.txt": {
+      "sha256": "1cba2679387b0803a86d31f598b233c4da6cb8faeadde9bee9bcdc29d5cfe507",
+      "bytes": 354
+    },
+    "eval/reports/ta_alignment/2026-11-01_v1/presentation.log": {
+      "sha256": "da2252a880c216ead441a8bfbe6d8056ff508a42788b76555a14578695e27715",
+      "bytes": 445
+    },
+    "eval/reports/ta_alignment/2026-11-01_v1/presentation_final.log": {
+      "sha256": "da2252a880c216ead441a8bfbe6d8056ff508a42788b76555a14578695e27715",
+      "bytes": 445
+    },
+    "eval/reports/ta_alignment/2026-11-01_v1/protected_core_hashes.json": {
+      "sha256": "ae795acc649f64aee550d209e0caa69ad8fbc7049a361b9f2721ece9b0e7682f",
+      "bytes": 1403
+    },
+    "eval/reports/ta_alignment/2026-11-01_v1/python.log": {
+      "sha256": "7de5c4459b385da6bf3408eb0e5cfa02dbc49b2c5f898f4f476b9ca2f75ddbcb",
+      "bytes": 3051
+    },
+    "eval/reports/ta_alignment/2026-11-01_v1/python_final.log": {
+      "sha256": "00e85a5d01e7fd556eb8a2e31d507d08f523c28c2b72621421bbadc5e07db057",
+      "bytes": 3051
+    },
+    "eval/reports/ta_alignment/2026-11-01_v1/results.json": {
+      "sha256": "e6a954920d4dd0ff4659c62886137ca75808235ed5aa6a5951a72d3335d81acf",
+      "bytes": 772
+    },
+    "eval/reports/ta_alignment/2026-11-01_v1/risk_plan_cli.log": {
+      "sha256": "7ec27360bbb66d47c70b0401593597087395c678a5a488292dfa1601f0960b84",
+      "bytes": 203
+    },
+    "eval/reports/ta_alignment/2026-11-01_v1/runtime_readiness.json": {
+      "sha256": "63e64051332406757ae0ca78512782132a1c41d0b868df3eafb737a7f0e078d8",
+      "bytes": 306
+    },
+    "eval/reports/ta_alignment/2026-11-01_v1/sessions.log": {
+      "sha256": "91e2c2d8d26c7085c85b610f68db2302064e383c0d6811c540f609d107c205c4",
+      "bytes": 531
+    },
+    "eval/reports/ta_alignment/2026-11-01_v1/transport.log": {
+      "sha256": "221b876f56743f52cc4e5325732035dac70b2df42ef3f4cd0234ce10858024f0",
+      "bytes": 1021
+    },
+    "eval/reports/ta_alignment/2026-11-01_v1/verification_runner_failure.txt": {
+      "sha256": "6c506dc0008a4b4113dd33c4ca25bd5f48df3557701275d4b68da83e97c259d7",
+      "bytes": 364
+    },
+    "eval/reports/ta_alignment/api_2026-11-01_v1/context.json": {
+      "sha256": "ec9066de13704ee3e97faf6c29eb97cf28a4f5bb63de1872c50ee79dcf4c476c",
+      "bytes": 418
+    },
+    "eval/reports/ta_alignment/api_2026-11-01_v1/option_a.json": {
+      "sha256": "f5a3cbc810eea4f7627fcf1f1a02dbaa3d5e7b3ec740655128a4d47085424d5b",
+      "bytes": 14429
+    },
+    "eval/reports/ta_alignment/api_2026-11-01_v1/option_a.md": {
+      "sha256": "fc5780a1396d3a020a33463725cfee3f6d3da34e5b93efeccef8899bf182eae5",
+      "bytes": 2463
+    },
+    "eval/reports/ta_alignment/api_2026-11-01_v1/option_b_saved_run_view.json": {
+      "sha256": "f91171cd89df5b143dcf80ad436a9d8e86c2d6894057d76b5f00af29b8490215",
+      "bytes": 11862
+    },
+    "eval/reports/ta_alignment/api_2026-11-01_v1/option_b_saved_run_view.md": {
+      "sha256": "5ba7ca984886e20a0ee9cc96c655d9d83bf35b23ca41f8d0c73121f8c09be44e",
+      "bytes": 2739
+    },
+    "eval/reports/ta_alignment/api_2026-11-01_v1/results.json": {
+      "sha256": "b00af6b966cff4d6171097d46d0d500ff33448b7ac7890b50b11f346a8415f50",
+      "bytes": 684
+    },
+    "eval/reports/ta_alignment/api_2026-11-01_v1/risk_plan.json": {
+      "sha256": "26c28a187780aabc15349846af8ccd9b68d0e6e0154b0cab91ab6a6ed068811b",
+      "bytes": 5217
+    },
+    "eval/reports/ta_alignment/api_2026-11-01_v1/risk_plan_cli.json": {
+      "sha256": "6eb3efe9c585516f0b0a78ad1be6454aeab9220bf833846d0a56aa35b20f319f",
+      "bytes": 5285
+    },
+    "eval/reports/ta_alignment/2026-11-01_v1/source/kayan-3d/package.json": {
+      "sha256": "d87f76f0a822216bafe33d968fa5963df830f385a28cd97deacd33156d17dc15",
+      "bytes": 3685
+    },
+    "eval/reports/ta_alignment/2026-11-01_v1/source/kayan-3d/scripts/ta-alignment-check.tsx": {
+      "sha256": "9c57ccd62baa01a8266b6223dea59ba28a84a2bfab9164a988db02030c9fec40",
+      "bytes": 2246
+    },
+    "eval/reports/ta_alignment/2026-11-01_v1/source/kayan-3d/src/styles.css": {
+      "sha256": "8a1a8edd42b2cb9ed56542d3973eb3c4f852f431dd76bd722bd6f30338bb3bff",
+      "bytes": 42687
+    },
+    "eval/reports/ta_alignment/2026-11-01_v1/source/kayan-3d/src/components/ui/EngagementContextFields.tsx": {
+      "sha256": "c452ef7b23e9329f03c17efb78b44ef9297671d30f58208c4ae73a254e057f53",
+      "bytes": 1034
+    },
+    "eval/reports/ta_alignment/2026-11-01_v1/source/kayan-3d/src/components/ui/mitigationPresentation.ts": {
+      "sha256": "52c5cdaa7ad4dabc2f278347c6c33169a71b50a548d77a125abe9a597553cc83",
+      "bytes": 1538
+    },
+    "eval/reports/ta_alignment/2026-11-01_v1/source/kayan-3d/src/components/ui/OperatorControls.tsx": {
+      "sha256": "2c5a7bf6c011720655b6baede06883e05e2e47bca895cea50b2776af73ae09ef",
+      "bytes": 4832
+    },
+    "eval/reports/ta_alignment/2026-11-01_v1/source/kayan-3d/src/components/ui/PlanningPanel.tsx": {
+      "sha256": "8b8000b82b94318f94d2062afaa655eb756db6c84a5aae833639d015ddce276b",
+      "bytes": 7245
+    }
+  }
+}

@@ -1,0 +1,4 @@
+npm notice run kayan-trustgate-office@0.1.0 check:session-panel
+npm notice run esbuild scripts/session-panel-check.tsx --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-session-panel.mjs --log-level=error && node scripts/.out-session-panel.mjs
+PASS selected-agent TrustGate decision isolation, missing-decision empty state and stale-engagement rejection
+PASS session panel: role/tier, actual task, collapsed raw detail, allow/deny classes, escaped output, MITRE findings, explicit idle, five distinct workstations

@@ -1,0 +1,20 @@
+{
+  "pages": 8,
+  "all_five_confirmed_students_and_ids": true,
+  "eslam_excluded": true,
+  "six_sections_and_deliverables_crosswalk": true,
+  "preserved_negative_result": true,
+  "rendered_pages_visually_inspected": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "pdf_sha256": "e8c6b0e711f2ceadbdadc501a525e66772164c5a35cc0a87a04628af49b49a59",
+  "source_sha256": "ddd7ee1f017be418b542e7a951b0e9a11e150e9ea1893a643f940b7eb8585e35",
+  "project_consolidation": "Paused at user instruction; PDF is current priority."
+}

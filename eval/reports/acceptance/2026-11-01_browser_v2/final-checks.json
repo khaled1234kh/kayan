@@ -1,0 +1,22 @@
+[
+  {
+    "command": "npm run check:office",
+    "exit_code": 0
+  },
+  {
+    "command": "npm run check:session-panel",
+    "exit_code": 0
+  },
+  {
+    "command": "npm run check:visual-feedback",
+    "exit_code": 0
+  },
+  {
+    "command": "npm run check:ta-alignment",
+    "exit_code": 0
+  },
+  {
+    "command": "npm run build",
+    "exit_code": 0
+  }
+]

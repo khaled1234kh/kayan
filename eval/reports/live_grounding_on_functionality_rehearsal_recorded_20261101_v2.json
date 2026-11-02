@@ -1,0 +1,163 @@
+{
+  "checked_at": "2026-11-01T13:58:37.341698+00:00",
+  "engagement_id": "7da73508-01e6-48e9-9093-be09c5fd734d",
+  "execution_engine": "local_llm",
+  "grounding_enabled": true,
+  "models": [
+    "qwen2.5:7b"
+  ],
+  "findings": 2,
+  "finding_types": [
+    "xss",
+    "command_injection"
+  ],
+  "allowed": 29,
+  "denied": 1,
+  "counts_basis": "All audit decisions after assessment and status reply, excluding ROE load; includes one deliberately tainted input denial",
+  "finding_reproduction_rate": 100.0,
+  "accuracy_limit": "Harness fresh-nonce reproduction only, not blinded classification accuracy; XSS browser execution not checked",
+  "mitre_coverage_percent": 40.0,
+  "mitre_coverage_tracker": {
+    "covered_techniques": {
+      "T1190": "Exploit Public-Facing Application",
+      "T1059": "Command and Scripting Interpreter"
+    },
+    "coverage_count": 2,
+    "total_known": 5,
+    "coverage_pct": 40.0
+  },
+  "accuracy": {
+    "metric": "evidence-backed vulnerability-report precision",
+    "supported": 1,
+    "reported": 2,
+    "percentage": 50.0,
+    "classification_accuracy_pct": null,
+    "limitation": "No blinded positive/negative dataset. Informational discoveries excluded. A detector's vulnerable flag alone is not proof.",
+    "results": [
+      {
+        "finding_id": "7da73508-01e6-48e9-9093-be09c5fd734d:verified:afd04a1b",
+        "type": "xss",
+        "evidence_supported": true,
+        "criterion": "Unescaped script payload reflected in lab HTML; browser execution not asserted"
+      },
+      {
+        "finding_id": "7da73508-01e6-48e9-9093-be09c5fd734d:verified:b5f8aff1",
+        "type": "command_injection",
+        "evidence_supported": false,
+        "criterion": "Standalone whoami identity output; an echoed payload/error is insufficient"
+      }
+    ]
+  },
+  "mitre_coverage_basis": "Existing EngagementOrchestrator._compute_mitre_coverage; live roles declare no MITRE lists, so findings count",
+  "observed_tool_mitre_coverage_percent": 100.0,
+  "techniques_observed": [
+    "T1046",
+    "T1059",
+    "T1190",
+    "T1590",
+    "T1592"
+  ],
+  "techniques_possible": [
+    "T1046",
+    "T1059",
+    "T1190",
+    "T1590",
+    "T1592"
+  ],
+  "llm_calls": 11,
+  "retrieved_context_calls": 10,
+  "websocket_frames": 189,
+  "incremental_output_verified": true,
+  "sessions": {
+    "recon_agent": 31,
+    "webapp_agent": 38,
+    "network_agent": 18,
+    "reporting_agent": 10,
+    "planner_agent": 4
+  },
+  "operator_messages": [
+    {
+      "id": "a2442e42d1234736897e61af287326e2",
+      "agent_id": "reporting-64ef7ac0",
+      "kind": "instruction",
+      "text": "Summarize only independently reproduced findings; explicitly state evidence limitations.",
+      "operator_id": "Local verification operator",
+      "status": "delivered_at_task_boundary",
+      "audit_entry_id": "fde1d4e2-9038-455c-a0fc-2bd3e3386d1e"
+    },
+    {
+      "id": "f640b90fd43648e6b05bc98509c568eb",
+      "agent_id": "recon-70fe1639",
+      "kind": "status",
+      "text": "State only your recorded current status and verified findings. Do not change the task.",
+      "operator_id": "Local verification operator",
+      "status": "answered",
+      "audit_entry_id": "0a70f197-c2b2-45be-94c0-17eaad756943"
+    }
+  ],
+  "tainted_input_rejection": {
+    "detail": {
+      "reason": "Tainted arguments detected: [\"body\"]",
+      "audit_entry_id": "1d6750f2-38ba-4dd2-bd89-1e6688674c71"
+    }
+  },
+  "actual_findings": [
+    {
+      "id": "7da73508-01e6-48e9-9093-be09c5fd734d:verified:afd04a1b",
+      "type": "xss",
+      "agent": "webapp_agent",
+      "target": "http://127.0.0.1:8888",
+      "mitre": "T1190",
+      "verified": true,
+      "data": {
+        "supported": true,
+        "verification": false,
+        "marker": "KAYAN_e1206bfc6db05785",
+        "payload": "<script>/*KAYAN_e1206bfc6db05785*/</script>",
+        "status_code": 200,
+        "response_excerpt": "<html><body><h1>Search Results for: <script>/*KAYAN_e1206bfc6db05785*/</script></h1><p>No results found.</p></body></html>"
+      },
+      "verification": {
+        "result": {
+          "supported": true,
+          "verification": true,
+          "marker": "KAYAN_62a986e3e4354143",
+          "payload": "<script>/*KAYAN_62a986e3e4354143*/</script>",
+          "status_code": 200,
+          "response_excerpt": "<html><body><h1>Search Results for: <script>/*KAYAN_62a986e3e4354143*/</script></h1><p>No results found.</p></body></html>"
+        },
+        "audit_entry_id": "35b54097-479f-4534-89de-5a89bdbd767c"
+      }
+    },
+    {
+      "id": "7da73508-01e6-48e9-9093-be09c5fd734d:verified:b5f8aff1",
+      "type": "command_injection",
+      "agent": "webapp_agent",
+      "target": "http://127.0.0.1:8888",
+      "mitre": "T1059",
+      "verified": true,
+      "data": {
+        "supported": true,
+        "verification": false,
+        "marker": "KAYAN_e91a5048d68ccd9d",
+        "payload": "127.0.0.1 & echo KAYAN_e91a5048d68ccd9d",
+        "status_code": 200,
+        "response_excerpt": "<pre>\nPinging 127.0.0.1 with 32 bytes of data:\nReply from 127.0.0.1: bytes=32 time<1ms TTL=128\n\nPing statistics for 127.0.0.1:\n    Packets: Sent = 1, Received = 1, Lost = 0 (0% loss),\nApproximate round trip times in milli-seconds:\n    Minimum = 0ms, Maximum = 0ms, Average = 0ms\nKAYAN_e91a5048d68ccd9d\n\n</pre>"
+      },
+      "verification": {
+        "result": {
+          "supported": true,
+          "verification": true,
+          "marker": "KAYAN_c7f86b8c04a38b90",
+          "payload": "127.0.0.1 & echo KAYAN_c7f86b8c04a38b90",
+          "status_code": 200,
+          "response_excerpt": "<pre>\nPinging 127.0.0.1 with 32 bytes of data:\nReply from 127.0.0.1: bytes=32 time<1ms TTL=128\n\nPing statistics for 127.0.0.1:\n    Packets: Sent = 1, Received = 1, Lost = 0 (0% loss),\nApproximate round trip times in milli-seconds:\n    Minimum = 0ms, Maximum = 0ms, Average = 0ms\nKAYAN_c7f86b8c04a38b90\n\n</pre>"
+        },
+        "audit_entry_id": "9acf136b-79f9-4f2b-954a-bf0df8849b85"
+      }
+    }
+  ],
+  "visual_verification": false,
+  "evaluation_label": "functionality_rehearsal_recorded_20261101_v2",
+  "rejected_proposals": []
+}

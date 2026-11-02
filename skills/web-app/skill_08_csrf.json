@@ -1,0 +1,11 @@
+{
+  "name": "CSRF",
+  "mitre_id": "T1190",
+  "mitre_name": "Exploit Public-Facing Application",
+  "description": "Test for Cross-Site Request Forgery",
+  "techniques": [
+    "Token bypass",
+    "Same-origin policy bypass"
+  ],
+  "detection": "CSRF token validation, referrer checking"
+}

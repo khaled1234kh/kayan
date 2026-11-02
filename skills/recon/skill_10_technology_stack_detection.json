@@ -1,0 +1,12 @@
+{
+  "name": "Technology Stack Detection",
+  "mitre_id": "T1592",
+  "mitre_name": "Gather Victim Host Information",
+  "description": "Identify web technologies and frameworks",
+  "techniques": [
+    "HTTP header analysis",
+    "Cookie analysis",
+    "Error page fingerprinting"
+  ],
+  "detection": "WAF, application monitoring"
+}

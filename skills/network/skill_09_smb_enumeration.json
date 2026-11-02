@@ -1,0 +1,12 @@
+{
+  "name": "SMB Enumeration",
+  "mitre_id": "T1046",
+  "mitre_name": "Network Service Discovery",
+  "description": "Enumerate SMB shares and users",
+  "techniques": [
+    "Share enumeration",
+    "User enumeration",
+    "Null session"
+  ],
+  "detection": "SMB monitoring, access logs"
+}

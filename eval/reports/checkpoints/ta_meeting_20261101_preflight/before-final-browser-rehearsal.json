@@ -1,0 +1,8 @@
+{
+  "checked_at_utc": "2026-11-01T19:46:37.644455+00:00",
+  "go_info_http_status": 200,
+  "go_info_url": "http://127.0.0.1:8443/api/v1/info",
+  "saved_engagement": "7da73508-01e6-48e9-9093-be09c5fd734d",
+  "entries": 101,
+  "audit_sha256_before_final_browser_rehearsal": "a70871465aa2091015019c6a7fbf2cbd8afdb080a0b1b7148821733f685daf18"
+}

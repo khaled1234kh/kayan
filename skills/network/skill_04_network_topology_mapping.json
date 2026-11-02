@@ -1,0 +1,12 @@
+{
+  "name": "Network Topology Mapping",
+  "mitre_id": "T1046",
+  "mitre_name": "Network Service Discovery",
+  "description": "Map network topology and routing",
+  "techniques": [
+    "Traceroute",
+    "ARP scanning",
+    "Subnet discovery"
+  ],
+  "detection": "Network monitoring, anomaly detection"
+}

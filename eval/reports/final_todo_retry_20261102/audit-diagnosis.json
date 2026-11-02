@@ -1,0 +1,17 @@
+{
+  "before_bytes": 553627,
+  "before_sha256": "10aea34eefec032c62b8a33233a5b62da41475573d93ba1fd409a3ec0935e064",
+  "entries": 703,
+  "hash_encoding_matches": {
+    "sorted_only": 82,
+    "insertion_only": 621,
+    "both": 0,
+    "neither": 0
+  },
+  "backup": "output/backups/audit-before-canonical-fix-20261102.jsonl",
+  "before_verifier": {
+    "valid": false,
+    "broken_at": 0,
+    "message": "Hash mismatch at entry 0: tampering detected"
+  }
+}

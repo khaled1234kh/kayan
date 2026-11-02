@@ -1,0 +1,12 @@
+{
+  "name": "Technical Details",
+  "mitre_id": "T1190",
+  "mitre_name": "Exploit Public-Facing Application",
+  "description": "Detailed technical findings for developers",
+  "techniques": [
+    "Code snippets",
+    "Configuration examples",
+    "Proof of concept"
+  ],
+  "detection": "N/A - reporting only"
+}

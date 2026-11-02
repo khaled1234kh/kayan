@@ -1,0 +1,34 @@
+{
+  "frames": [
+    {
+      "file": "frame-00000.jpg",
+      "metadata": {
+        "deviceHeight": 1244,
+        "deviceWidth": 1243,
+        "monotonicTimestamp": 16486.064213,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1793549374.242181
+      },
+      "receivedAt": "2026-11-01T16:09:34.271Z"
+    },
+    {
+      "file": "frame-00001.jpg",
+      "metadata": {
+        "deviceHeight": 1244,
+        "deviceWidth": 1243,
+        "monotonicTimestamp": 16486.125265,
+        "offsetTop": 0,
+        "pageScaleFactor": 1,
+        "scrollOffsetX": 0,
+        "scrollOffsetY": 0,
+        "timestamp": 1793549374.303233
+      },
+      "receivedAt": "2026-11-01T16:09:34.324Z"
+    }
+  ],
+  "error": "Error: Browser Use could not read requirements.",
+  "complete": false
+}

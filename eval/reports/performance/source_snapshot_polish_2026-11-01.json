@@ -1,0 +1,26 @@
+{
+  "scene_path": "C:\\Users\\khale\\Downloads\\KAYAN-video\\kayan-company-office\\kayan-3d",
+  "backup_path": "C:\\Users\\khale\\Documents\\Codex\\2026-10-31\\stop-what-you-re-doing-and\\work\\polished-scene-source",
+  "profile_revision": "static_room_occlusion_actor_proxy_and_polish_v3",
+  "sha256": {
+    "src/App.tsx": "f1add5b0643134078fea0357329f4492821c3c485be3ba142a296b2d5fb69a02",
+    "src/components/actors/ActorSeat.tsx": "143bf8b113896652c0342ed5cf3ab1057c224b687efa0768c5b3db448845bbc3",
+    "src/components/actors/ActorModel.tsx": "0c6edad30909e003851bd6b47fa85215ffef50c875a9b554d8d4a3ece422fd4d",
+    "src/components/actors/actorPicking.ts": "ff30d6fd72bed8150d68938ee91ef47e8f87de90d3b7a6dbf766cd57d32dd2b7",
+    "src/components/actors/DeskModel.tsx": "50c238e56db226756e977c8bed6aa327115dc80a1f75a610727972b48b286055",
+    "src/components/actors/DeskProps.tsx": "4e6d9bc9eace8477e5410d43376838f52efd0c2203ea1dfe19f66e1f5dd43a2f",
+    "src/components/scene/LabelOcclusion.tsx": "3c9097f1737dda9ea89fa7c01b22aca222e5da5b4610d9556c706e62c89f56d6",
+    "src/components/scene/SceneLighting.tsx": "bbe5c2a32d01526fdf52f14dd61d82cf0060ab2df0307c23aa434156bb140cd2",
+    "src/components/office/Office.tsx": "a7251580745d613ed2c74bef5d34697ff2f936f979a4ea48058e6b09fe6958b2",
+    "src/components/office/CameraRig.tsx": "0ce976014ea8658ecf0066cb2c674967fca85d0ccdd7dc8010bf3fe06ed37f22",
+    "src/components/office/cameraFraming.ts": "bc72c4c31490da33bcf31e0ee0ce93a84ed70155646f9287024e9b30461269ee",
+    "src/data/layout.ts": "4c377793da1278640c3395ee9e3115e5abda5d1ef4b24fdd28da5e1345b835f5",
+    "src/data/roleMapping.ts": "b5b8a25c4137318556282cb854e595d2f1888818521175e75122c160b6f7cca0",
+    "src/devtools/PerformancePanel.tsx": "bef73bf657fca2d8c89304dcc5def34c980f7a5b6ca528e86da7b20c8965a1e1",
+    "src/devtools/performanceMetrics.ts": "e6c4ad8eabea21b03e59959dec770e63978e685f45576001784d3270e74b2321",
+    "scripts/office-geometry-check.tsx": "135f0756c859a758823543d57870b469549ffccbf368f81258c5ab588012eeea",
+    "scripts/actor-picking-check.ts": "8ba559de09deff87b0a45affc4dfb312dcdb2613959e1cb88cbbe10d8ebba5ee",
+    "package.json": "16fb4cec3b76de7c84d193f50f777ed676c7b601e1d3ec884da032916e571566"
+  },
+  "status": "Static polish build/source checks passed; human rendered acceptance and post-polish performance measurement pending"
+}

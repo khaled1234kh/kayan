@@ -1,0 +1,26 @@
+__pycache__/
+.pytest_cache/
+data/engagement_sessions/
+data/roe_signing_key
+data/pentagi_session.json
+data/pentagi_admin_credentials.json
+data/pentagi_governance/
+lab/fixtures/verification_marker.txt
+trustgate/service/target/
+console/frontend/node_modules/
+console/frontend/dist/
+console/office/node_modules/
+console/office/dist/
+console/office/.vite/
+console/office/scripts/.out-*.mjs
+tmp/
+data/runtime/
+.build/
+
+# Runtime/private working data and duplicate local delivery/recovery exports.
+audit_log.jsonl
+output/backups/
+output/packages/
+output/videos/
+output/pdf/KAYAN_Evidence_Presentation_With_Videos.pdf
+eval/reports/final_todo_retry_20261102/ollama.*.log

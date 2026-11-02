@@ -1,0 +1,11 @@
+{
+  "checked_at": "2026-11-01T15:21:56.892501+00:00",
+  "status": "waiting_for_recording_start",
+  "visual_acceptance": "OPEN",
+  "runtime_observation": "available; not a screen view",
+  "existing_engagement_id": "7da73508-01e6-48e9-9093-be09c5fd734d",
+  "fixtures_started": false,
+  "new_live_engagement_started": false,
+  "human_recording_status": "User explicitly answered Recording not started",
+  "scope_choice": "Finish frozen delivery requirements; asset/bundle backlog deferred"
+}

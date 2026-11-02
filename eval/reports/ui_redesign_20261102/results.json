@@ -1,0 +1,143 @@
+{
+  "date": "2026-11-02",
+  "python": {
+    "passed": 69,
+    "warnings": 27
+  },
+  "frontend_check_scripts": 9,
+  "transport_checks": 13,
+  "production_build": "passed with existing >500 kB chunk warning",
+  "css_test_viewports": [
+    [
+      1920,
+      1080
+    ],
+    [
+      1440,
+      900
+    ],
+    [
+      1280,
+      720
+    ],
+    [
+      640,
+      900
+    ]
+  ],
+  "original_session_restored": "7da73508-01e6-48e9-9093-be09c5fd734d",
+  "original_transcript_entries": 101,
+  "new_live_model_engagement": false,
+  "controlled_fixture_used_and_restored": true,
+  "gate_health_available": false,
+  "public_video_links_verified": true,
+  "screenshot_limits": "Early baseline captures used requested CSS sizes but some PNG surfaces were lagged/cropped by the browser provider. Final office captures were repeated after viewport settling; CSS dimensions and PNG dimensions are both recorded. Narrow capture excludes scrollbars. Do not claim pixel-identical before/after comparisons.",
+  "fps_claim": null,
+  "pdf_verification": "docs/proposal/review_export_verification.json",
+  "png_dimensions": {
+    "after-office-1280.png": [
+      1280,
+      720
+    ],
+    "after-office-1440.png": [
+      1440,
+      900
+    ],
+    "after-office-1920.png": [
+      1920,
+      1080
+    ],
+    "after-office-640-full.png": [
+      624,
+      1937
+    ],
+    "after-office-640.png": [
+      625,
+      879
+    ],
+    "after-planning-1280.png": [
+      1280,
+      720
+    ],
+    "after-planning-1440.png": [
+      1440,
+      900
+    ],
+    "after-planning-1920.png": [
+      1920,
+      1080
+    ],
+    "after-planning-640.png": [
+      625,
+      879
+    ],
+    "before-1280.png": [
+      1152,
+      720
+    ],
+    "before-1440.png": [
+      1440,
+      810
+    ],
+    "before-1920.png": [
+      1639,
+      1080
+    ],
+    "before-640.png": [
+      640,
+      360
+    ],
+    "console-unavailable.png": [
+      625,
+      879
+    ],
+    "controlled-progress.png": [
+      1920,
+      1080
+    ],
+    "decision-narrow.png": [
+      625,
+      879
+    ],
+    "drive-rehearsal-public.png": [
+      1920,
+      1080
+    ],
+    "drive-three-path-public.png": [
+      1280,
+      720
+    ],
+    "empty-risk-plan.png": [
+      625,
+      879
+    ],
+    "keyboard-focus-narrow.png": [
+      625,
+      879
+    ],
+    "layout-checkpoint-1440.png": [
+      1440,
+      900
+    ],
+    "planner-monitor-front-controlled.png": [
+      1920,
+      1080
+    ],
+    "planner-monitor-rear-controlled.png": [
+      1920,
+      1080
+    ],
+    "planning-checkpoint-risk.png": [
+      1440,
+      900
+    ],
+    "planning-option-a-filter.png": [
+      1440,
+      900
+    ],
+    "projector-1920.png": [
+      1920,
+      1080
+    ]
+  }
+}

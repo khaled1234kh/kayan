@@ -1,0 +1,134 @@
+START f5cc9c9c-9653-4416-b854-95bfb20dcabe grounding True
+INPUTS [('instruction', 'queued'), ('status', 'answering')] tainted input 403
+{
+  "checked_at": "2026-11-02T20:43:38.698082+00:00",
+  "engagement_id": "f5cc9c9c-9653-4416-b854-95bfb20dcabe",
+  "execution_engine": "local_llm",
+  "grounding_enabled": true,
+  "models": [
+    "qwen2.5:7b"
+  ],
+  "findings": 2,
+  "finding_types": [
+    "xss",
+    "command_injection"
+  ],
+  "allowed": 29,
+  "denied": 1,
+  "counts_basis": "All audit decisions after assessment and status reply, excluding ROE load; includes one deliberately tainted input denial",
+  "finding_reproduction_rate": 100.0,
+  "accuracy_limit": "Harness fresh-nonce reproduction only, not blinded classification accuracy; XSS browser execution not checked",
+  "mitre_coverage_percent": 40.0,
+  "mitre_coverage_tracker": {
+    "covered_techniques": {
+      "T1190": "Exploit Public-Facing Application",
+      "T1059": "Command and Scripting Interpreter"
+    },
+    "coverage_count": 2,
+    "total_known": 5,
+    "coverage_pct": 40.0
+  },
+  "accuracy": {
+    "metric": "evidence-backed vulnerability-report precision",
+    "supported": 1,
+    "reported": 2,
+    "percentage": 50.0,
+    "classification_accuracy_pct": null,
+    "limitation": "No blinded positive/negative dataset. Informational discoveries excluded. A detector's vulnerable flag alone is not proof.",
+    "results": [
+      {
+        "finding_id": "f5cc9c9c-9653-4416-b854-95bfb20dcabe:verified:82249737",
+        "type": "xss",
+        "evidence_supported": true,
+        "criterion": "Unescaped script payload reflected in lab HTML; browser execution not asserted"
+      },
+      {
+        "finding_id": "f5cc9c9c-9653-4416-b854-95bfb20dcabe:verified:9458df50",
+        "type": "command_injection",
+        "evidence_supported": false,
+        "criterion": "Standalone whoami identity output; an echoed payload/error is insufficient"
+      }
+    ]
+  },
+  "mitre_coverage_basis": "Existing EngagementOrchestrator._compute_mitre_coverage; live roles declare no MITRE lists, so findings count",
+  "observed_tool_mitre_coverage_percent": 100.0,
+  "techniques_observed": [
+    "T1046",
+    "T1059",
+    "T1190",
+    "T1590",
+    "T1592"
+  ],
+  "techniques_possible": [
+    "T1046",
+    "T1059",
+    "T1190",
+    "T1590",
+    "T1592"
+  ],
+  "llm_calls": 11,
+  "retrieved_context_calls": 10,
+  "websocket_frames": 192,
+  "incremental_output_verified": true,
+  "sessions": {
+    "recon_agent": 31,
+    "webapp_agent": 38,
+    "network_agent": 18,
+    "reporting_agent": 10,
+    "planner_agent": 12
+  },
+  "tainted_input_rejection": {
+    "detail": {
+      "reason": "Tainted arguments detected: [\"body\"]",
+      "audit_entry_id": "ed179e86-b6bc-482d-b667-73e181c42165"
+    }
+  },
+  "visual_verification": false,
+  "evaluation_label": "planner_final_live_20261102_v2",
+  "rejected_proposals": []
+}
+{
+  "label": "planner_final_live_20261102_v2",
+  "passed": true,
+  "engagement_id": "f5cc9c9c-9653-4416-b854-95bfb20dcabe",
+  "findings": 2,
+  "allowed": 29,
+  "denied": 1,
+  "assignment_order": [
+    "recon_agent",
+    "webapp_agent",
+    "network_agent",
+    "reporting_agent"
+  ],
+  "specialist_outcomes": [
+    {
+      "role": "recon_agent",
+      "task": "http_probe 127.0.0.1",
+      "status": "completed",
+      "observations": 3,
+      "verified_findings": 0
+    },
+    {
+      "role": "webapp_agent",
+      "task": "xss_test 127.0.0.1",
+      "status": "completed",
+      "observations": 3,
+      "verified_findings": 2
+    },
+    {
+      "role": "network_agent",
+      "task": "port_scan 127.0.0.1",
+      "status": "completed",
+      "observations": 2,
+      "verified_findings": 0
+    }
+  ],
+  "observed_active_frames": 145,
+  "planner_last_completed": true,
+  "planner_has_no_tool_dispatch": true,
+  "models": [
+    "qwen2.5:7b"
+  ],
+  "incremental_output_verified": true,
+  "visual_verification": false
+}

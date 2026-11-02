@@ -1,0 +1,14 @@
+{
+  "checked_at_utc": "2026-11-02T07:32:45.605349+00:00",
+  "source_root": "C:\\Users\\khale\\Downloads\\kayan-trustgate",
+  "office": "C:\\Users\\khale\\Downloads\\kayan-trustgate\\console\\office",
+  "saved_engagement": "7da73508-01e6-48e9-9093-be09c5fd734d",
+  "entries": 101,
+  "new_assessment_started": false,
+  "gate_ready": false,
+  "gate_blocker": "An Application Control policy has blocked this file. (os error 4551)",
+  "completed_checkpoint": "consolidated_20261101_v1: 14/14 groups, dated 2026-11-01",
+  "proposal_sha256": "e8c6b0e711f2ceadbdadc501a525e66772164c5a35cc0a87a04628af49b49a59",
+  "recovery_root": "C:\\Users\\khale\\Downloads\\KAYAN-recovery-2026-11-01-consolidation",
+  "old_office_empty": true
+}

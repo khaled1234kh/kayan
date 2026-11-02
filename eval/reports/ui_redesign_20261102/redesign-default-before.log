@@ -1,0 +1,17 @@
+...F                                                                     [100%]
+================================== FAILURES ===================================
+__________ test_default_launch_is_safe_review_mode_not_a_gate_build ___________
+
+    def test_default_launch_is_safe_review_mode_not_a_gate_build():
+        result=subprocess.run([PS,'-NoProfile','-Command',"$tokens=$null;$errors=$null;$ast=[System.Management.Automation.Language.Parser]::ParseFile((Join-Path (Get-Location) 'Start-Kayan.ps1'),[ref]$tokens,[ref]$errors); $ast.ParamBlock.Parameters | Where-Object {$_.Name.VariablePath.UserPath -eq 'Component'} | ForEach-Object {$_.DefaultValue.Value}"],capture_output=True,text=True,timeout=15)
+>       assert result.returncode==0 and result.stdout.strip()=='Review'
+E       assert (0 == 0 and 'All' == 'Review'
+E        +  where 0 = CompletedProcess(args=['C:\\Users\\khale\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powersh...ablePath.UserPath -eq 'Component'} | ForEach-Object {$_.DefaultValue.Value}"], returncode=0, stdout='All\n', stderr='').returncode
+E         
+E         - Review
+E         + All)
+
+tests\test_launcher.py:44: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_launcher.py::test_default_launch_is_safe_review_mode_not_a_gate_build
+1 failed, 3 passed in 2.95s

@@ -1,0 +1,44 @@
+{
+  "baseline_initial_2026-11-01.json": {
+    "sha256": "ed68e27ba91f5e1bbf82c44f582d60939ac07deeed4d0b9b73077dfe0d6bd090",
+    "capture_times": [
+      "2026-11-01T12:09:29.879Z",
+      "2026-11-01T12:09:48.354Z",
+      "2026-11-01T12:10:00.175Z"
+    ]
+  },
+  "diagnostic_orbit_2026-11-01.json": {
+    "sha256": "a9f0cb17fa956dd23a9f76e2fcb0d4c52f3e9294d5352d72c8ffd32204e4fe65",
+    "capture_times": [
+      "2026-11-01T12:16:49.825Z"
+    ]
+  },
+  "diagnostic_second_2026-11-01.json": {
+    "sha256": "5367c35ed9fdb647a9fe026969945782b894959d0140b814156e6d0fa43fdd33",
+    "capture_times": [
+      "2026-11-01T12:14:26.309Z",
+      "2026-11-01T12:14:39.135Z"
+    ]
+  },
+  "after_static_occlusion_2026-11-01.json": {
+    "sha256": "8501873ea522df73070a54edc874481f844fc86fd6dac200108690a906138861",
+    "capture_times": [
+      "2026-11-01T12:21:03.606Z",
+      "2026-11-01T12:21:14.885Z",
+      "2026-11-01T12:21:26.418Z"
+    ]
+  },
+  "after_actor_proxy_2026-11-01.json": {
+    "sha256": "d66b4976591f3994e6258daf4de7fcd6a19945a9781a5b55790597366121e29d",
+    "capture_times": [
+      "2026-11-01T12:29:13.421Z",
+      "2026-11-01T12:29:35.143Z"
+    ]
+  },
+  "after_visual_feedback_v5_2026-11-01.json": {
+    "sha256": "81801f502c9979b45f89065f60ff78c05dd86ecf1288102b61fcaed537b40e38",
+    "capture_times": [
+      "2026-11-01T13:10:19.718Z"
+    ]
+  }
+}

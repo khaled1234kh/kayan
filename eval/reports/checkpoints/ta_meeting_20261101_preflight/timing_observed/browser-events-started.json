@@ -1,0 +1,210 @@
+{
+  "cursor": 55,
+  "events": [
+    {
+      "sequence": 46,
+      "source": {
+        "tabId": 4
+      },
+      "method": "Runtime.consoleAPICalled",
+      "params": {
+        "args": [
+          {
+            "type": "string",
+            "value": "KAYAN_RENDER_PROBE {\"observedAtMs\":1793562112233,\"kind\":\"tool_started\",\"text\":\"9:41:52 PM\\n30. Executing xss_test on 127.0.0.1\"}"
+          }
+        ],
+        "executionContextId": 3,
+        "stackTrace": {
+          "callFrames": [
+            {
+              "columnNumber": 249,
+              "functionName": "scan",
+              "lineNumber": 0,
+              "scriptId": "129",
+              "url": ""
+            }
+          ]
+        },
+        "timestamp": 1793562112233.051,
+        "type": "info"
+      }
+    },
+    {
+      "sequence": 47,
+      "source": {
+        "tabId": 4
+      },
+      "method": "Runtime.consoleAPICalled",
+      "params": {
+        "args": [
+          {
+            "type": "string",
+            "value": "KAYAN_RENDER_PROBE {\"observedAtMs\":1793562112695,\"kind\":\"tool_result\",\"text\":\"9:41:52 PM\\n31. xss_test: {\\\"vulnerable\\\": true, \\\"status_code\\\": 200, \\\"payload\\\": \\\"<script>alert(1)</script>\\\", \\\"response_excerpt\\\": \\\"<html><body><h1>Search Results for: <script>alert(1)</script></h1><p\"}"
+          }
+        ],
+        "executionContextId": 3,
+        "stackTrace": {
+          "callFrames": [
+            {
+              "columnNumber": 249,
+              "functionName": "scan",
+              "lineNumber": 0,
+              "scriptId": "129",
+              "url": ""
+            }
+          ]
+        },
+        "timestamp": 1793562112695.249,
+        "type": "info"
+      }
+    },
+    {
+      "sequence": 48,
+      "source": {
+        "tabId": 4
+      },
+      "method": "Runtime.consoleAPICalled",
+      "params": {
+        "args": [
+          {
+            "type": "string",
+            "value": "KAYAN_RENDER_PROBE {\"observedAtMs\":1793562112816,\"kind\":\"tool_started\",\"text\":\"9:41:52 PM\\n35. Executing command_injection_test on 127.0.0.1\"}"
+          }
+        ],
+        "executionContextId": 3,
+        "stackTrace": {
+          "callFrames": [
+            {
+              "columnNumber": 249,
+              "functionName": "scan",
+              "lineNumber": 0,
+              "scriptId": "129",
+              "url": ""
+            }
+          ]
+        },
+        "timestamp": 1793562112816.21,
+        "type": "info"
+      }
+    },
+    {
+      "sequence": 49,
+      "source": {
+        "tabId": 4
+      },
+      "method": "Runtime.consoleAPICalled",
+      "params": {
+        "args": [
+          {
+            "type": "string",
+            "value": "KAYAN_RENDER_PROBE {\"observedAtMs\":1793562113411,\"kind\":\"tool_result\",\"text\":\"9:41:53 PM\\n36. command_injection_test: {\\\"vulnerable\\\": false, \\\"status_code\\\": 200, \\\"payload\\\": \\\"127.0.0.1; whoami\\\", \\\"response_excerpt\\\": \\\"<pre>Ping request could not find host 127.0.0.1;. Please chec\"}"
+          }
+        ],
+        "executionContextId": 3,
+        "stackTrace": {
+          "callFrames": [
+            {
+              "columnNumber": 249,
+              "functionName": "scan",
+              "lineNumber": 0,
+              "scriptId": "129",
+              "url": ""
+            }
+          ]
+        },
+        "timestamp": 1793562113411.066,
+        "type": "info"
+      }
+    },
+    {
+      "sequence": 50,
+      "source": {
+        "tabId": 4
+      },
+      "method": "Runtime.consoleAPICalled",
+      "params": {
+        "args": [
+          {
+            "type": "string",
+            "value": "KAYAN_RENDER_PROBE {\"observedAtMs\":1793562113546,\"kind\":\"tool_started\",\"text\":\"9:41:53 PM\\n40. Executing directory_traversal on 127.0.0.1\"}"
+          }
+        ],
+        "executionContextId": 3,
+        "stackTrace": {
+          "callFrames": [
+            {
+              "columnNumber": 249,
+              "functionName": "scan",
+              "lineNumber": 0,
+              "scriptId": "129",
+              "url": ""
+            }
+          ]
+        },
+        "timestamp": 1793562113546.315,
+        "type": "info"
+      }
+    },
+    {
+      "sequence": 51,
+      "source": {
+        "tabId": 4
+      },
+      "method": "Runtime.consoleAPICalled",
+      "params": {
+        "args": [
+          {
+            "type": "string",
+            "value": "KAYAN_RENDER_PROBE {\"observedAtMs\":1793562114042,\"kind\":\"tool_result\",\"text\":\"9:41:53 PM\\n41. directory_traversal: {\\\"vulnerable\\\": true, \\\"status_code\\\": 200, \\\"payload\\\": \\\"../../etc/passwd\\\", \\\"response_excerpt\\\": \\\"<pre>Error: [Errno 2] No such file or directory: '../../etc/passwd\"}"
+          }
+        ],
+        "executionContextId": 3,
+        "stackTrace": {
+          "callFrames": [
+            {
+              "columnNumber": 249,
+              "functionName": "scan",
+              "lineNumber": 0,
+              "scriptId": "129",
+              "url": ""
+            }
+          ]
+        },
+        "timestamp": 1793562114043.002,
+        "type": "info"
+      }
+    },
+    {
+      "sequence": 55,
+      "source": {
+        "tabId": 4
+      },
+      "method": "Runtime.consoleAPICalled",
+      "params": {
+        "args": [
+          {
+            "type": "string",
+            "value": "KAYAN_RENDER_PROBE {\"observedAtMs\":1793562238068,\"kind\":\"tool_started\",\"text\":\"9:43:58 PM\\n25. Executing sql_injection_test on 127.0.0.1\"}"
+          }
+        ],
+        "executionContextId": 3,
+        "stackTrace": {
+          "callFrames": [
+            {
+              "columnNumber": 249,
+              "functionName": "scan",
+              "lineNumber": 0,
+              "scriptId": "129",
+              "url": ""
+            }
+          ]
+        },
+        "timestamp": 1793562238068.714,
+        "type": "info"
+      }
+    }
+  ],
+  "hasMore": false,
+  "truncated": false
+}

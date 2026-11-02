@@ -1,0 +1,29 @@
+npm notice run kayan-trustgate-office@0.1.0 check:visual-feedback
+npm notice run esbuild scripts/visual-feedback-check.tsx --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-visual-feedback.mjs --log-level=error && node scripts/.out-visual-feedback.mjs
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Offscreen labels must not pile up on viewport edges
++ actual - expected
+
+  [
++   202,
++   176
+-   -10000,
+-   -10000
+  ]
+
+    at file:///C:/Users/khale/Downloads/kayan-trustgate/console/office/scripts/.out-visual-feedback.mjs:103:17
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: [ 202, 176 ],
+  expected: [ -10000, -10000 ],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

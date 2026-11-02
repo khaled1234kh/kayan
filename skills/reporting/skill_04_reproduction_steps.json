@@ -1,0 +1,12 @@
+{
+  "name": "Reproduction Steps",
+  "mitre_id": "T1190",
+  "mitre_name": "Exploit Public-Facing Application",
+  "description": "Document step-by-step reproduction",
+  "techniques": [
+    "Payload specification",
+    "Environment setup",
+    "Expected vs actual results"
+  ],
+  "detection": "N/A - reporting only"
+}

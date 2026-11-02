@@ -1,0 +1,15 @@
+{
+  "scene_path": "C:\\Users\\khale\\Downloads\\KAYAN-video\\kayan-company-office\\kayan-3d",
+  "backup_path": "C:\\Users\\khale\\Documents\\Codex\\2026-10-31\\stop-what-you-re-doing-and\\work\\second-fix-source",
+  "sha256": {
+    "src/App.tsx": "f1add5b0643134078fea0357329f4492821c3c485be3ba142a296b2d5fb69a02",
+    "src/components/actors/ActorSeat.tsx": "015c14d7499b9c128e6176fdf67ddcaa0e9757a32c75d0ba9cdd1736165e5894",
+    "src/components/actors/ActorModel.tsx": "0c6edad30909e003851bd6b47fa85215ffef50c875a9b554d8d4a3ece422fd4d",
+    "src/components/actors/actorPicking.ts": "ff30d6fd72bed8150d68938ee91ef47e8f87de90d3b7a6dbf766cd57d32dd2b7",
+    "src/components/scene/LabelOcclusion.tsx": "3c9097f1737dda9ea89fa7c01b22aca222e5da5b4610d9556c706e62c89f56d6",
+    "src/devtools/PerformancePanel.tsx": "b78a9bf173f98bbc2cf03613aec22a576349611f189e33c4c65283b7d37f001d",
+    "src/devtools/performanceMetrics.ts": "e6c4ad8eabea21b03e59959dec770e63978e685f45576001784d3270e74b2321",
+    "package.json": "16fb4cec3b76de7c84d193f50f777ed676c7b601e1d3ec884da032916e571566"
+  },
+  "status": "Second targeted fix built/type-checked; human remeasurement pending; not visual acceptance"
+}

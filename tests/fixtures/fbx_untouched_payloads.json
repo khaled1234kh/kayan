@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "models": [
+    {
+      "file": "AIManager.fbx",
+      "before_sha256": "1818e226b87786981d59860970e930d89da59fbc238583800c780822d95fa606",
+      "after_sha256": "c567c96851f30f9fe73bba88c55352131fd9e908211c2f68f996234f9cdf3a4b",
+      "original_untouched_payload_sha256": "168fe255826d04644da8e5c0b307979961ed69d036c4edb4566a4ba04256c9d5"
+    },
+    {
+      "file": "AIOps.fbx",
+      "before_sha256": "514f4161f1ca5ff350618fa643cb4115266b40e5bb49a1bdbcf262ac0bbdf570",
+      "after_sha256": "f75e95a1b0ad5e0952f09c5bc2bddf2cc2d0206531fc14e037cc18def3b689d1",
+      "original_untouched_payload_sha256": "6ec860a283653895611e284fd2d53a6f2115fc3ae798097e086838c8b370bb03"
+    },
+    {
+      "file": "AISales.fbx",
+      "before_sha256": "bdaa66b9f427ef4b5e3bf26773051662b6fc8ccca0aee0064c1d5ac56dcbd733",
+      "after_sha256": "3e0068b1045a1f983577898aed609f5879a9cecc36319c1e88b066e1a5d809b2",
+      "original_untouched_payload_sha256": "694c877f53dc1a5ff6966a602a5b769aa38398763446edab554db2a837dd4215"
+    },
+    {
+      "file": "Employee.fbx",
+      "before_sha256": "747bfd4e946c56ce8c8ce599d0b19e36f33ae34755cff0e46f8ff80d3592ce80",
+      "after_sha256": "b1b62381fb1eb32276e15a0a923596e8fcdfb8bc870cccbc316313d723bdd303",
+      "original_untouched_payload_sha256": "9edd6d9165f328828e0a8dccf5edec8474712ae8f34cd6e21a9511d7deb29f15"
+    }
+  ]
+}

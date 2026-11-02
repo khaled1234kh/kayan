@@ -1,0 +1,12 @@
+{
+  "name": "Web Crawling",
+  "mitre_id": "T1590",
+  "mitre_name": "Gather Victim Network Information",
+  "description": "Crawl web applications to discover endpoints and parameters",
+  "techniques": [
+    "Directory enumeration",
+    "Parameter discovery",
+    "API endpoint mapping"
+  ],
+  "detection": "Web application firewall, access logs"
+}

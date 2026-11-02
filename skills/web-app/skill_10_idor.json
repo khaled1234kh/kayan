@@ -1,0 +1,12 @@
+{
+  "name": "IDOR",
+  "mitre_id": "T1190",
+  "mitre_name": "Exploit Public-Facing Application",
+  "description": "Test for Insecure Direct Object References",
+  "techniques": [
+    "Parameter manipulation",
+    "ID enumeration",
+    "Access control bypass"
+  ],
+  "detection": "Access control logging, anomaly detection"
+}

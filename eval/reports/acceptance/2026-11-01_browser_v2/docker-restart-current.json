@@ -1,0 +1,14 @@
+{
+  "checked_date": "2026-11-01 (Africa/Cairo)",
+  "before_restart_error": "failed to connect to the docker API at npipe:////./pipe/dockerDesktopLinuxEngine; check if the path is correct and if the daemon is running: open //./pipe/dockerDesktopLinuxEngine: The system cannot find the file specified.",
+  "recovery": [
+    {"command": "docker desktop start --detach", "exit_code": 0, "output": "Starting Docker Desktop"},
+    {"command": "docker start kayan-pentagi-local", "exit_code": 0, "output": "kayan-pentagi-local"}
+  ],
+  "docker_server_version": "29.9.2",
+  "current_container_output": "kayan-pentagi-local Up About a minute 127.0.0.1:8443->8080/tcp",
+  "pentagi_info_url": "http://127.0.0.1:8443/api/v1/info",
+  "pentagi_info_status": 200,
+  "new_go_flow_started": false,
+  "limit": "Runtime startup/readiness only; no new Go evaluation. Earlier worker/adapter failures remain preserved."
+}

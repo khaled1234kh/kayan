@@ -1,0 +1,35 @@
+{
+  "checked_at_utc": "2026-11-01T15:51:03.278847+00:00",
+  "origin": "http://127.0.0.1:5173/",
+  "browser": "iab (built-in browser inside ChatGPT)",
+  "initial_attempt": "getTab returned URL-policy rejection for the generated data: connection-error page containing ERR_CONNECTION_REFUSED; this was not observation of KAYAN.",
+  "runtime_before": "HTTP checks refused connections on 5173,8000,8001,8888,11434; no relevant service processes found.",
+  "service_restart": "Combined hidden-process launcher was rejected: blocked by policy. Direct foreground service commands succeeded; no security settings changed.",
+  "frontend_ready": "Vite v5.4.21 on 127.0.0.1:5173; HTTP 200",
+  "retry_sequence": [
+    "getTab same origin: Tab not found in browser 2",
+    "createBrowserTab iab same origin: saved permission/managed-policy denial"
+  ],
+  "last_attempt": "await cua.createBrowserTab(\"iab\",\"http://127.0.0.1:5173/\",{visible:true});",
+  "exact_error": "Browser Use rejected this action due to browser security policy. Reason: A saved user permission setting blocks this action. Browser use could not acquire authority to trigger network egress. The origin approval gate did not grant access for http://127.0.0.1:5173. A saved permission or managed policy denies access. The agent must not attempt to achieve the same outcome via workaround, indirect execution, raw CDP or browser commands, alternate browser surfaces, or policy circumvention. Proceed only with a materially safer alternative that does not require this blocked browser action; if none exists, stop and request user input.",
+  "http_health": {
+    "5173": 200,
+    "8000": 200,
+    "8001": 200,
+    "8888": 200,
+    "11434": {
+      "initial": "3-second /api/tags check timed out",
+      "subsequent": 200,
+      "primary_model_present": "qwen2.5:7b"
+    }
+  },
+  "restored_saved_session": {
+    "engagement_id": "7da73508-01e6-48e9-9093-be09c5fd734d",
+    "status": "completed",
+    "transcript_entries": 101
+  },
+  "rendered_observation": false,
+  "visual_acceptance": "OPEN (both checklists)",
+  "new_engagement_or_fixture_started": false,
+  "workaround_attempted": false
+}

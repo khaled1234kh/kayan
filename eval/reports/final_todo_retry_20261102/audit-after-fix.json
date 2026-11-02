@@ -1,0 +1,9 @@
+{
+  "verification": {
+    "valid": true,
+    "broken_at": null,
+    "message": "Chain valid \u2014 703 entries verified"
+  },
+  "original_prefix_unchanged": true,
+  "original_sha256": "10aea34eefec032c62b8a33233a5b62da41475573d93ba1fd409a3ec0935e064"
+}

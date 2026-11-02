@@ -1,0 +1,12 @@
+{
+  "name": "Path Traversal",
+  "mitre_id": "T1190",
+  "mitre_name": "Exploit Public-Facing Application",
+  "description": "Test for directory traversal vulnerabilities",
+  "techniques": [
+    "Basic path traversal",
+    "URL encoding bypass",
+    "Null byte injection"
+  ],
+  "detection": "File access monitoring, WAF"
+}

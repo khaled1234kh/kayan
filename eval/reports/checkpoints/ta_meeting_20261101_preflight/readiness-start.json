@@ -1,0 +1,15 @@
+{
+  "checked_at_utc": "2026-11-01T19:32:52.002622+00:00",
+  "http_health": {
+    "8000": 200,
+    "8001": 200,
+    "8888": 200,
+    "5173": 200,
+    "11434": 200,
+    "8443": 200
+  },
+  "engagement_id": "7da73508-01e6-48e9-9093-be09c5fd734d",
+  "engagement_status": "completed",
+  "audit_sha256_before_new_preflight": "8ad09e9389a0418300035dbc52a7c1300928c09fd6820b43667c4769ae2592d7",
+  "new_engagement_started": false
+}

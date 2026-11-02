@@ -1,0 +1,9 @@
+# Meeting preflight evidence â€” 2026-11-01
+
+Read `docs/TA_MEETING_READINESS_2026-11-01.md` from the canonical root for commands, observed results and limits. The sibling `ta_meeting_20261101_regression/` preserves the initial 12/13-group result, including two Rust failures. `rust-after-temp-path-fix.*` is the separate passing Rust recheck; no original failure was rewritten. Offline API artifacts are separately under `eval/reports/ta_alignment/ta_meeting_20261101_api/`.
+
+The three probe sources and real publication timestamps are retained. The first manual read was too late to measure a two-second bound. `timing_observed/` joins real publication with a read-only browser DOM observer. `timing_pixels/` contains original browser frame metadata and two inspected captured frames: `started-0003.jpg` and `result-0298.jpg`, plus the operated raw-expansion screenshot. The task-start frame is within 916.031 ms; result pixels were sampled later and do not prove a two-second result-pixel bound.
+
+The 495-frame capture was retained during verification. Untracked scratch frames were subsequently retired to the external consolidation recovery folder; the inspected timing frames and expansion screenshot remain in this project. `frames.json` retains the full frame metadata. This curated evidence is not represented as a complete source-controlled video. Temporary browser observer/screencast and viewport override were removed/reset.
+
+Each deterministic fixture's nine baseline reported findings are not verified exploits or a model-quality result. Original completed `7da73508â€¦` is restored after the probes; final saved-report rehearsal leaves audit and console state unchanged. No new actual-model engagement or delivery-archive repackaging occurred in this pass. The proposal-source facts are reads of established artifacts, not new off/on or Go evaluations.

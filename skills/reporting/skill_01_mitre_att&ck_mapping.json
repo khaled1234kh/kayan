@@ -1,0 +1,12 @@
+{
+  "name": "MITRE ATT&CK Mapping",
+  "mitre_id": "T1595",
+  "mitre_name": "Active Scanning",
+  "description": "Map findings to MITRE ATT&CK techniques",
+  "techniques": [
+    "Technique identification",
+    "Tactic categorization",
+    "Kill chain mapping"
+  ],
+  "detection": "N/A - reporting only"
+}

@@ -1,0 +1,4 @@
+1818e226b8 * kayan-3d/public/models/AIManager.fbx
+514f4161f1 * kayan-3d/public/models/AIOps.fbx
+bdaa66b9f4 * kayan-3d/public/models/AISales.fbx
+747bfd4e94 * kayan-3d/public/models/Employee.fbx

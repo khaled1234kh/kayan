@@ -1,0 +1,76 @@
+{
+  "textureDecoding": "excluded; check actual browser separately",
+  "reports": [
+    {
+      "file": "AIManager.fbx",
+      "meshes": 7,
+      "expandedVertices": 149034,
+      "poseTimes": [
+        0,
+        4,
+        8,
+        16
+      ],
+      "beforeWarnings": [
+        "THREE.FBXLoader: %s map is not supported in three.js, skipping texture. ShininessExponent",
+        "THREE.FBXLoader: Vertex has more than 4 skinning weights assigned to vertex. Deleting additional weights.",
+        "THREE.FBXLoader: Vertex has more than 4 skinning weights assigned to vertex. Deleting additional weights.",
+        "THREE.FBXLoader: Vertex has more than 4 skinning weights assigned to vertex. Deleting additional weights."
+      ],
+      "afterWarnings": []
+    },
+    {
+      "file": "AIOps.fbx",
+      "meshes": 1,
+      "expandedVertices": 147540,
+      "poseTimes": [
+        0,
+        4,
+        8,
+        16
+      ],
+      "beforeWarnings": [
+        "THREE.FBXLoader: %s map is not supported in three.js, skipping texture. ShininessExponent",
+        "THREE.FBXLoader: Vertex has more than 4 skinning weights assigned to vertex. Deleting additional weights."
+      ],
+      "afterWarnings": []
+    },
+    {
+      "file": "AISales.fbx",
+      "meshes": 7,
+      "expandedVertices": 152289,
+      "poseTimes": [
+        0,
+        4,
+        8,
+        16
+      ],
+      "beforeWarnings": [
+        "THREE.FBXLoader: %s map is not supported in three.js, skipping texture. ShininessExponent",
+        "THREE.FBXLoader: Vertex has more than 4 skinning weights assigned to vertex. Deleting additional weights.",
+        "THREE.FBXLoader: Vertex has more than 4 skinning weights assigned to vertex. Deleting additional weights.",
+        "THREE.FBXLoader: Vertex has more than 4 skinning weights assigned to vertex. Deleting additional weights.",
+        "THREE.FBXLoader: Vertex has more than 4 skinning weights assigned to vertex. Deleting additional weights."
+      ],
+      "afterWarnings": []
+    },
+    {
+      "file": "Employee.fbx",
+      "meshes": 8,
+      "expandedVertices": 157653,
+      "poseTimes": [
+        0,
+        4,
+        8,
+        16
+      ],
+      "beforeWarnings": [
+        "THREE.FBXLoader: %s map is not supported in three.js, skipping texture. ShininessExponent",
+        "THREE.FBXLoader: Vertex has more than 4 skinning weights assigned to vertex. Deleting additional weights.",
+        "THREE.FBXLoader: Vertex has more than 4 skinning weights assigned to vertex. Deleting additional weights.",
+        "THREE.FBXLoader: Vertex has more than 4 skinning weights assigned to vertex. Deleting additional weights."
+      ],
+      "afterWarnings": []
+    }
+  ]
+}

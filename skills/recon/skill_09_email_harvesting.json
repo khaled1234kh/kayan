@@ -1,0 +1,12 @@
+{
+  "name": "Email Harvesting",
+  "mitre_id": "T1589",
+  "mitre_name": "Gather Victim Identity Information",
+  "description": "Collect email addresses from public sources",
+  "techniques": [
+    "Search engine queries",
+    "Social media scraping",
+    "WHOIS lookup"
+  ],
+  "detection": "Email monitoring"
+}

@@ -1,0 +1,166 @@
+   Compiling trustgate-service v0.1.0 (C:\Users\khale\Downloads\kayan-trustgate\trustgate\service)
+warning: unused import: `http::StatusCode`
+ --> src\main.rs:5:5
+  |
+5 |     http::StatusCode,
+  |     ^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `Serialize`
+ --> src\main.rs:8:26
+  |
+8 | use serde::{Deserialize, Serialize};
+  |                          ^^^^^^^^^
+
+warning: unused imports: `Deserialize` and `Serialize`
+ --> src\audit.rs:1:13
+  |
+1 | use serde::{Deserialize, Serialize};
+  |             ^^^^^^^^^^^  ^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+  --> src\audit.rs:10:5
+   |
+10 | use std::collections::HashMap;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::policy::PolicyEngine`
+ --> src\authorize.rs:6:5
+  |
+6 | use crate::policy::PolicyEngine;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::audit::AuditLog`
+ --> src\authorize.rs:8:5
+  |
+8 | use crate::audit::AuditLog;
+  |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::sync::Arc`
+  --> src\authorize.rs:10:5
+   |
+10 | use std::sync::Arc;
+   |     ^^^^^^^^^^^^^^
+
+warning: unused import: `tokio::sync::RwLock`
+  --> src\authorize.rs:11:5
+   |
+11 | use tokio::sync::RwLock;
+   |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `Deserialize` and `Serialize`
+ --> src\roe.rs:1:13
+  |
+1 | use serde::{Deserialize, Serialize};
+  |             ^^^^^^^^^^^  ^^^^^^^^^
+
+warning: unused import: `std::collections::HashSet`
+ --> src\roe.rs:6:5
+  |
+6 | use std::collections::HashSet;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::policy::PolicyEngine`
+ --> src\roe_http.rs:7:5
+  |
+7 | use crate::policy::PolicyEngine;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::audit::AuditLog`
+  --> src\roe_http.rs:10:5
+   |
+10 | use crate::audit::AuditLog;
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `super::*`
+ --> src\tests.rs:6:9
+  |
+6 |     use super::*;
+  |         ^^^^^^^^
+
+warning: unused imports: `Condition`, `Effect`, `PolicyRule`, and `PolicySet`
+ --> src\tests.rs:7:39
+  |
+7 |     use crate::policy::{PolicyEngine, PolicySet, PolicyRule, Condition, Effect};
+  |                                       ^^^^^^^^^  ^^^^^^^^^^  ^^^^^^^^^  ^^^^^^
+
+warning: unused imports: `Digest` and `Sha256`
+  --> src\tests.rs:15:20
+   |
+15 |         use sha2::{Sha256, Digest};
+   |                    ^^^^^^  ^^^^^^
+
+warning: unused import: `crate::audit::AuditLog as AL`
+  --> src\main.rs:26:5
+   |
+26 | use crate::audit::AuditLog as AL;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: variants `Trusted` and `Untrusted` are never constructed
+ --> src\taint.rs:5:5
+  |
+4 | pub enum Provenance {
+  |          ---------- variants in this enum
+5 |     Trusted,
+  |     ^^^^^^^
+6 |     Untrusted,
+  |     ^^^^^^^^^
+  |
+  = note: `Provenance` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+  = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: field `taint_map` is never read
+  --> src\taint.rs:10:5
+   |
+ 9 | pub struct TaintTracker {
+   |            ------------ field in this struct
+10 |     taint_map: HashMap<String, Provenance>,
+   |     ^^^^^^^^^
+
+warning: methods `mark_trusted`, `mark_untrusted`, `get_provenance`, and `is_tainted` are never used
+  --> src\taint.rs:20:12
+   |
+13 | impl TaintTracker {
+   | ----------------- methods in this implementation
+...
+20 |     pub fn mark_trusted(&mut self, key: &str) {
+   |            ^^^^^^^^^^^^
+...
+24 |     pub fn mark_untrusted(&mut self, key: &str) {
+   |            ^^^^^^^^^^^^^^
+...
+28 |     pub fn get_provenance(&self, key: &str) -> Provenance {
+   |            ^^^^^^^^^^^^^^
+...
+32 |     pub fn is_tainted(&self, key: &str) -> bool {
+   |            ^^^^^^^^^^
+
+warning: `trustgate-service` (bin "trustgate-service" test) generated 19 warnings (run `cargo fix --bin "trustgate-service" -p trustgate-service --tests` to apply 16 suggestions)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 6.34s
+     Running unittests src\main.rs (C:\Users\khale\Documents\Codex\2026-10-31\stop-what-you-re-doing-and\work\trustgate-target-20261101\debug\deps\trustgate_service-857d2a78c77f93d2.exe)
+
+running 20 tests
+test tests::tests::test_default_deny_no_policy ... ok
+test tests::tests::test_tainted_pivot_denied ... ok
+test tests::tests::test_tainted_argument_denied ... ok
+test tests::tests::test_health_structural ... ok
+test tests::tests::test_audit_log_records_decision ... ok
+test tests::tests::test_audit_chain_valid ... ok
+test tests::enforcement_regression::unsigned_or_tampered_roe_is_not_accepted ... ok
+test tests::tests::test_roe_load_and_signature ... ok
+test tests::tests::test_forbidden_action_denied ... ok
+test tests::enforcement_regression::cedar_unknown_tool_is_not_granted_by_allowed_technique ... ok
+test tests::workflow_data_tests::workflow_body_exception_grants_nothing_without_explicit_roe_capability ... ok
+test tests::enforcement_regression::unknown_technique_does_not_create_wildcard_capability ... ok
+test tests::enforcement_regression::expired_roe_is_denied_even_if_caller_supplies_true_flags ... ok
+test tests::workflow_data_tests::metadata_rule_cannot_authorize_shell_or_relabel_an_execution_argument ... ok
+test tests::tests::test_in_scope_recon_allowed ... ok
+test tests::workflow_data_tests::signed_workflow_permit_accepts_untrusted_body_as_data_only ... ok
+test tests::tests::test_out_of_scope_denied ... ok
+test tests::tests::test_in_scope_webapp_allowed ... ok
+test tests::enforcement_regression::operator_message_capability_does_not_allow_agent_impersonation ... ok
+test tests::enforcement_regression::cedar_enforces_non_octet_cidr ... ok
+
+test result: ok. 20 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+

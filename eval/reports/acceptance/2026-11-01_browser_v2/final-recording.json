@@ -1,0 +1,30 @@
+{
+  "path": "C:\\Users\\khale\\Downloads\\KAYAN-final-three-path-2026-11-01_v2.mp4",
+  "sha256": "884600dc39805af0b2ca3ed00f58f49107378353e9b24adbbf488839121d56f0",
+  "metadata": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1244,
+        "height": 700,
+        "avg_frame_rate": "7375/443"
+      }
+    ],
+    "format": {
+      "duration": "35.440000",
+      "size": "1497340"
+    }
+  },
+  "captured_frames": 589,
+  "source": "Uncut supported browser screencast frames, encoded using original timestamp intervals; content viewport only, no audio/browser chrome. Source viewport 1280x720, capture 1244x700.",
+  "audit_unchanged": true,
+  "saved_engagement_id": "7da73508-01e6-48e9-9093-be09c5fd734d",
+  "transcript_entries_unchanged": 101,
+  "capture_error": null,
+  "action_error": null,
+  "inspection": "PASS: eight extracted encoded-video frames inspected against the action timeline; individual observations and timestamps in v2-review-frames.json. Not every encoded frame was manually inspected.",
+  "supersedes": "v1 retained; Option A heading scrolled past too quickly",
+  "acceptance": "Final continuous three-path demonstration accepted; no fresh live engagement during either final recording."
+}

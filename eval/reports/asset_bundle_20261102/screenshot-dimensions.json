@@ -1,0 +1,44 @@
+{
+  "after-assets.jpg": {
+    "format": "JPEG",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "before-assets.jpg": {
+    "format": "JPEG",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "production-actor-closeup.jpg": {
+    "format": "JPEG",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "production-office.jpg": {
+    "format": "JPEG",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "production-option-a.jpg": {
+    "format": "JPEG",
+    "size": [
+      1280,
+      720
+    ]
+  },
+  "production-option-b.jpg": {
+    "format": "JPEG",
+    "size": [
+      1280,
+      720
+    ]
+  }
+}

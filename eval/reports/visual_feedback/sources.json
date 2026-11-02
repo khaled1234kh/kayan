@@ -1,0 +1,13 @@
+{
+  "input_pdf": {
+    "path": "C:\\Users\\khale\\Downloads\\pdfjoiner.pdf",
+    "sha256": "10dd87e513df4bcfe12d6fd919392bb3eb248045a5c0400c6ed279ec2c73a151",
+    "pages": 4,
+    "kind": "User screenshots, not a fresh browser capture"
+  },
+  "model_authorization": {
+    "path": "C:\\Users\\khale\\.codex\\attachments\\556c1ee3-ac5f-44cb-9bd2-624eea6d2e3a\\Pasted text.txt",
+    "sha256": "6fae398dfda9b0764be4dd44a6db3c90d366de2d0ab515c632ece15611651a60",
+    "kind": "User-provided clarified scope; proposal claims are not independently verified facts"
+  }
+}

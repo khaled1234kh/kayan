@@ -1,0 +1,31 @@
+...........F                                                             [100%]
+================================== FAILURES ===================================
+_______ test_planner_consumes_queued_guidance_at_specialist_boundaries ________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000193F92A31A0>
+
+    def test_planner_consumes_queued_guidance_at_specialist_boundaries(monkeypatch):
+        e,calls,contexts,closed=harness(monkeypatch)
+        n=0
+        def instructions(a):
+            nonlocal n
+            if a is e.planner:
+                n+=1
+                if n==4:return [{'instruction':'Keep remaining checks read-only','audit_entry_id':'controlled-instruction'}]
+            return []
+        e._instructions=instructions
+        e.run()
+        revised=[c for role,c in contexts if c['task_context'].get('completed_outcomes')]
+>       assert revised and revised[0]['task_context']['operator_instructions'][0]['audit_entry_id']=='controlled-instruction'
+E       assert ([])
+
+tests\test_planner_coordination.py:166: AssertionError
+============================== warnings summary ===============================
+tests/test_planner_coordination.py: 11 warnings
+  C:\Users\khale\Downloads\kayan-trustgate\pentagi\agents\reporting_agent.py:91: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "generated_at": datetime.utcnow().isoformat(),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_planner_coordination.py::test_planner_consumes_queued_guidance_at_specialist_boundaries
+1 failed, 11 passed, 11 warnings in 2.22s

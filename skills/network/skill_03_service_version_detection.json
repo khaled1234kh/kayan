@@ -1,0 +1,12 @@
+{
+  "name": "Service Version Detection",
+  "mitre_id": "T1046",
+  "mitre_name": "Network Service Discovery",
+  "description": "Identify service versions on open ports",
+  "techniques": [
+    "Banner grabbing",
+    "Protocol negotiation",
+    "Version probes"
+  ],
+  "detection": "Service monitoring"
+}

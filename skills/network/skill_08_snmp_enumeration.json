@@ -1,0 +1,11 @@
+{
+  "name": "SNMP Enumeration",
+  "mitre_id": "T1046",
+  "mitre_name": "Network Service Discovery",
+  "description": "Enumerate SNMP community strings and OIDs",
+  "techniques": [
+    "Community string brute force",
+    "OID walking"
+  ],
+  "detection": "SNMP monitoring"
+}

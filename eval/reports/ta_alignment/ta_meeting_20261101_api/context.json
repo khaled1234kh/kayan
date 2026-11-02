@@ -1,0 +1,8 @@
+{
+  "company_size": "25 employees (synthetic evaluation fixture)",
+  "departments": "Operations and customer support",
+  "infrastructure_summary": "Public web application and API; review SQL injection and broken access control",
+  "network_architecture": "Office network and hosted application",
+  "data_storage": "Relational database with customer records",
+  "customer_touchpoints": "Customer web portal and login"
+}

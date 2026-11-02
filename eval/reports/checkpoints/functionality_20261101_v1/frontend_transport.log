@@ -1,0 +1,15 @@
+npm notice run kayan-3d@0.1.0 check:trustgate
+npm notice run esbuild scripts/trustgate-check.ts --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-trustgate.mjs --log-level=error && node scripts/.out-trustgate.mjs
+PASS reject malformed, generic and unsupported protocol frames
+PASS connect only to console /ws and send no legacy commands
+PASS late snapshot recovers current task and actual transcript without fabricated messages
+PASS repeated and older revisions are ignored
+PASS reconnect recovers missed entries once and ignores stale socket
+PASS same revision reconnect restores workflow status
+PASS backend restart clears stale actors and task state
+PASS completed operation clears current task
+PASS real authorization denial updates the security panel and blocked seat
+PASS unknown backend role does not occupy or change a seat
+PASS all four backend roles map to distinct desks
+PASS explicit disconnect cancels reconnect and notifies status
+12 TrustGate transport/reducer checks passed

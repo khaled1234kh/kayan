@@ -1,0 +1,26 @@
+{
+  "scene_path": "C:\\Users\\khale\\Downloads\\KAYAN-video\\kayan-company-office\\kayan-3d",
+  "backup_path": "C:\\Users\\khale\\Documents\\Codex\\2026-10-31\\stop-what-you-re-doing-and\\work\\visual-feedback-v5-source",
+  "profile_revision": "selected_agent_decision_and_visual_feedback_v5",
+  "sha256": {
+    "src/App.tsx": "1ca415d47e2b9977524ef86ef1c100ae17378cb8cbfc620b5f83ea9c50a678d9",
+    "src/security/agentDecision.ts": "25fb4c08604a01ee565c8e69dab9d3ddd459b219c459edede95d5e71ccead2b1",
+    "src/components/ui/Panels.tsx": "eeec1f2d2b0ca83a0be7c880ad8905e11d66126f79e0f1b443425b4499132c2d",
+    "src/components/actors/ActorSeat.tsx": "bec368e000166dcbfdcfa8a3effee408ae0674f435414ff3821cc0ce2ba4fe9d",
+    "src/components/actors/labelPosition.ts": "255502bb464fe153eb44cad14b46fbb42a41a24f7e5543ee979908a545693f38",
+    "src/components/actors/LiveMonitorScreen.tsx": "aef2481b613750eea4347c5d9733510e2bf347b9b7cf45a89c32af24db48ae80",
+    "src/components/actors/monitorText.ts": "864464af9735ea1da030e161b34812dc5bffb253c11d012edffb94de84487be7",
+    "src/components/actors/DeskProps.tsx": "c00aa21cef4afdfce188bfe1794568681db43f1834c2276ea6aa0f95fb5d7463",
+    "src/components/scene/SceneLighting.tsx": "c1b554f1110977476ee74fd7b5492dcbdd70c19279ee13cd2601cfdeb28367d4",
+    "src/components/office/Office.tsx": "1ce3d8843a36b2d9956635371aa43665397ba6b2ca6f0ffad97be267d4e903f4",
+    "src/data/layout.ts": "3fdc20f1073b3f988671fd82138f2625e50a90077f01552c29b24e76ec6af81b",
+    "src/styles.css": "43dbce68956677cd4cf0f942f44515385875b05ac8c945ceb683a4f554b9bbdd",
+    "src/devtools/PerformancePanel.tsx": "e2f28c8f91fc762d787b9091c220ff27d080b7ce64698d0b3de239c10000ef8f",
+    "scripts/session-panel-check.tsx": "745184575f26a2548feb5bbffa601ba541332284d0c7132eeff00cf6978702e5",
+    "scripts/trustgate-live-check.ts": "3098a5fcf4a61d6f5c069724d0e0e2d8890c05513ee425acf765446e1e4c283b",
+    "scripts/visual-feedback-check.tsx": "7e3a965f3b970e15bfd86d1f57e9d170f17fdf4bd70d4d6fd0cda23ba0c9fef6",
+    "scripts/office-geometry-check.tsx": "142cc096bfd68f3d6db590a0b61414f50089efb7528a7f7eaa7aac79b94c3002",
+    "package.json": "cd79099220118ed116cb4f448e3a71ccad24f10ef7c555feda963c9640156c0c"
+  },
+  "status": "Build/data/geometry checks passed; human rendering/labels/floor/monitor/Network spot check passed; current performance capture saved; full live walkthrough open"
+}

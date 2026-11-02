@@ -1,0 +1,15 @@
+{
+  "agentButtons": [
+    "Inspect Planner Agent",
+    "Inspect Recon Agent",
+    "Inspect Web-App Agent",
+    "Inspect Network Agent",
+    "Inspect Reporting Agent"
+  ],
+  "horizontalOverflow": false,
+  "viewport": {
+    "height": 764,
+    "width": 684
+  },
+  "browserErrors": []
+}

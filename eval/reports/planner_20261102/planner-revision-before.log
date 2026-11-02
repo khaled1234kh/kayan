@@ -1,0 +1,38 @@
+.............F                                                           [100%]
+================================== FAILURES ===================================
+_ test_invalid_boundary_revision_does_not_relabel_completed_specialist_as_failed _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001CFD11EF410>
+
+    def test_invalid_boundary_revision_does_not_relabel_completed_specialist_as_failed(monkeypatch):
+        e,calls,contexts,closed=harness(monkeypatch)
+        count=0
+        def instructions(a):
+            nonlocal count
+            if a is e.planner:
+                count+=1
+                if count==4:return [{'instruction':'bounded update','audit_entry_id':'unit'}]
+            return []
+        base=e._model_call
+        def model(a,p,c,shape):
+            plan=base(a,p,c,shape)
+            if p=='Revise remaining assignments at a governed task boundary':plan.assignments[0].task='Attempt to rewrite completed work'
+            return plan
+        e._instructions=instructions;e._model_call=model
+        with pytest.raises(RuntimeError,match='completed work cannot be changed'):e.run()
+>       assert e.agent_states['recon_agent']['status']=='completed'
+E       AssertionError: assert 'blocked' == 'completed'
+E         
+E         - completed
+E         + blocked
+
+tests\test_planner_coordination.py:199: AssertionError
+============================== warnings summary ===============================
+tests/test_planner_coordination.py: 11 warnings
+  C:\Users\khale\Downloads\kayan-trustgate\pentagi\agents\reporting_agent.py:91: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "generated_at": datetime.utcnow().isoformat(),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_planner_coordination.py::test_invalid_boundary_revision_does_not_relabel_completed_specialist_as_failed
+1 failed, 13 passed, 11 warnings in 2.32s

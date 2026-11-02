@@ -1,0 +1,17 @@
+{
+  "basis": "Byte-for-byte comparison with HEAD 7c8ef51, no source changes to these protected tracked files",
+  "files": {
+    "integration/pentagi_binding.py": "535382e4d91cd219687cfd58fedf222446c21d170d9a638dfdfdd1ba44f552da",
+    "integration/roe_signing.py": "f20c473ad05654e2fd52966c1c513ff3674406249047675b4108c4cd1a49ec94",
+    "integration/trustgate_client.py": "5eeaa91b5095714e9a701ed6944ff28ef843ace450fb604a63564be99f233c32",
+    "trustgate/service/src/audit.rs": "9809278eb738fbdae849ef93a30cf16e28de3d146c52fc21c6d7d3f7250100b8",
+    "trustgate/service/src/authorize.rs": "18f7d3b356a353e52ea9a626228cf3797ebb6bcb4c00af1d887532017d4946e5",
+    "trustgate/service/src/main.rs": "0dfa2d102982ea5772a1f122604daa3099a518b556b7796983247fcc828806b0",
+    "trustgate/service/src/models.rs": "61a002117a4b54d59588f60fbd980a277274916ee7283ef30bb31e53cf96a5fa",
+    "trustgate/service/src/policy.rs": "053625893f941f8d97df34ae7310f61b1ef2eb1477a06061f2816eb814084954",
+    "trustgate/service/src/roe.rs": "adbb325b96f30f7694a277022d5934c0ba5120cc3db210137778f3cf485d97f2",
+    "trustgate/service/src/roe_http.rs": "5becd3c2ce4bd2ae4a33f766121875138f77c079ddf01e165e7444d8b8c8968e",
+    "trustgate/service/src/taint.rs": "ccaf597e03c02c0c7b8b984ea58a47a49386a6bf6b59f620d738a7794cb439fc",
+    "trustgate/service/src/tests.rs": "51d87761e03f793e58c3d0625cfd53b090baa7d69b08a6baa77bd5bafc0563a6"
+  }
+}

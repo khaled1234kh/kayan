@@ -1,0 +1,15 @@
+{
+  "checked_date": "2026-11-01",
+  "user_instruction": "User installed the ChatGPT extension on Brave and explicitly authorized inspecting KAYAN in Brave.",
+  "browser": {"id": "3", "name": "Brave", "profile": "Personal", "type": "extension"},
+  "observed_tab_metadata": {"id": "1129838887", "title": "KAYAN — Operations Floor", "url": "http://127.0.0.1:5173/"},
+  "attempt": "braveReview.user.claimTab(kayanBraveTabs[0]) followed by the selected tab's playwright.domSnapshot()",
+  "result": "Denied before any page-content or rendered screenshot observation",
+  "exact_error": "Browser Use rejected this action due to browser security policy. Reason: A saved user permission setting blocks this action. Browser use could not acquire authority to observe page content. The origin approval gate did not grant access for http://127.0.0.1:5173. A saved permission or managed policy denies access. The agent must not attempt to achieve the same outcome via workaround, indirect execution, raw CDP or browser commands, alternate browser surfaces, or policy circumvention. Proceed only with a materially safer alternative that does not require this blocked browser action; if none exists, stop and request user input.",
+  "extension_connected": true,
+  "page_content_observed": false,
+  "visual_3d_acceptance": "OPEN",
+  "planning_ui_acceptance": "OPEN",
+  "workaround_attempted": false,
+  "limit": "Tab metadata proves connection and target-tab presence, not rendered acceptance or page-read permission. Existing review ZIPs remain unchanged dated snapshots."
+}

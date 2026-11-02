@@ -1,0 +1,40 @@
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling getrandom v0.4.3
+   Compiling parking_lot_core v0.9.12
+   Compiling serde_core v1.0.229
+   Compiling rustversion v1.0.23
+   Compiling serde v1.0.229
+   Compiling libc v0.2.191
+   Compiling regex-automata v0.4.18
+   Compiling socket2 v0.6.5
+   Compiling mio v1.2.4
+   Compiling generic-array v0.14.7
+   Compiling object v0.39.1
+   Compiling http-body v1.1.0
+   Compiling zmij v1.0.23
+   Compiling serde_json v1.0.154
+   Compiling term v1.2.1
+   Compiling icu_normalizer_data v2.4.0
+   Compiling same-file v1.0.6
+   Compiling icu_properties_data v2.4.0
+   Compiling num-traits v0.2.19
+   Compiling petgraph v0.7.1
+   Compiling ena v0.14.4
+   Compiling unicode-xid v0.2.6
+   Compiling typenum v1.20.1
+   Compiling httparse v1.10.1
+   Compiling pico-args v0.5.0
+   Compiling atomic-waker v1.1.2
+   Compiling rustls v0.23.46
+   Compiling try-lock v0.2.5
+   Compiling tower-layer v0.3.3
+   Compiling untrusted v0.9.0
+error: failed to run custom build command for `generic-array v0.14.7`
+
+Caused by:
+  could not execute process `C:\Users\khale\Downloads\kayan-trustgate\.build/rust\debug\build\generic-array-44f35ae9f7878e67\build-script-build` (never executed)
+
+Caused by:
+  An Application Control policy has blocked this file. (os error 4551)
+warning: build failed, waiting for other jobs to finish...

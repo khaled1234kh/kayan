@@ -1,0 +1,33 @@
+{
+  "checked_at_utc": "2026-11-01T19:45:35.793472+00:00",
+  "health": {
+    "8000": {
+      "path": "/health",
+      "status": 200
+    },
+    "8001": {
+      "path": "/engagement",
+      "status": 200
+    },
+    "8888": {
+      "path": "/",
+      "status": 200
+    },
+    "5173": {
+      "path": "/",
+      "status": 200
+    },
+    "11434": {
+      "path": "/api/tags",
+      "status": 200
+    },
+    "8443": {
+      "path": "/api/v1/health",
+      "status": 301
+    }
+  },
+  "restored_engagement": "7da73508-01e6-48e9-9093-be09c5fd734d",
+  "transcript_entries": 101,
+  "audit_sha256_after_new_tests": "a70871465aa2091015019c6a7fbf2cbd8afdb080a0b1b7148821733f685daf18",
+  "new_actual_model_run": false
+}

@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "checks": {
+    "python": "46 passed; 16 utcnow warnings",
+    "presentation": "passed (arithmetic and SSR, not browser acceptance)",
+    "frontend_build": "passed (TypeScript + production; bundle warning retained)",
+    "transport": "12 checks passed",
+    "sessions": "passed",
+    "risk_plan_cli": "passed; hypotheses equal API"
+  },
+  "api_evidence": "../api_2026-11-01_v1/results.json",
+  "limits": "No new browser/FPS, live assessment, training, mitigation-effectiveness or grounding-comparison measurement. See preserved initial build/wrapper failures.",
+  "final_python_log": "python_final.log",
+  "final_frontend_logs": [
+    "presentation_final.log",
+    "frontend_build_final.log"
+  ],
+  "runtime_readiness": "runtime_readiness.json"
+}

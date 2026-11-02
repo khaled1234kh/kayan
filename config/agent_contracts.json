@@ -1,0 +1,50 @@
+{
+  "recon_agent": {
+    "role": "recon",
+    "model_tier": "B",
+    "skill_role": "recon",
+    "allowed_techniques": [
+      "recon"
+    ],
+    "scope_source": "signed engagement ROE",
+    "authorization_service": "TrustGate /authorize"
+  },
+  "webapp_agent": {
+    "role": "web-app",
+    "model_tier": "A",
+    "skill_role": "web-app",
+    "allowed_techniques": [
+      "web-app"
+    ],
+    "scope_source": "signed engagement ROE",
+    "authorization_service": "TrustGate /authorize"
+  },
+  "network_agent": {
+    "role": "network",
+    "model_tier": "C",
+    "skill_role": "network",
+    "allowed_techniques": [
+      "network"
+    ],
+    "scope_source": "signed engagement ROE",
+    "authorization_service": "TrustGate /authorize"
+  },
+  "reporting_agent": {
+    "role": "reporting",
+    "model_tier": "B",
+    "skill_role": "reporting",
+    "allowed_techniques": [],
+    "scope_source": "observed engagement findings",
+    "authorization_service": "no tool execution"
+  },
+  "planner_agent": {
+    "role": "planner",
+    "model_tier": "A",
+    "skill_role": "planning",
+    "allowed_techniques": [
+      "planning"
+    ],
+    "scope_source": "signed engagement ROE",
+    "authorization_service": "TrustGate /authorize"
+  }
+}

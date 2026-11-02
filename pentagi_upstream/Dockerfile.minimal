@@ -1,0 +1,7 @@
+FROM golang:1.26-bookworm AS builder
+ENV CGO_ENABLED=0
+ENV GO111MODULE=on
+WORKDIR /app/backend
+COPY backend/ .
+RUN go mod download
+RUN go build -trimpath -o /pentagi ./cmd/pentagi

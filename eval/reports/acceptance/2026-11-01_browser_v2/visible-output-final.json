@@ -1,0 +1,7 @@
+{
+  "engagement_id": "546daa0c-43e6-4501-b391-f9d55253e207",
+  "id": "d04002222022482794fae0d32484c478",
+  "output": "{\n  \"assignments\": [\n    {\n      \"role\": \"recon_agent\",\n      \"task\": \"http_probe 127.0.0.1\"\n    },\n    {\n      \"role\": \"webapp_agent\",\n      \"task\": \"xss_test 127.0.0.1\"\n    },\n    {\n      \"role\": \"network_agent\",\n      \"task\": \"port_scan 127.0.0.1\"\n    },\n    {\n      \"role\": \"reporting_agent\",\n      \"task\": \"compile_report 127.0.0.1\"\n    }\n  ]\n}",
+  "streaming": false,
+  "time": "2026-11-01T16:16:22.598Z"
+}

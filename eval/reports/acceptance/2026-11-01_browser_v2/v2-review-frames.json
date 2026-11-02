@@ -1,0 +1,82 @@
+[
+  {
+    "label": "Restored completed original assessment",
+    "seconds": 1.111,
+    "image": "v2-review-00.jpg",
+    "inspected": false
+  },
+  {
+    "label": "Synthetic context: company, departments and infrastructure",
+    "seconds": 3.466,
+    "image": "v2-review-01.jpg",
+    "inspected": true,
+    "observation": "First three synthetic context fields and zero-policy-weight copy readable."
+  },
+  {
+    "label": "Synthetic context: network, storage and touchpoints",
+    "seconds": 5.999,
+    "image": "v2-review-02.jpg",
+    "inspected": true,
+    "observation": "Network/storage/touchpoint synthetic values readable."
+  },
+  {
+    "label": "Phase 1: three hypothetical risks, relevance disclaimer and references",
+    "seconds": 9.272,
+    "image": "v2-review-03.jpg",
+    "inspected": true,
+    "observation": "Three hypothetical risks, relevance disclaimer and all three framework references visible."
+  },
+  {
+    "label": "Option A: no testing, hypothetical evidence, illustrative disclaimer and points",
+    "seconds": 14.078,
+    "image": "v2-review-04.jpg",
+    "inspected": true,
+    "observation": "Option A heading, hypothetical/no-live-testing basis, illustrative disclaimer, five points and first risk-linked recommendation readable."
+  },
+  {
+    "label": "Option A recommendations linked to hypothetical risk IDs",
+    "seconds": 18.213,
+    "image": "v2-review-05.jpg",
+    "inspected": false
+  },
+  {
+    "label": "Option A expanded local reference",
+    "seconds": 21.101,
+    "image": "v2-review-06.jpg",
+    "inspected": false
+  },
+  {
+    "label": "Option B: saved verified evidence, no new testing, disclaimer and six points",
+    "seconds": 23.898,
+    "image": "v2-review-07.jpg",
+    "inspected": true,
+    "observation": "Option B heading, saved verified-finding basis, no-new-testing label, illustrative disclaimer, six points and original 7da73508 finding ID readable."
+  },
+  {
+    "label": "Zero Trust empty group retains six points",
+    "seconds": 27.992,
+    "image": "v2-review-08.jpg",
+    "inspected": true,
+    "observation": "Zero Trust empty grouping explicitly displayed; six points retained."
+  },
+  {
+    "label": "Defense in Depth shows saved-finding recommendations",
+    "seconds": 29.694,
+    "image": "v2-review-09.jpg",
+    "inspected": false
+  },
+  {
+    "label": "Excluding a three-point recommendation changes six to three",
+    "seconds": 31.705,
+    "image": "v2-review-10.jpg",
+    "inspected": true,
+    "observation": "First recommendation unchecked; three illustrative points and one included recommendation displayed."
+  },
+  {
+    "label": "Selection restored: six points and original saved finding IDs",
+    "seconds": 34.085,
+    "image": "v2-review-11.jpg",
+    "inspected": true,
+    "observation": "Both selected again; six points and two included recommendations displayed."
+  }
+]

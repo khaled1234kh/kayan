@@ -1,0 +1,17 @@
+{
+  "review_date": "2026-11-01",
+  "source_engagement": "7da73508-01e6-48e9-9093-be09c5fd734d",
+  "source_recording": "C:/Users/khale/Videos/Screen Recordings/Screen Recording 2026-11-01 155848.mp4",
+  "runtime_artifact": "eval/reports/live_grounding_on_functionality_rehearsal_recorded_20261101_v2.json",
+  "runtime_facts": {"execution_engine": "local_llm", "model": "qwen2.5:7b", "llm_calls": 11, "websocket_frames": 189, "incremental_output_verified_at_transport_layer": true},
+  "inspected_frames": [
+    {"path": "eval/reports/checkpoints/functionality_20261101_v1/media/recorded_v2_055s.png", "video_second": 55, "visible": "Assessment active; physical Reporting screen shows working/current summary; global decision Reporting/llm_inference with matching 7da73508 prefix; activity shows boundary-delivered instruction at 15:58:29. Agent-session panel has no selected actor."},
+    {"path": "eval/reports/checkpoints/functionality_20261101_v1/media/recorded_v2_065s.png", "video_second": 65, "visible": "New assessment button restored; global decision Reporting/write_report with matching 7da73508 prefix; activity shows Verified-finding report saved at 15:58:36. Agent-session panel has no selected actor."}
+  ],
+  "established": ["Rendered active-to-report-saved progression for the recorded real-model engagement", "Visible Reporting current-task activity and delivered-instruction event"],
+  "not_established_by_these_frames": ["Expanded per-agent raw model output growing on screen", "Rendered status-question reply in the selected session", "Form queue receipt for a task-changing instruction", "Deterministic ALLOW/DENY fixture views", "Complete original six-step visual acceptance"],
+  "next_capture": "Collect the specific missing selected-agent/transcript and fixture views. Coordinate before executing anything; do not silently equate a status reply or deterministic fixture with a full actual-model run.",
+  "limits": "Sampled-frame review plus saved runtime records, not a claim that every frame was inspected or that a missing view never occurs elsewhere in the full video. No new model call, assessment, fixture or browser observation was started.",
+  "visual_3d_acceptance": "OPEN",
+  "planning_ui_acceptance": "OPEN"
+}

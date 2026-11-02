@@ -1,0 +1,20 @@
+{
+  "checked_at": "2026-11-01T13:03:47.372963+00:00",
+  "check": "Read-only actual console WebSocket projection with per-agent decision assertions",
+  "result": {
+    "engagement_id": "b8729a4c-69c4-4bb8-a314-bc966f0e5be6",
+    "status": "completed",
+    "projected_agents": 5,
+    "transcript_entries": 97,
+    "last_decision": "allow",
+    "scoped_decisions": {
+      "Planner Agent": "message_send",
+      "Recon Agent": "discover_endpoints",
+      "Web-App Agent": "verify_path_traversal",
+      "Network Agent": "port_scan",
+      "Reporting Agent": "write_report"
+    },
+    "source": "real console WebSocket"
+  },
+  "limit": "Frontend identity/data projection check, not a rendered acceptance check"
+}

@@ -1,0 +1,48 @@
+{
+  "checked_at": "2026-11-01T15:31:11.421471+00:00",
+  "search_scope": "Current project filenames and tracked HEAD Markdown headings; no external/private folders or archived pre-pivot handoff read",
+  "filename_search": {
+    "command": [
+      "rg",
+      "--files",
+      "-g",
+      "*proposal*",
+      "-g",
+      "*Proposal*",
+      "-g",
+      "*thesis*",
+      "-g",
+      "*.docx",
+      "-g",
+      "*.pptx",
+      "-g",
+      "*.pdf",
+      "-g",
+      "!pentagi_upstream/**",
+      "-g",
+      "!node_modules/**"
+    ],
+    "exit_code": 1,
+    "matches": []
+  },
+  "heading_search": {
+    "command": [
+      "git",
+      "grep",
+      "-n",
+      "-i",
+      "-E",
+      "^#{1,3}.*(proposal|thesis|abstract)",
+      "HEAD",
+      "--",
+      "*.md",
+      ":!pentagi_upstream/**",
+      ":!docs/archive/**",
+      ":!eval/reports/**"
+    ],
+    "exit_code": 1,
+    "matches": []
+  },
+  "new_document": "docs/DEFENSE_OVERVIEW.md",
+  "limit": "No external/unprovided proposal or original TA brief was reviewed."
+}

@@ -1,0 +1,51 @@
+{
+  "pdf": "C:\\Users\\khale\\Downloads\\kayan-trustgate\\output\\pdf\\KAYAN_Evidence_Presentation_With_Videos.pdf",
+  "pages": 12,
+  "bytes": 79880054,
+  "attachments": [
+    "evidence-table.txt",
+    "manifest.json",
+    "recorded-report.json",
+    "rehearsal-7da73508.mp4",
+    "three-path.mp4"
+  ],
+  "video_attachment_hashes_match": true,
+  "zip": "C:\\Users\\khale\\Downloads\\kayan-trustgate\\output\\packages\\KAYAN_Offline_Presentation.zip",
+  "zip_bytes": 76631557,
+  "zip_integrity_and_relative_links_verified": true,
+  "inline_video_playback_claimed": false,
+  "linked_pdf": "C:\\Users\\khale\\Downloads\\kayan-trustgate\\output\\pdf\\KAYAN_Evidence_Presentation.pdf",
+  "linked_pdf_bytes": 1120105,
+  "linked_pdf_pages": 12,
+  "video_links": {
+    "three_path": {
+      "url": "https://drive.google.com/file/d/1cBt1aRcKtT3EulSUwK-y9ayTv1UNfWkJ/view?usp=sharing",
+      "filename": "KAYAN_Three_Path_Demo.mp4",
+      "public_viewer_checked": "2026-11-02"
+    },
+    "rehearsal": {
+      "url": "https://drive.google.com/file/d/1SRUVpJtSssnN1zlT0g4Z_ZI4jXg3xfNb/view?usp=sharing",
+      "filename": "KAYAN_Recorded_Live_Assessment_7da73508.mp4",
+      "public_viewer_checked": "2026-11-02"
+    }
+  },
+  "pdf_sha256": "b84ccfe4589e0eb73e2629b6297b15bab42010633998b368f76039573cb9d1d0",
+  "linked_pdf_sha256": "2f9ecca78d95e7180c528f61f7a477bce4737eabc42399f1cdc73ba051ecd264",
+  "zip_sha256": "514ae980210b10c4fe6b595fc0141aab4b869234bc801b7ec6ab94666583d37d",
+  "public_link_annotations_verified": true,
+  "visual_review": {
+    "pages_rendered_each_pdf": 12,
+    "all_pages_inspected_as_contact_sheets": true,
+    "changed_pages_inspected_individually": [
+      1,
+      2
+    ],
+    "result": "No clipping or overlapping elements observed. Proposal/evidence page content retained unchanged."
+  },
+  "remote_video_viewers": {
+    "three_path": "Correct filename; public player reached displayed end 0:36/0:36.",
+    "rehearsal": "Initially redirected to sign-in; after user update, correct filename and public player reached 1:10/1:10.",
+    "remote_bytes_hash_verified": false,
+    "note": "Drive player duration rounding/transcoding does not replace original local metadata."
+  }
+}

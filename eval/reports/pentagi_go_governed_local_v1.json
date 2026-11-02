@@ -1,0 +1,10 @@
+{
+  "checked_at": "2026-11-01T11:42:22.273816+00:00",
+  "engine": "real upstream Go API / local Ollama qwen2.5:7b",
+  "label": "governed_local_v1",
+  "status": "failed_before_engagement",
+  "flows": [],
+  "negative_requests": [],
+  "comparison_limit": "Scoped signed-template flows, not an unconstrained or full five-role UI swap",
+  "error": "HTTP 403 Forbidden on saved-cookie provider probe; no ROE or model flow started"
+}

@@ -1,0 +1,27 @@
+......F.                                                                 [100%]
+================================== FAILURES ===================================
+_____________ test_partial_report_markdown_keeps_coverage_warning _____________
+
+    def test_partial_report_markdown_keeps_coverage_warning():
+        reporter=ReportingAgent('unit')
+        report=reporter.generate_report([], 'owned lab', 'unit')
+        report['assessment_completion']={'complete':False,'notice':'Incomplete assessment: Web-App failed',
+            'specialist_outcomes':[{'role':'webapp_agent','status':'failed','error':'bounded stop'}]}
+        text=reporter.to_markdown(report)
+>       assert 'Incomplete assessment' in text and 'bounded stop' in text
+E       AssertionError: assert ('Incomplete assessment' in '# Security Assessment Report\n\n**Engagement ID:** unit\n**Target:** owned lab\n**Generated:** 2026-11-02T15:26:37.05...rol works.\n\nNo evidence-backed or context-matched recommendations available. This is not an absence-of-risk claim.\n')
+
+tests\test_planner_coordination.py:92: AssertionError
+============================== warnings summary ===============================
+tests/test_planner_coordination.py::test_planner_remains_working_until_reporting_finishes
+tests/test_planner_coordination.py::test_specialist_failure_continues_to_reporting_with_explicit_partial_coverage
+tests/test_planner_coordination.py::test_reporting_failure_marks_coordinator_failed_not_completed
+tests/test_planner_coordination.py::test_partial_report_markdown_keeps_coverage_warning
+tests/test_planner_coordination.py::test_planner_panel_state_has_coordination_task_and_tier
+  C:\Users\khale\Downloads\kayan-trustgate\pentagi\agents\reporting_agent.py:91: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "generated_at": datetime.utcnow().isoformat(),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_planner_coordination.py::test_partial_report_markdown_keeps_coverage_warning
+1 failed, 7 passed, 5 warnings in 1.52s

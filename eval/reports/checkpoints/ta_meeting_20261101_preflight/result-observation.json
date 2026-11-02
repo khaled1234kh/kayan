@@ -1,0 +1,6 @@
+{
+  "observedAtMs": 1793562071258,
+  "rows": [
+    "9:41:07 PM\n26. sql_injection_test: {\"vulnerable\": false, \"status_code\": 200, \"payload\": \"' OR 1=1 --\", \"response_excerpt\": \"<h1>Error: tuple index out of range</h1>\"}"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "checked_at_utc": "2026-11-01T20:04:04.8469655Z",
+  "exact_six_headings": [
+    "System Overview & Architecture",
+    "Required Data Inputs",
+    "Core Deliverables & Logic Flow",
+    "Blue Team Configuration & Pricing Logic",
+    "LLM Training & Framework Evaluation Task",
+    "Pending Tasks / Future Iterations"
+  ],
+  "relative_report_links_exist": true,
+  "negative_result_preserved": true,
+  "excluded_acceptance_figure": true,
+  "proposal_sha256": "2ce8e38e6d7b83bac1a78eeef1c2162c83567be12849953d5213538b5f2a49ce"
+}

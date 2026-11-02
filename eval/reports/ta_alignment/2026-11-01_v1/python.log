@@ -1,0 +1,32 @@
+..............................................                           [100%]
+============================== warnings summary ===============================
+tests/test_console_activity.py::test_orchestrator_publishes_all_agents_actual_roe_tasks_and_final_state
+tests/test_console_activity.py::test_console_outage_does_not_bypass_denial
+tests/test_ta_alignment.py::test_descriptive_context_never_enters_signed_roe_or_gate
+  C:\Users\khale\Downloads\kayan-trustgate\pentagi\orchestrator.py:75: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "start": datetime.utcnow().isoformat(),
+
+tests/test_console_activity.py::test_orchestrator_publishes_all_agents_actual_roe_tasks_and_final_state
+tests/test_console_activity.py::test_console_outage_does_not_bypass_denial
+tests/test_ta_alignment.py::test_descriptive_context_never_enters_signed_roe_or_gate
+  C:\Users\khale\Downloads\kayan-trustgate\pentagi\orchestrator.py:129: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    self.start_time = datetime.utcnow().isoformat()
+
+tests/test_console_activity.py::test_orchestrator_publishes_all_agents_actual_roe_tasks_and_final_state
+tests/test_ta_alignment.py::test_descriptive_context_never_enters_signed_roe_or_gate
+tests/test_ta_alignment.py::test_report_without_context_has_empty_labeled_narrative
+tests/test_ta_alignment.py::test_option_a_cannot_execute_or_authorize_and_does_not_invent_findings
+tests/test_ta_alignment.py::test_common_mitigation_shape_keeps_unverified_claims_out
+tests/test_ta_alignment.py::test_common_mitigation_shape_keeps_unverified_claims_out
+tests/test_ta_alignment.py::test_common_mitigation_shape_keeps_unverified_claims_out
+tests/test_ta_alignment.py::test_common_mitigation_shape_keeps_unverified_claims_out
+tests/test_ta_alignment.py::test_planning_api_rejects_authority_fields_and_does_not_mutate_engagement
+  C:\Users\khale\Downloads\kayan-trustgate\pentagi\agents\reporting_agent.py:91: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "generated_at": datetime.utcnow().isoformat(),
+
+tests/test_console_activity.py::test_orchestrator_publishes_all_agents_actual_roe_tasks_and_final_state
+  C:\Users\khale\Downloads\kayan-trustgate\pentagi\orchestrator.py:174: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    self.end_time = datetime.utcnow().isoformat()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+46 passed, 16 warnings in 5.62s

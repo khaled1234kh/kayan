@@ -1,0 +1,28 @@
+{
+  "path": "C:\\Users\\khale\\Downloads\\KAYAN-final-three-path-2026-11-01_v1.mp4",
+  "sha256": "c3da4c0cf1dced85654df61a0677e748e118150279d5db43cac32c370bfa2cfb",
+  "metadata": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1244,
+        "height": 700,
+        "avg_frame_rate": "6475/389"
+      }
+    ],
+    "format": {
+      "duration": "31.080000",
+      "size": "1227550"
+    }
+  },
+  "captured_frames": 517,
+  "source": "Uncut supported browser screencast frames, encoded with original frame timestamp intervals; browser content viewport only, no audio/browser chrome.",
+  "audit_unchanged": true,
+  "saved_engagement_id": "7da73508-01e6-48e9-9093-be09c5fd734d",
+  "transcript_entries_unchanged": 101,
+  "capture_error": null,
+  "action_error": null,
+  "inspection": "pending frame review"
+}

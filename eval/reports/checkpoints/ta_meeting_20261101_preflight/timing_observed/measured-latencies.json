@@ -1,0 +1,29 @@
+{
+  "samples": [
+    {
+      "engagement_id": "f0ea8f9b-5b07-4ba1-8f1f-e9b88e28af67",
+      "kind": "tool_started",
+      "task_id": "tool-bb99e00328bb4e9fac7bf518dddf7231",
+      "before_publish_ms": 1793562238026,
+      "after_publish_ms": 1793562238046,
+      "observedAtMs": 1793562238068,
+      "text": "9:43:58 PM\n25. Executing sql_injection_test on 127.0.0.1",
+      "publication_to_dom_ms": 42,
+      "after_publish_to_dom_ms": 22
+    },
+    {
+      "engagement_id": "f0ea8f9b-5b07-4ba1-8f1f-e9b88e28af67",
+      "kind": "tool_result",
+      "task_id": "tool-bb99e00328bb4e9fac7bf518dddf7231",
+      "before_publish_ms": 1793562255400,
+      "after_publish_ms": 1793562255436,
+      "observedAtMs": 1793562255451,
+      "text": "9:44:15 PM\n26. sql_injection_test: {\"vulnerable\": false, \"status_code\": 200, \"payload\": \"' OR 1=1 --\", \"response_excerpt\": \"<h1>Error: tuple index out of range</h1>\"}",
+      "publication_to_dom_ms": 51,
+      "after_publish_to_dom_ms": 15
+    }
+  ],
+  "method": "Temporary read-only MutationObserver via permitted browser CDP, logging Date.now on actual matching DOM insertion; real backend event publication timestamp on the same machine. Observer removed by reload.",
+  "limits": "Two DOM-commit observations, not pixel-paint timing, a universal latency bound or a model/grounding quality test. Current task was already set during authorization before tool_started. Later screenshots confirm rendering separately.",
+  "first_attempt": "85d8fb6c: delayed manual reads cannot establish a 2s bound; preserved."
+}

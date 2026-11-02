@@ -1,0 +1,124 @@
+[
+  {
+    "entry_id": "32ab86d1-0260-40fd-b8ab-6994e0ee54f8",
+    "previous_hash": "0f1593ed31abb01bcb71d12b0594f9c6f11fd8233e77c2db1aea6f2e723bb2fb",
+    "timestamp": "2026-11-01T16:08:06.032562400+00:00",
+    "engagement_id": "b4f8296e-3491-4c58-963c-2333d22b6e93",
+    "agent_id": "system",
+    "agent_role": "system",
+    "tool_name": "roe_load",
+    "tool_args": {
+      "authorized_by": "human-visual-acceptance"
+    },
+    "target": "engagement",
+    "technique": "roe_load",
+    "decision": "ALLOW",
+    "reason": "ROE loaded and compiled: 9 rules",
+    "provenance": {},
+    "entry_hash": "13825f2c72441d48d1aa9ca6a1b2f2622b8b6179836ffda9b70ad2fcb68f54a6",
+    "signature": "a32cc3257200f35dfcd9eb14e31a3033ed301fb5b47df12c5c253764544e060d"
+  },
+  {
+    "entry_id": "d848cff3-271d-45af-a42e-000716afdefa",
+    "previous_hash": "13825f2c72441d48d1aa9ca6a1b2f2622b8b6179836ffda9b70ad2fcb68f54a6",
+    "timestamp": "2026-11-01T16:08:06.370684600+00:00",
+    "engagement_id": "b4f8296e-3491-4c58-963c-2333d22b6e93",
+    "agent_id": "recon-3e2aa490",
+    "agent_role": "recon_agent",
+    "tool_name": "port_scan",
+    "tool_args": {
+      "target": "http://127.0.0.1:8888",
+      "ports": "80,443,8080,8888"
+    },
+    "target": "127.0.0.1",
+    "technique": "recon",
+    "decision": "ALLOW",
+    "reason": "Cedar permit matched authenticated ROE capability, target and time window",
+    "provenance": {
+      "target": "trusted",
+      "ports": "trusted"
+    },
+    "entry_hash": "6d29247e44599fe7f7040d4ff8667684d440a730d1aa3183f8e0796901752e5d",
+    "signature": "75ce60d37f599ae48e79ed234c75ceeefbe52be709c4a99519c717290348935e"
+  },
+  {
+    "entry_id": "fc471a5b-e6d3-4e7f-b086-09dae9e835f1",
+    "previous_hash": "6d29247e44599fe7f7040d4ff8667684d440a730d1aa3183f8e0796901752e5d",
+    "timestamp": "2026-11-01T16:08:12.466417+00:00",
+    "engagement_id": "b4f8296e-3491-4c58-963c-2333d22b6e93",
+    "agent_id": "recon-3e2aa490",
+    "agent_role": "recon_agent",
+    "tool_name": "service_scan",
+    "tool_args": {
+      "path": "/",
+      "target": "http://127.0.0.1:8888"
+    },
+    "target": "127.0.0.1",
+    "technique": "recon",
+    "decision": "ALLOW",
+    "reason": "Cedar permit matched authenticated ROE capability, target and time window",
+    "provenance": {
+      "path": "trusted",
+      "target": "trusted"
+    },
+    "entry_hash": "7899ff2564ffb64e69f25106fa0124f0f2b14b2b9ba9b66b608c35b445777261",
+    "signature": "724e61b6d30a783331c6b9d83f071c6d04b48b8829bbc9e585b8d6f07be56998"
+  },
+  {
+    "entry_id": "84cde4ac-1a5e-4cc7-9126-7a22e14c744c",
+    "previous_hash": "7899ff2564ffb64e69f25106fa0124f0f2b14b2b9ba9b66b608c35b445777261",
+    "timestamp": "2026-11-01T16:08:12.990441+00:00",
+    "engagement_id": "b4f8296e-3491-4c58-963c-2333d22b6e93",
+    "agent_id": "recon-3e2aa490",
+    "agent_role": "recon_agent",
+    "tool_name": "web_crawl",
+    "tool_args": {
+      "target": "http://127.0.0.1:8888",
+      "paths": [
+        "/",
+        "/api/users",
+        "/api/products",
+        "/login",
+        "/search",
+        "/ping",
+        "/file",
+        "/fetch"
+      ]
+    },
+    "target": "127.0.0.1",
+    "technique": "recon",
+    "decision": "ALLOW",
+    "reason": "Cedar permit matched authenticated ROE capability, target and time window",
+    "provenance": {
+      "target": "trusted",
+      "paths": "trusted"
+    },
+    "entry_hash": "3545a149d530283ee7b163dac21d400785671a64c15ef55d64e9cab4757bf2a1",
+    "signature": "13c9e169f8e06160735fbe8a058c8c21cd6865d9bec05de72c7918505d4b52d8"
+  },
+  {
+    "entry_id": "7b3a03bf-67b6-4504-9108-017724ce9c1c",
+    "previous_hash": "3545a149d530283ee7b163dac21d400785671a64c15ef55d64e9cab4757bf2a1",
+    "timestamp": "2026-11-01T16:08:17.245024500+00:00",
+    "engagement_id": "b4f8296e-3491-4c58-963c-2333d22b6e93",
+    "agent_id": "webapp-7e922e01",
+    "agent_role": "webapp_agent",
+    "tool_name": "sql_injection_test",
+    "tool_args": {
+      "endpoint": "/login",
+      "target": "http://127.0.0.1:8888",
+      "payload": "' OR 1=1 --"
+    },
+    "target": "127.0.0.1",
+    "technique": "web-app",
+    "decision": "DENY",
+    "reason": "Action 'sql_injection_test/web-app' is forbidden",
+    "provenance": {
+      "endpoint": "trusted",
+      "payload": "trusted",
+      "target": "trusted"
+    },
+    "entry_hash": "9d99f0a70b17681e0590626d9bd6a8097c4a0fe15b59f4cca6d78af65c02dab8",
+    "signature": "b566c6502acd81724aa2359e0f6904099b83a989f23ee9e006ffefa764e0d565"
+  }
+]

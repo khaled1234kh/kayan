@@ -1,0 +1,13 @@
+{
+  "name": "Port Scanning",
+  "mitre_id": "T1595",
+  "mitre_name": "Active Scanning",
+  "description": "Scan target for open ports and services",
+  "techniques": [
+    "TCP connect scan",
+    "SYN scan",
+    "UDP scan",
+    "Service version detection"
+  ],
+  "detection": "Network IDS, firewall logs"
+}

@@ -1,0 +1,2 @@
+console/office/public/models/*.fbx filter=lfs diff=lfs merge=lfs -text
+console/office/public/review/*.mp4 filter=lfs diff=lfs merge=lfs -text

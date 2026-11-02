@@ -1,0 +1,12 @@
+{
+  "name": "Evidence Collection",
+  "mitre_id": "T1595",
+  "mitre_name": "Active Scanning",
+  "description": "Collect and preserve evidence for findings",
+  "techniques": [
+    "Screenshot capture",
+    "Request/response logging",
+    "Payload documentation"
+  ],
+  "detection": "N/A - reporting only"
+}

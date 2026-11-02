@@ -1,0 +1,22 @@
+[
+  {
+    "height": 1080,
+    "scroll": 1920,
+    "width": 1920
+  },
+  {
+    "height": 900,
+    "scroll": 1440,
+    "width": 1440
+  },
+  {
+    "height": 720,
+    "scroll": 1280,
+    "width": 1280
+  },
+  {
+    "height": 900,
+    "scroll": 625,
+    "width": 640
+  }
+]

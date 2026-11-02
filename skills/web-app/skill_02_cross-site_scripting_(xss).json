@@ -1,0 +1,12 @@
+{
+  "name": "Cross-Site Scripting (XSS)",
+  "mitre_id": "T1190",
+  "mitre_name": "Exploit Public-Facing Application",
+  "description": "Test for XSS vulnerabilities",
+  "techniques": [
+    "Reflected XSS",
+    "Stored XSS",
+    "DOM-based XSS"
+  ],
+  "detection": "CSP headers, XSS filters, WAF"
+}

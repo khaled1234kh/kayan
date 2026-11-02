@@ -1,0 +1,45 @@
+{
+  "label": "planner_final_live_20261102_v2",
+  "passed": true,
+  "engagement_id": "f5cc9c9c-9653-4416-b854-95bfb20dcabe",
+  "findings": 2,
+  "allowed": 29,
+  "denied": 1,
+  "assignment_order": [
+    "recon_agent",
+    "webapp_agent",
+    "network_agent",
+    "reporting_agent"
+  ],
+  "specialist_outcomes": [
+    {
+      "role": "recon_agent",
+      "task": "http_probe 127.0.0.1",
+      "status": "completed",
+      "observations": 3,
+      "verified_findings": 0
+    },
+    {
+      "role": "webapp_agent",
+      "task": "xss_test 127.0.0.1",
+      "status": "completed",
+      "observations": 3,
+      "verified_findings": 2
+    },
+    {
+      "role": "network_agent",
+      "task": "port_scan 127.0.0.1",
+      "status": "completed",
+      "observations": 2,
+      "verified_findings": 0
+    }
+  ],
+  "observed_active_frames": 145,
+  "planner_last_completed": true,
+  "planner_has_no_tool_dispatch": true,
+  "models": [
+    "qwen2.5:7b"
+  ],
+  "incremental_output_verified": true,
+  "visual_verification": false
+}

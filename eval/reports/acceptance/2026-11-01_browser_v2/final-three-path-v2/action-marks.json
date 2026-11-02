@@ -1,0 +1,50 @@
+[
+  {
+    "label": "Restored completed original assessment",
+    "time": "2026-11-01T19:08:17.456Z"
+  },
+  {
+    "label": "Synthetic context: company, departments and infrastructure",
+    "time": "2026-11-01T19:08:19.811Z"
+  },
+  {
+    "label": "Synthetic context: network, storage and touchpoints",
+    "time": "2026-11-01T19:08:22.344Z"
+  },
+  {
+    "label": "Phase 1: three hypothetical risks, relevance disclaimer and references",
+    "time": "2026-11-01T19:08:25.617Z"
+  },
+  {
+    "label": "Option A: no testing, hypothetical evidence, illustrative disclaimer and points",
+    "time": "2026-11-01T19:08:30.423Z"
+  },
+  {
+    "label": "Option A recommendations linked to hypothetical risk IDs",
+    "time": "2026-11-01T19:08:34.558Z"
+  },
+  {
+    "label": "Option A expanded local reference",
+    "time": "2026-11-01T19:08:37.446Z"
+  },
+  {
+    "label": "Option B: saved verified evidence, no new testing, disclaimer and six points",
+    "time": "2026-11-01T19:08:40.243Z"
+  },
+  {
+    "label": "Zero Trust empty group retains six points",
+    "time": "2026-11-01T19:08:44.337Z"
+  },
+  {
+    "label": "Defense in Depth shows saved-finding recommendations",
+    "time": "2026-11-01T19:08:46.039Z"
+  },
+  {
+    "label": "Excluding a three-point recommendation changes six to three",
+    "time": "2026-11-01T19:08:48.050Z"
+  },
+  {
+    "label": "Selection restored: six points and original saved finding IDs",
+    "time": "2026-11-01T19:08:50.430Z"
+  }
+]

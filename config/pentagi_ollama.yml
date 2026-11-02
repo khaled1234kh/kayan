@@ -1,0 +1,65 @@
+simple:
+  model: qwen2.5:7b
+  temperature: 0
+  max_tokens: 768
+
+simple_json:
+  model: qwen2.5:7b
+  temperature: 0
+  max_tokens: 768
+  json: true
+
+primary_agent:
+  model: qwen2.5:7b
+  temperature: 0
+  max_tokens: 768
+
+assistant:
+  model: qwen2.5:7b
+  temperature: 0
+  max_tokens: 768
+
+generator:
+  model: qwen2.5:7b
+  temperature: 0
+  max_tokens: 768
+
+refiner:
+  model: qwen2.5:7b
+  temperature: 0
+  max_tokens: 768
+
+adviser:
+  model: qwen2.5:7b
+  temperature: 0
+  max_tokens: 768
+
+reflector:
+  model: qwen2.5:7b
+  temperature: 0
+  max_tokens: 768
+
+searcher:
+  model: qwen2.5:7b
+  temperature: 0
+  max_tokens: 768
+
+enricher:
+  model: qwen2.5:7b
+  temperature: 0
+  max_tokens: 768
+
+coder:
+  model: qwen2.5:7b
+  temperature: 0
+  max_tokens: 768
+
+installer:
+  model: qwen2.5:7b
+  temperature: 0
+  max_tokens: 768
+
+pentester:
+  model: qwen2.5:7b
+  temperature: 0
+  max_tokens: 768

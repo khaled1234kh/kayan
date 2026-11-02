@@ -1,0 +1,12 @@
+{
+  "name": "Network Sniffing",
+  "mitre_id": "T1040",
+  "mitre_name": "Network Sniffing",
+  "description": "Capture network traffic for analysis",
+  "techniques": [
+    "ARP spoofing",
+    "Promiscuous mode",
+    "Packet capture"
+  ],
+  "detection": "Network monitoring, IDS"
+}

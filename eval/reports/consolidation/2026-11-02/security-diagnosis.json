@@ -1,0 +1,31 @@
+{
+  "checked_at": "2026-11-02T09:46:57.2643500+02:00",
+  "defender_method": "Get-MpThreatDetection filtered to kayan-trustgate/trustgate-target/trustgate-service",
+  "defender_matches": [],
+  "sac_state": 1,
+  "code_integrity": [
+    {
+      "TimeCreated": "2026-11-02T09:23:17.3839633+02:00",
+      "Id": 3077,
+      "Message": "Code Integrity determined that a process (\\Device\\HarddiskVolume3\\Users\\khale\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe) attempted to load \\Device\\HarddiskVolume3\\Users\\khale\\Documents\\Codex\\2026-10-31\\stop-what-you-re-doing-and\\work\\trustgate-target-20261101\\debug\\trustgate-service.exe that did not meet the Enterprise signing level requirements or violated code integrity policy (Policy ID:{0283ac0f-fff1-49ae-ada1-8a933130cad6})."
+    },
+    {
+      "TimeCreated": "2026-11-02T09:23:14.7479907+02:00",
+      "Id": 3077,
+      "Message": "Code Integrity determined that a process (\\Device\\HarddiskVolume3\\Users\\khale\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe) attempted to load \\Device\\HarddiskVolume3\\Users\\khale\\Documents\\Codex\\2026-10-31\\stop-what-you-re-doing-and\\work\\trustgate-target-20261101\\debug\\trustgate-service.exe that did not meet the Enterprise signing level requirements or violated code integrity policy (Policy ID:{0283ac0f-fff1-49ae-ada1-8a933130cad6})."
+    },
+    {
+      "TimeCreated": "2026-11-02T09:23:11.4486368+02:00",
+      "Id": 3077,
+      "Message": "Code Integrity determined that a process (\\Device\\HarddiskVolume3\\Users\\khale\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe) attempted to load \\Device\\HarddiskVolume3\\Users\\khale\\Documents\\Codex\\2026-10-31\\stop-what-you-re-doing-and\\work\\trustgate-target-20261101\\debug\\trustgate-service.exe that did not meet the Enterprise signing level requirements or violated code integrity policy (Policy ID:{0283ac0f-fff1-49ae-ada1-8a933130cad6})."
+    },
+    {
+      "TimeCreated": "2026-11-02T09:22:49.3785586+02:00",
+      "Id": 3077,
+      "Message": "Code Integrity determined that a process (\\Device\\HarddiskVolume3\\Users\\khale\\.rustup\\toolchains\\stable-x86_64-pc-windows-msvc\\bin\\cargo.exe) attempted to load \\Device\\HarddiskVolume3\\Users\\khale\\Downloads\\kayan-trustgate\\.build\\rust\\debug\\build\\httparse-a60166dc581003a3\\build-script-build.exe that did not meet the Enterprise signing level requirements or violated code integrity policy (Policy ID:{0283ac0f-fff1-49ae-ada1-8a933130cad6})."
+    }
+  ],
+  "security_settings_changed": false,
+  "defender_exclusions_added": false,
+  "decision": "Smart App Control enforced; stop troubleshooting and use recorded evidence"
+}
