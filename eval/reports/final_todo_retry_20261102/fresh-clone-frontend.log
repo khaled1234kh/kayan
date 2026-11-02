@@ -1,0 +1,72 @@
+npm notice run kayan-trustgate-office@0.1.0 check:trustgate
+npm notice run esbuild scripts/trustgate-check.ts --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-trustgate.mjs --log-level=error && node scripts/.out-trustgate.mjs
+PASS reject malformed, generic and unsupported protocol frames
+PASS connect only to console /ws and send no legacy commands
+PASS late snapshot recovers current task and actual transcript without fabricated messages
+PASS repeated and older revisions are ignored
+PASS reconnect recovers missed entries once and ignores stale socket
+PASS same revision reconnect restores workflow status
+PASS backend restart clears stale actors and task state
+PASS completed operation clears current task
+PASS real authorization denial updates the security panel and blocked seat
+PASS unknown backend role does not occupy or change a seat
+PASS all four backend roles map to distinct desks
+PASS explicit disconnect cancels reconnect and notifies status
+PASS manual reconnect after the bounded retry budget recovers the saved snapshot
+13 TrustGate transport/reducer checks passed
+npm notice run kayan-trustgate-office@0.1.0 check:session-panel
+npm notice run esbuild scripts/session-panel-check.tsx --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-session-panel.mjs --log-level=error && node scripts/.out-session-panel.mjs
+PASS selected-agent TrustGate decision isolation, missing-decision empty state and stale-engagement rejection
+PASS session panel: role/tier, actual task, collapsed raw detail, allow/deny classes, escaped output, MITRE findings, explicit idle, five distinct workstations
+npm notice run kayan-trustgate-office@0.1.0 check:ta-alignment
+npm notice run esbuild scripts/ta-alignment-check.tsx --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-ta-alignment.mjs --log-level=error && node scripts/.out-ta-alignment.mjs
+TA presentation checks passed: selection totals/deduplication, framework tags, visible illustrative disclaimer, evidence basis and escaped six-field intake. SSR is not browser acceptance.
+npm notice run kayan-trustgate-office@0.1.0 check:audit
+npm notice run esbuild scripts/audit-check.tsx --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-audit.mjs --log-level=error && node scripts/.out-audit.mjs
+PASS actual transcript role/audit-ID rendering, denial color, escaped untrusted content and collapsed raw entries. SSR, not pixel acceptance.
+npm notice run kayan-trustgate-office@0.1.0 check:office
+npm notice run esbuild scripts/office-geometry-check.tsx --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-office.mjs --log-level=error && node scripts/.out-office.mjs
+PASS monitor front/rear raycasts, solid casing, upward worker-facing normal, five viewport fits, workstation separation and plant/lamp/mug clearances (no visual claim)
+npm notice run kayan-trustgate-office@0.1.0 check:actor-picking
+npm notice run esbuild scripts/actor-picking-check.ts --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-actor-picking.mjs --log-level=error && node scripts/.out-actor-picking.mjs
+PASS rotated/scaled actor proxy receives hits, detailed raycast is skipped, visual geometry retained; no rendered acceptance claim.
+npm notice run kayan-trustgate-office@0.1.0 check:visual-feedback
+npm notice run esbuild scripts/visual-feedback-check.tsx --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-visual-feedback.mjs --log-level=error && node scripts/.out-visual-feedback.mjs
+PASS agent-label viewport bounds, monitor wrapping/ellipsis and key-shadow room coverage (max NDC 0.934). Geometry/text checks, not rendered acceptance.
+npm notice run kayan-trustgate-office@0.1.0 check:performance-metrics
+npm notice run esbuild scripts/performance-metrics-check.ts --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-performance-metrics.mjs --log-level=error && node scripts/.out-performance-metrics.mjs
+Synthetic metric calculations passed. No real browser FPS was measured by this check.
+npm notice run kayan-trustgate-office@0.1.0 check:redesign
+npm notice run esbuild scripts/redesign-check.tsx --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-redesign.mjs --log-level=error && node scripts/.out-redesign.mjs
+Redesign checks passed: real-stage labels, five stages, fail-closed Gate wording, four isolated tabs, planning stepper, singular effort, evidence labels; 10 token contrast pairs >=4.5:1. SSR is not visual acceptance.
+npm notice run kayan-trustgate-office@0.1.0 check:bundle
+npm notice run node scripts/bundle-check.mjs
+{
+  "chunks": [
+    {
+      "name": "index-CJPMaOq7.js",
+      "bytes": 76742
+    },
+    {
+      "name": "office-runtime-B8nT_Rg_.js",
+      "bytes": 208817
+    },
+    {
+      "name": "react-BGQkUaTG.js",
+      "bytes": 145963
+    },
+    {
+      "name": "three-engine-CxmXZIjN.js",
+      "bytes": 476699
+    },
+    {
+      "name": "three-math-B_mXX7du.js",
+      "bytes": 80182
+    },
+    {
+      "name": "three-shaders-CXxbwGep.js",
+      "bytes": 157249
+    }
+  ],
+  "totalBytes": 1145652
+}

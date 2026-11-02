@@ -56,4 +56,12 @@ The first GitHub push was rejected by push protection for Google OAuth-shaped st
 
 That newly included package initially failed because consolidation had removed the upstream Compose input used by TestConfig_EveryVariableReachesTheContainer. Two pre-consolidation recovery copies matched byte-for-byte. Their exact 13,742-byte template (SHA-256 b7d4eb6a4ee4b607e41874e2121352bd46068156376b9b4b38fedfbc9c946305) is restored under pkg/config/testdata and the test reads it there. It is not an active deployment. All 15 config tests passed with zero skips. The failed v4 profile remains preserved; the final v5 profile passed 17/17.
 
+## Fresh-download and README follow-up
+
+The clean public snapshot a542f8a was cloned from GitHub into a separate temporary verification directory. Its six current LFS model/video objects were downloaded from the remote and passed Git LFS fsck. Fresh npm ci, production build and all ten frontend scripts passed there; this did not substitute for the separately recorded real-model/pixel observations.
+
+A new isolated Python environment installed the original declared requirements and exposed a real bootstrap failure: `ImportError: jinja2 must be installed to use Jinja2Templates`. The lab never uses that imported template helper, so the unused import was removed. Required form parsing and WebSocket packages were explicitly declared at the exercised versions, python-multipart 0.0.32 and websockets 17.1. The isolated environment then imported the lab/backend without Jinja installed, connected to the real console WebSocket, and passed all 84 Python tests (28 warnings in that environment, versus 27 in the main profile). Before/after evidence is retained in fresh-setup-before.json, fresh-setup-verification.json and fresh-environment-python.log.
+
+README now includes five inspected actual UI screenshots, captured on 2 November from the final real session and explicitly hypothetical planning sample. No mockup or generative retouching is used. File hashes and dimensions are in readme-screenshots.json. A failed region-capture attempt was replaced by complete viewport captures before publication. Setup/review/live instructions, evidence labels, validation links, team names and proposal/video access were refreshed.
+
 No grounding improvement was demonstrated. Preserve this failure.

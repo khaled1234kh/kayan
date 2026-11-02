@@ -12,7 +12,6 @@ WARNING: This app is intentionally vulnerable. Run ONLY in isolated lab environm
 
 from fastapi import FastAPI, Request, Form, Query
 from fastapi.responses import HTMLResponse, JSONResponse
-from fastapi.templating import Jinja2Templates
 import sqlite3
 import subprocess
 import os

@@ -246,4 +246,6 @@ Do not touch the top-level Remotion project or old sibling server/ folder, resur
 - [x] Reproduce/fix garbled authorization punctuation; preserve the failed focused test and corrected new rendered transcript. Old transcripts remain unchanged.
 - [x] Reproduce/fix audit hash-order verification, preserve original journal bytes, support authenticated legacy ordering, reject malformed/unknown/tampered payloads, pass eight audit regression cases, and verify the complete journal after restart. No Cedar/ROE/taint or execution-authority change.
 - [x] Run all 17 final checks and real local-Qwen acceptance; preserve intermediate failures and exact findings/allowed/denied counts.
+- [x] Add five actual rendered project screenshots to the README, with review/live setup, workflow/evidence distinctions, verified results, team and proposal/video links. Check image framing and relative paths.
+- [x] Reproduce isolated-install startup failure; remove the unused Jinja template import and declare required multipart/WebSocket packages. Verify fresh-environment lab/backend imports, real WebSocket connection and 84 Python tests.
 - [ ] Publish tested source/curated evidence to https://github.com/khaled1234kh/kayan and verify remote commit/LFS assets. Exclude current local runtime keys/journal, bytecode, caches and duplicate recovery/delivery exports.

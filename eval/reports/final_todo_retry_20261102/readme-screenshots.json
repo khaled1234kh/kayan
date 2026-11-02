@@ -1,0 +1,47 @@
+{
+  "captured": "2026-11-02",
+  "source": "Actual rendered KAYAN UI; final 51bba207 session and explicitly hypothetical planning sample",
+  "retouching": false,
+  "screenshots": [
+    {
+      "file": "docs/images/assessment-mitigation.jpg",
+      "size": [
+        2183,
+        1244
+      ],
+      "sha256": "4e9f953b6c8e2ef60d083d506cea8091db91929991a0880098509d33d253e85f"
+    },
+    {
+      "file": "docs/images/direct-mitigation.jpg",
+      "size": [
+        2183,
+        1244
+      ],
+      "sha256": "527227f307f04b4e414e5f64b681896827c272a367b791dd4a7cdac2cf983e56"
+    },
+    {
+      "file": "docs/images/operations-console.jpg",
+      "size": [
+        2183,
+        1244
+      ],
+      "sha256": "306d5b7b3db659e1a2d22332d598eaa6652aaa9745719c4bd12356f0901517b5"
+    },
+    {
+      "file": "docs/images/planner-session.jpg",
+      "size": [
+        2183,
+        1244
+      ],
+      "sha256": "28c70e501f4f4ca25c03e9fe5446ea544a6938c002fa3ac40c751758724fd70e"
+    },
+    {
+      "file": "docs/images/risk-plan.jpg",
+      "size": [
+        2183,
+        1244
+      ],
+      "sha256": "052db935ca2bef09a070e0df36a1d1f5b5ac4f55e3340970d37a4c0547c5748e"
+    }
+  ]
+}

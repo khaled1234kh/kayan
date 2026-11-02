@@ -1,0 +1,22 @@
+{
+  "fresh_environment_runtime_imports": "lab and backend passed without jinja2 installed",
+  "websocket_handshake": "passed",
+  "dependencies": {
+    "fastapi": "0.162.0",
+    "uvicorn": "0.54.0",
+    "pydantic": "2.14.2",
+    "httpx": "0.28.1",
+    "pytest": "9.2.0",
+    "websockets": "17.1",
+    "python-multipart": "0.0.32"
+  },
+  "python_tests": {
+    "passed": 84,
+    "warnings": 28
+  },
+  "newly_declared": [
+    "websockets==17.1",
+    "python-multipart==0.0.32"
+  ],
+  "unused_template_import_removed": true
+}

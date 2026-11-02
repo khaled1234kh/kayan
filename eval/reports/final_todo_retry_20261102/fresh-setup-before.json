@@ -1,0 +1,6 @@
+{
+  "lab_import_exit": 1,
+  "lab_import_error": "Traceback (most recent call last):\n  File \"C:\\Users\\khale\\Downloads\\kayan-trustgate\\tmp\\github-setup-venv\\Lib\\site-packages\\starlette\\templating.py\", line 14, in <module>\n    import jinja2\nModuleNotFoundError: No module named 'jinja2'\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"<string>\", line 1, in <module>\n  File \"C:\\Users\\khale\\Downloads\\kayan-trustgate\\tmp\\github-verified_20261102\\lab\\vulnerable_app.py\", line 15, in <module>\n    from fastapi.templating import Jinja2Templates\n  File \"C:\\Users\\khale\\Downloads\\kayan-trustgate\\tmp\\github-setup-venv\\Lib\\site-packages\\fastapi\\templating.py\", line 1, in <module>\n    from starlette.templating import Jinja2Templates as Jinja2Templates  # noqa\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\khale\\Downloads\\kayan-trustgate\\tmp\\github-setup-venv\\Lib\\site-packages\\starlette\\templating.py\", line 28, in <module>\n    raise ImportError(\"jinja2 must be installed to use Jinja2Templates\") from _import_error\nImportError: jinja2 must be installed to use Jinja2Templates\n",
+  "websockets_available": false,
+  "requirements": "Unmodified published requirements from a fresh GitHub clone"
+}

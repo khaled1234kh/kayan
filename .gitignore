@@ -16,6 +16,7 @@ console/office/scripts/.out-*.mjs
 tmp/
 data/runtime/
 .build/
+.venv/
 
 # Runtime/private working data and duplicate local delivery/recovery exports.
 audit_log.jsonl
