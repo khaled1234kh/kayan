@@ -10,7 +10,9 @@ Gate now builds/starts on the normal path. Smart App Control still reports 1; no
 
 Current services: Gate 8000, lab 8888, backend 8001, office 5173, installed Ollama 11434. All-component startup verified/reused the four application services. Use `Start-Kayan.ps1 -Component All` for live operation after starting installed Ollama. Review remains the safe default. The final completed session is now loaded; `-RestoreDemo` deliberately refuses to replace a different session. Historical 7da73508... media/reports and all grounding failures remain unchanged.
 
-All listed product/demo TODOs are checked. Authorized GitHub publication to https://github.com/khaled1234kh/kayan is tracked separately until the remote commit is verified. Current publication excludes the working journal/keys, bytecode, dependency/build caches and duplicate local exports. Original recovery ZIPs remain local; The local recovery history retains earlier source/LFS pointers; the public main branch is a clean delivery snapshot.
+All listed TODOs, including GitHub delivery, are checked. Published source/README commit 532a4871769a03013ffb81ffe1f02943388131e6 matched remote main and a fresh downloaded clone. All six current LFS assets passed fsck; the clone passed fresh frontend install/build/ten scripts and 84 isolated-environment Python tests. Five actual README screenshots were inspected on GitHub and decoded successfully. A final documentation-only closure commit follows that tested source. Publication excludes working journal/keys, bytecode, caches and duplicate local exports. Original recovery ZIPs and development history remain local; public main has clean delivery ancestry.
+
+The isolated-install follow-up fixed an unused Jinja template import and declared required multipart/WebSocket dependencies. Both runtime imports and a real WebSocket handshake passed in the fresh environment. README contains review/live commands, screenshots, evidence distinctions, exact results, team and proposal/video links. See docs/GITHUB_DELIVERY_2026-11-02.md and github-verification.json for publication proof.
 
 ## Earlier delivery checkpoint — before the successful final retry
 
@@ -30,7 +32,7 @@ Canonical project: **C:\Users\khale\Downloads\kayan-trustgate\**. This document 
 
 Implementation, TA mapping, consolidation, Planner reliability, the redesigned interface, public-video PDF, asset/chunk work and live coordinator validation are complete within the documented limits. The final normal Gate retry supersedes the earlier blocked state. Review starts no assessment or model inference. Current exact results and startup details are at the top of this document and in docs/DEMO_READY_2026-11-02.md.
 
-**Next concrete task:** finish/verify the authorized GitHub publication, then rehearse the existing bounded demo using the final readiness document. The formerly blocked actual-model acceptance is complete. Preserve existing 7da73508... reports/videos and comparisons; no new assessment relabels that historical evidence.
+**Next concrete task:** rehearse the existing bounded demo using README and the final readiness document. No listed implementation or publication TODO remains open. Original 7da73508... recordings remain separate from the final new live assessment; preserve both. Future work must respect the disclosed production/Go/grounding limits rather than relabel them as completed capabilities.
 
 ## 2. Project locations and consolidation
 

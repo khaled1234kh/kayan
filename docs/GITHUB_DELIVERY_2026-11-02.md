@@ -13,3 +13,9 @@ Initial clean main was accepted as a542f8ad6ae5adb9430ec1360ee7a49a8dcbc51a, wit
 The asset-payload regression now uses checked-in original fingerprints instead of requiring the author's temporary candidate directory. All 84 Python tests passed again after that portability change; no temporary-directory skip is required for this test in a fresh clone.
 
 Publish only the clean main branch. The local-history-20261102 branch and output/backups/pre-github-publication-20261102.bundle preserve the original development ancestry, including the credential-shaped historical fixtures, and are intentionally not pushed. This retains recovery evidence without bypassing GitHub push protection or rewriting an existing remote branch.
+
+## Verified publication closure
+
+Code/README commit **532a4871769a03013ffb81ffe1f02943388131e6** matched local main, GitHub main and the downloaded verification clone. Its lab/backend imported successfully without Jinja installed, and all 84 Python tests passed in the isolated environment (28 retained warnings). The clean download also passed npm ci, production build, ten frontend scripts and LFS fsck for all six current model/video assets. No local LFS cache was copied into that verification clone.
+
+The public GitHub page was inspected in the authorized browser. All five README images decoded with natural dimensions 2183x1244; their rendered content and repository-relative links were checked. JSON proof, screenshot, source/clone/remote commit comparison and raw test logs are under eval/reports/final_todo_retry_20261102/. A subsequent documentation-only commit closes the TODO record and adds this evidence; the tested runtime source is unchanged.

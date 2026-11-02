@@ -38,7 +38,7 @@ Guardrails: no visual change to Cedar/ROE/taint or agent execution authority; pr
 
 Latest verification: **17/17 consolidated checks passed**, including 84 Python tests / 27 retained warnings, 28 Rust tests, focused Go/Cedar cases, 9 adversarial cases, TypeScript/production build and ten frontend scripts. Final actual-model run: **2 findings / 29 allowed / 1 denied**. Whole journal: **779 entries verified**, preserving original bytes. See docs/DEMO_READY_2026-11-02.md. Earlier UI/asset measurements remain separately dated; no new FPS or grounding benefit is claimed.
 
-All listed product/demo tasks are checked, including Gate and real-coordinator validation. GitHub publication is tracked below until the remote commit is verified. Disclosed architecture limits are not disguised as completed capabilities.
+All listed product/demo and GitHub-delivery tasks are checked. Remote main, a fresh downloaded clone, LFS assets, isolated runtime imports/tests and the rendered README images were verified. Disclosed architecture limits are not disguised as completed capabilities.
 
 ## Current delivery follow-up — 2026-11-02
 
@@ -248,4 +248,4 @@ Do not touch the top-level Remotion project or old sibling server/ folder, resur
 - [x] Run all 17 final checks and real local-Qwen acceptance; preserve intermediate failures and exact findings/allowed/denied counts.
 - [x] Add five actual rendered project screenshots to the README, with review/live setup, workflow/evidence distinctions, verified results, team and proposal/video links. Check image framing and relative paths.
 - [x] Reproduce isolated-install startup failure; remove the unused Jinja template import and declare required multipart/WebSocket packages. Verify fresh-environment lab/backend imports, real WebSocket connection and 84 Python tests.
-- [ ] Publish tested source/curated evidence to https://github.com/khaled1234kh/kayan and verify remote commit/LFS assets. Exclude current local runtime keys/journal, bytecode, caches and duplicate recovery/delivery exports.
+- [x] Publish tested source/curated evidence to https://github.com/khaled1234kh/kayan. Verified code/README commit 532a4871769a03013ffb81ffe1f02943388131e6 against remote main and a fresh clone; downloaded/fsck-checked all six current LFS assets; passed 84 isolated-environment Python tests, fresh frontend build/ten scripts and actual GitHub image rendering. Current runtime keys/journal, caches and duplicate local exports are excluded. Original history remains local; no scanner override or force push was used.

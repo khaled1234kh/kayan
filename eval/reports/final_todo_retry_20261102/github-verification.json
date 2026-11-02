@@ -1,0 +1,17 @@
+{
+  "verified_commit": "532a4871769a03013ffb81ffe1f02943388131e6",
+  "remote": "https://github.com/khaled1234kh/kayan",
+  "remote_matches_local": true,
+  "fresh_clone_matches_remote": true,
+  "lfs": "six current assets downloaded from GitHub; fsck OK",
+  "fresh_clone_frontend": "npm ci, production build, ten checks passed",
+  "fresh_clone_python": {
+    "passed": 84,
+    "warnings": 28
+  },
+  "runtime_imports_without_jinja": "passed",
+  "readme_relative_links": "all resolve",
+  "readme_images": 5,
+  "public_history": "clean initial snapshot plus ordinary follow-up commits; original ancestry retained locally",
+  "secret_scanner_override_used": false
+}

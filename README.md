@@ -100,7 +100,7 @@ To repeat the defined checks against running prerequisites:
 python -B -m eval.functionality_checkpoint --label YOUR_UNIQUE_LABEL
 ```
 
-The profile starts no model assessment. Actual-model acceptance is a separate command documented in the readiness report. Test-suite and geometry checks do not substitute for rendered UI acceptance or measured FPS.
+The full profile additionally requires Go and the Rust toolchain; the Python demo itself does not require Go or Docker. It starts no model assessment. A freshly downloaded GitHub copy also passed all 84 Python tests in an isolated environment, plus frontend installation/build and ten scripts. Actual-model acceptance is separate and documented in the readiness report. Test-suite and geometry checks do not substitute for rendered UI acceptance or measured FPS.
 
 ## Scope and honest limits
 
