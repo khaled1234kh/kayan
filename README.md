@@ -110,7 +110,7 @@ To repeat the defined checks against running prerequisites:
 python -B -m eval.functionality_checkpoint --label YOUR_UNIQUE_LABEL
 ```
 
-The full profile additionally requires Go and the Rust toolchain; the Python demo itself does not require Go or Docker. It starts no model assessment. A prior 2 November downloaded copy passed 84 Python tests in an isolated environment plus frontend installation/build/scripts; that historical result is not a fresh-clone certification of this revision. Actual-model acceptance is separate and documented in the readiness report. Test-suite and geometry checks do not substitute for rendered UI acceptance or measured FPS.
+The full profile additionally requires Go and the Rust toolchain; the Python demo itself does not require Go or Docker. It starts no model assessment. The published ce459f8 source was downloaded into the clean verification checkout, matched all 26 recorded source hashes and passed 145 Python tests / 46 warnings using installed host dependencies. This was not a new isolated dependency install. The earlier 2 November isolated-install result remains historical. Actual-model acceptance is separate and documented in the readiness report. Test-suite and geometry checks do not substitute for rendered UI acceptance or measured FPS.
 
 ## Scope and honest limits
 

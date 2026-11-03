@@ -105,3 +105,7 @@ python -B -m eval.planner_live_edges --help
 ```
 
 Use a new safe label for every evidence run. The live acceptance/edge CLIs create new governed lab engagements; do not invoke them just to replay existing demo footage. The unavailable-lab CLI requires the owned lab already be unavailable and never stops a service itself. For a presentation using existing recordings, start Review and open `/review.html` instead. New broad UI tasks and automatic resume remain disclosed; no “all TODOs done”, visual perfection, model training or general accuracy claim is warranted.
+
+## Publication verification
+
+Implementation/evidence commit `ce459f8ae74cecd864cb4b580a8ee0c62c3e032c` was pushed to the authorized GitHub main and matched remote HEAD. An existing clean downloaded verification checkout was fast-forwarded to that commit; all 26 recorded source hashes matched, and its Python suite passed **145 tests / 46 warnings** using the installed host dependencies. It remained clean afterward. This is a downloaded-source recheck, not a new isolated dependency installation. `publication-verification.json` and `published-copy-python.log` in the evidence base retain the result. The closure commit is documentation/evidence only; earlier real-model, suite and screenshot records are not relabeled as new runs.

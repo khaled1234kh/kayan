@@ -36,7 +36,7 @@ Latest requested refinement; supersedes historical completion claims below. Keep
 - [x] Add bounded, evidence-referenced next-specialist prioritization and explicit degraded-review handling. Never repeat completed work or increase authority/budgets.
 - [x] Make reasoning summaries, observation reuse, partial results and exported reports understandable in the actual console.
 - [x] Run relevant suites, actual authorized normal/denied/unavailable-lab paths, and browser rehearsal; preserve exact failures and remaining limitations.
-- [ ] Update handoff/readiness and publish validated source/evidence without private runtime data.
+- [x] Update handoff/readiness and publish validated source/evidence without private runtime data. Source/evidence ce459f8 pushed and remote matched; downloaded copy matched 26 source hashes and passed 145 Python tests / 46 warnings using the existing host environment. Publication closure is documentation-only.
 
 - [ ] **Operational follow-up:** design/test explicit current-session resume after backend restart. Persistent snapshots exist, but the active session defaults to waiting; do not misuse -RestoreDemo or overwrite a different loaded session. Observed during the saved-B recheck.
 

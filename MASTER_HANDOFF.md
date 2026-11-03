@@ -22,6 +22,8 @@ Operational state: expected Gate 8000, lab 8888, backend 8001 and office 5173 we
 
 **No grounding improvement was demonstrated. Preserve this failure.** The new offline rule evaluation is not a rerun of the live grounding comparison. Next priority: work through the open P0 sidebar/setup/layout/exterior/camera/office tasks in TODO.md with fresh rendered evidence; also address current-session resume deliberately rather than claiming startup automatically restores it.
 
+Published implementation/evidence: `ce459f8ae74cecd864cb4b580a8ee0c62c3e032c`, verified against remote main and a clean downloaded copy. All 26 recorded source hashes matched; the downloaded copy passed 145 Python tests / 46 warnings using the same installed host environment (not a new isolated dependency install). Publication evidence: `eval/reports/planner_outcomes_20261103/publication-verification.json`. The following closure commit changes documentation/evidence only. Unrelated mutable runtime output remains local and was not staged.
+
 ## Historical development pass — earlier on 2026-11-03
 
 The user reopened Planner/functionality improvement after publication. This section supersedes the historical “no implementation TODO remains” statements below. Shared qwen2.5:7b weights/configuration remain unchanged: this is prompt, contract-validation and coordination refinement, not model training or a second inference model.

@@ -1,0 +1,12 @@
+{
+  "published_source_commit": "ce459f8ae74cecd864cb4b580a8ee0c62c3e032c",
+  "remote_main_matched": true,
+  "downloaded_copy_head_matched": true,
+  "downloaded_copy_source_hashes_matched": 26,
+  "downloaded_copy_clean_after_tests": true,
+  "downloaded_copy_python_tests": 145,
+  "retained_warnings": 46,
+  "environment": "same installed host Python/dependencies, not a fresh isolated installation",
+  "implementation_checkpoint": "planner_context_final_20261103_v4",
+  "documentation_followup": "Publication closure follows as a documentation/evidence-only commit"
+}
