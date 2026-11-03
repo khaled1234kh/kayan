@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { apiUrl } from '../../transport';
 import { EngagementContextFields, type EngagementContext } from './EngagementContextFields';
+import { CoverageDetails, coverageRoleLabel } from './CoverageDetails';
 import { illustrativeDisclaimer, presentationFor, selectedPresentation, type MitigationReport } from './mitigationPresentation';
 
 interface RiskPlan {
@@ -27,7 +28,8 @@ export function MitigationView({ report, selected, onSelection }: {
     <h3>Option {plan.option} · mitigation plan</h3>
     {report.assessment_completion && !report.assessment_completion.complete && <div className="coverage-warning" role="status">
       <strong>{report.assessment_completion.notice}</strong>
-      <ul>{report.assessment_completion.specialist_outcomes.map(item => <li key={item.role}>{item.role}: {item.status}{item.error ? ` · ${item.error}` : ''}</li>)}</ul>
+      <ul>{report.assessment_completion.specialist_outcomes.map(item => <li key={item.role}>{coverageRoleLabel(item.role)}: {item.status}{item.error ? ` · ${item.error}` : ''}
+        {item.coverage && !item.coverage.complete && <CoverageDetails coverage={item.coverage}/>}</li>)}</ul>
     </div>}
     <span className="basis-badge">{plan.option === 'A' ? 'Hypothetical, no testing' : `From saved assessment · ${report.findings.length} verified finding${report.findings.length === 1 ? '' : 's'}`}</span>
     <details className="how-it-works"><summary>How this works</summary><p>{report.evidence_label ?? plan.evidence_basis}</p><p>{plan.method}</p><p>{plan.limits}</p></details>

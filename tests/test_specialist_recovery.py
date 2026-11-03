@@ -135,3 +135,76 @@ def test_invalid_retry_configuration_cannot_create_unbounded_recovery():
     with pytest.raises(ValueError,match='from 0 to 3'):
         e._specialist(a,'Inspect')
     assert contexts == executed == []
+
+
+def test_early_finish_reports_untested_catalogue_instead_of_full_coverage():
+    e,a,gate,contexts,executed = harness(['finish'])
+    result=e._specialist(a,'Inspect the lab')
+    assert result.coverage['complete'] is False
+    assert result.coverage['stop_reason']=='model_finished'
+    assert result.coverage['untested_tools']==ROLE_TOOLS[a.role]
+    assert not executed
+
+
+def test_swallowed_executor_error_is_explicit_in_coverage_and_model_context():
+    e,a,gate,contexts,executed = harness(['port_scan','service_scan'])
+    def broken(tool,verification=False):
+        if tool=='port_scan':raise OSError('controlled network failure')
+        return {'status_code':200}
+    e.tools.run=broken
+    result=e._specialist(a,'Inspect the lab')
+    assert result.coverage['complete'] is False
+    assert result.coverage['tool_errors'][0]['error']=='controlled network failure'
+    assert contexts[1]['coverage_so_far']['tool_errors']==result.coverage['tool_errors']
+    assert e.findings==[]
+
+
+def test_action_budget_does_not_imply_all_tools_tested():
+    e,a,gate,contexts,executed=harness(['port_scan'])
+    e.llm.config['max_actions_per_specialist']=1
+    result=e._specialist(a,'Inspect the lab')
+    assert result.coverage['stop_reason']=='action_budget'
+    assert result.coverage['untested_tools']==['service_scan']
+    assert result.coverage['complete'] is False
+
+
+@pytest.mark.parametrize('value',[True,0,-1,999,1.5])
+def test_invalid_action_budget_fails_before_model_or_execution(value):
+    e,a,gate,contexts,executed=harness([])
+    e.llm.config['max_actions_per_specialist']=value
+    with pytest.raises(ValueError,match='max_actions_per_specialist'):
+        e._specialist(a,'Inspect the lab')
+    assert contexts==executed==[]
+
+
+@pytest.mark.parametrize('proof', [{'supported':False}, {'error':'second request timed out'}, None, {'supported':'false'}, {'supported':True,'error':'conflicting observation'}])
+def test_failed_independent_reproduction_is_not_a_finding_or_full_coverage(proof):
+    e,a,gate,contexts,executed=harness(['xss_test','finish'],role='webapp_agent')
+    def execute(tool,*args,**kwargs):
+        return {'allowed':True,'result':proof if tool=='verify_xss' else {'supported':True},'audit_entry_id':'audit'}
+    a.execute_tool=execute
+    result=e._specialist(a,'Inspect the lab')
+    assert result.coverage['verification_issues'] and not result.coverage['complete']
+    assert e.findings==a.findings==[]
+
+
+def test_negative_test_result_counts_as_observed_not_as_vulnerability():
+    e,a,gate,contexts,executed=harness(['xss_test','finish'],role='webapp_agent')
+    a.execute_tool=lambda *args,**kwargs:{'allowed':True,'result':{'supported':False},'audit_entry_id':'audit'}
+    result=e._specialist(a,'Inspect the lab')
+    assert result.coverage['successful_tools']==['xss_test']
+    assert not result.coverage['verification_issues'] and e.findings==[]
+
+
+@pytest.mark.parametrize('observation', [{'supported':'false'}, {'supported':True,'error':'conflicting observation'}])
+def test_malformed_candidate_cannot_trigger_verified_finding(observation):
+    e,a,gate,contexts,executed=harness(['xss_test','finish'],role='webapp_agent')
+    dispatch=[]
+    def execute(tool,*args,**kwargs):
+        dispatch.append(tool)
+        return {'allowed':True,'result':observation,'audit_entry_id':'audit'}
+    a.execute_tool=execute
+    result=e._specialist(a,'Inspect the lab')
+    assert dispatch==['xss_test'] and e.findings==[]
+    assert 'xss_test' not in result.coverage['successful_tools']
+    assert result.coverage['tool_errors']

@@ -1,16 +1,20 @@
 import type { Actor } from '../../types';
+import type { TrustGateTranscriptEntry } from '../../types/trustgate';
 import { EngagementLauncher } from './OperatorControls';
-export function engagementLabel(actors: Actor[], running: boolean) {
+export function engagementLabel(actors: Actor[], running: boolean, transcript: TrustGateTranscriptEntry[] = []) {
   const enrolled = actors.filter(a => a.backendAgentId);
   if (!enrolled.length) return 'No assessment loaded';
   if (enrolled.some(a => a.state === 'blocked')) return running ? 'Attention required' : 'Partial / blocked assessment';
   if (running) return 'Assessment in progress';
+  const completion = [...transcript].reverse().find(e => e.agent_role === 'planner_agent' && e.kind === 'agent_completed')
+    ?.assessment_completion as { complete?: boolean } | undefined;
+  if (completion?.complete === false) return 'Assessment finished · incomplete coverage';
   return enrolled.every(a => a.state === 'completed') ? 'Saved completed assessment' : 'Assessment ready';
 }
-export function EngagementOverview({actors,running,onSelect,gate}: {actors:Actor[];running:boolean;onSelect:(id:string)=>void;gate:'checking'|'available'|'unavailable'|'unknown'}) {
+export function EngagementOverview({actors,running,onSelect,gate,transcript=[]}: {actors:Actor[];running:boolean;onSelect:(id:string)=>void;gate:'checking'|'available'|'unavailable'|'unknown';transcript?:TrustGateTranscriptEntry[]}) {
   const order=['planner','ai-manager','ai-sales','ai-ops','human'];
   return <aside className="engagement-zone" aria-label="Engagement overview">
-    <div><span className="eyebrow">Engagement</span><h1>Operations</h1><p className="engagement-status">{engagementLabel(actors,running)}</p></div>
+    <div><span className="eyebrow">Engagement</span><h1>Operations</h1><p className="engagement-status">{engagementLabel(actors,running,transcript)}</p></div>
     <div className={`runtime-notice ${gate}`} role="status">{gate==='checking' ? 'Checking Gate availability…' : gate==='unknown' ? 'Gate status unknown: reconnect the console' : gate==='available' ? 'Gate responding · actions still require authorization' : 'Gate unavailable: recorded evidence mode'}</div>
     <EngagementLauncher running={running} hidePlanning gateAvailable={gate==='available'} />
     <section><h2>Assessment stages</h2><ol className="assessment-stages">{order.map((id,index) => {

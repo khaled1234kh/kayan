@@ -1,0 +1,204 @@
+START f7013ffe-9f32-4324-968b-34d04792fd28 grounding True
+INPUTS [('instruction', 'queued'), ('status', 'answering')] tainted input 403
+{
+  "checked_at": "2026-11-03T07:07:13.161074+00:00",
+  "engagement_id": "f7013ffe-9f32-4324-968b-34d04792fd28",
+  "execution_engine": "local_llm",
+  "grounding_enabled": true,
+  "models": [
+    "qwen2.5:7b"
+  ],
+  "findings": 2,
+  "finding_types": [
+    "xss",
+    "command_injection"
+  ],
+  "allowed": 29,
+  "denied": 1,
+  "counts_basis": "All audit decisions after assessment and status reply, excluding ROE load; includes one deliberately tainted input denial",
+  "finding_reproduction_rate": 100.0,
+  "accuracy_limit": "Harness fresh-nonce reproduction only, not blinded classification accuracy; XSS browser execution not checked",
+  "mitre_coverage_percent": 40.0,
+  "mitre_coverage_tracker": {
+    "covered_techniques": {
+      "T1059": "Command and Scripting Interpreter",
+      "T1190": "Exploit Public-Facing Application"
+    },
+    "coverage_count": 2,
+    "total_known": 5,
+    "coverage_pct": 40.0
+  },
+  "accuracy": {
+    "metric": "evidence-backed vulnerability-report precision",
+    "supported": 1,
+    "reported": 2,
+    "percentage": 50.0,
+    "classification_accuracy_pct": null,
+    "limitation": "No blinded positive/negative dataset. Informational discoveries excluded. A detector's vulnerable flag alone is not proof.",
+    "results": [
+      {
+        "finding_id": "f7013ffe-9f32-4324-968b-34d04792fd28:verified:838826c7",
+        "type": "xss",
+        "evidence_supported": true,
+        "criterion": "Unescaped script payload reflected in lab HTML; browser execution not asserted"
+      },
+      {
+        "finding_id": "f7013ffe-9f32-4324-968b-34d04792fd28:verified:50e6c7c0",
+        "type": "command_injection",
+        "evidence_supported": false,
+        "criterion": "Standalone whoami identity output; an echoed payload/error is insufficient"
+      }
+    ]
+  },
+  "mitre_coverage_basis": "Existing EngagementOrchestrator._compute_mitre_coverage; live roles declare no MITRE lists, so findings count",
+  "observed_tool_mitre_coverage_percent": 100.0,
+  "techniques_observed": [
+    "T1046",
+    "T1059",
+    "T1190",
+    "T1590",
+    "T1592"
+  ],
+  "techniques_possible": [
+    "T1046",
+    "T1059",
+    "T1190",
+    "T1590",
+    "T1592"
+  ],
+  "llm_calls": 11,
+  "retrieved_context_calls": 10,
+  "websocket_frames": 196,
+  "incremental_output_verified": true,
+  "sessions": {
+    "recon_agent": 32,
+    "webapp_agent": 39,
+    "network_agent": 19,
+    "reporting_agent": 10,
+    "planner_agent": 12
+  },
+  "tainted_input_rejection": {
+    "detail": {
+      "reason": "Tainted arguments detected: [\"body\"]",
+      "audit_entry_id": "bcddbe3c-c6f0-4019-ad0b-72542a1cf271"
+    }
+  },
+  "visual_verification": false,
+  "evaluation_label": "planner_refinement_live_20261103_v1",
+  "rejected_proposals": []
+}
+{
+  "label": "planner_refinement_live_20261103_v1",
+  "passed": true,
+  "engagement_id": "f7013ffe-9f32-4324-968b-34d04792fd28",
+  "findings": 2,
+  "allowed": 29,
+  "denied": 1,
+  "assignment_order": [
+    "recon_agent",
+    "webapp_agent",
+    "network_agent",
+    "reporting_agent"
+  ],
+  "specialist_outcomes": [
+    {
+      "role": "recon_agent",
+      "task": "port_scan",
+      "status": "completed",
+      "observations": 3,
+      "verified_findings": 0,
+      "coverage": {
+        "complete": true,
+        "basis": "Registered bounded lab-tool catalogue only; not comprehensive security coverage",
+        "stop_reason": "catalogue_exhausted",
+        "attempted_tools": [
+          "port_scan",
+          "http_probe",
+          "discover_endpoints"
+        ],
+        "successful_tools": [
+          "port_scan",
+          "http_probe",
+          "discover_endpoints"
+        ],
+        "untested_tools": [],
+        "denied_tools": [],
+        "tool_errors": [],
+        "verification_issues": [],
+        "action_budget": 3
+      }
+    },
+    {
+      "role": "webapp_agent",
+      "task": "http_probe",
+      "status": "completed",
+      "observations": 3,
+      "verified_findings": 2,
+      "coverage": {
+        "complete": false,
+        "basis": "Registered bounded lab-tool catalogue only; not comprehensive security coverage",
+        "stop_reason": "action_budget",
+        "attempted_tools": [
+          "xss_test",
+          "sql_injection_test",
+          "command_injection_test"
+        ],
+        "successful_tools": [
+          "xss_test",
+          "sql_injection_test",
+          "command_injection_test"
+        ],
+        "untested_tools": [
+          "directory_traversal"
+        ],
+        "denied_tools": [],
+        "tool_errors": [],
+        "verification_issues": [],
+        "action_budget": 3
+      }
+    },
+    {
+      "role": "network_agent",
+      "task": "discover_endpoints",
+      "status": "completed",
+      "observations": 2,
+      "verified_findings": 0,
+      "coverage": {
+        "complete": true,
+        "basis": "Registered bounded lab-tool catalogue only; not comprehensive security coverage",
+        "stop_reason": "catalogue_exhausted",
+        "attempted_tools": [
+          "port_scan",
+          "service_scan"
+        ],
+        "successful_tools": [
+          "port_scan",
+          "service_scan"
+        ],
+        "untested_tools": [],
+        "denied_tools": [],
+        "tool_errors": [],
+        "verification_issues": [],
+        "action_budget": 3
+      }
+    }
+  ],
+  "observed_active_frames": 148,
+  "planner_last_completed": true,
+  "planner_has_no_tool_dispatch": true,
+  "models": [
+    "qwen2.5:7b"
+  ],
+  "incremental_output_verified": true,
+  "visual_verification": false,
+  "audit_before": {
+    "valid": true,
+    "broken_at": null,
+    "message": "Chain valid \u2014 803 entries verified"
+  },
+  "audit_after": {
+    "valid": true,
+    "broken_at": null,
+    "message": "Chain valid \u2014 834 entries verified"
+  }
+}

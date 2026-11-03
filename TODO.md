@@ -1,5 +1,20 @@
 # KAYAN TrustGate — current TODO and delivery queue
 
+## Reopened Planner improvement pass — 2026-11-03
+
+The latest user instruction reopens development. The checked delivery queue below is historical, not a claim that these new tasks are finished. “Fine tune” is interpreted as prompt, validation and coordination refinement; shared qwen2.5:7b weights/configuration remain unchanged. No training or general accuracy improvement is claimed.
+
+- [x] Reproduce and fix missing specialist coverage accounting: early finish, action-budget truncation, execution errors and failed verification must reach Planner, Reporting and the console without being represented as full coverage.
+- [x] Require the model report's finding IDs to cover the complete verified set exactly once; allow one governed correction and fail closed if still invalid.
+- [x] Harden plan schemas and safe-boundary correction without changing completed assignments, role order or execution authority. Reject wrong-role tool tasks; prevent re-running a finished engine with stale findings/ROE.
+- [x] Add focused regression/edge checks; run the consolidated profile and a fresh actual-model, signed-ROE owned-lab acceptance with exact findings/allowed/denied counts. Final: 115 Python / 32 warnings, 28 Rust, 9/9 adversarial, frontend build/ten scripts passed; 14/17 groups passed with three Go groups host-blocked. Final real run 035e7ee6...: 2 findings / 29 allowed / 1 denied. Seven synthetic real-Qwen structured scenarios passed first attempt; no general accuracy/training claim.
+
+- [ ] Publish the tested Planner refinement, rendered UI evidence and current handoff to the authorized GitHub main; verify the remote commit. Rendered desktop/narrow coverage and real browser export are already inspected; see docs/PLANNER_REFINEMENT_2026-11-03.md.
+
+External revalidation remains separate from implementation:
+
+- [ ] Re-run the three blocked Go groups when the host permits their ordinary test executables. Current exact error: `An Application Control policy has blocked this file.` No protection changes or bypass. See docs/BLOCKED.md and the current refinement record. Earlier 17/17 evidence stays historical.
+
 Updated 2026-11-02 (Africa/Cairo). Canonical project: C:\Users\khale\Downloads\kayan-trustgate. [MASTER_HANDOFF.md](MASTER_HANDOFF.md) is authoritative for commands, exact blockers and evidence. Checked boxes mean the stated bounded work is verified; they do not mean the entire platform is finished.
 
 ## Active priorities — Planner reliability and doctor-facing redesign (2026-11-02)

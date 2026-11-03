@@ -80,7 +80,9 @@ All verifies/reuses the Gate, lab, backend and office; it does not start an asse
 
 ## Verified results
 
-The final [consolidated profile](eval/reports/checkpoints/final_todo_validation_20261102_v5/results.json) passed **17/17 checks**:
+The [3 November Planner refinement](docs/PLANNER_REFINEMENT_2026-11-03.md) adds explicit coverage gaps, role/tool assignment validation, bounded corrections and exact verified-ID reporting. Seven small real-Qwen synthetic coordination cases passed their structured contracts on the first attempt. They are not a general accuracy benchmark or model-weight training. New rendered Planner/Option B warnings distinguish completed agent loops from complete testing.
+
+Today's [consolidated checks](eval/reports/checkpoints/planner_refinement_20261103_v3/results.json) passed **14/17 groups**: **115 Python tests** (32 retained warnings), **28 Rust**, **9/9 adversarial**, TypeScript/build and all ten frontend scripts passed. Three Go groups were blocked by Windows Application Control; the overall profile is failed. Final actual-model run **035e7ee6-0a7b-4bfc-84a1-c3e7b51b81ae** returned **2 findings / 29 allowed / 1 denied**, with correct role-specific assignments and explicit incomplete catalogue coverage. No protection was changed or bypassed. The earlier [2 November profile](eval/reports/checkpoints/final_todo_validation_20261102_v5/results.json) passed **17/17 checks**:
 
 | Check | Result |
 |---|---|

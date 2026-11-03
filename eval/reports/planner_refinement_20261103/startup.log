@@ -1,0 +1,138 @@
+warning: unused import: `http::StatusCode`
+ --> src\main.rs:5:5
+  |
+5 |     http::StatusCode,
+  |     ^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: unused import: `Serialize`
+ --> src\main.rs:8:26
+  |
+8 | use serde::{Deserialize, Serialize};
+  |                          ^^^^^^^^^
+
+warning: unused imports: `Deserialize` and `Serialize`
+ --> src\audit.rs:5:13
+  |
+5 | use serde::{Deserialize, Serialize};
+  |             ^^^^^^^^^^^  ^^^^^^^^^
+
+warning: unused import: `std::collections::HashMap`
+ --> src\audit.rs:7:5
+  |
+7 | use std::collections::HashMap;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::policy::PolicyEngine`
+ --> src\authorize.rs:6:5
+  |
+6 | use crate::policy::PolicyEngine;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::audit::AuditLog`
+ --> src\authorize.rs:8:5
+  |
+8 | use crate::audit::AuditLog;
+  |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `std::sync::Arc`
+  --> src\authorize.rs:10:5
+   |
+10 | use std::sync::Arc;
+   |     ^^^^^^^^^^^^^^
+
+warning: unused import: `tokio::sync::RwLock`
+  --> src\authorize.rs:11:5
+   |
+11 | use tokio::sync::RwLock;
+   |     ^^^^^^^^^^^^^^^^^^^
+
+warning: unused imports: `Deserialize` and `Serialize`
+ --> src\roe.rs:1:13
+  |
+1 | use serde::{Deserialize, Serialize};
+  |             ^^^^^^^^^^^  ^^^^^^^^^
+
+warning: unused import: `std::collections::HashSet`
+ --> src\roe.rs:6:5
+  |
+6 | use std::collections::HashSet;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::policy::PolicyEngine`
+ --> src\roe_http.rs:7:5
+  |
+7 | use crate::policy::PolicyEngine;
+  |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::audit::AuditLog`
+  --> src\roe_http.rs:10:5
+   |
+10 | use crate::audit::AuditLog;
+   |     ^^^^^^^^^^^^^^^^^^^^^^
+
+warning: unused import: `crate::audit::AuditLog as AL`
+  --> src\main.rs:26:5
+   |
+26 | use crate::audit::AuditLog as AL;
+   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+warning: variants `Trusted` and `Untrusted` are never constructed
+ --> src\taint.rs:5:5
+  |
+4 | pub enum Provenance {
+  |          ---------- variants in this enum
+5 |     Trusted,
+  |     ^^^^^^^
+6 |     Untrusted,
+  |     ^^^^^^^^^
+  |
+  = note: `Provenance` has derived impls for the traits `Clone` and `Debug`, but these are intentionally ignored during dead code analysis
+  = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: field `taint_map` is never read
+  --> src\taint.rs:10:5
+   |
+ 9 | pub struct TaintTracker {
+   |            ------------ field in this struct
+10 |     taint_map: HashMap<String, Provenance>,
+   |     ^^^^^^^^^
+
+warning: methods `mark_trusted`, `mark_untrusted`, `get_provenance`, and `is_tainted` are never used
+  --> src\taint.rs:20:12
+   |
+13 | impl TaintTracker {
+   | ----------------- methods in this implementation
+...
+20 |     pub fn mark_trusted(&mut self, key: &str) {
+   |            ^^^^^^^^^^^^
+...
+24 |     pub fn mark_untrusted(&mut self, key: &str) {
+   |            ^^^^^^^^^^^^^^
+...
+28 |     pub fn get_provenance(&self, key: &str) -> Provenance {
+   |            ^^^^^^^^^^^^^^
+...
+32 |     pub fn is_tainted(&self, key: &str) -> bool {
+   |            ^^^^^^^^^^
+
+warning: function `sign_canonical` is never used
+  --> src\roe.rs:48:8
+   |
+48 | pub fn sign_canonical(canonical: &str) -> String {
+   |        ^^^^^^^^^^^^^^
+
+warning: function `create_signed_roe` is never used
+   --> src\roe.rs:128:8
+    |
+128 | pub fn create_signed_roe(
+    |        ^^^^^^^^^^^^^^^^^
+
+warning: `trustgate-service` (bin "trustgate-service") generated 18 warnings (run `cargo fix --bin "trustgate-service" -p trustgate-service` to apply 13 suggestions)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.16s
+TrustGate ready on port 8000.
+Owned lab ready on port 8888.
+Console backend ready on port 8001.
+3D office ready on port 5173.
+Open http://127.0.0.1:5173/. Start Ollama separately for real-model assessments.

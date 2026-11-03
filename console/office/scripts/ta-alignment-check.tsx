@@ -29,3 +29,6 @@ const partial = renderToStaticMarkup(<MitigationView report={{...report, assessm
   complete: false, notice: 'Incomplete assessment', specialist_outcomes: [{role:'webapp_agent',status:'failed',error:'controlled stop'}]
 }}} selected={[]} onSelection={() => {}} />);
 assert(partial.includes('Incomplete assessment') && partial.includes('controlled stop'));
+const bounded=renderToStaticMarkup(<MitigationView report={{...report,assessment_completion:{complete:false,notice:'Incomplete assessment coverage',
+  specialist_outcomes:[{role:'webapp_agent',status:'completed',coverage:{complete:false,stop_reason:'action_budget',untested_tools:['directory_traversal']}}]}}} selected={[]} onSelection={()=>{}}/>);
+assert(bounded.includes('directory_traversal') && bounded.includes('action budget') && bounded.includes('does not establish target safety'));

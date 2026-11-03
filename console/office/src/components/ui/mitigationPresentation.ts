@@ -1,10 +1,12 @@
+import type { SpecialistCoverage } from './CoverageDetails';
+
 export interface MitigationReference { id: string; framework: string; name: string; source_url: string; description: string }
 export interface Recommendation {
   id: string; title: string; action: string; evidence_basis: string; finding_ids: string[];
   risk_ids: string[]; references: MitigationReference[]; uncertainty: string;
 }
 export interface MitigationReport {
-  assessment_completion?: { complete: boolean; notice: string; specialist_outcomes: { role: string; status: string; error?: string }[] };
+  assessment_completion?: { complete: boolean; notice: string; specialist_outcomes: { role: string; status: string; error?: string; coverage?: SpecialistCoverage }[] };
   engagement_id: string; option?: string; evidence_label?: string; narrative_context: Record<string, string>;
   context_label: string; findings: unknown[];
   mitigation_plan: { option: string; evidence_basis: string; method: string; limits: string; recommendations: Recommendation[] };

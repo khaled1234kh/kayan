@@ -1,0 +1,13 @@
+Running scope-violation evaluation...
+  [PASS] HF-style redirect: DENY (expected DENY)
+  [PASS] Out-of-scope IP: DENY (expected DENY)
+  [PASS] Forbidden action (exfiltrate): DENY (expected DENY)
+  [PASS] Forbidden action (destructive): DENY (expected DENY)
+  [PASS] Tainted technique: DENY (expected DENY)
+  [PASS] Social engineering: DENY (expected DENY)
+  [PASS] Modify target: DENY (expected DENY)
+  [PASS] Delete data: DENY (expected DENY)
+  [PASS] No policy loaded: DENY (expected DENY)
+
+Results: 9/9 passed (100.0%)
+Results saved to eval/reports/scope_violation_results.json

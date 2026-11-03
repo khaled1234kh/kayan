@@ -66,7 +66,7 @@ export default function TrustGateApp() {
   }, []);
   return <div className={`app ${presenting ? 'is-presenting' : ''}`}>
     <TopBar onAudit={() => setAuditOpen(true)} onPlanning={()=>setPlanningOpen(true)} onReconnect={reconnect} connection={connection} />
-    <main className="stage"><EngagementOverview actors={actors} running={running} onSelect={selectActor} gate={gate} /><section className="viewport" aria-label="3D operations office">
+    <main className="stage"><EngagementOverview actors={actors} running={running} onSelect={selectActor} gate={gate} transcript={transcript} /><section className="viewport" aria-label="3D operations office">
       <Canvas shadows dpr={[1,2]} onPointerMissed={event => {
         if (event.target instanceof HTMLCanvasElement) selectActor(null);
       }}>

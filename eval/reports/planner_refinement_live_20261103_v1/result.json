@@ -1,0 +1,115 @@
+{
+  "label": "planner_refinement_live_20261103_v1",
+  "passed": true,
+  "engagement_id": "f7013ffe-9f32-4324-968b-34d04792fd28",
+  "findings": 2,
+  "allowed": 29,
+  "denied": 1,
+  "assignment_order": [
+    "recon_agent",
+    "webapp_agent",
+    "network_agent",
+    "reporting_agent"
+  ],
+  "specialist_outcomes": [
+    {
+      "role": "recon_agent",
+      "task": "port_scan",
+      "status": "completed",
+      "observations": 3,
+      "verified_findings": 0,
+      "coverage": {
+        "complete": true,
+        "basis": "Registered bounded lab-tool catalogue only; not comprehensive security coverage",
+        "stop_reason": "catalogue_exhausted",
+        "attempted_tools": [
+          "port_scan",
+          "http_probe",
+          "discover_endpoints"
+        ],
+        "successful_tools": [
+          "port_scan",
+          "http_probe",
+          "discover_endpoints"
+        ],
+        "untested_tools": [],
+        "denied_tools": [],
+        "tool_errors": [],
+        "verification_issues": [],
+        "action_budget": 3
+      }
+    },
+    {
+      "role": "webapp_agent",
+      "task": "http_probe",
+      "status": "completed",
+      "observations": 3,
+      "verified_findings": 2,
+      "coverage": {
+        "complete": false,
+        "basis": "Registered bounded lab-tool catalogue only; not comprehensive security coverage",
+        "stop_reason": "action_budget",
+        "attempted_tools": [
+          "xss_test",
+          "sql_injection_test",
+          "command_injection_test"
+        ],
+        "successful_tools": [
+          "xss_test",
+          "sql_injection_test",
+          "command_injection_test"
+        ],
+        "untested_tools": [
+          "directory_traversal"
+        ],
+        "denied_tools": [],
+        "tool_errors": [],
+        "verification_issues": [],
+        "action_budget": 3
+      }
+    },
+    {
+      "role": "network_agent",
+      "task": "discover_endpoints",
+      "status": "completed",
+      "observations": 2,
+      "verified_findings": 0,
+      "coverage": {
+        "complete": true,
+        "basis": "Registered bounded lab-tool catalogue only; not comprehensive security coverage",
+        "stop_reason": "catalogue_exhausted",
+        "attempted_tools": [
+          "port_scan",
+          "service_scan"
+        ],
+        "successful_tools": [
+          "port_scan",
+          "service_scan"
+        ],
+        "untested_tools": [],
+        "denied_tools": [],
+        "tool_errors": [],
+        "verification_issues": [],
+        "action_budget": 3
+      }
+    }
+  ],
+  "observed_active_frames": 148,
+  "planner_last_completed": true,
+  "planner_has_no_tool_dispatch": true,
+  "models": [
+    "qwen2.5:7b"
+  ],
+  "incremental_output_verified": true,
+  "visual_verification": false,
+  "audit_before": {
+    "valid": true,
+    "broken_at": null,
+    "message": "Chain valid \u2014 803 entries verified"
+  },
+  "audit_after": {
+    "valid": true,
+    "broken_at": null,
+    "message": "Chain valid \u2014 834 entries verified"
+  }
+}

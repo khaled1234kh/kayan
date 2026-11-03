@@ -3,6 +3,7 @@ import type { Actor } from '../../types';
 import { TRUSTGATE_SEATS, type TrustGateFinding, type TrustGateTranscriptEntry } from '../../types/trustgate';
 import { TierBadge } from './TierBadge';
 import { AgentMessageComposer } from './OperatorControls';
+import { CoverageDetails, coverageRoleLabel, parseCoverage, type SpecialistCoverage } from './CoverageDetails';
 
 export function decisionTone(entry: TrustGateTranscriptEntry): string {
   const decision = String(entry.decision ?? entry.trustgate_decision ?? '').toUpperCase();
@@ -33,6 +34,13 @@ export function LiveAgentPanel({ actor, transcript, findings, decision, gateAvai
   if (!actor) return <aside className="panel live-agent-panel"><h2>Agent session</h2>
     <p className="muted">Select a named agent or its workstation to inspect the live session.</p></aside>;
   const coordinator = actor.id === TRUSTGATE_SEATS.planner_agent;
+  const coverageByRole = new Map<string, SpecialistCoverage>();
+  for (const entry of entries) {
+    const outcome = entry.specialist_outcome as {role?: string; coverage?: unknown} | undefined;
+    const coverage = parseCoverage(coordinator ? outcome?.coverage : entry.coverage);
+    if (coverage) coverageByRole.set(coordinator ? outcome?.role ?? entry.agent_role : entry.agent_role, coverage);
+  }
+  const incomplete = [...coverageByRole].filter(([, coverage]) => !coverage.complete);
   const produced = coordinator ? findings : findings.filter((finding) => TRUSTGATE_SEATS[finding.agent] === actor.id);
   return <aside className="panel live-agent-panel" data-testid="live-agent-panel">
     <header className="session-heading"><h2 data-testid="actor-name">{actor.name}</h2><TierBadge tier={actor.modelTier} /></header>
@@ -41,6 +49,10 @@ export function LiveAgentPanel({ actor, transcript, findings, decision, gateAvai
     <div className="kv"><span className="k">Current task</span><strong data-testid="current-task">{actor.currentTask ?? 'No active task'}</strong></div>
     <p className="session-activity" data-testid="agent-activity">{actor.activity || 'Standing by'}</p>
     {coordinator && <p className="muted">Coordinator only · Recon → Web-App → Network → Reporting. Shared local model; no specialist tool authority.</p>}
+    {!!incomplete.length && <details className="coverage-warning"><summary>Assessment coverage limits ({incomplete.length})</summary>
+      {incomplete.map(([role, coverage]) => <section key={role}><strong>{coverageRoleLabel(role)}</strong>
+        <CoverageDetails coverage={coverage}/></section>)}
+    </details>}
     <div className="agent-tabs" role="tablist" aria-label="Agent details">{['Activity','Findings','Decision','Message'].map(label =>
       <button type="button" key={label} role="tab" id={`agent-tab-${label}`} aria-selected={tab === label} aria-controls={`agent-pane-${label}`} onClick={() => setTab(label)}>{label}</button>)}</div>
     <section role="tabpanel" id="agent-pane-Activity" aria-labelledby="agent-tab-Activity" hidden={tab !== 'Activity'}>

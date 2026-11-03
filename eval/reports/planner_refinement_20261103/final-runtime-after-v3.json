@@ -1,0 +1,10 @@
+{
+  "engagement_id": "035e7ee6-0a7b-4bfc-84a1-c3e7b51b81ae",
+  "audit": {
+    "valid": true,
+    "broken_at": null,
+    "message": "Chain valid \u2014 934 entries verified"
+  },
+  "scenario_inferences_authorized": 7,
+  "review_page_status": 200
+}

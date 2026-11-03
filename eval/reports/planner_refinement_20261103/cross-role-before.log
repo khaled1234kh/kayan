@@ -1,0 +1,75 @@
+FFF                                                                      [100%]
+================================== FAILURES ===================================
+__ test_cross_role_tool_assignment_never_dispatches[webapp_agent-http_probe] __
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001D7CCB838F0>
+role = 'webapp_agent', tool = 'http_probe'
+
+    @pytest.mark.parametrize('role,tool',[('webapp_agent','http_probe'),('network_agent','discover_endpoints'),('recon_agent','xss_test')])
+    def test_cross_role_tool_assignment_never_dispatches(monkeypatch,role,tool):
+        e,calls,contexts,closed=harness(monkeypatch)
+        base=e._model_call
+        def model(a,p,c,shape):
+            result=base(a,p,c,shape)
+            if shape is live.Plan:
+                next(item for item in result.assignments if item.role==role).task=f'Run {tool} on the lab'
+            return result
+        e._model_call=model
+>       with pytest.raises(RuntimeError,match='tool catalogue'):e.run()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\test_planner_coordination.py:318: Failed
+_ test_cross_role_tool_assignment_never_dispatches[network_agent-discover_endpoints] _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001D7CCB82420>
+role = 'network_agent', tool = 'discover_endpoints'
+
+    @pytest.mark.parametrize('role,tool',[('webapp_agent','http_probe'),('network_agent','discover_endpoints'),('recon_agent','xss_test')])
+    def test_cross_role_tool_assignment_never_dispatches(monkeypatch,role,tool):
+        e,calls,contexts,closed=harness(monkeypatch)
+        base=e._model_call
+        def model(a,p,c,shape):
+            result=base(a,p,c,shape)
+            if shape is live.Plan:
+                next(item for item in result.assignments if item.role==role).task=f'Run {tool} on the lab'
+            return result
+        e._model_call=model
+>       with pytest.raises(RuntimeError,match='tool catalogue'):e.run()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\test_planner_coordination.py:318: Failed
+___ test_cross_role_tool_assignment_never_dispatches[recon_agent-xss_test] ____
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001D7CCBBBD70>
+role = 'recon_agent', tool = 'xss_test'
+
+    @pytest.mark.parametrize('role,tool',[('webapp_agent','http_probe'),('network_agent','discover_endpoints'),('recon_agent','xss_test')])
+    def test_cross_role_tool_assignment_never_dispatches(monkeypatch,role,tool):
+        e,calls,contexts,closed=harness(monkeypatch)
+        base=e._model_call
+        def model(a,p,c,shape):
+            result=base(a,p,c,shape)
+            if shape is live.Plan:
+                next(item for item in result.assignments if item.role==role).task=f'Run {tool} on the lab'
+            return result
+        e._model_call=model
+>       with pytest.raises(RuntimeError,match='tool catalogue'):e.run()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\test_planner_coordination.py:318: Failed
+============================== warnings summary ===============================
+tests/test_planner_coordination.py::test_cross_role_tool_assignment_never_dispatches[webapp_agent-http_probe]
+tests/test_planner_coordination.py::test_cross_role_tool_assignment_never_dispatches[network_agent-discover_endpoints]
+tests/test_planner_coordination.py::test_cross_role_tool_assignment_never_dispatches[recon_agent-xss_test]
+  C:\Users\khale\Downloads\kayan-trustgate\pentagi\agents\reporting_agent.py:91: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "generated_at": datetime.utcnow().isoformat(),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_planner_coordination.py::test_cross_role_tool_assignment_never_dispatches[webapp_agent-http_probe]
+FAILED tests/test_planner_coordination.py::test_cross_role_tool_assignment_never_dispatches[network_agent-discover_endpoints]
+FAILED tests/test_planner_coordination.py::test_cross_role_tool_assignment_never_dispatches[recon_agent-xss_test]
+3 failed, 25 deselected, 3 warnings in 1.55s

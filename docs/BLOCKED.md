@@ -1,4 +1,26 @@
-# Current status — final retry, 2026-11-02
+# Current status — Planner refinement, 2026-11-03
+
+The Python/native-Gate demo runs, but the current full test profile is **14/17 groups passed, overall failed**. Three Go groups are blocked by host Application Control. Latest final-profile literal output:
+
+```text
+fork/exec C:\Users\khale\AppData\Local\Temp\go-build3949683640\b1020\providers.test.exe: An Application Control policy has blocked this file.
+fork/exec C:\Users\khale\AppData\Local\Temp\go-build3949683640\b856\tools.test.exe: An Application Control policy has blocked this file.
+fork/exec C:\Users\khale\AppData\Local\Temp\go-build1682874830\b001\config.test.exe: An Application Control policy has blocked this file.
+fork/exec C:\Users\khale\AppData\Local\Temp\go-build1414245897\b001\embeddings.test.exe: An Application Control policy has blocked this file.
+```
+
+Source logs: `eval/reports/checkpoints/planner_refinement_20261103_v3/go_boundary.log`, `go_config.log`, `go_embedding_none.log`. Eleven top-level boundary tests completed; the overall boundary group is not passed. No security settings, exclusions or execution bypass changed. Do not move/repackage the binaries to evade the policy.
+
+Ordinary retry from `C:\Users\khale\Downloads\kayan-trustgate` after the host permits execution:
+
+```powershell
+.\Start-Kayan.ps1 -Component All
+python -B -m eval.functionality_checkpoint --label planner_go_retry_UNIQUE
+```
+
+Final fresh actual-model engagement 035e7ee6-0a7b-4bfc-84a1-c3e7b51b81ae passed expanded coordination checks at **2 findings / 29 allowed / 1 denied**; audit valid at **934 entries**. Details: `PLANNER_REFINEMENT_2026-11-03.md`. This supersedes historical “all tests pass / no listed TODO remains” claims below without altering their dated evidence.
+
+## Historical status — final retry, 2026-11-02
 
 **The native-Gate and revised-coordinator blockers did not recur on the final normal retry.** Offline Cargo build and normal Gate startup succeeded without protection changes; Smart App Control still reports 1, so the reason for changed host behavior is unknown. Final actual-Qwen run 51bba207... passed with **2 findings / 29 allowed / 1 denied**. The audit hash-order defect subsequently found was corrected without rewriting old bytes; all **779 entries** verify after restart/live checks. The final consolidated profile passed **17/17 checks**. See DEMO_READY_2026-11-02.md and eval/reports/final_todo_retry_20261102/.
 

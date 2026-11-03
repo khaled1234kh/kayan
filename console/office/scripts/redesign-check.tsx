@@ -14,6 +14,8 @@ assert.equal(engagementLabel(SEED_ACTORS,false),'No assessment loaded');
 assert.equal(engagementLabel(actors,false),'Saved completed assessment');
 assert.equal(engagementLabel(actors.map((a,i)=>i===1?{...a,state:'blocked' as const}:a),false),'Partial / blocked assessment');
 assert.equal(engagementLabel(actors,true),'Assessment in progress');
+assert.equal(engagementLabel(actors,false,[{id:'partial',timestamp:1,agent_id:'p',agent_role:'planner_agent',kind:'agent_completed',content:'Partial assessment',
+  assessment_completion:{complete:false}}]),'Assessment finished · incomplete coverage');
 const overview=renderToStaticMarkup(<EngagementOverview actors={actors} running={false} onSelect={()=>{}} gate="unavailable"/>);
 const unknown=renderToStaticMarkup(<EngagementOverview actors={actors} running={false} onSelect={()=>{}} gate="unknown"/>);
 assert(unknown.includes('Gate status unknown')&&!unknown.includes('Gate unavailable:'));

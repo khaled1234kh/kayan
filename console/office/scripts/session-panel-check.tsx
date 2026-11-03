@@ -48,3 +48,16 @@ const plannerHtml = renderToStaticMarkup(<LiveAgentPanel actor={planner} transcr
 assert(plannerHtml.includes('Network completed; preparing Reporting'));
 assert(plannerHtml.includes('Assessment findings') && plannerHtml.includes('webapp_agent') && plannerHtml.includes('T1190'));
 assert(plannerHtml.includes('Coordinator only'));
+
+const coverage={complete:false,stop_reason:'action_budget',untested_tools:['directory_traversal'],successful_tools:['xss_test'],
+  tool_errors:[{tool:'http_probe',error:'<script>failure</script>'}],verification_issues:[{tool:'xss_test',reason:'Not reproduced'}]};
+const covered=renderToStaticMarkup(<LiveAgentPanel actor={planner} transcript={[{...entry,agent_role:'planner_agent',agent_id:'p1',
+  kind:'specialist_outcome',specialist_outcome:{role:'webapp_agent',coverage}}]} findings={[]}/>);
+assert(covered.includes('Assessment coverage limits') && covered.includes('directory_traversal') && covered.includes('action budget'));
+assert(covered.includes('Execution error') && covered.includes('Verification issue'));
+assert(covered.includes('&lt;script&gt;failure') && !covered.includes('<script>failure'));
+const specialistCoverage=renderToStaticMarkup(<LiveAgentPanel actor={actor} transcript={[{...entry,kind:'specialist_coverage',coverage}]} findings={[]}/>);
+assert(specialistCoverage.includes('Assessment coverage limits') && specialistCoverage.includes('directory_traversal'));
+const legacy=renderToStaticMarkup(<LiveAgentPanel actor={planner} transcript={[entry]} findings={[]}/>);
+assert(!legacy.includes('Assessment coverage limits'));
+console.log('PASS explicit catalogue gaps, execution/verification issues, escaped failure text and legacy-session compatibility');

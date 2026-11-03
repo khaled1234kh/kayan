@@ -1,0 +1,4 @@
+{"Time":"2026-11-03T09:05:57.4144486+02:00","Action":"start","Package":"pentagi/pkg/config"}
+{"Time":"2026-11-03T09:05:59.7296841+02:00","Action":"output","Package":"pentagi/pkg/config","Output":"fork/exec C:\\Users\\khale\\AppData\\Local\\Temp\\go-build3054260303\\b001\\config.test.exe: An Application Control policy has blocked this file.\n"}
+{"Time":"2026-11-03T09:05:59.7296841+02:00","Action":"output","Package":"pentagi/pkg/config","Output":"FAIL\tpentagi/pkg/config\t2.315s\n","OutputType":"frame"}
+{"Time":"2026-11-03T09:05:59.7296841+02:00","Action":"fail","Package":"pentagi/pkg/config","Elapsed":2.315}

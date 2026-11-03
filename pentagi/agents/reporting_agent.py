@@ -234,6 +234,16 @@ class ReportingAgent:
             for outcome in completion['specialist_outcomes']:
                 lines.append(f"- {outcome['role']}: {outcome['status']}" +
                              (f" - {outcome['error']}" if outcome.get('error') else ''))
+                coverage = outcome.get('coverage')
+                if coverage:
+                    lines.append(f"  - Catalogue coverage: {'complete' if coverage['complete'] else 'incomplete'}; stop: {coverage.get('stop_reason', 'unknown')}")
+                    lines.append("  - Untested tools: " + (", ".join(coverage.get('untested_tools', [])) or "none recorded"))
+                    for issue in coverage.get('tool_errors', []):
+                        lines.append(f"  - Execution error ({issue['tool']}): {issue['error']}")
+                    for issue in coverage.get('verification_issues', []):
+                        lines.append(f"  - Verification issue ({issue['tool']}): {issue['reason']}")
+                    if coverage.get('denied_tools'):
+                        lines.append("  - Denied tools: " + ", ".join(coverage['denied_tools']))
             lines.append('')
         lines.append(f"## Summary")
         lines.append(f"")

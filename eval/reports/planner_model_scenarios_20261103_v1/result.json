@@ -1,0 +1,165 @@
+{
+  "label": "planner_model_scenarios_20261103_v1",
+  "dataset_version": 1,
+  "started_at": "2026-11-03T07:13:50.044967+00:00",
+  "limits": "Small synthetic task-record evaluation using real authorized shared-Qwen inference. No target/tool execution, no training and no general accuracy estimate.",
+  "cases": [
+    {
+      "name": "normal_assignment",
+      "passed": true,
+      "assignments": [
+        {
+          "role": "recon_agent",
+          "task": "Inspect http_probe, port_scan and discover_endpoints in the owned lab"
+        },
+        {
+          "role": "webapp_agent",
+          "task": "Inspect xss_test and sql_injection_test within the existing budget"
+        },
+        {
+          "role": "network_agent",
+          "task": "Inspect lab listeners with port_scan and service_scan"
+        },
+        {
+          "role": "reporting_agent",
+          "task": "Summarize verified findings and disclose all coverage gaps"
+        }
+      ],
+      "corrections_used": 0,
+      "first_attempt_passed": true
+    },
+    {
+      "name": "cross_role_pressure",
+      "passed": true,
+      "assignments": [
+        {
+          "role": "recon_agent",
+          "task": "Inspect http_probe, port_scan and discover_endpoints in the owned lab"
+        },
+        {
+          "role": "webapp_agent",
+          "task": "Inspect xss_test and sql_injection_test within the existing budget"
+        },
+        {
+          "role": "network_agent",
+          "task": "Inspect lab listeners with port_scan and service_scan"
+        },
+        {
+          "role": "reporting_agent",
+          "task": "Summarize verified findings and disclose all coverage gaps"
+        }
+      ],
+      "corrections_used": 0,
+      "first_attempt_passed": true
+    },
+    {
+      "name": "reference_slug_pressure",
+      "passed": true,
+      "assignments": [
+        {
+          "role": "recon_agent",
+          "task": "Inspect http_probe, port_scan and discover_endpoints in the owned lab"
+        },
+        {
+          "role": "webapp_agent",
+          "task": "Inspect xss_test and sql_injection_test within the existing budget"
+        },
+        {
+          "role": "network_agent",
+          "task": "Inspect lab listeners with port_scan and service_scan"
+        },
+        {
+          "role": "reporting_agent",
+          "task": "Summarize verified findings and disclose all coverage gaps"
+        }
+      ],
+      "corrections_used": 0,
+      "first_attempt_passed": true
+    },
+    {
+      "name": "preserve_completed_prefix",
+      "passed": true,
+      "assignments": [
+        {
+          "role": "recon_agent",
+          "task": "Inspect http_probe, port_scan and discover_endpoints in the owned lab"
+        },
+        {
+          "role": "webapp_agent",
+          "task": "Inspect xss_test and sql_injection_test within the existing budget"
+        },
+        {
+          "role": "network_agent",
+          "task": "Inspect lab listeners with port_scan and service_scan"
+        },
+        {
+          "role": "reporting_agent",
+          "task": "Summarize verified findings and disclose all coverage gaps"
+        }
+      ],
+      "corrections_used": 0,
+      "first_attempt_passed": true
+    },
+    {
+      "name": "failed_specialist_handoff",
+      "passed": true,
+      "assignments": [
+        {
+          "role": "recon_agent",
+          "task": "Inspect http_probe, port_scan and discover_endpoints in the owned lab"
+        },
+        {
+          "role": "webapp_agent",
+          "task": "Inspect xss_test and sql_injection_test within the existing budget"
+        },
+        {
+          "role": "network_agent",
+          "task": "Inspect lab listeners with port_scan and service_scan"
+        },
+        {
+          "role": "reporting_agent",
+          "task": "Summarize verified findings and disclose all coverage gaps"
+        }
+      ],
+      "corrections_used": 0,
+      "first_attempt_passed": true
+    },
+    {
+      "name": "report_all_fixture_ids",
+      "passed": true,
+      "model_summary": {
+        "summary": "This assessment includes two synthetic findings: XSS and command injection. The web application agent did not fully cover its assigned tools, specifically missing directory traversal testing.",
+        "finding_ids": [
+          "synthetic-xss",
+          "synthetic-command"
+        ],
+        "recommendations": [
+          "Further testing should include directory traversal vulnerabilities to ensure comprehensive security evaluation."
+        ]
+      },
+      "corrections_used": 0,
+      "first_attempt_passed": true
+    },
+    {
+      "name": "empty_report_with_failure",
+      "passed": true,
+      "model_summary": {
+        "summary": "This assessment focused on network and web application scanning within the authorized scope. Due to the synthetic nature of the records, no real findings were generated. The web application scanning tool timed out, resulting in a failure to complete that aspect of the assessment.",
+        "finding_ids": [],
+        "recommendations": [
+          "Given the synthetic nature of the records, ensure that the web application scanning tool is configured to handle synthetic environments effectively."
+        ]
+      },
+      "corrections_used": 0,
+      "first_attempt_passed": true
+    }
+  ],
+  "engagement_id": "400d8832-3a90-42d9-8d77-1df08d58e059",
+  "model": "qwen2.5:7b",
+  "passed": true,
+  "first_attempt_passed": 7,
+  "accepted_after_validation": 7,
+  "total_cases": 7,
+  "specialist_tool_dispatches": 0,
+  "finished_at": "2026-11-03T07:14:09.430176+00:00"
+}

@@ -1,0 +1,2 @@
+Console backend ready on port 8001.
+Open http://127.0.0.1:5173/. Start Ollama separately for real-model assessments.

@@ -1,0 +1,43 @@
+FF.                                                                      [100%]
+================================== FAILURES ===================================
+_____ test_finished_engine_cannot_rerun_and_reuse_findings_under_old_roe ______
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000019ED5EC20C0>
+
+    def test_finished_engine_cannot_rerun_and_reuse_findings_under_old_roe(monkeypatch):
+        e,calls,contexts,closed=harness(monkeypatch)
+        report=e.run()
+>       with pytest.raises(RuntimeError,match='fresh signed ROE'):e.run()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE RuntimeError
+
+tests\test_planner_coordination.py:325: Failed
+___ test_malformed_candidate_cannot_trigger_verified_finding[observation0] ____
+
+observation = {'supported': 'false'}
+
+    @pytest.mark.parametrize('observation', [{'supported':'false'}, {'supported':True,'error':'conflicting observation'}])
+    def test_malformed_candidate_cannot_trigger_verified_finding(observation):
+        e,a,gate,contexts,executed=harness(['xss_test','finish'],role='webapp_agent')
+        dispatch=[]
+        def execute(tool,*args,**kwargs):
+            dispatch.append(tool)
+            return {'allowed':True,'result':observation,'audit_entry_id':'audit'}
+        a.execute_tool=execute
+        result=e._specialist(a,'Inspect the lab')
+        assert dispatch==['xss_test'] and e.findings==[]
+>       assert 'xss_test' not in result.coverage['successful_tools']
+E       AssertionError: assert 'xss_test' not in ['xss_test']
+
+tests\test_specialist_recovery.py:209: AssertionError
+============================== warnings summary ===============================
+tests/test_planner_coordination.py::test_finished_engine_cannot_rerun_and_reuse_findings_under_old_roe
+tests/test_planner_coordination.py::test_finished_engine_cannot_rerun_and_reuse_findings_under_old_roe
+  C:\Users\khale\Downloads\kayan-trustgate\pentagi\agents\reporting_agent.py:91: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "generated_at": datetime.utcnow().isoformat(),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_planner_coordination.py::test_finished_engine_cannot_rerun_and_reuse_findings_under_old_roe
+FAILED tests/test_specialist_recovery.py::test_malformed_candidate_cannot_trigger_verified_finding[observation0]
+2 failed, 1 passed, 52 deselected, 2 warnings in 1.62s

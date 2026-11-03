@@ -56,6 +56,26 @@ async def run(label):
             outcomes=[e['specialist_outcome'] for e in transcript if e['kind']=='specialist_outcome']
             assert [o['role'] for o in outcomes]==ORDER[:3]
             assert all(o['status']=='completed' for o in outcomes),outcomes
+            from pentagi.lab_tools import ROLE_TOOLS
+            # These are semantic coordination checks, separate from transport or pixels.
+            import re as regex
+            known_tools={tool for tools in ROLE_TOOLS.values() for tool in tools}
+            for entry in [e for e in transcript if e.get('assigned_role')]:
+                role=entry['assigned_role']
+                mentioned=set(regex.findall(r'[a-z][a-z0-9_]*',entry['content'].lower())) & known_tools
+                if role in ROLE_TOOLS:assert mentioned <= set(ROLE_TOOLS[role]),entry
+            for outcome in outcomes:
+                coverage=outcome['coverage']
+                catalogue=set(ROLE_TOOLS[outcome['role']])
+                assert set(coverage['attempted_tools'])|set(coverage['untested_tools'])==catalogue,coverage
+                assert not set(coverage['attempted_tools']) & set(coverage['untested_tools']),coverage
+                assert set(coverage['successful_tools']) <= set(coverage['attempted_tools']),coverage
+                assert coverage['complete']==(not any(coverage[key] for key in ('untested_tools','tool_errors','verification_issues','denied_tools'))),coverage
+            report_path=__import__('pathlib').Path('reports')/f"report_{live['engagement_id'][:8]}.json"
+            saved_report=json.loads(report_path.read_text(encoding='utf-8'))
+            assert saved_report['assessment_completion']['complete']==all(o['coverage']['complete'] for o in outcomes)
+            finding_ids=[f['id'] for f in final['findings']]
+            assert sorted(saved_report['model_summary']['finding_ids'])==sorted(finding_ids)
             active_frames=[]
             for frame in observed:
                 if frame['engagement_id']!=live['engagement_id']:continue
@@ -78,6 +98,8 @@ async def run(label):
                 planner_last_completed=True,planner_has_no_tool_dispatch=True,models=live['models'],
                 incremental_output_verified=live['incremental_output_verified'],visual_verification=False,
                 audit_before=audit_before,audit_after=audit_after)
+            result.update(catalogue_coverage_accounting_verified=True,role_tool_assignments_verified=True,
+                report_finding_ids_complete=True,assessment_completion=saved_report['assessment_completion'])
         except BaseException as error:
             result.update(error=repr(error),traceback=traceback.format_exc())
             raise

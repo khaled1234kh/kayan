@@ -1,6 +1,22 @@
-Written/updated 2026-11-02 (Africa/Cairo); supersedes _ARCHIVE_PRE_PIVOT_HANDOFF.md, which describes an abandoned pre-pivot version of this project and should not be used.
+Written/updated 2026-11-03 (Africa/Cairo); supersedes _ARCHIVE_PRE_PIVOT_HANDOFF.md, which describes an abandoned pre-pivot version of this project and should not be used.
 
 # KAYAN TrustGate - canonical master handoff
+
+## Current development pass — 2026-11-03
+
+The user reopened Planner/functionality improvement after publication. This section supersedes the historical “no implementation TODO remains” statements below. Shared qwen2.5:7b weights/configuration remain unchanged: this is prompt, contract-validation and coordination refinement, not model training or a second inference model.
+
+Implemented: explicit per-specialist tool-catalogue coverage (early finish, action budget, denied/untested tools, execution errors and unsuccessful independent verification); exact verified-ID inclusion in the model summary with one governed correction; bounded correction of invalid boundary revisions; rejection of cross-role tool references/blank assignments/unknown plan fields; guard against re-running a finished engine under its old engagement. No Cedar/ROE/taint changes or new execution authority. A completed loop and complete catalogue coverage are now distinct facts.
+
+The actual-model v1 run f7013ffe-9f32-4324-968b-34d04792fd28 exposed wrong-role task descriptions despite correct specialist execution boundaries. Preserve it as pre-correction evidence; its old harness “passed” does not certify semantic assignment correctness. Revised v2 run 28490c2e-4770-4971-89f6-8a7d7bb60786 passed the expanded checks with **2 findings / 29 allowed / 1 denied**, correct assignments, Planner completing last, exact report IDs and explicit untested directory_traversal due to the unchanged three-action Web-App budget. This is incomplete catalogue coverage, not an unsuccessful coordinator hand-off.
+
+Real-Qwen synthetic task-record evaluation: **7/7 structured-contract cases passed first attempt**, zero specialist dispatches, real Gate inference authorization. These are small coordination/ID-set checks, not a general accuracy benchmark; model prose remains generated narrative. Framework grounding efficacy was not re-evaluated. **No grounding improvement was demonstrated. Preserve this failure.**
+
+Actual rendered browser checks covered the Planner coverage disclosure, accurate incomplete-coverage overview, Phase 1 → Option A → saved Option B, actual JSON export preserving coverage, and narrow review; default viewport restored. Original five-seat office/model/tier remain. No new FPS or universal visual-acceptance claim. Final counts, current Go host blocker, evidence and commands: docs/PLANNER_REFINEMENT_2026-11-03.md. The earlier 17/17 result is historical; it must not be represented as today's full-profile result.
+
+**Final current results:** profile planner_refinement_20261103_v3 is **14/17 groups passed, overall failed**: **115 Python tests / 32 retained deprecation warnings**, **28 Rust**, **9/9 adversarial**, TypeScript/build and ten frontend scripts passed; three Go groups are blocked by host Application Control. Exact errors/retry command: docs/BLOCKED.md. Final actual-model engagement **035e7ee6-0a7b-4bfc-84a1-c3e7b51b81ae** returned **2 findings / 29 allowed / 1 denied**, with **142** specialist-active frames preserving Planner working state, correct assignments/report IDs and no Planner tool dispatch. Audit verified **934 entries**. All four application services were reused successfully by Start-Kayan, with Ollama separate.
+
+**Next concrete task:** retry the three Go groups via the normal consolidated command only after the host permits their ordinary executables. The new implementation/rendered/delivery tasks are complete, but that revalidation remains unchecked. Do not change security protections or describe today's full profile as green. Current UI holds final 035e7ee6...; screenshot/export checks used separately preserved v2 28490c2e... . The original 7da73508... recordings/PDF remain dated historical evidence.
 
 ## Latest verified delivery — final retry, 2026-11-02
 
