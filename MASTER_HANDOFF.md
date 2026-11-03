@@ -18,7 +18,7 @@ Actual rendered browser checks covered the Planner coverage disclosure, accurate
 
 **Next concrete task:** retry the three Go groups via the normal consolidated command only after the host permits their ordinary executables. The new implementation/rendered/delivery tasks are complete, but that revalidation remains unchecked. Do not change security protections or describe today's full profile as green. Current UI holds final 035e7ee6...; screenshot/export checks used separately preserved v2 28490c2e... . The original 7da73508... recordings/PDF remain dated historical evidence.
 
-Publication follow-up: implementation/evidence are committed locally as **e90298973b8ea75a84204a0bc50ef3eb1ce8093b**. The push is currently waiting in Git Credential Manager's “Select an account” dialog; the agent requested the user's account selection and has not operated that authentication dialog. Until remote verification succeeds, publication remains unchecked in TODO.md. The previous remote main observed this pass was 28e5b3a... . Finish that publication before treating this pass as delivered.
+Publication: implementation/evidence commit **e90298973b8ea75a84204a0bc50ef3eb1ce8093b** was pushed successfully. The user selected the existing GitHub account in Git Credential Manager; the agent did not operate the authentication dialog. Remote main subsequently matched local documentation commit **0cb7fed4e3e656da009cd18cb51b338b36c3b710**. The final publication-status edit is documentation only. Publication is complete; the only new unchecked task is Go host revalidation.
 
 ## Latest verified delivery — final retry, 2026-11-02
 

@@ -9,7 +9,7 @@ The latest user instruction reopens development. The checked delivery queue belo
 - [x] Harden plan schemas and safe-boundary correction without changing completed assignments, role order or execution authority. Reject wrong-role tool tasks; prevent re-running a finished engine with stale findings/ROE.
 - [x] Add focused regression/edge checks; run the consolidated profile and a fresh actual-model, signed-ROE owned-lab acceptance with exact findings/allowed/denied counts. Final: 115 Python / 32 warnings, 28 Rust, 9/9 adversarial, frontend build/ten scripts passed; 14/17 groups passed with three Go groups host-blocked. Final real run 035e7ee6...: 2 findings / 29 allowed / 1 denied. Seven synthetic real-Qwen structured scenarios passed first attempt; no general accuracy/training claim.
 
-- [ ] Publish the tested Planner refinement, rendered UI evidence and current handoff to the authorized GitHub main; verify the remote commit. Rendered desktop/narrow coverage and real browser export are already inspected; see docs/PLANNER_REFINEMENT_2026-11-03.md.
+- [x] Publish the tested Planner refinement, rendered UI evidence and current handoff to the authorized GitHub main; verify the remote commit. Implementation/evidence e902989 pushed, remote main matched local documentation follow-up 0cb7fed after user account selection. Rendered desktop/narrow coverage and real browser export inspected; see docs/PLANNER_REFINEMENT_2026-11-03.md.
 
 External revalidation remains separate from implementation:
 

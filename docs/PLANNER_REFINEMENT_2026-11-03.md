@@ -89,6 +89,6 @@ These are bounded checks of changed functionality. They do not re-certify the or
 
 ## Remaining
 
-Implementation and rendered checks are finished. Publication is pending the user's account selection in Git Credential Manager; source/evidence commit is e90298973b8ea75a84204a0bc50ef3eb1ce8093b, and the push remains waiting. The other unchecked TODO is ordinary re-execution of the three Go groups after the host permits their test binaries. Python demo/live Planner works despite that separate test-host limitation. Production hardening, full Go runtime replacement and framework efficacy limits remain unchanged.
+Implementation, rendered checks and publication are finished. Source/evidence commit e90298973b8ea75a84204a0bc50ef3eb1ce8093b was pushed after the user selected the existing GitHub account in Git Credential Manager. Remote main subsequently matched local documentation follow-up 0cb7fed4e3e656da009cd18cb51b338b36c3b710; this last publication-status edit changes documentation only. The only new unchecked TODO is ordinary re-execution of the three Go groups after the host permits their test binaries. Python demo/live Planner works despite that separate test-host limitation. Production hardening, full Go runtime replacement and framework efficacy limits remain unchanged.
 
 **No grounding improvement was demonstrated. Preserve this failure.** The negative comparison and historical artifacts were not softened or replaced. This pass establishes specific fixes and their bounded checks, not model training or a general detection improvement.
