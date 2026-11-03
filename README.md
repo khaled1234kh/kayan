@@ -94,17 +94,17 @@ The [current office/functionality checkpoint](eval/reports/checkpoints/ui_cohesi
 |---|---|
 | Python |156 passed; 48 retained deprecation warnings|
 | Rust |28 passed|
-| Go |15 focused boundary tests,15 config tests and explicit no-embedding case passed|
+| Go |15 focused boundary tests, 15 config tests and explicit no-embedding case passed|
 | Adversarial authorization |9/9 passed|
-| Frontend |Ten scripts,14 transport/reducer checks,TypeScript/production build and unchanged bundle budgets passed|
+| Frontend |Ten scripts, 14 transport/reducer checks, TypeScript/production build and unchanged bundle budgets passed|
 
 Final actual-model engagement **b813d8a6-cc6f-4456-a9bc-0929249fd2a4: 2 findings / 30 allowed / 1 denied**, including the deliberate tainted-input denial and excluding ROE load. Planner remained a coordinator, completed last, and passed three outcome reviews; nine executed-action records retain original evidence. Web-App directory traversal is explicitly untested under the unchanged action budget. Whole journal verified 1,247 entries. A prior real route-timeout failure is preserved alongside its delayed-response reproduction and successful correction; no automatic resend or extra authority was added.
 
-The [per-item acceptance record](docs/UI_OFFICE_ACCEPTANCE_2026-11-03.md) covers all 19 UI tasks plus 15 overlapping office requirements: collapsed rails/compact drawers,scope-review assessment modal,coherent planning stages,readable session/audit,contained exterior,wall cutaways,fitted presets,physical picking and true Presentation view. Actual office/profile/setup renders were inspected at six sizes from 1920×1080 to 640×800,with bounded keyboard/reduced-motion/error/export checks. Geometry/build are separate from rendered acceptance. No aesthetic perfection or universal camera/device support is claimed.
+The [per-item acceptance record](docs/UI_OFFICE_ACCEPTANCE_2026-11-03.md) covers all 19 UI tasks plus 15 overlapping office requirements: collapsed rails/compact drawers, scope-review assessment modal, coherent planning stages, readable session/audit, contained exterior, wall cutaways, fitted presets, physical picking and true Presentation view. Actual office/profile/setup renders were inspected at six sizes from 1920×1080 to 640×800, with bounded keyboard/reduced-motion/error/export checks. Geometry/build are separate from rendered acceptance. No aesthetic perfection or universal camera/device support is claimed.
 
-Backend restart now automatically restores the selected session's **records only**, with persistent capped-backoff viewer reconnect. It never resumes model/tools/ROE or queued instructions; interrupted runs become visibly failed/blocked. Review/-RestoreDemo retains its original-session overwrite guard. Planning loads on demand; final entry 82,115bytes and all chunks stay under 500 kB without raising budgets. A single matched performance pair establishes no speedup or statistical regression conclusion.
+Backend restart now automatically restores the selected session's **records only**, with persistent capped-backoff viewer reconnect. It never resumes model/tools/ROE or queued instructions; interrupted runs become visibly failed/blocked. Review/-RestoreDemo retains its original-session overwrite guard. Planning loads on demand; final entry 82,115 bytes and all chunks stay under 500 kB without raising budgets. A single matched performance pair establishes no speedup or statistical regression conclusion.
 
-Five earlier fictional offline before/after cases preserve organization-specific controls and honest insufficient/explicit-absence results. This pass rechecked exact six-field A export,sample undo,saved B,filters and production empty/clinic views. These are deterministic authored-rule checks,not general model accuracy or a grounding benefit. Historical proposal/video and failure evidence remain unchanged.
+Five earlier fictional offline before/after cases preserve organization-specific controls and honest insufficient/explicit-absence results. This pass rechecked exact six-field A export, sample undo, saved B, filters and production empty/clinic views. These are deterministic authored-rule checks, not general model accuracy or a grounding benefit. Historical proposal/video and failure evidence remain unchanged.
 
 ## Scope and honest limits
 

@@ -92,3 +92,10 @@ python -B -m eval.planner_live_acceptance --label ui_live_UNIQUE
 ```
 
 The last command starts a new signed, owned-loopback assessment and replaces the selected current session. Use a unique label; never overwrite previous evidence. For presentation only, use Review with no new assessment; -RestoreDemo is specific to the original session and refuses a different selected run.
+
+
+## Publication verification
+
+Implementation/evidence commit **695acab8f1424babd419a68863f726a6578e8443** was pushed to the authorized khaled1234kh/kayan main. Remote HEAD and a fresh downloaded source checkout matched; all 38 changed-source SHA-256 values matched. All six README JPEGs returned HTTP 200 from their commit-specific raw GitHub URLs, matched local hashes and decoded successfully.
+
+The source-only clone initially retained LFS pointers: 151 Python passed / 5 asset checks failed/48 warnings. That failure is preserved in downloaded-python-lfs-pointers.log. Hydrating all six original assets from the existing hash-verified local LFS cache resolved those expected missing-asset failures; LFS fsck passed and downloaded-source Python rerun passed **156 tests /48 warnings**. Existing host dependencies were used. This is not a fresh isolated dependency install or fresh download of remote LFS media. publication-verification.json contains source/image hashes and the exact scope. Subsequent closure changes are documentation/evidence only.

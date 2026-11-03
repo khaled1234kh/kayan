@@ -1,0 +1,47 @@
+........................................................................ [ 46%]
+........................................................................ [ 92%]
+............                                                             [100%]
+============================== warnings summary ===============================
+console\backend\main.py:67
+  C:\Users\khale\Downloads\kayan-trustgate\tmp\ui-published-verified_20261103\console\backend\main.py:67: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event('startup')
+
+..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\applications.py:4681
+  C:\Users\khale\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\applications.py:4681: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)  # ty: ignore[deprecated]
+
+tests/test_console_activity.py::test_orchestrator_publishes_all_agents_actual_roe_tasks_and_final_state
+tests/test_console_activity.py::test_console_outage_does_not_bypass_denial
+tests/test_ta_alignment.py::test_descriptive_context_never_enters_signed_roe_or_gate
+  C:\Users\khale\Downloads\kayan-trustgate\tmp\ui-published-verified_20261103\pentagi\orchestrator.py:75: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "start": datetime.utcnow().isoformat(),
+
+tests/test_console_activity.py::test_orchestrator_publishes_all_agents_actual_roe_tasks_and_final_state
+tests/test_console_activity.py::test_console_outage_does_not_bypass_denial
+tests/test_ta_alignment.py::test_descriptive_context_never_enters_signed_roe_or_gate
+  C:\Users\khale\Downloads\kayan-trustgate\tmp\ui-published-verified_20261103\pentagi\orchestrator.py:129: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    self.start_time = datetime.utcnow().isoformat()
+
+tests/test_console_activity.py: 1 warning
+tests/test_contextual_planning.py: 8 warnings
+tests/test_planner_coordination.py: 22 warnings
+tests/test_ta_alignment.py: 8 warnings
+  C:\Users\khale\Downloads\kayan-trustgate\tmp\ui-published-verified_20261103\pentagi\agents\reporting_agent.py:91: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "generated_at": datetime.utcnow().isoformat(),
+
+tests/test_console_activity.py::test_orchestrator_publishes_all_agents_actual_roe_tasks_and_final_state
+  C:\Users\khale\Downloads\kayan-trustgate\tmp\ui-published-verified_20261103\pentagi\orchestrator.py:174: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    self.end_time = datetime.utcnow().isoformat()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+156 passed, 48 warnings in 15.58s

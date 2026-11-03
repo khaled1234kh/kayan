@@ -1,0 +1,80 @@
+{
+  "published_source_commit": "695acab8f1424babd419a68863f726a6578e8443",
+  "downloaded_head": "695acab8f1424babd419a68863f726a6578e8443",
+  "source_hashes_matched": 38,
+  "readme_images": [
+    {
+      "path": "docs/images/operations-console.jpg",
+      "status": 200,
+      "dimensions": [
+        1440,
+        900
+      ],
+      "sha256": "c389509ae7729b2c74e1868cd4b9b82afe80dddb06e95eb9d9caa3de711ae012"
+    },
+    {
+      "path": "docs/images/organization-profile.jpg",
+      "status": 200,
+      "dimensions": [
+        1440,
+        900
+      ],
+      "sha256": "814fcb4b349c4f33b5cb3a4aa3d3b669e54fce9f58c57f8907f7f58acc2694d3"
+    },
+    {
+      "path": "docs/images/risk-plan.jpg",
+      "status": 200,
+      "dimensions": [
+        1440,
+        900
+      ],
+      "sha256": "e5ab972d2667d672b67e6ed70047ba8d30aa0e5f0b9ddbcc337571ddaaa31867"
+    },
+    {
+      "path": "docs/images/assessment-mitigation.jpg",
+      "status": 200,
+      "dimensions": [
+        1440,
+        900
+      ],
+      "sha256": "35b8e8cfb1cae13a6ed7f0ef4dabdab52a583d438f045c2fa5fe530d018799de"
+    },
+    {
+      "path": "docs/images/planner-session.jpg",
+      "status": 200,
+      "dimensions": [
+        1440,
+        900
+      ],
+      "sha256": "1a4f1ed9db5a283137a0c5dc6fab6b839aecaba347ff2cd4cfd84a550efcf7aa"
+    },
+    {
+      "path": "docs/images/direct-mitigation.jpg",
+      "status": 200,
+      "dimensions": [
+        1440,
+        900
+      ],
+      "sha256": "bcd97569199f2108ab1577aac4662a4865155eb76e06e943de7a5035896d55bf"
+    }
+  ],
+  "lfs_smudge_skipped_for_downloaded_source_check": true,
+  "local_lfs_fsck": "passed",
+  "limitations": "Downloaded source hashes and six raw GitHub JPEGs verified; Python uses existing host dependencies, with original hash-verified assets from the local LFS cache. Not a fresh isolated install.",
+  "downloaded_python": {
+    "passed": 156,
+    "warnings": 48,
+    "log": "downloaded-python.log"
+  },
+  "downloaded_lfs": {
+    "objects": 6,
+    "fsck": "passed",
+    "hydration": "Existing hash-verified canonical local LFS cache; not a fresh remote media download."
+  },
+  "initial_downloaded_test": {
+    "passed": 151,
+    "failed": 5,
+    "cause": "LFS pointer files intentionally not hydrated during initial source-only clone",
+    "preserved_log": "downloaded-python-lfs-pointers.log"
+  }
+}

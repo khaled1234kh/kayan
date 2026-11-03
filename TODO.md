@@ -57,7 +57,7 @@ Verified closure: [UI_OFFICE_ACCEPTANCE_2026-11-03.md](docs/UI_OFFICE_ACCEPTANCE
 - [x] Reproduce and fix long-outage viewer recovery, modal resize/footer/drawer stacking, selected-camera bounds/state and profiler click interception; retain before/after evidence.
 - [x] Reproduce Planner signed-route timeout with a real delayed loopback response; align only its timeout with the backend, never resend ambiguously delivered instructions, and pass two subsequent actual-model runs.
 - [x] Preserve unchanged bundle budgets using on-demand planning; inspect the actual production browser, empty/insufficient-context states and existing full A/B exports.
-- [ ] Publish this final source, updated README/screenshots and acceptance/handoff to authorized GitHub main; verify remote contents. (Implementation and verification finished; publication in progress.)
+- [x] Publish final source/evidence 695acab8f1424babd419a68863f726a6578e8443 to authorized GitHub main; remote and downloaded HEAD matched. All 38 changed-source hashes and six actual README JPEGs matched. Downloaded source passed 156 Python /48 warnings using existing host dependencies and hash-verified local LFS assets; all six LFS objects passed fsck. Initial source-only clone failed five asset checks because it still held LFS pointers; preserve that log. Evidence: eval/reports/ui_cohesion_20261103_v1/publication-verification.json. Final follow-up changes documentation/evidence only.
 
 ## Outcome-aware coordination and final rehearsal — 2026-11-03
 

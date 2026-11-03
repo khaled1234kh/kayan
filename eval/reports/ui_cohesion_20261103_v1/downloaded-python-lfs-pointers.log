@@ -1,0 +1,159 @@
+.............................................FFFFF...................... [ 46%]
+........................................................................ [ 92%]
+............                                                             [100%]
+================================== FAILURES ===================================
+__ test_unrelated_source_bytes_match_independently_preserved_original_digest __
+
+    def test_unrelated_source_bytes_match_independently_preserved_original_digest():
+        from pathlib import Path
+        import json
+        # A checked-in original-payload fingerprint makes this assertion reproducible
+        # in a fresh clone, without skipping or comparing a candidate with itself.
+        manifest=json.loads(Path('tests/fixtures/fbx_untouched_payloads.json').read_text(encoding='utf-8'))
+        for item in manifest['models']:
+            data=(Path('console/office/public/models')/item['file']).read_bytes()
+>           assert hashlib.sha256(data).hexdigest()==item['after_sha256']
+E           AssertionError: assert '08ef84bda348...8e555f1e708d8' == 'c567c96851f3...6234f9cdf3a4b'
+E             
+E             - c567c96851f30f9fe73bba88c55352131fd9e908211c2f68f996234f9cdf3a4b
+E             + 08ef84bda3485be23c1ab0863bc4195512b08229dd145ced0c28e555f1e708d8
+
+tests\test_normalize_fbx_assets.py:76: AssertionError
+___ test_active_asset_has_no_discarded_map_or_excess_weights[AIManager.fbx] ___
+
+filename = 'AIManager.fbx'
+
+    @pytest.mark.parametrize('filename',['AIManager.fbx','AIOps.fbx','AISales.fbx','Employee.fbx'])
+    def test_active_asset_has_no_discarded_map_or_excess_weights(filename):
+        from pathlib import Path
+>       doc=Document((Path('console/office/public/models')/filename).read_bytes())
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_normalize_fbx_assets.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <scripts.normalize_fbx_assets.Document object at 0x000001B8DF1F9FD0>
+data = b'version https://git-lfs.github.com/spec/v1\noid sha256:c567c96851f30f9fe73bba88c55352131fd9e908211c2f68f996234f9cdf3a4b\nsize 57976160\n'
+
+    def __init__(self,data):
+>       if data[:23]!=HEADER:raise ValueError('Expected binary FBX')
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ValueError: Expected binary FBX
+
+scripts\normalize_fbx_assets.py:32: ValueError
+_____ test_active_asset_has_no_discarded_map_or_excess_weights[AIOps.fbx] _____
+
+filename = 'AIOps.fbx'
+
+    @pytest.mark.parametrize('filename',['AIManager.fbx','AIOps.fbx','AISales.fbx','Employee.fbx'])
+    def test_active_asset_has_no_discarded_map_or_excess_weights(filename):
+        from pathlib import Path
+>       doc=Document((Path('console/office/public/models')/filename).read_bytes())
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_normalize_fbx_assets.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <scripts.normalize_fbx_assets.Document object at 0x000001B8DF1F8110>
+data = b'version https://git-lfs.github.com/spec/v1\noid sha256:f75e95a1b0ad5e0952f09c5bc2bddf2cc2d0206531fc14e037cc18def3b689d1\nsize 46637296\n'
+
+    def __init__(self,data):
+>       if data[:23]!=HEADER:raise ValueError('Expected binary FBX')
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ValueError: Expected binary FBX
+
+scripts\normalize_fbx_assets.py:32: ValueError
+____ test_active_asset_has_no_discarded_map_or_excess_weights[AISales.fbx] ____
+
+filename = 'AISales.fbx'
+
+    @pytest.mark.parametrize('filename',['AIManager.fbx','AIOps.fbx','AISales.fbx','Employee.fbx'])
+    def test_active_asset_has_no_discarded_map_or_excess_weights(filename):
+        from pathlib import Path
+>       doc=Document((Path('console/office/public/models')/filename).read_bytes())
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_normalize_fbx_assets.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <scripts.normalize_fbx_assets.Document object at 0x000001B8DF1F8C80>
+data = b'version https://git-lfs.github.com/spec/v1\noid sha256:3e0068b1045a1f983577898aed609f5879a9cecc36319c1e88b066e1a5d809b2\nsize 48064336\n'
+
+    def __init__(self,data):
+>       if data[:23]!=HEADER:raise ValueError('Expected binary FBX')
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ValueError: Expected binary FBX
+
+scripts\normalize_fbx_assets.py:32: ValueError
+___ test_active_asset_has_no_discarded_map_or_excess_weights[Employee.fbx] ____
+
+filename = 'Employee.fbx'
+
+    @pytest.mark.parametrize('filename',['AIManager.fbx','AIOps.fbx','AISales.fbx','Employee.fbx'])
+    def test_active_asset_has_no_discarded_map_or_excess_weights(filename):
+        from pathlib import Path
+>       doc=Document((Path('console/office/public/models')/filename).read_bytes())
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_normalize_fbx_assets.py:82: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <scripts.normalize_fbx_assets.Document object at 0x000001B8DF1FB4D0>
+data = b'version https://git-lfs.github.com/spec/v1\noid sha256:b1b62381fb1eb32276e15a0a923596e8fcdfb8bc870cccbc316313d723bdd303\nsize 54707024\n'
+
+    def __init__(self,data):
+>       if data[:23]!=HEADER:raise ValueError('Expected binary FBX')
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ValueError: Expected binary FBX
+
+scripts\normalize_fbx_assets.py:32: ValueError
+============================== warnings summary ===============================
+console\backend\main.py:67
+  C:\Users\khale\Downloads\kayan-trustgate\tmp\ui-published-verified_20261103\console\backend\main.py:67: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    @app.on_event('startup')
+
+..\..\..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\applications.py:4681
+  C:\Users\khale\AppData\Local\Programs\Python\Python312\Lib\site-packages\fastapi\applications.py:4681: DeprecationWarning: 
+          on_event is deprecated, use lifespan event handlers instead.
+  
+          Read more about it in the
+          [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+          
+    return self.router.on_event(event_type)  # ty: ignore[deprecated]
+
+tests/test_console_activity.py::test_orchestrator_publishes_all_agents_actual_roe_tasks_and_final_state
+tests/test_console_activity.py::test_console_outage_does_not_bypass_denial
+tests/test_ta_alignment.py::test_descriptive_context_never_enters_signed_roe_or_gate
+  C:\Users\khale\Downloads\kayan-trustgate\tmp\ui-published-verified_20261103\pentagi\orchestrator.py:75: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "start": datetime.utcnow().isoformat(),
+
+tests/test_console_activity.py::test_orchestrator_publishes_all_agents_actual_roe_tasks_and_final_state
+tests/test_console_activity.py::test_console_outage_does_not_bypass_denial
+tests/test_ta_alignment.py::test_descriptive_context_never_enters_signed_roe_or_gate
+  C:\Users\khale\Downloads\kayan-trustgate\tmp\ui-published-verified_20261103\pentagi\orchestrator.py:129: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    self.start_time = datetime.utcnow().isoformat()
+
+tests/test_console_activity.py: 1 warning
+tests/test_contextual_planning.py: 8 warnings
+tests/test_planner_coordination.py: 22 warnings
+tests/test_ta_alignment.py: 8 warnings
+  C:\Users\khale\Downloads\kayan-trustgate\tmp\ui-published-verified_20261103\pentagi\agents\reporting_agent.py:91: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "generated_at": datetime.utcnow().isoformat(),
+
+tests/test_console_activity.py::test_orchestrator_publishes_all_agents_actual_roe_tasks_and_final_state
+  C:\Users\khale\Downloads\kayan-trustgate\tmp\ui-published-verified_20261103\pentagi\orchestrator.py:174: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    self.end_time = datetime.utcnow().isoformat()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_normalize_fbx_assets.py::test_unrelated_source_bytes_match_independently_preserved_original_digest
+FAILED tests/test_normalize_fbx_assets.py::test_active_asset_has_no_discarded_map_or_excess_weights[AIManager.fbx]
+FAILED tests/test_normalize_fbx_assets.py::test_active_asset_has_no_discarded_map_or_excess_weights[AIOps.fbx]
+FAILED tests/test_normalize_fbx_assets.py::test_active_asset_has_no_discarded_map_or_excess_weights[AISales.fbx]
+FAILED tests/test_normalize_fbx_assets.py::test_active_asset_has_no_discarded_map_or_excess_weights[Employee.fbx]
+5 failed, 151 passed, 48 warnings in 11.92s
