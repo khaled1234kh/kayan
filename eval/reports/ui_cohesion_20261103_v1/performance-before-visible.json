@@ -1,0 +1,35 @@
+{
+  "sourceCommit": "ce459f8",
+  "viewport": [
+    1440,
+    900
+  ],
+  "otherSceneFrozenDuringCapture": true,
+  "horizontalDrags": 12,
+  "samples": [
+    {
+      "mode": "idle",
+      "summary": {
+        "valid": true,
+        "rendered_frames": 650,
+        "rendered_fps": 64.96621756685798,
+        "frame_gap_p95_ms": 17,
+        "frame_gap_max_ms": 22.59999999962747,
+        "limit": "Canvas render cadence, not GPU timing, browser visual acceptance or input latency. Demand-rendered idle can correctly have zero frames."
+      },
+      "input_check": "Check sample conditions manually."
+    },
+    {
+      "mode": "orbit-click",
+      "summary": {
+        "valid": true,
+        "rendered_frames": 558,
+        "rendered_fps": 55.719763540499606,
+        "frame_gap_p95_ms": 21.40000000037253,
+        "frame_gap_max_ms": 26.90000000037253,
+        "limit": "Canvas render cadence, not GPU timing, browser visual acceptance or input latency. Demand-rendered idle can correctly have zero frames."
+      },
+      "input_check": "Check sample conditions manually."
+    }
+  ]
+}

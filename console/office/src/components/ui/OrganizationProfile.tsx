@@ -27,10 +27,10 @@ export function OrganizationProfile({value,onFieldChange,disabled=false}:{value:
   return <section className="organization-profile" aria-label="Organization profile editor">
     <nav className="profile-navigation" aria-label="Organization profile sections">{profileSections.map((item,index)=>{
       const supplied=item.fields.filter(key=>value[key]?.trim()).length;
-      return <button type="button" key={item.name} aria-current={section===index?'step':undefined} disabled={disabled} onClick={()=>setSection(index)}>
-        <span className="profile-number">{index+1}</span><span><strong>{item.name}</strong><small>{supplied}/2 fields supplied</small></span></button>;
+      return <button type="button" key={item.name} aria-current={section===index?'true':undefined} disabled={disabled} onClick={()=>setSection(index)}>
+        <span><strong>{item.name}</strong><small>{supplied}/2 fields supplied</small></span></button>;
     })}</nav>
-    <div className="profile-editor"><header><h3>{active.name}</h3><p>Optional facts and known gaps. Leave unknown details out.</p></header>
+    <div className="profile-editor"><header><h3>{active.name}</h3><p>{active.description} · optional facts and known gaps.</p></header>
       <div className="profile-field-grid">{active.fields.map(key=>{
         const field=contextFields.find(([name])=>name===key)!;
         const length=contextLength(value[key]??'');

@@ -24,15 +24,15 @@ function snapshot(revision = 1): TrustGateSnapshot {
     transcript: [{ id: 'entry1', timestamp: 100, agent_id: 'recon1', agent_role: 'recon_agent', kind: 'tool_started', content: 'Executing port_scan', task_id: 'tool1' }],
   };
 }
-function harness() {
+function harness(maxRetries: number | undefined = 2) {
   const sockets: Socket[] = [], urls: string[] = [], events: KayanEvent[] = [], statuses: boolean[] = [];
-  const timers = new Map<number, () => void>(); let timer = 0;
-  const source = new TrustGateEventSource({ apiUrl: 'http://127.0.0.1:8001/', maxRetries: 2,
+  const timers = new Map<number, () => void>(); const delays:number[]=[];let timer = 0;
+  const source = new TrustGateEventSource({ apiUrl: 'http://127.0.0.1:8001/', maxRetries,
     webSocketFactory: (url) => { urls.push(url); const socket = new Socket(); sockets.push(socket); return socket; },
-    setTimeoutFn: (fn) => { timers.set(++timer, fn); return timer; }, clearTimeoutFn: (id) => { timers.delete(id); },
+    setTimeoutFn: (fn,ms) => { delays.push(ms);timers.set(++timer, fn); return timer; }, clearTimeoutFn: (id) => { timers.delete(id); },
   });
   source.subscribe((e) => events.push(e)); source.subscribeStatus((s) => statuses.push(s)); source.connect();
-  return { source, sockets, urls, events, statuses, timers, tick: () => { const item = timers.entries().next().value!; timers.delete(item[0]); item[1](); } };
+  return { source, sockets, urls, events, statuses, timers, delays, tick: () => { const item = timers.entries().next().value!; timers.delete(item[0]); item[1](); } };
 }
 function fold(events: KayanEvent[]) { return events.reduce(reduce, initialDomainState()); }
 
@@ -101,5 +101,17 @@ test('manual reconnect after the bounded retry budget recovers the saved snapsho
   assert.equal(h.source.getConnectionState(),'disconnected');assert.equal(h.timers.size,0);
   h.source.connect();assert.equal(h.sockets.length,4);h.sockets[3].onopen?.({});h.sockets[3].deliver(snapshot());
   assert.equal(h.source.getConnectionState(),'connected');assert.equal(fold(h.events).collaboration.toolTranscript?.length,1);h.source.disconnect();
+});
+test('default live connection recovers after a prolonged outage with capped backoff',()=>{
+  const sockets:Socket[]=[],timers=new Map<number,()=>void>(),delays:number[]=[];let id=0;
+  const source=new TrustGateEventSource({apiUrl:'http://127.0.0.1:8001',
+    webSocketFactory:()=>{const socket=new Socket();sockets.push(socket);return socket;},
+    setTimeoutFn:(fn,ms)=>{delays.push(ms);timers.set(++id,fn);return id;},clearTimeoutFn:key=>{timers.delete(key);}});
+  const events:KayanEvent[]=[];source.subscribe(e=>events.push(e));source.connect();
+  for(let n=0;n<20;n++){sockets[n].close();assert.equal(timers.size,1);const [key,tick]=timers.entries().next().value!;timers.delete(key);tick();}
+  assert(delays.every(ms=>ms<=8000)&&delays.at(-1)===8000);
+  sockets.at(-1)!.onopen?.({});sockets.at(-1)!.deliver({...snapshot(),session_id:'restored-process'});
+  assert.equal(source.getConnectionState(),'connected');assert.equal(fold(events).collaboration.toolTranscript?.length,1);
+  sockets.at(-1)!.close();source.disconnect();assert.equal(timers.size,0);
 });
 console.log(`${passed} TrustGate transport/reducer checks passed`);

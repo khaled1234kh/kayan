@@ -1,0 +1,37 @@
+[
+  {
+    "role": "Planner",
+    "name": "Planner Agent",
+    "tier": "Tier A",
+    "state": "Completed",
+    "task": "No active task"
+  },
+  {
+    "role": "Recon",
+    "name": "Recon Agent",
+    "tier": "Tier B",
+    "state": "Completed",
+    "task": "No active task"
+  },
+  {
+    "role": "Web-App",
+    "name": "Web-App Agent",
+    "tier": "Tier A",
+    "state": "Completed",
+    "task": "No active task"
+  },
+  {
+    "role": "Network",
+    "name": "Network Agent",
+    "tier": "Tier C",
+    "state": "Completed",
+    "task": "No active task"
+  },
+  {
+    "role": "Reporting",
+    "name": "Reporting Agent",
+    "tier": "Tier B",
+    "state": "Completed",
+    "task": "No active task"
+  }
+]

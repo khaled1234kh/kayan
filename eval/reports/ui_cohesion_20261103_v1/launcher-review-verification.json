@@ -1,0 +1,11 @@
+{
+  "different_session_guard": "Refusing to replace an active or different session.",
+  "matching_original_demo_launcher_passed": true,
+  "original_demo_entries": 101,
+  "restored_current": "62a7c952-0422-48ea-9ed5-49e211d55a5f",
+  "no_execution_audit_change": {
+    "valid": true,
+    "broken_at": null,
+    "message": "Chain valid \u2014 1215 entries verified"
+  }
+}

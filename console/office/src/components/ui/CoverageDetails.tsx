@@ -10,7 +10,7 @@ export interface SpecialistCoverage {
 }
 
 export function coverageRoleLabel(role: string) {
-  return ({recon_agent:'Recon',webapp_agent:'Web-App',network_agent:'Network'} as Record<string,string>)[role] ?? role;
+  return ({planner_agent:'Planner',reporting_agent:'Reporting',recon_agent:'Recon',webapp_agent:'Web-App',network_agent:'Network'} as Record<string,string>)[role] ?? role;
 }
 
 /** A loop finishing and the bounded tool catalogue being covered are separate facts. */

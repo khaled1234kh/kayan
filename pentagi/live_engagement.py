@@ -154,8 +154,14 @@ class LiveEngagement(EngagementOrchestrator):
     def _route(self, sender, recipient, message):
         payload = {"engagement_id": self.engagement_id, "sender_agent_id": sender.agent_id,
                    "recipient_agent_id": recipient.agent_id, "text": message}
-        response = self._console.post(self.console_url+"/messages/route", json=payload,
-            headers={"X-Kayan-Bridge": bridge_signature(payload)})
+        try:
+            # The backend can spend up to 8s awaiting Gate authorization, followed
+            # by evidence persistence. The general 2s snapshot timeout is too short
+            # for this request. Never retry an ambiguously delivered instruction.
+            response = self._console.post(self.console_url+"/messages/route", json=payload,
+                headers={"X-Kayan-Bridge": bridge_signature(payload)}, timeout=httpx.Timeout(12.0, connect=2.0))
+        except httpx.TimeoutException as error:
+            raise RuntimeError("Governed message delivery was not confirmed before timeout; delivery may have occurred. No automatic resend was attempted.") from error
         response.raise_for_status()
         return response.json()
 

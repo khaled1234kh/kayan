@@ -1,0 +1,17 @@
+{
+  "initial": {
+    "label": "Operator name",
+    "tag": "INPUT"
+  },
+  "nativeModal": true,
+  "afterLastControl": {
+    "label": null,
+    "tag": "BODY"
+  },
+  "nextTab": {
+    "tag": "BUTTON",
+    "text": "Close setup"
+  },
+  "operatorNext": "Operator name",
+  "escapeClosed": true
+}

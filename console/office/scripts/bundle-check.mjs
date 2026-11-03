@@ -10,3 +10,5 @@ for (const prefix of ['react-','three-engine-','three-shaders-','three-math-','o
   assert.equal(chunks.filter(c=>c.name.startsWith(prefix)).length,1,`Expected exactly one ${prefix} chunk`);
 }
 console.log(JSON.stringify({chunks,totalBytes:chunks.reduce((n,c)=>n+c.bytes,0)},null,2));
+
+assert(chunks.some(c=>c.name.startsWith('PlanningPanel-')), 'Planning workspace must have its own on-demand chunk');

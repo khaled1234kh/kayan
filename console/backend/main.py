@@ -12,7 +12,7 @@ from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException, Requ
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, ConfigDict, Field
-from console.backend.session_store import SessionStore
+from console.backend.session_store import SessionStore, restored_records
 
 app = FastAPI(title="KAYAN TrustGate Console", version="0.1.0")
 
@@ -62,6 +62,25 @@ class EngagementUpdate(BaseModel):
     findings: List[Dict[str, Any]] = Field(default_factory=list)
     denials: List[Dict[str, Any]] = Field(default_factory=list)
     transcript: List[TranscriptEntry] = Field(default_factory=list)
+
+
+@app.on_event('startup')
+async def restore_session_records():
+    global _revision
+    if _engagement_state:
+        return
+    try:
+        saved = session_store.current()
+        if saved is None:
+            return
+        validated = EngagementUpdate.model_validate(saved).model_dump(exclude_unset=True)
+        restored = restored_records(validated)
+        session_store.save(restored)
+        _engagement_state.update(restored)
+        _revision += 1
+    except (ValueError, OSError):
+        _engagement_state.update(status='waiting', restoration={'records_only': True,
+            'notice': 'Saved session could not be restored. No actions were started; inspect local session storage.'})
 
 
 def snapshot():

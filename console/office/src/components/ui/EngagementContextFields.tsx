@@ -20,7 +20,7 @@ export function EngagementContextFields({ value, onChange, onFieldChange }: {
   return <details className="descriptive-context"><summary>Optional descriptive context</summary>
     <p className="muted">Narrative framing only. Zero policy weight: this cannot grant scope or authorization.</p>
     {contextFields.map(([key, label, max]) => <label key={key}>{label}
-      <textarea rows={3} value={value[key] ?? ''} aria-invalid={contextLength(value[key]??'')>max}
+      <textarea aria-label={label} rows={3} value={value[key] ?? ''} aria-invalid={contextLength(value[key]??'')>max}
         onChange={event => onFieldChange ? onFieldChange(key,event.target.value) : onChange(replaceContextField(value,key,event.target.value))} />
       <small>{contextLength(value[key]??'')} / {max} characters</small>
       {contextLength(value[key]??'')>max && <span role="alert">This field is too long to submit. Nothing was truncated; shorten it before continuing.</span>}

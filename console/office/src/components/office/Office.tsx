@@ -1,6 +1,8 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
+import { useFrame } from '@react-three/fiber';
 import { Grid } from '@react-three/drei';
 import * as THREE from 'three';
+import { createCityTexture } from './cityBackdrop';
 import { COLORS, GRID, ROOM_D, ROOM_H, ROOM_W, ZONES } from '../../data/layout';
 
 /**
@@ -19,13 +21,14 @@ export function tileToWorld(x: number, z: number): [number, number] {
   return [x - GRID / 2, z - GRID / 2];
 }
 
-/** Dark polished concrete. Low roughness gives the sheen the reference has. */
+/** Matte concrete surface with a continuous structural slab edge. */
 export function Floor() {
   return (
+    <group><mesh position={[0,-0.09,0]} receiveShadow><boxGeometry args={[ROOM_W+0.3,0.18,ROOM_D+0.3]}/><meshStandardMaterial color="#29333C" roughness={0.92}/></mesh>
     <mesh rotation-x={-Math.PI / 2} receiveShadow>
       <planeGeometry args={[ROOM_W, ROOM_D]} />
-      <meshStandardMaterial color={COLORS.floor} roughness={0.65} metalness={0.03} />
-    </mesh>
+      <meshStandardMaterial color={COLORS.floor} roughness={0.9} metalness={0.02} />
+    </mesh></group>
   );
 }
 
@@ -74,91 +77,18 @@ export function Zones() {
   );
 }
 
-/**
- * Night-city backdrop, generated procedurally onto a canvas.
- *
- * No image asset is loaded — the reference needs a plausible city at a glance,
- * not a photo. Seeded so the skyline is identical on every render, otherwise
- * the office would shimmer between screenshots.
- */
-function createCityTexture(): THREE.CanvasTexture {
-  const W = 1024;
-  const H = 512;
-  const canvas = document.createElement('canvas');
-  canvas.width = W;
-  canvas.height = H;
-  const ctx = canvas.getContext('2d');
-  if (!ctx) return new THREE.CanvasTexture(canvas);
+export const REAR_OPENING={width:ROOM_W-.3,height:ROOM_H-.16,z:-ROOM_D/2-.095};
 
-  let seed = 0x5eed;
-  const rnd = () => {
-    seed = (seed * 1664525 + 1013904223) % 4294967296;
-    return seed / 4294967296;
-  };
-
-  // Sky: deep blue-black down to a warmer haze at the horizon.
-  const sky = ctx.createLinearGradient(0, 0, 0, H);
-  sky.addColorStop(0, '#05070C');
-  sky.addColorStop(0.5, '#0A1220');
-  sky.addColorStop(0.62, '#1B2B44');
-  sky.addColorStop(0.64, '#0A0E14');
-  sky.addColorStop(1, '#06080C');
-  ctx.fillStyle = sky;
-  ctx.fillRect(0, 0, W, H);
-
-  const horizon = H * 0.64;
-
-  // Two depth layers of towers, far (hazy) then near (darker).
-  const layers = [
-    { count: 46, wMin: 14, wMax: 42, hMin: 40, hMax: 150, body: '#0B1220', lit: 0.34, win: '#FFD79A' },
-    { count: 30, wMin: 26, wMax: 74, hMin: 70, hMax: 250, body: '#060A12', lit: 0.5, win: '#FFC46B' },
-  ];
-
-  for (const layer of layers) {
-    for (let i = 0; i < layer.count; i++) {
-      const bw = layer.wMin + rnd() * (layer.wMax - layer.wMin);
-      const bx = rnd() * (W - bw);
-      const bh = layer.hMin + rnd() * (layer.hMax - layer.hMin);
-      const by = horizon - bh;
-
-      ctx.fillStyle = layer.body;
-      ctx.fillRect(bx, by, bw, bh);
-
-      // Window grid. Each window gets an independent lit/unlit roll so the
-      // towers read as inhabited rather than uniformly striped.
-      const cw = 3;
-      const ch = 4;
-      const gap = 4;
-      for (let wy = by + 6; wy < horizon - 4; wy += ch + gap) {
-        for (let wx = bx + 4; wx < bx + bw - 4; wx += cw + gap) {
-          if (rnd() > layer.lit) continue;
-          ctx.fillStyle = rnd() > 0.82 ? '#FFF3D6' : layer.win;
-          ctx.fillRect(wx, wy, cw, ch);
-        }
-      }
-    }
-  }
-
-  // Water: a horizon band carrying smeared reflections of the city lights.
-  const water = ctx.createLinearGradient(0, horizon, 0, H);
-  water.addColorStop(0, '#0C1522');
-  water.addColorStop(1, '#05070B');
-  ctx.fillStyle = water;
-  ctx.fillRect(0, horizon, W, H - horizon);
-
-  for (let i = 0; i < 130; i++) {
-    const rx = rnd() * W;
-    const ry = horizon + rnd() * (H - horizon);
-    const rh = 3 + rnd() * 16;
-    ctx.globalAlpha = 0.05 + rnd() * 0.13;
-    ctx.fillStyle = rnd() > 0.75 ? '#FFC46B' : '#7FD6E4';
-    ctx.fillRect(rx, ry, 2 + rnd() * 7, rh);
-  }
-  ctx.globalAlpha = 1;
-
-  const tex = new THREE.CanvasTexture(canvas);
-  tex.colorSpace = THREE.SRGBColorSpace;
-  return tex;
+/** Cut away only the camera-near side; retain a structural parapet and the far wall. */
+export function wallUpperVisible(side:number,cameraX:number){return side*cameraX<=0.5;}
+export function visibleWallRaycast(this:THREE.Mesh,ray:THREE.Raycaster,hits:THREE.Intersection[]){if(this.visible)THREE.Mesh.prototype.raycast.call(this,ray,hits);}
+export function CutawayWall({side}:{side:-1|1}){
+  const upper=useRef<THREE.Mesh>(null);
+  useFrame(({camera})=>{if(upper.current)upper.current.visible=wallUpperVisible(side,camera.position.x);});
+  return <group position={[side*ROOM_W/2,0,0]}>
+    <mesh position={[0,.22,0]} castShadow receiveShadow><boxGeometry args={[.3,.44,ROOM_D+.3]}/><meshStandardMaterial color={COLORS.wall} roughness={.92}/></mesh>
+    <mesh ref={upper} raycast={visibleWallRaycast} position={[0,(ROOM_H+.44)/2,0]} castShadow receiveShadow><boxGeometry args={[.3,ROOM_H-.44,ROOM_D+.3]}/><meshStandardMaterial color={COLORS.wall} roughness={.92}/></mesh>
+  </group>;
 }
 
 /**
@@ -167,36 +97,22 @@ function createCityTexture(): THREE.CanvasTexture {
  */
 export function Walls() {
   const city = useMemo(() => createCityTexture(), []);
-  const halfW = ROOM_W / 2;
+  useEffect(()=>()=>city.dispose(),[city]);
   const halfD = ROOM_D / 2;
-  const t = 0.3;
 
   return (
     <group>
-      {/* Side walls — the only solid walls in the shell. They run deeper than the
-          floor so they enclose the city backdrop; otherwise the skyline shows
-          past their rear edge on an angled camera. */}
-      <mesh position={[-halfW, ROOM_H / 2, -0.8]} castShadow receiveShadow>
-        <boxGeometry args={[t, ROOM_H, ROOM_D + 3.2]} />
-        <meshStandardMaterial color={COLORS.wall} roughness={0.92} metalness={0.04} />
-      </mesh>
-      <mesh position={[halfW, ROOM_H / 2, -0.8]} castShadow receiveShadow>
-        <boxGeometry args={[t, ROOM_H, ROOM_D + 3.2]} />
-        <meshStandardMaterial color={COLORS.wall} roughness={0.92} metalness={0.04} />
-      </mesh>
-
-      {/* Open-top cutaway: no opaque overhead plane in close-up views. */}
-
-      {/* Night city, sitting behind the glazing on the far side. Sized to the
-          glazing width so it never protrudes beyond the side walls. */}
-      <mesh position={[0, ROOM_H / 2, -halfD - 1.1]}>
-        <planeGeometry args={[ROOM_W + 1.2, ROOM_H + 1.0]} />
-        <meshBasicMaterial map={city} toneMapped={false} />
+      <CutawayWall side={-1}/><CutawayWall side={1}/>
+      {/* The backdrop is contained INSIDE the rear opening, just behind glazing.
+          Backing thickness closes its exterior face; no oversized floating card. */}
+      <mesh position={[0,ROOM_H/2,-halfD-.14]}><boxGeometry args={[ROOM_W-.3,ROOM_H-.16,.08]}/><meshStandardMaterial color={COLORS.wall} roughness={.92}/></mesh>
+      <mesh position={[0,ROOM_H/2,REAR_OPENING.z]}>
+        <planeGeometry args={[REAR_OPENING.width,REAR_OPENING.height]}/><meshBasicMaterial map={city} toneMapped={false}/>
       </mesh>
 
       {/* Floor-to-ceiling glazing. Cheap transparent standard material rather
           than `transmission`, which would cost a full extra render pass. */}
-      <mesh position={[0, ROOM_H / 2, -halfD]}>
+      <mesh raycast={()=>null} position={[0, ROOM_H / 2, -halfD]}>
         <planeGeometry args={[ROOM_W, ROOM_H]} />
         <meshStandardMaterial
           color={COLORS.glass}
@@ -210,12 +126,13 @@ export function Walls() {
       </mesh>
 
       {/* Mullions: dark vertical frames breaking up the glazing. */}
-      {[-4, -2, 0, 2, 4].map((x) => (
+      {[-halfD, -4, -2, 0, 2, 4, halfD].map((x) => (
         <mesh key={x} position={[x, ROOM_H / 2, -halfD + 0.06]}>
           <boxGeometry args={[0.09, ROOM_H, 0.09]} />
           <meshStandardMaterial color={COLORS.glassFrame} roughness={0.6} metalness={0.35} />
         </mesh>
       ))}
+      <mesh position={[0,.06,-halfD+.06]}><boxGeometry args={[ROOM_W,.12,.12]}/><meshStandardMaterial color={COLORS.glassFrame} roughness={.6}/></mesh>
       <mesh position={[0, ROOM_H, -halfD + 0.06]}>
         <boxGeometry args={[ROOM_W, 0.12, 0.12]} />
         <meshStandardMaterial color={COLORS.glassFrame} roughness={0.6} metalness={0.35} />
@@ -257,7 +174,7 @@ export function MeetingTable() {
   );
 }
 
-/** TrustGate rack. Visual marker only — enforcement is a later task. */
+/** Architectural rack marker; actual authorization lives in the Rust service. */
 export function TrustGateRack({ alerting }: { alerting: boolean }) {
   return (
     /* Was at (-3, 3), where its 1x0.5 footprint overlapped the front-left pod's

@@ -8,7 +8,7 @@ KAYAN coordinates a local-model assessment of an owned lab through signed Rules 
 
 [Project proposal PDF](output/pdf/KAYAN_TrustGate_Proposal.pdf) · [Evidence PDF with video links](output/pdf/KAYAN_Evidence_Presentation.pdf) · [Three-path demonstration](https://drive.google.com/file/d/1cBt1aRcKtT3EulSUwK-y9ayTv1UNfWkJ/view?usp=sharing) · [Recorded live assessment](https://drive.google.com/file/d/1SRUVpJtSssnN1zlT0g4Z_ZI4jXg3xfNb/view?usp=sharing)
 
-The guided-profile screenshot below was captured on 3 November 2026; the office and older result screenshots were captured on 2 November. The videos retain their earlier interface and original engagement evidence.
+The screenshots show the actual 3 November 2026 workspace/office acceptance pass. The videos retain their earlier interface and original engagement evidence.
 
 ## What you can demonstrate
 
@@ -24,9 +24,9 @@ Organization context carries **zero policy weight**. Defense in Depth / Zero Tru
 
 ![Guided organization profile with three sections, explicit sample replacement and two readable editors](docs/images/organization-profile.jpg)
 
-The six-field profile preserves full entered descriptions within explicit limits. Preview fictional samples before replacement, review the exact context, then move through **Organization → Hypotheses → Mitigation → Review & Export**. Recommendations use bounded authored scenario controls, not model-generated risk judgments. Weak text-only matches are excluded; insufficient context can produce no supported hypotheses. [Before/after evaluation and actual browser/export evidence](docs/PLANNING_AND_COORDINATION_2026-11-03.md).
+The six-field profile preserves full entered descriptions within explicit limits. Preview fictional samples before replacement, review the exact context, then move through **Context → Hypotheses → Mitigation → Review & Export**. Recommendations use bounded authored scenario controls, not model-generated risk judgments. Weak text-only matches are excluded; insufficient context can produce no supported hypotheses. [Before/after evaluation and actual browser/export evidence](docs/PLANNING_AND_COORDINATION_2026-11-03.md).
 
-The older risk screenshot below documents the previous result presentation:
+Context relevance is explicitly separate from severity, likelihood, impact and urgency:
 
 ![Risk Plan workspace with three explicitly hypothetical risks and ATT&CK references](docs/images/risk-plan.jpg)
 
@@ -88,29 +88,23 @@ All verifies/reuses the Gate, lab, backend and office; it does not start an asse
 
 The [3 November planning/coordination pass](docs/PLANNING_AND_COORDINATION_2026-11-03.md) adds evidence-referenced real-model outcome reviews, bounded next-specialist priorities, attributed observation reuse and exact-context offline planning. Shared local `qwen2.5:7b`, scope and action budgets remain unchanged. Planner has no specialist tool authority and is not a second model. Fixed role order remains; this is not a general dynamic scheduler.
 
-The [final checkpoint](eval/reports/checkpoints/planner_context_final_20261103_v4/results.json) passed **17/17 groups**:
+The [current office/functionality checkpoint](eval/reports/checkpoints/ui_cohesion_final_20261103_v3/results.json) passed **17/17 groups**:
 
 | Check | Result |
 |---|---|
-| Python | 145 passed; 46 retained deprecation warnings |
-| Rust | 28 passed |
-| Go | 15 focused boundary tests, 15 config tests and the explicit no-embedding case passed |
-| Adversarial authorization | 9/9 passed |
-| Frontend | Ten scripts plus TypeScript/production build passed |
+| Python |156 passed; 48 retained deprecation warnings|
+| Rust |28 passed|
+| Go |15 focused boundary tests,15 config tests and explicit no-embedding case passed|
+| Adversarial authorization |9/9 passed|
+| Frontend |Ten scripts,14 transport/reducer checks,TypeScript/production build and unchanged bundle budgets passed|
 
-Latest real coordinator engagement **a16f71f5-f9b3-4518-a17b-52a908358aba** produced **2 findings / 30 allowed / 1 denied**, three accepted outcome reviews and nine executed-action records. The denied decision is the deliberate tainted-input test. Coverage is explicitly incomplete: the unchanged Web-App action budget leaves directory traversal untested. Signed service-scan denial returned **2 / 25 / 2**; actual lab outage returned **0 / 24 / 1**, with no invented findings. Different harness inputs mean these allowed totals are not equivalent workloads. Full engagement IDs and count bases are in the linked record. Type-specific saved-report mitigation improvements were tested/browser-checked after the last live run; no new live finding claim is made for those templates.
+Final actual-model engagement **b813d8a6-cc6f-4456-a9bc-0929249fd2a4: 2 findings / 30 allowed / 1 denied**, including the deliberate tainted-input denial and excluding ROE load. Planner remained a coordinator, completed last, and passed three outcome reviews; nine executed-action records retain original evidence. Web-App directory traversal is explicitly untested under the unchanged action budget. Whole journal verified 1,247 entries. A prior real route-timeout failure is preserved alongside its delayed-response reproduction and successful correction; no automatic resend or extra authority was added.
 
-Five fictional offline before/after cases demonstrate different scenario/control sets for retailer, clinic and manufacturing, plus honest empty results for insufficient/explicit-absence descriptions. Those are deterministic authored-rule checks, **not general model accuracy or a grounding efficacy improvement**. Actual downloaded A JSON preserved all six exact context fields; saved B retained its original reviews, ledger, finding IDs and partial coverage. Sampled profile layouts were inspected at six sizes from 1920×1080 to 640×800, with keyboard/contrast checks. The broader 19-item UI/office redesign remains open in [TODO.md](TODO.md).
+The [per-item acceptance record](docs/UI_OFFICE_ACCEPTANCE_2026-11-03.md) covers all 19 UI tasks plus 15 overlapping office requirements: collapsed rails/compact drawers,scope-review assessment modal,coherent planning stages,readable session/audit,contained exterior,wall cutaways,fitted presets,physical picking and true Presentation view. Actual office/profile/setup renders were inspected at six sizes from 1920×1080 to 640×800,with bounded keyboard/reduced-motion/error/export checks. Geometry/build are separate from rendered acceptance. No aesthetic perfection or universal camera/device support is claimed.
 
-Earlier host-blocked Go failures remain preserved. Normal retries now pass without security changes; why host behavior changed is unknown. The latest quiet audit check verified **1,130 entries** without rewriting the journal. Backend restart still opens with no active session although snapshots persist; automatic current-session resume remains an operational limitation. Review/-RestoreDemo preserves its original-session overwrite guard.
+Backend restart now automatically restores the selected session's **records only**, with persistent capped-backoff viewer reconnect. It never resumes model/tools/ROE or queued instructions; interrupted runs become visibly failed/blocked. Review/-RestoreDemo retains its original-session overwrite guard. Planning loads on demand; final entry 82,115bytes and all chunks stay under 500 kB without raising budgets. A single matched performance pair establishes no speedup or statistical regression conclusion.
 
-To repeat the defined checks against running prerequisites:
-
-```powershell
-python -B -m eval.functionality_checkpoint --label YOUR_UNIQUE_LABEL
-```
-
-The full profile additionally requires Go and the Rust toolchain; the Python demo itself does not require Go or Docker. It starts no model assessment. The published ce459f8 source was downloaded into the clean verification checkout, matched all 26 recorded source hashes and passed 145 Python tests / 46 warnings using installed host dependencies. This was not a new isolated dependency install. The earlier 2 November isolated-install result remains historical. Actual-model acceptance is separate and documented in the readiness report. Test-suite and geometry checks do not substitute for rendered UI acceptance or measured FPS.
+Five earlier fictional offline before/after cases preserve organization-specific controls and honest insufficient/explicit-absence results. This pass rechecked exact six-field A export,sample undo,saved B,filters and production empty/clinic views. These are deterministic authored-rule checks,not general model accuracy or a grounding benefit. Historical proposal/video and failure evidence remain unchanged.
 
 ## Scope and honest limits
 
@@ -122,7 +116,8 @@ Python is the primary demo engine. The vendored Go/PentAGI work is a scoped enfo
 
 - [Architecture and Red/Blue allocation](docs/ARCHITECTURE.md)
 - [TA deliverables mapping](docs/TA_DELIVERABLES_ALIGNMENT.md)
-- [Current planning, coordination and browser evidence](docs/PLANNING_AND_COORDINATION_2026-11-03.md)
+- [Current UI/office acceptance](docs/UI_OFFICE_ACCEPTANCE_2026-11-03.md)
+- [Earlier planning, coordination and browser evidence](docs/PLANNING_AND_COORDINATION_2026-11-03.md)
 - [Earlier readiness](docs/DEMO_READY_2026-11-02.md)
 - [Canonical handoff](MASTER_HANDOFF.md) and [TODO record](TODO.md)
 - [Publication provenance and local recovery history](docs/GITHUB_DELIVERY_2026-11-02.md)

@@ -1,9 +1,9 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import * as THREE from 'three';
 import { COLORS, PARTITION_HEIGHT } from '../../data/layout';
 
 /**
- * Frosted-glass cubicle partitions.
+ * Clear, lightly tinted cubicle partitions.
  *
  * Arranged as four pods around a central cross-aisle, which is the layout the
  * reference uses: each workstation sits in a corner cell formed by two glass
@@ -55,7 +55,7 @@ const PANELS: PanelSpec[] = [
 ];
 
 const FRAME = 0.05;
-const LED_H = 0.035;
+const LED_H = 0.012;
 
 export function Partitions() {
   // One shared glass material and one shared frame material for all panels:
@@ -63,13 +63,11 @@ export function Partitions() {
   const glass = useMemo(
     () =>
       new THREE.MeshPhysicalMaterial({
-        color: COLORS.glass,
-        // Frosted: low transmission, high roughness, so it diffuses rather than
-        // refracts. `transmission` proper would add a full extra render pass
-        // per frame, which the software-GL still renderer cannot afford.
+        color: '#45636E',
+        // Clear sight lines without the additional transmission render pass.
         transparent: true,
-        opacity: 0.25,
-        roughness: 0.55,
+        opacity: 0.08,
+        roughness: 0.18,
         metalness: 0.0,
         side: THREE.DoubleSide,
         depthWrite: false,
@@ -90,15 +88,16 @@ export function Partitions() {
   const led = useMemo(
     () =>
       new THREE.MeshStandardMaterial({
-        color: COLORS.ledCool,
-        emissive: COLORS.ledCool,
-        emissiveIntensity: 2.4,
+        color: '#2A6970',
+        emissive: '#2A6970',
+        emissiveIntensity: 0.15,
         roughness: 0.5,
         toneMapped: false,
       }),
     [],
   );
 
+  useEffect(()=>()=>{glass.dispose();frame.dispose();led.dispose();},[glass,frame,led]);
   return (
     <group>
       {PANELS.map((p, i) => {
@@ -113,7 +112,7 @@ export function Partitions() {
         return (
           <group key={i} position={[p.x, 0, p.z]}>
             {/* frosted panel */}
-            <mesh position={[0, cy, 0]} material={glass}>
+            <mesh position={[0, cy, 0]} raycast={()=>null} material={glass}>
               <boxGeometry args={[glassW, h, glassD]} />
             </mesh>
 

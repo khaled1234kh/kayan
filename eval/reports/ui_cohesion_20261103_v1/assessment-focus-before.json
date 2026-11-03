@@ -1,0 +1,4 @@
+{
+  "observed": "Opening native setup dialog focused Close setup instead of Operator name",
+  "result": "discrepancy; corrected by focus after showModal, then rechecked"
+}

@@ -1,0 +1,5 @@
+npm notice run kayan-trustgate-office@0.1.0 check:office
+npm notice run esbuild scripts/office-geometry-check.tsx --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-office.mjs --log-level=error && node scripts/.out-office.mjs
+PASS monitor front/rear raycasts, solid casing, upward worker-facing normal, five viewport fits, workstation separation and plant/lamp/mug clearances (no visual claim)
+PASS contained rear opening, near-wall cutaway direction, invisible-wall raycast and all three overview preset fits. These checks do not establish rendered acceptance.
+PASS selected cameras remain inside the shell for all five actual workstation placements.

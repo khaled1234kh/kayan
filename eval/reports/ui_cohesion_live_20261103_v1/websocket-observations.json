@@ -1,0 +1,1478 @@
+[
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "starting",
+    "entries": 0,
+    "agents": []
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "ready",
+    "entries": 0,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 1,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Planning the authorized assessment",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 2,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Planning the authorized assessment",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 2,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Planning the authorized assessment",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 3,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Planning the authorized assessment",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 4,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Planning the authorized assessment",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 5,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Planning the authorized assessment",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 5,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Plan specialist assignments",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 6,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Plan specialist assignments",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 6,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Plan specialist assignments",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 7,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Plan specialist assignments",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 8,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Plan specialist assignments",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 9,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Plan specialist assignments",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 10,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Plan specialist assignments",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 10,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Plan specialist assignments",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 10,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Plan specialist assignments",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 10,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Plan specialist assignments",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 10,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Plan specialist assignments",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 10,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Plan specialist assignments",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 10,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Plan specialist assignments",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 10,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Plan specialist assignments",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 10,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Plan specialist assignments",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 10,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Plan specialist assignments",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 10,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Plan specialist assignments",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 10,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Plan specialist assignments",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 10,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Plan specialist assignments",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 10,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Plan specialist assignments",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 10,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Plan specialist assignments",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 11,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Coordinating validated specialist assignments",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 12,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Assigning recon_agent: Inspect the lab using http_probe, port_scan and discover_endpoints",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 12,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Assigning recon_agent: Inspect the lab using http_probe, port_scan and discover_endpoints",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 12,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Assigning recon_agent: Inspect the lab using http_probe, port_scan and discover_endpoints",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 13,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Assigning recon_agent: Inspect the lab using http_probe, port_scan and discover_endpoints",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "active",
+    "entries": 14,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Assigning recon_agent: Inspect the lab using http_probe, port_scan and discover_endpoints",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  },
+  {
+    "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+    "status": "failed",
+    "entries": 15,
+    "agents": [
+      {
+        "role": "recon_agent",
+        "status": "blocked",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "webapp_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "network_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "C",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "reporting_agent",
+        "status": "idle",
+        "current_task": null,
+        "model_tier": "B",
+        "model_name": "qwen2.5:7b"
+      },
+      {
+        "role": "planner_agent",
+        "status": "working",
+        "current_task": "Assigning recon_agent: Inspect the lab using http_probe, port_scan and discover_endpoints",
+        "model_tier": "A",
+        "model_name": "qwen2.5:7b"
+      }
+    ]
+  }
+]

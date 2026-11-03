@@ -2,7 +2,6 @@ import type { Actor } from '../../types';
 import { workstationRotation } from '../../data/actors';
 import { Html } from '@react-three/drei';
 import { MAPPING_BY_PENTEST_ROLE, ROLE_DESK_MAPPING, type PentestRole } from '../../data/roleMapping';
-import { COLORS, STATE_COLOR } from '../../data/layout';
 import { tileToWorld } from '../office/Office';
 import ActorModel from './ActorModel';
 import Chair from './Chair';
@@ -66,13 +65,14 @@ export function ActorSeat({
   actor,
   selected,
   onSelect,
+  showLabel=true,
 }: {
   actor: Actor;
   selected: boolean;
+  showLabel?:boolean;
   onSelect: (id: string) => void;
 }) {
   const labelOccluders = useLabelOcclusionTargets();
-  const accent = STATE_COLOR[actor.state] ?? COLORS.muted;
   const [wx, wz] = tileToWorld(actor.gridPosition.x, actor.gridPosition.z);
   const role = roleFor(actor);
   const raise = MANAGER_RAISE;
@@ -98,9 +98,9 @@ export function ActorSeat({
 
   return (
     <group position={[wx, raise, wz]} rotation={[0, workstationRotation(actor), 0]} onClick={select} onPointerOver={hoverOn} onPointerOut={hoverOff}>
-      <Html position={[0, 1.6, ACTOR_Z]} center calculatePosition={boundedLabelPosition} occlude={labelOccluders} zIndexRange={[12, 1]}>
+      {showLabel&&<Html position={[0, 1.6, ACTOR_Z]} center calculatePosition={boundedLabelPosition} occlude={labelOccluders} zIndexRange={[12, 1]}>
         <button tabIndex={-1} className="agent-name-tag" title={actor.name} style={{ borderLeftColor: mapping?.accentHex }} aria-label={`Inspect ${actor.name}`} aria-pressed={selected} onClick={(event) => { event.stopPropagation(); onSelect(actor.id); }}>{actor.name}</button>
-      </Html>
+      </Html>}
       {/* D1/D2/D6 — desk */}
       <group
         onClick={select}
@@ -122,8 +122,8 @@ export function ActorSeat({
 
       {/* Ground disc: quiet, persistent state cue at the actor's feet */}
       {selected && <mesh position={[0, 0.03, ACTOR_Z - 0.35]} rotation={[-Math.PI / 2, 0, 0]}>
-        <ringGeometry args={[0.42, 0.5, 32]} />
-        <meshBasicMaterial color={accent} transparent opacity={0.65} />
+        <ringGeometry args={[0.49, 0.515, 48]} />
+        <meshBasicMaterial color="#E6EDF3" transparent opacity={0.65} depthWrite={false} />
       </mesh>}
 
       {/* Figure, facing +Z toward the desk and the room. */}
@@ -148,15 +148,17 @@ export function ActorLayer({
   actors,
   selectedId,
   onSelect,
+  focusedId,
 }: {
   actors: Actor[];
   selectedId: string | null;
+  focusedId?:string;
   onSelect: (id: string) => void;
 }) {
   return (
     <>
       {actors.map((actor) => (
-        <ActorSeat key={actor.id} actor={actor} selected={selectedId === actor.id} onSelect={onSelect} />
+        <ActorSeat key={actor.id} actor={actor} selected={selectedId === actor.id} showLabel={!focusedId||focusedId===actor.id} onSelect={onSelect} />
       ))}
     </>
   );

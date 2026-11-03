@@ -1,0 +1,40 @@
+{
+  "six_fields_exact": true,
+  "sample_undo_preserved_context": true,
+  "a_engagement_id": "0a32b682-8ee6-4364-84d3-fc5aacb323d9",
+  "a_selection": {
+    "selected_ids": [
+      "mitigation_risk_recovery_readiness",
+      "mitigation_risk_api_object_access"
+    ],
+    "total_illustrative_points": 3,
+    "disclaimer": "Illustrative relative effort/cost only. Points are comparison weights, not prices, quotes or measured implementation effort."
+  },
+  "b_engagement_id": "a16f71f5-f9b3-4518-a17b-52a908358aba",
+  "b_findings": 2,
+  "a_option": "A",
+  "b_option": "B",
+  "a_context_integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "UTF-8 JSON, sorted field names, compact separators; blank optional fields omitted; entered text preserved exactly",
+    "sha256": "17f9dc6620d57a5d9491e455c704d09b6630e12a1726d03e24991449092fe820",
+    "field_characters": {
+      "company_size": 80,
+      "departments": 64,
+      "infrastructure_summary": 139,
+      "network_architecture": 105,
+      "data_storage": 147,
+      "customer_touchpoints": 84
+    }
+  },
+  "b_original_owner_ids_preserved": [
+    {
+      "id": "a16f71f5-f9b3-4518-a17b-52a908358aba:verified:ad617254",
+      "agent": "webapp_agent"
+    },
+    {
+      "id": "a16f71f5-f9b3-4518-a17b-52a908358aba:verified:0b9337de",
+      "agent": "webapp_agent"
+    }
+  ]
+}

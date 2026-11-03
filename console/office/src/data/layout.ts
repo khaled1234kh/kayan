@@ -123,12 +123,12 @@ export const COLORS = {
  * no neon, no arcade colours.
  */
 export const STATE_COLOR: Record<string, string> = {
-  idle: '#8B9AAB',
-  working: '#1FB8C4',
-  waiting: '#F5A623',
-  awaiting_approval: '#F5A623',
-  blocked: '#C4694F',
-  completed: '#1FB8C4',
+  idle: '#9FB0C0',
+  working: '#2DD4BF',
+  waiting: '#FBBF24',
+  awaiting_approval: '#FBBF24',
+  blocked: '#F87171',
+  completed: '#34D399',
 };
 
 /** Short status label shown in the UI. */

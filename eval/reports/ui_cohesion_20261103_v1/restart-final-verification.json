@@ -1,0 +1,14 @@
+{
+  "same_id_agents_transcript_findings_roe": true,
+  "engagement_id": "a16f71f5-f9b3-4518-a17b-52a908358aba",
+  "restoration": {
+    "records_only": true,
+    "interrupted": false,
+    "notice": "Saved session restored. No model, tools or queued instructions were resumed."
+  },
+  "audit_unchanged": {
+    "valid": true,
+    "broken_at": null,
+    "message": "Chain valid \u2014 1145 entries verified"
+  }
+}

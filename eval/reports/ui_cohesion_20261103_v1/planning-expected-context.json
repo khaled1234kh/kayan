@@ -1,0 +1,8 @@
+{
+  "company_size": "HarborCart is a fictional online retailer with 120 employees and two warehouses.",
+  "departments": "Development, customer support, finance and warehouse operations.",
+  "infrastructure_summary": "A public e-commerce web application and customer REST APIs handle account login, order tracking and refunds against a private SQL database.",
+  "network_architecture": "Third-party logistics vendors use VPN access to warehouse networks. Vendor access reviews are infrequent.",
+  "data_storage": "Customer addresses and order histories are stored in SQL. Images and backups use cloud object storage. Backup restoration tests are not documented.",
+  "customer_touchpoints": "Customer accounts, order tracking, password reset and courier REST API integrations."
+}

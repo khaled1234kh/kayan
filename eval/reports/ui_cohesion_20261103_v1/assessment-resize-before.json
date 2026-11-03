@@ -1,0 +1,65 @@
+{
+  "observed": "Assessment dialog disappeared after crossing from desktop to 1024px; operations rail is display:none. Selector for open dialog timed out.",
+  "completedSizesBeforeFailure": [
+    {
+      "dialog": {
+        "client": 848,
+        "h": 972,
+        "scroll": 848,
+        "w": 850,
+        "x": 535,
+        "y": 54
+      },
+      "footerBottom": 1035.3000030517578,
+      "viewport": [
+        1920,
+        1080
+      ]
+    },
+    {
+      "dialog": {
+        "client": 848,
+        "h": 810,
+        "scroll": 848,
+        "w": 850,
+        "x": 375,
+        "y": 45
+      },
+      "footerBottom": 864.3000030517578,
+      "viewport": [
+        1600,
+        900
+      ]
+    },
+    {
+      "dialog": {
+        "client": 848,
+        "h": 810,
+        "scroll": 848,
+        "w": 850,
+        "x": 295,
+        "y": 45
+      },
+      "footerBottom": 864.3000030517578,
+      "viewport": [
+        1440,
+        900
+      ]
+    },
+    {
+      "dialog": {
+        "client": 848,
+        "h": 648,
+        "scroll": 848,
+        "w": 850,
+        "x": 215,
+        "y": 36
+      },
+      "footerBottom": 693.3000030517578,
+      "viewport": [
+        1280,
+        720
+      ]
+    }
+  ]
+}

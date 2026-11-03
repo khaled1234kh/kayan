@@ -1,0 +1,9 @@
+{
+  "focus": "Operator name",
+  "blankOperatorStartDisabled": true,
+  "authorizedValidStartEnabled": true,
+  "overLimitStartDisabled": true,
+  "exactTextRetained": true,
+  "authorizationReset": true,
+  "startDisabledAfterReopen": true
+}

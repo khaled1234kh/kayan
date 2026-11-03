@@ -1,0 +1,34 @@
+{
+  "runs": [
+    {
+      "label": "ui_cohesion_live_20261103_v1",
+      "engagement_id": "8f98ca43-8b05-42d7-8de9-71e3e7137f6c",
+      "status": "failed",
+      "findings": 0,
+      "allowed": 6,
+      "denied": 1
+    },
+    {
+      "label": "ui_cohesion_live_20261103_v2",
+      "engagement_id": "62a7c952-0422-48ea-9ed5-49e211d55a5f",
+      "status": "completed",
+      "findings": 2,
+      "allowed": 30,
+      "denied": 1
+    },
+    {
+      "label": "ui_cohesion_live_20261103_v3",
+      "engagement_id": "b813d8a6-cc6f-4456-a9bc-0929249fd2a4",
+      "status": "completed",
+      "findings": 2,
+      "allowed": 30,
+      "denied": 1
+    }
+  ],
+  "counts_basis": "All Gate decisions for each engagement excluding ROE load; includes deliberately tainted input DENY.",
+  "whole_journal": {
+    "valid": true,
+    "broken_at": null,
+    "message": "Chain valid \u2014 1247 entries verified"
+  }
+}

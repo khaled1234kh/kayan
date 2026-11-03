@@ -3,16 +3,16 @@ import { eventLevel, eventMessage, type KayanEvent } from '../../types/events';
 import type { SecurityDecisionView as KayanSecurityDecision } from '../../security/policyTypes';
 import type { ConnectionState } from '../../transport';
 const FEED_FILTERED = new Set<KayanEvent['type']>(['trustgate_snapshot']);
-export function TopBar({ onAudit, onPlanning, onReconnect, connection }: { onAudit: () => void; onPlanning?: () => void; onReconnect?: () => void; connection: ConnectionState }) {
+export function TopBar({ onAudit, onPlanning, onReconnect, connection, active='live' }: { onAudit: () => void; onPlanning?: () => void; onReconnect?: () => void; connection: ConnectionState; active?:'live'|'planning'|'audit' }) {
   const labels: Record<ConnectionState,string> = { connected: 'Console connected', connecting: 'Connecting to console',
     reconnecting: 'Reconnecting to console', disconnected: 'Console disconnected', error: 'Console error', idle: 'Console idle' };
   const tone = connection === 'connected' ? 'ok' : ['error','disconnected'].includes(connection) ? 'bad' : 'wait';
   return <header className="topbar"><div className="brand"><span className="brand-mark">K</span>KAYAN <span className="brand-sub">TrustGate</span></div>
-    <nav className="main-nav" aria-label="Workspace"><button className="is-current" type="button" aria-current="page">Live</button><button type="button" onClick={onPlanning}>Planning</button><button type="button" onClick={onAudit}>Audit</button></nav>
+    <nav className="main-nav" aria-label="Workspace"><button className={active==='live'?'is-current':''} type="button" aria-current={active==='live'?'page':undefined}>Live</button><button className={active==='planning'?'is-current':''} type="button" onClick={onPlanning}>Planning</button><button className={active==='audit'?'is-current':''} type="button" onClick={onAudit}>Audit</button></nav>
     <div className="top-right"><span className="conn" data-testid="connection" data-connection={tone}>
       <span className="conn-dot" />{labels[connection]}</span>
       {['disconnected','error'].includes(connection) && <button type="button" className="btn" onClick={onReconnect}>Reconnect</button>}
-      <a className="btn presentation-link" href="/review.html">Presentation ↗</a>
+      <a className="btn presentation-link" href="/review.html">Recorded demo ↗</a>
 </div></header>;
 }
 export function EventFeed({ events }: { events: KayanEvent[] }) {
@@ -105,7 +105,7 @@ export function Legend() {
           <span className="legend-dot" style={{ background: c }} />
           {label}
         </span>
-      ))}
+      ))}<span className="legend-item" title="Thin white outline: selected workstation. Colored small ring: recorded agent state."><span className="legend-selection"/>Selected</span>
     </div>
   );
 }

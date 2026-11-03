@@ -1,0 +1,42 @@
+[
+  {
+    "preset": "overview",
+    "labels": [
+      "Inspect Web-App Agent",
+      "Inspect Planner Agent",
+      "Inspect Recon Agent",
+      "Inspect Network Agent",
+      "Inspect Reporting Agent"
+    ]
+  },
+  {
+    "preset": "isometric",
+    "labels": [
+      "Inspect Web-App Agent",
+      "Inspect Planner Agent",
+      "Inspect Recon Agent",
+      "Inspect Network Agent",
+      "Inspect Reporting Agent"
+    ]
+  },
+  {
+    "preset": "front",
+    "labels": [
+      "Inspect Web-App Agent",
+      "Inspect Planner Agent",
+      "Inspect Recon Agent",
+      "Inspect Network Agent",
+      "Inspect Reporting Agent"
+    ]
+  },
+  {
+    "preset": "elevated",
+    "labels": [
+      "Inspect Web-App Agent",
+      "Inspect Planner Agent",
+      "Inspect Recon Agent",
+      "Inspect Network Agent",
+      "Inspect Reporting Agent"
+    ]
+  }
+]

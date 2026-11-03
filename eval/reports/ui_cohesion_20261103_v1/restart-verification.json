@@ -1,0 +1,18 @@
+{
+  "engagement_id": "a16f71f5-f9b3-4518-a17b-52a908358aba",
+  "status": "completed",
+  "agents_transcript_findings_denials_roe_preserved": true,
+  "audit_unchanged": {
+    "valid": true,
+    "broken_at": null,
+    "message": "Chain valid \u2014 1130 entries verified"
+  },
+  "restoration": {
+    "records_only": true,
+    "interrupted": false,
+    "notice": "Saved session restored. No model, tools or queued instructions were resumed."
+  },
+  "saved_option_b_available": true,
+  "manual_state_restore_after_restart": false,
+  "new_assessment_or_inference": false
+}

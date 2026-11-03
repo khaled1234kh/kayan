@@ -8,6 +8,7 @@ export interface CollaborationState {
   toolTranscript?: TrustGateTranscriptEntry[];
   findings?: TrustGateFinding[];
   liveEngagementId?: string;
+  restorationNotice?:string;
   messages: never[];
   handoffs: never[];
   mailboxes: Record<string, { currentTaskId: string | null }>;
@@ -63,7 +64,7 @@ export function reduce(state: DomainState, event: KayanEvent): DomainState {
         });
       }
       return { ...base, security: { lastDecision }, collaboration: {
-        ...base.collaboration, toolTranscript: transcript, findings: snapshot.findings ?? [], liveEngagementId: snapshot.engagement_id,
+        ...base.collaboration, toolTranscript: transcript, findings: snapshot.findings ?? [], liveEngagementId: snapshot.engagement_id, restorationNotice:snapshot.restoration?.notice,
       } };
     }
 

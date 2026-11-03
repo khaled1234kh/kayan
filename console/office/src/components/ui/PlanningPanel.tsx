@@ -129,14 +129,14 @@ export function PlanningPanel({ onClose }: { onClose: () => void }) {
   }
   const selection=report?selectedPresentation(report,selected):null;
   return <dialog className="planning-dialog planning-workspace" ref={dialog} aria-labelledby="planning-title" onCancel={e=>{e.preventDefault();onClose();}}>
-    <header><div><span className="eyebrow">Planning workspace · offline by design</span><h2 id="planning-title">Security planning</h2></div><button type="button" className="btn" onClick={onClose}>Close</button></header>
-    <nav className="planning-stepper" aria-label="Planning steps">{['Organization','Hypotheses','Mitigation','Review & Export'].map((label,index)=><button type="button" key={label}
+    <header><div><span className="eyebrow">Planning workspace</span><h2 id="planning-title">Security planning</h2></div><button type="button" className="btn" onClick={onClose}>Close</button></header>
+    <nav className="planning-stepper" aria-label="Planning steps">{['Context','Hypotheses','Mitigation','Review & Export'].map((label,index)=><button type="button" key={label}
       aria-current={step===index+1?'step':undefined} disabled={pending || (index===1&&!plan) || (index===2&&!plan?.risks.length&&option!=='B') || (index===3&&!report)} onClick={()=>setStep(index+1)}><span>{index+1}</span>{label}</button>)}</nav>
     <div className="planning-content" aria-busy={pending}>
-    {step===1&&<section><div className="planning-paths"><div className="context-path"><span className="eyebrow">Option A · from your description</span><h3>Organization profile</h3><p>Hypotheses and review actions. No target testing.</p></div>
-      <details className="saved-path"><summary>Option B · use saved assessment</summary><p>Build recommendations from verified results of an existing governed run. No new assessment starts.</p><button type="button" className="btn" disabled={pending} onClick={()=>{setOption('B');setReport(null);setStep(3);setError('');}}>Review saved assessment</button></details></div>
-      <div className="profile-toolbar"><span className="basis-badge">Descriptive only · zero policy weight</span>{sample&&<small className="sample-origin">Started from fictional data · review edited fields</small>}<button type="button" className="btn" disabled={pending} onClick={()=>setPreview(value=>!value)}>Use sample</button>
-        {contextHasText(context)&&<button type="button" className="btn" disabled={pending} onClick={clearDraft}>Clear draft</button>}
+    {step===1&&<section><div className="planning-paths"><div className="context-path"><span className="eyebrow">Option A · context-led planning</span><h3>Start with your organization</h3><p>Describe your systems and known concerns. We’ll suggest hypotheses to review.</p></div>
+      <details className="saved-path"><summary><span className="path-letter">B</span><span>Use a saved assessment<small>Alternative evidence path</small></span></summary><p>Build recommendations from verified results of an existing governed run. No new assessment starts.</p><button type="button" className="btn" disabled={pending} onClick={()=>{setOption('B');setReport(null);setStep(3);setError('');}}>Review saved assessment</button></details></div>
+      <div className="profile-toolbar"><span className="context-scope-note">No target testing · context grants no authority</span>{sample&&<small className="sample-origin">Fictional sample · editable</small>}<button type="button" className="btn" disabled={pending} onClick={()=>setPreview(value=>!value)}>Use sample</button>
+        {contextHasText(context)&&<details className="draft-tools"><summary>Draft options</summary><p>Draft retained in this browser tab. Closing the workspace keeps inputs; results are regenerated.</p><button type="button" className="btn" disabled={pending} onClick={clearDraft}>Clear draft</button></details>}
         {canRestore&&<button type="button" className="btn" disabled={pending} onClick={restoreDraft}>Restore previous inputs</button>}</div>
       {preview&&<section className="sample-preview" aria-label="Fictional sample preview"><h3>Preview fictional demonstration data</h3><label>Sample organization <select aria-label="Sample organization" value={sampleIndex} disabled={pending} onChange={event=>setSampleIndex(Number(event.target.value))}>{planningSamples.map((item,index)=><option key={item.name} value={index}>{item.name}</option>)}</select></label>
         <p>{planningSamples[sampleIndex].summary}</p><ContextSummary context={planningSamples[sampleIndex].context} title="Preview sample fields"/>
@@ -144,7 +144,7 @@ export function PlanningPanel({ onClose }: { onClose: () => void }) {
         <button type="button" className="btn btn-primary" disabled={pending} onClick={loadSample}>{contextHasText(context)?'Replace all inputs with sample':'Load fictional sample'}</button><button type="button" className="btn" disabled={pending} onClick={()=>setPreview(false)}>Cancel sample</button></section>}
       <OrganizationProfile value={context} onFieldChange={editField} disabled={pending}/>
       <ContextSummary context={context} title="Review exact input before analysis"/>
-      <p className="muted draft-notice">{draftSaved?'Draft retained in this browser session when you close the workspace. Results are regenerated when reopened.':'Browser draft storage is unavailable; keep this workspace open to retain unsaved inputs.'}</p>
+      <p className="muted draft-notice">{draftSaved?'Draft saved in this tab':'Browser draft storage is unavailable; keep this workspace open to retain unsaved inputs.'}</p>
     </section>}
     {step===2&&plan&&<section className="risk-results"><div className="section-title"><div><span className="eyebrow">From the supplied organization profile</span><h3>Hypotheses to review</h3></div><span className="basis-badge">Hypothetical, no testing</span></div>
         <p>Ordered by context relevance. Severity, likelihood, impact and mitigation urgency have not been assessed.</p>

@@ -135,8 +135,8 @@ export class TrustGateEventSource implements KayanEventSource {
   }
   private reconnect(): void {
     if (this.stopped) return;
-    if (this.retry >= (this.options.maxRetries ?? 5)) { this.connection('disconnected'); return; }
-    const delay = Math.min((this.options.initialBackoffMs ?? 500) * 2 ** this.retry++, this.options.maxBackoffMs ?? 8000);
+    if (this.retry >= (this.options.maxRetries ?? Infinity)) { this.connection('disconnected'); return; }
+    const delay = Math.min((this.options.initialBackoffMs ?? 500) * 2 ** Math.min(this.retry++,30), this.options.maxBackoffMs ?? 8000);
     this.connection('reconnecting');
     this.timer = this.later(() => { this.timer = undefined; this.open(); }, delay);
   }

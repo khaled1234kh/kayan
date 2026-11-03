@@ -1,0 +1,35 @@
+npm notice run kayan-trustgate-office@0.1.0 check:bundle
+npm notice run node scripts/bundle-check.mjs
+{
+  "chunks": [
+    {
+      "name": "index-Dr9YeZbE.js",
+      "bytes": 82025
+    },
+    {
+      "name": "office-runtime-SQXEynwQ.js",
+      "bytes": 209828
+    },
+    {
+      "name": "PlanningPanel-C1jSFwm-.js",
+      "bytes": 23835
+    },
+    {
+      "name": "react-Caa_6pmN.js",
+      "bytes": 145971
+    },
+    {
+      "name": "three-engine-CxmXZIjN.js",
+      "bytes": 476699
+    },
+    {
+      "name": "three-math-B_mXX7du.js",
+      "bytes": 80182
+    },
+    {
+      "name": "three-shaders-CXxbwGep.js",
+      "bytes": 157249
+    }
+  ],
+  "totalBytes": 1175789
+}

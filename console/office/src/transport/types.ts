@@ -9,6 +9,7 @@ export interface WebSocketLike {
 }
 export interface TrustGateEventSourceOptions {
   apiUrl: string;
+  /** Optional finite retry limit; live console defaults to persistent capped backoff. */
   maxRetries?: number;
   initialBackoffMs?: number;
   maxBackoffMs?: number;

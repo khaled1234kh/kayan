@@ -2,31 +2,62 @@
 
 ## UI/UX, 3D environment and presentation quality — requested 2026-11-03
 
-The current redesign is not final. Preserve all historical completion/evidence below. Each task needs actual rendered acceptance; build/geometry/SSR alone cannot close it. Full user briefs: docs/design/UI_UX_WORKSTREAM_2026-11-03.md and docs/design/PLANNING_CONTEXT_REDESIGN_2026-11-03.md.
+Current bounded redesign and rendered acceptance are complete; no claim of aesthetic perfection or universal device coverage. Preserve all historical completion/evidence below. Each task needs actual rendered acceptance; build/geometry/SSR alone cannot close it. Full user briefs: docs/design/UI_UX_WORKSTREAM_2026-11-03.md and docs/design/PLANNING_CONTEXT_REDESIGN_2026-11-03.md.
+
+Latest sequencing: prioritize the operations rail/New Assessment, exterior, office composition, Agent Session and global shell/presentation; do not consume the pass polishing only Planning. Preserve the verified planning implementation. Automatic current-session restoration stays a separate reliability task below.
+
+- [x] **P1 · Planning visual finish:** distinguish the four journey stages from the three profile sections; consolidate sample/draft/context notices; integrate saved Option B as an alternative evidence path; refine spacing/type/alignment/density, welcoming guidance and modal scrolling/proportions. Inspect hypotheses, mitigation and export together. Preserve exact inputs, sample undo, six-field compatibility and exports; no extra steps or authorization changes.
 
 - [x] **P0 · Guided planning profile:** replace six stacked textareas with Organization / Technical environment / Data & customer interaction sections; useful examples, exact context review, explicit sample preview/replacement, predictable retained draft, no silent truncation. Pass desktop/laptop/narrow keyboard and full context-to-export browser checks with before/after screenshots.
 - [x] **P0 · Contextual offline planning:** fix input integrity, scenario applicability, weak-match filtering and distinct context-linked controls. Publish repeatable fictional before/after cases separately from Qwen Planner evaluation; never call relevance severity or grant scope.
-- [ ] **P0 · 1 Sidebar architecture:** rethink hierarchy/actions/stages in a responsive 260–320px desktop rail, optional collapse and minimal scrolling; verify useful content is not cramped or cut off.
-- [ ] **P0 · 2 New assessment:** move setup from the narrow rail into a proper modal/drawer with operator/context/target/authorization sections, readable inputs, validation, keyboard order and visible Start/Cancel.
-- [ ] **P0 · 3 Screen balance:** improve central office prominence, intentional empty states and contextual side-panel sizing/collapse across supported widths; no lost five-agent access.
-- [ ] **P0 · 4 Exterior:** replace or substantially improve the artificial yellow-dot skyline with a coherent restrained exterior; inspect actual WebGL and measure any material cost.
-- [ ] **P0 · 5 Camera/composition:** prominent complete five-seat overview, responsive framing, manageable wall occlusion, useful Reset and readable lighting; preserve actual agents/workstations.
-- [ ] **P0 · 6 Office cohesion:** inspect models, animation, desks, monitors, floor/walls, glass, shadows, labels and selection; fix observed inconsistencies with rendered evidence.
-- [ ] **P1 · 7 Agent session:** useful no-selection state and clear identity/task/model/coordination/tools/findings/errors/actions; collapsible raw evidence, no invented activity.
-- [ ] **P1 · 8 Typography:** consistent tokens, heading/label/input/button hierarchy, readable laptop/projector text and checked contrast.
-- [ ] **P1 · 9 Header/footer:** align branding/navigation/connection/presentation/legend/reset/projector controls; reduce clutter without losing operational meaning.
-- [ ] **P1 · 10 Agent interactions:** readable label position/contrast, hover/focus/selection feedback and clear session selection; inspect accepted overview and camera angles, disclose occlusion limits.
-- [ ] **P1 · 11 Planning audit:** inspect Profile → Risk Plan → Mitigation → Review & Export, A/B distinctions, references, filtering, selection and all feedback states; preserve hypothesis/finding distinction.
-- [ ] **P1 · 12 Audit interface:** readable ALLOW/DENY grouping, filters, long raw records, scroll and empty/error states; never mutate underlying evidence for presentation.
-- [ ] **P1 · 13 Restrained transitions:** communicate actual panel/selection/loading/completion state, support reduced motion and avoid fake activity or costly effects.
-- [ ] **P1 · 14 Interaction feedback:** verify focus/hover/disabled/loading/validation/network/model/start/completion/partial/export/selection/empty states are understandable.
-- [ ] **P1 · 15 Responsive acceptance:** actual screenshots and overflow/action-reachability checks at 1920×1080, 1600×900, 1440×900, 1280×720, 1024×768 and 640×800; reset temporary overrides.
-- [ ] **P1 · 16 Presentation mode:** prioritize the five-agent office, readable identities/progress/findings and easy selection/overview switching; do more than resize text.
-- [ ] **P2 · 17 Visual identity:** coherent restrained dark surfaces, accents, spacing, icons and hierarchy across live/planning/audit/dialogs/reports; avoid gaming effects and noise.
-- [ ] **P2 · 18 Performance/loading:** measure meaningful render/picking/loading/asset/bundle changes; disclose measurement conditions, add no decoration-heavy dependencies or invented FPS.
-- [ ] **P2 · 19 Full visual audit:** inspect every major screen and important interaction, record additional observed defects and recheck corrections. The supplied brief ends at “Look for additional”; no missing continuation is assumed.
+- [x] **P0 · 1 Sidebar architecture:** rethink hierarchy/actions/stages in a responsive 260–320px desktop rail, optional collapse and minimal scrolling; verify useful content is not cramped or cut off.
+- [x] **P0 · 2 New assessment:** move setup from the narrow rail into a proper modal/drawer with operator/context/target/authorization sections, readable inputs, validation, keyboard order and visible Start/Cancel.
+- [x] **P0 · 3 Screen balance:** improve central office prominence, intentional empty states and contextual side-panel sizing/collapse across supported widths; no lost five-agent access.
+- [x] **P0 · 4 Exterior:** replace or substantially improve the artificial yellow-dot skyline with a coherent restrained exterior; inspect actual WebGL and measure any material cost.
+- [x] **P0 · 5 Camera/composition:** prominent complete five-seat overview, responsive framing, manageable wall occlusion, useful Reset and readable lighting; preserve actual agents/workstations.
+- [x] **P0 · 6 Office cohesion:** inspect models, animation, desks, monitors, floor/walls, glass, shadows, labels and selection; fix observed inconsistencies with rendered evidence.
+- [x] **P1 · 7 Agent session:** useful no-selection state and clear identity/task/model/coordination/tools/findings/errors/actions; collapsible raw evidence, no invented activity.
+- [x] **P1 · 8 Typography:** consistent tokens, heading/label/input/button hierarchy, readable laptop/projector text and checked contrast.
+- [x] **P1 · 9 Header/footer:** align branding/navigation/connection/presentation/legend/reset/projector controls; reduce clutter without losing operational meaning.
+- [x] **P1 · 10 Agent interactions:** readable label position/contrast, hover/focus/selection feedback and clear session selection; inspect accepted overview and camera angles, disclose occlusion limits.
+- [x] **P1 · 11 Planning audit:** inspect Profile → Risk Plan → Mitigation → Review & Export, A/B distinctions, references, filtering, selection and all feedback states; preserve hypothesis/finding distinction.
+- [x] **P1 · 12 Audit interface:** readable ALLOW/DENY grouping, filters, long raw records, scroll and empty/error states; never mutate underlying evidence for presentation.
+- [x] **P1 · 13 Restrained transitions:** communicate actual panel/selection/loading/completion state, support reduced motion and avoid fake activity or costly effects.
+- [x] **P1 · 14 Interaction feedback:** verify focus/hover/disabled/loading/validation/network/model/start/completion/partial/export/selection/empty states are understandable.
+- [x] **P1 · 15 Responsive acceptance:** actual screenshots and overflow/action-reachability checks at 1920×1080, 1600×900, 1440×900, 1280×720, 1024×768 and 640×800; reset temporary overrides.
+- [x] **P1 · 16 Presentation mode:** prioritize the five-agent office, readable identities/progress/findings and easy selection/overview switching; do more than resize text.
+- [x] **P2 · 17 Visual identity:** coherent restrained dark surfaces, accents, spacing, icons and hierarchy across live/planning/audit/dialogs/reports; avoid gaming effects and noise.
+- [x] **P2 · 18 Performance/loading:** measure meaningful render/picking/loading/asset/bundle changes; disclose measurement conditions, add no decoration-heavy dependencies or invented FPS.
+- [x] **P2 · 19 Full visual audit:** inspect every major screen and important interaction, record additional observed defects and recheck corrections. The supplied brief ends at “Look for additional”; no missing continuation is assumed.
 
-Completed bounded profile/context checks: [planning and coordination evidence](docs/PLANNING_AND_COORDINATION_2026-11-03.md). Final 17/17 groups: 145 Python / 46 warnings, 28 Rust, focused Go, 9/9 adversarial and frontend. Actual six-field A export and saved B export verified. The 19 numbered broad UI/office items above remain open; earlier checked redesigns below are historical.
+### Office-overhaul acceptance — merged older objective, 2026-11-03
+
+Source: docs/design/OFFICE_OVERHAUL_2026-11-03.md. These items refine the numbered workstream above, not a replacement for its history. The source ends mid-sentence in item 15; no missing continuation is assumed. Existing bounded geometry checks do not certify these new rendered requirements.
+
+- [x] **O1 / P0:** contain the skyline/window assembly within the rear architectural opening; eliminate protruding panels/edges/intersections from front, isometric, side and elevated views. Maps to UI 4/6.
+- [x] **O2 / P0:** restrained coherent exterior with depth/material/atmospheric separation, sensible texture/render cost. Maps to UI 4/18.
+- [x] **O3 / P0:** coherent near-wall cutaways that retain the building structure and expose Reporting/other workstations. Maps to UI 5/6.
+- [x] **O4 / P0:** useful Overview/Isometric/Front/Selected camera views, fitted scale, bounded orbit/zoom/clipping and reliable Reset. Maps to UI 5/16.
+- [x] **O5 / P0:** inspect all five employees/workstations across intended presets, without cropped team, obstructive monitors/partitions or misplaced bodies. Maps to UI 5/6/10.
+- [x] **O6 / P1:** cohesive neutral architectural materials/furniture, restrained cyan, consistent proportions/art direction. Maps to UI 6/17.
+- [x] **O7 / P1:** balanced key/fill/ambient/monitor/window light, readable people/details and soft shadows; no bloom/neon overload. Maps to UI 6/8.
+- [x] **O8 / P1:** glass-like partitions/window glazing with controlled opacity/roughness/frames/depth ordering and useful sight lines. Maps to UI 6.
+- [x] **O9 / P1:** intentional slab/edge/wall/window/open-roof construction without floating or mismatched boundaries. Maps to UI 6.
+- [x] **O10 / P1:** restrained role-specific workstation dressing, desk/input/chair/monitor alignment and contact; no implied unimplemented capabilities. Maps to UI 6.
+- [x] **O11 / P1:** audit all five characters, posture/scale/materials/seat/hand alignment and genuine state-driven animation. Maps to UI 6/14.
+- [x] **O12 / P1:** explain/refine/remove decorative floor lines; distinguish selection from actual state rings. Maps to UI 9/10/17.
+- [x] **O13 / P1:** readable, consistent agent labels and angle/overlap/hover/selection behavior. Maps to UI 10.
+- [x] **O14 / P1:** deliberate body/label/monitor/roster selection, glass interaction, synchronized session panel and selected focus/return. Maps to UI 7/10/14.
+- [x] **O15 / P1:** visibly communicate real idle/planning/working/waiting/completed/failed states and each role's purpose; no fake activity. Maps to UI 7/9/16.
+
+Earlier bounded profile/context checks (before this office pass): [planning and coordination evidence](docs/PLANNING_AND_COORDINATION_2026-11-03.md). Final 17/17 groups: 145 Python / 46 warnings, 28 Rust, focused Go, 9/9 adversarial and frontend. Actual six-field A export and saved B export verified. The 19 numbered broad UI/office items above are now closed only against their own new acceptance matrix; earlier checked redesigns below remain historical.
+
+Verified closure: [UI_OFFICE_ACCEPTANCE_2026-11-03.md](docs/UI_OFFICE_ACCEPTANCE_2026-11-03.md) maps every numbered item and O1–O15 to actual observations, preserved failures and limits. Final checkpoint ui_cohesion_final_20261103_v3: 17/17 groups; 156 Python /48 warnings,28 Rust,focused Go,9/9 adversarial,14 transport checks and production budgets. Final real b813d8a6…: 2 findings / 30 allowed / 1 denied. Source user text, historical PDF/video and grounding failures remain unchanged. This closes the bounded implementation/acceptance queue; disclosed production/Go/grounding limits are not completed capabilities.
+
+- [x] Reproduce and fix long-outage viewer recovery, modal resize/footer/drawer stacking, selected-camera bounds/state and profiler click interception; retain before/after evidence.
+- [x] Reproduce Planner signed-route timeout with a real delayed loopback response; align only its timeout with the backend, never resend ambiguously delivered instructions, and pass two subsequent actual-model runs.
+- [x] Preserve unchanged bundle budgets using on-demand planning; inspect the actual production browser, empty/insufficient-context states and existing full A/B exports.
+- [ ] Publish this final source, updated README/screenshots and acceptance/handoff to authorized GitHub main; verify remote contents. (Implementation and verification finished; publication in progress.)
 
 ## Outcome-aware coordination and final rehearsal — 2026-11-03
 
@@ -38,7 +69,7 @@ Latest requested refinement; supersedes historical completion claims below. Keep
 - [x] Run relevant suites, actual authorized normal/denied/unavailable-lab paths, and browser rehearsal; preserve exact failures and remaining limitations.
 - [x] Update handoff/readiness and publish validated source/evidence without private runtime data. Source/evidence ce459f8 pushed and remote matched; downloaded copy matched 26 source hashes and passed 145 Python tests / 46 warnings using the existing host environment. Publication closure is documentation-only.
 
-- [ ] **Operational follow-up:** design/test explicit current-session resume after backend restart. Persistent snapshots exist, but the active session defaults to waiting; do not misuse -RestoreDemo or overwrite a different loaded session. Observed during the saved-B recheck.
+- [x] **Separate reliability task · automatic record restoration:** backend restart automatically restores the selected saved session, never its execution. Interrupted active runs become failed/blocked and queued instructions are not resumed. Pointer corruption fails visibly; legacy hashed snapshots migrate. Focused tests passed, and actual completed a16f71f5… restart preserved agents/transcript/findings/ROE with the 1,130-entry Gate audit unchanged and saved B available. Evidence: eval/reports/ui_cohesion_20261103_v1/restart-verification.json. Final full-suite recheck passed in ui_cohesion_final_20261103_v3; the real long-outage browser recheck also passed.
 
 ## Reopened Planner improvement pass — 2026-11-03
 

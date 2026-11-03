@@ -1,4 +1,14 @@
-# Current status — planning/coordination final retry, 2026-11-03
+# Current status — office/functionality acceptance, 2026-11-03
+
+No current host/browser blocker prevented this pass. ui_cohesion_final_20261103_v3 passed17/17; final actual-model b813d8a6… returned2 findings /30 allowed /1 denied. Records-only selected-session restoration and persistent viewer reconnect now work; earlier restart limitations below are historical. Execution itself is never resumed. Original security/grounding/upstream limitations remain disclosed.
+
+Preserved fresh failure: engagement8f98ca43-8b05-42d7-8de9-71e3e7137f6c stopped with exact runtime error `timed out` while backend transcript recorded routed delivery. Its generic HTTP 2s budget was shorter than the backend's up-to-8s Gate authorization. Only signed route confirmation now permits 12s/2s-connect; ambiguous timeout error is `Governed message delivery was not confirmed before timeout; delivery may have occurred. No automatic resend was attempted.` No resend or new authority. Delayed loopback regression and two subsequent real runs passed. See UI_OFFICE_ACCEPTANCE_2026-11-03.md and eval/reports/ui_cohesion_live_20261103_v1/result.json. Retry intentionally with `python -B -m eval.planner_live_acceptance --label UNIQUE`; this starts a fresh owned-lab run, not replay.
+
+The first bundle check's exact failure `Application entry exceeds 100 kB` is retained. On-demand planning fixed it without raising budgets; final entry 82,115bytes. The narrow modal/drawer/camera/profiler discrepancies and their rechecks are in the acceptance matrix. Historical failures below must not be described as current retries. Docker/old media were not rechecked this pass.
+
+## Historical planning/coordination status — earlier on 2026-11-03
+
+### Earlier final retry
 
 Final checkpoint `planner_context_final_20261103_v4` passed **17/17 groups**, including all three focused Go groups. The earlier literal Application Control failures below remain historical evidence. No protections, exclusions or executable locations were changed to obtain this pass; why the host later allowed normal tests is unknown. If a block returns, record its exact new output and stop rather than bypassing it.
 

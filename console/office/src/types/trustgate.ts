@@ -46,6 +46,7 @@ export interface TrustGateSnapshot {
   transcript?: TrustGateTranscriptEntry[];
   findings?: TrustGateFinding[];
   denials?: Record<string, unknown>[];
+  restoration?: {records_only?:boolean;notice?:string;interrupted?:boolean};
 }
 
 export interface TrustGateFinding {

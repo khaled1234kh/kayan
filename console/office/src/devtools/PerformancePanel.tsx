@@ -122,7 +122,7 @@ export function PerformancePanel() {
       raycasts: { scene_occlusion: { calls: 0, total_ms: 0, max_ms: 0 },
         pointer_picking: { calls: 0, total_ms: 0, max_ms: 0 }, other_batches: { calls: 0, total_ms: 0, max_ms: 0 } },
       environment: { viewport: [window.innerWidth, window.innerHeight], device_pixel_ratio: window.devicePixelRatio,
-        profile_revision: 'selected_agent_decision_and_visual_feedback_v5',
+        profile_revision: 'cohesive_workspace_office_v6',
         user_agent: navigator.userAgent, actors: state.actors.length, source: state.eventSourceKind,
         workflow_running: state.workflowRunning, connection: state.connection,
         conditions: 'Human must record model/GPU activity and visual state separately. No render acceptance implied.' } };
@@ -165,7 +165,7 @@ export function PerformancePanel() {
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
 
-  return <details style={{ position: 'absolute', top: 76, left: 12, zIndex: 10, maxWidth: 370,
+  return <details style={{ position: 'absolute', top: 76, left: 12, zIndex: 50, maxWidth: 370,
     background: '#101820', color: '#dce6ed', border: '1px solid #415565', padding: 10, fontSize: 12 }} open>
     <summary>Performance measurement · opt-in dev tool</summary>
     <p>Wait for assets. Keep this tab visible. For idle, move the pointer onto this panel before starting, then do not move it for 10s. Next capture 10s orbiting/clicking desks. Raycast timers are included; no renderer settings are changed.</p>

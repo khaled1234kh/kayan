@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {renderToStaticMarkup} from 'react-dom/server';
+import {AssessmentSetup,assessmentCanStart} from '../src/components/ui/OperatorControls';
+import {OrganizationProfile} from '../src/components/ui/OrganizationProfile';
 import {TopBar} from '../src/components/ui/Panels';
 import {SEED_ACTORS} from '../src/data/actors';
 import {EngagementOverview,engagementLabel} from '../src/components/ui/EngagementOverview';
@@ -48,3 +50,25 @@ for(const text of ['text-1','text-2','text-3'])for(const bg of ['bg-0','bg-1','b
 }
 assert((luminance(token('accent'))+.05)/(luminance(token('accent-ink'))+.05)>=4.5);
 console.log(`Redesign checks passed: real-stage labels, five stages, fail-closed Gate wording, four isolated tabs, planning stepper, singular effort, evidence labels; ${contrastChecks+1} token contrast pairs >=4.5:1. SSR is not visual acceptance.`);
+
+// Setup UI must retain the existing authority/scope boundary and reject invalid intake locally.
+assert(assessmentCanStart('Operator',true,false,false,true,{}));
+for(const args of [
+  [' ',true,false,false,true,{}],['Operator',false,false,false,true,{}],
+  ['Operator',true,true,false,true,{}],['Operator',true,false,true,true,{}],
+  ['Operator',true,false,false,false,{}],['Operator',true,false,false,true,{data_storage:'x'.repeat(12001)}],
+] as const)assert(!assessmentCanStart(...args));
+const setup=renderToStaticMarkup(<AssessmentSetup operator="Operator" onOperator={()=>{}} context={{data_storage:'  Exact <company> context\n'+ 'x'.repeat(3000)}} onContext={()=>{}} authorized={false} onAuthorize={()=>{}} running={false} sending={false} gateAvailable={true} notice="" onClose={()=>{}} onSubmit={()=>{}}/>);
+assert(setup.includes('<dialog')&&setup.includes('aria-labelledby="assessment-title"'));
+assert(setup.includes('127.0.0.1:8888')&&setup.includes('no external targets'));
+assert(setup.includes('Start assessment')&&setup.includes('Cancel')&&setup.includes('disabled=""'));
+assert(setup.includes('cannot grant permission')&&setup.includes('&lt;company&gt;')&&!setup.includes('maxlength="120"'));
+const empty=renderToStaticMarkup(<LiveAgentPanel actor={null} transcript={[]} findings={[]} onClose={()=>{}}/>);
+assert(empty.includes('Meet your assessment team')&&empty.includes('Close agent session'));
+assert(panel.includes('Following latest')&&panel.includes('tabindex="0"'));
+const profileTabs=renderToStaticMarkup(<OrganizationProfile value={{company_size:'Company'}} onFieldChange={()=>{}}/>);
+assert(!profileTabs.includes('profile-number')&&profileTabs.includes('aria-current="true"'));
+console.log('Cohesion regression checks passed: setup scope/authorization/readiness/context limits; accessible modal; preserved escaped long context; empty session; explicit transcript following; unnumbered profile sections. Rendered acceptance remains separate.');
+
+const perfSource=readFileSync(new URL('../src/devtools/PerformancePanel.tsx',import.meta.url),'utf8');
+assert(perfSource.includes('zIndex: 50'), 'Opt-in profiler controls must stay above projected scene labels (z-index <= 12)');

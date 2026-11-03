@@ -1,0 +1,4 @@
+{
+  "outageAtLeastSeconds": 21,
+  "visibleState": "- banner:\n  - generic: K\n  - text: KAYAN\n  - generic: TrustGate\n  - navigation \"Workspace\":\n    - button \"Live\"\n    - button \"Planning\"\n    - button \"Audit\"\n  - generic: Reconnecting to console\n  - link \"Recorded demo ↗\":\n    - /url: /review.html\n- main:\n  - complementary \"Engagement overview\":\n    - generic: Engagement\n    - button \"Hide operations\": ×\n    - heading \"Operations\" [level=1]\n    - paragraph: Assessment finished · incomplete coverage\n    - status: \"Gate status unknown: reconnect the console\"\n    - generic \"Restored session\"\n    - generic: Assessment scope\n    - strong: Owned loca"
+}

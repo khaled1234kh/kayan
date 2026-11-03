@@ -80,3 +80,23 @@ for (let variant = 0; variant < 5; variant++) {
 }
 assert.equal(dressing.size, 5, 'Roles should have five stable dressing combinations');
 console.log('PASS monitor front/rear raycasts, solid casing, upward worker-facing normal, five viewport fits, workstation separation and plant/lamp/mug clearances (no visual claim)');
+
+// New architecture regressions: oversize rear cards and invisible-wall label occlusion.
+const {REAR_OPENING,wallUpperVisible,visibleWallRaycast}=await import('../src/components/office/Office');
+assert(REAR_OPENING.width<12.8&&REAR_OPENING.height<3.4&&REAR_OPENING.z < -6.4);
+assert.equal(wallUpperVisible(1,10),false);assert.equal(wallUpperVisible(-1,10),true);
+assert.equal(wallUpperVisible(-1,-10),false);assert.equal(wallUpperVisible(1,-10),true);
+const hiddenWall=new Mesh(new BoxGeometry(2,2,.2),new MeshBasicMaterial());hiddenWall.position.set(0,0,-2);hiddenWall.updateMatrixWorld();
+const ray=new Raycaster(new Vector3(0,0,0),new Vector3(0,0,-1));const hits:any[]=[];
+hiddenWall.visible=false;visibleWallRaycast.call(hiddenWall,ray,hits);assert.equal(hits.length,0);
+hiddenWall.visible=true;visibleWallRaycast.call(hiddenWall,ray,hits);assert(hits.length>0);
+const {OFFICE_VIEW_DIRECTIONS}=await import('../src/components/office/cameraFraming');
+for(const direction of Object.values(OFFICE_VIEW_DIRECTIONS))for(const aspect of [.65,1,1.4,16/9,2.3]){
+ const camera=new PerspectiveCamera(42,aspect,.1,120);camera.position.fromArray(overviewPosition(aspect,42,direction));camera.lookAt(0,.7,0);camera.updateMatrixWorld();
+ for(const x of [-6.7,6.7])for(const y of [0,3.4])for(const z of [-7.8,6.7]){const projected=new Vector3(x,y,z).project(camera);assert(Math.abs(projected.x)<.92&&Math.abs(projected.y)<.92);}
+}
+console.log('PASS contained rear opening, near-wall cutaway direction, invisible-wall raycast and all three overview preset fits. These checks do not establish rendered acceptance.');
+
+const {workstationCameraPosition}=await import('../src/components/office/cameraFraming');
+for(const actor of SEED_ACTORS){const target=new Vector3(actor.gridPosition.x-6,1,actor.gridPosition.z-6);const position=workstationCameraPosition(target,workstationRotation(actor));assert(Math.abs(position.x)<=5.6+1e-9&&Math.abs(position.z)<=5.6+1e-9,'Selected camera crosses shell');assert(position.distanceTo(target)>=3,'Focus conflicts with orbit near-distance limit');}
+console.log('PASS selected cameras remain inside the shell for all five actual workstation placements.');

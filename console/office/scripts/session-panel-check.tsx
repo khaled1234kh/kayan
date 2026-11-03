@@ -1,7 +1,7 @@
 /** Rendered HTML assertions, explicitly not a screenshot or WebGL visual check. */
 import assert from 'node:assert/strict';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { LiveAgentPanel, decisionTone } from '../src/components/ui/LiveAgentPanel';
+import { LiveAgentPanel, decisionTone, findingLabel } from '../src/components/ui/LiveAgentPanel';
 import { SEED_ACTORS } from '../src/data/actors';
 import type { TrustGateTranscriptEntry } from '../src/types/trustgate';
 import { agentDecision } from '../src/security/agentDecision';
@@ -66,3 +66,11 @@ const reviewed=renderToStaticMarkup(<LiveAgentPanel actor={planner} transcript={
     evidence_ids:['outcome:recon_agent'],rationale:'Prioritize web inputs after the observed HTTP response'}}]} findings={[]}/>);
 assert(reviewed.includes('Planner outcome reviews (1)') && reviewed.includes('Prioritize web inputs') && reviewed.includes('outcome:recon_agent'));
 assert(reviewed.includes('Model-generated operational explanations') && reviewed.includes('Review accepted'));
+
+const reporter={...SEED_ACTORS.find(a=>a.id==='human')!,backendAgentId:'reporting1',engagementId:'eng1'};
+const reporterView=renderToStaticMarkup(<LiveAgentPanel actor={reporter} transcript={[]} findings={[{id:'source-finding',type:'xss',agent:'webapp_agent',mitre:'T1190'}]}/>);
+assert(reporterView.includes('Assessment findings')&&reporterView.includes('source-finding')&&reporterView.includes('webapp_agent'));
+console.log('PASS Reporting shows assessment findings while preserving specialist ownership and IDs.');
+
+assert.equal(findingLabel('command_injection'),'Command injection');assert.equal(findingLabel('xss'),'XSS');
+assert(html.includes('tabindex="0"')&&html.includes('tabindex="-1"'));

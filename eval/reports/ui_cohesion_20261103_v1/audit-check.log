@@ -1,0 +1,4 @@
+npm notice run kayan-trustgate-office@0.1.0 check:audit
+npm notice run esbuild scripts/audit-check.tsx --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-audit.mjs --log-level=error && node scripts/.out-audit.mjs
+PASS actual transcript role/audit-ID rendering, denial color, escaped untrusted content and collapsed raw entries. SSR, not pixel acceptance.
+PASS combined role/decision/search filtering without source mutation and explicit empty/export state.
