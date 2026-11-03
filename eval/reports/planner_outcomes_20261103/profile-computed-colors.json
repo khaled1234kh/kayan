@@ -1,0 +1,38 @@
+[
+  {
+    "background": "rgb(17, 24, 33)",
+    "color": "rgb(230, 237, 243)",
+    "fontSize": "20px",
+    "selector": ".profile-editor h3"
+  },
+  {
+    "background": "rgb(17, 24, 33)",
+    "color": "rgb(159, 176, 192)",
+    "fontSize": "14px",
+    "selector": ".profile-editor header p"
+  },
+  {
+    "background": "rgb(11, 15, 20)",
+    "color": "rgb(230, 237, 243)",
+    "fontSize": "16px",
+    "selector": ".profile-field textarea"
+  },
+  {
+    "background": "rgb(17, 24, 33)",
+    "color": "rgb(159, 176, 192)",
+    "fontSize": "13px",
+    "selector": ".profile-field small"
+  },
+  {
+    "background": "rgb(17, 24, 33)",
+    "color": "rgb(230, 237, 243)",
+    "fontSize": "14px",
+    "selector": ".profile-field > span"
+  },
+  {
+    "background": "rgb(26, 36, 48)",
+    "color": "rgb(230, 237, 243)",
+    "fontSize": "16px",
+    "selector": ".profile-navigation button[aria-current]"
+  }
+]

@@ -67,7 +67,7 @@ async def run(label):
             for outcome in outcomes:
                 coverage=outcome['coverage']
                 catalogue=set(ROLE_TOOLS[outcome['role']])
-                assert set(coverage['attempted_tools'])|set(coverage['untested_tools'])==catalogue,coverage
+                assert set(coverage['attempted_tools'])|set(coverage.get('reused_tools',[]))|set(coverage['untested_tools'])==catalogue,coverage
                 assert not set(coverage['attempted_tools']) & set(coverage['untested_tools']),coverage
                 assert set(coverage['successful_tools']) <= set(coverage['attempted_tools']),coverage
                 assert coverage['complete']==(not any(coverage[key] for key in ('untested_tools','tool_errors','verification_issues','denied_tools'))),coverage
@@ -76,6 +76,13 @@ async def run(label):
             assert saved_report['assessment_completion']['complete']==all(o['coverage']['complete'] for o in outcomes)
             finding_ids=[f['id'] for f in final['findings']]
             assert sorted(saved_report['model_summary']['finding_ids'])==sorted(finding_ids)
+            reviews=saved_report['coordination_reviews']
+            assert len(reviews)==3 and all(r['status']=='accepted' for r in reviews),reviews
+            assert [r['next_role'] for r in reviews]==ORDER[1:]
+            assert all('outcome:'+r['after_role'] in r['evidence_ids'] for r in reviews)
+            ledger=saved_report['execution_ledger']
+            assert len(ledger)==sum(e['kind']=='tool_result' for e in transcript)
+            assert all(e['audit_entry_id'] for e in ledger)
             active_frames=[]
             for frame in observed:
                 if frame['engagement_id']!=live['engagement_id']:continue
@@ -99,7 +106,8 @@ async def run(label):
                 incremental_output_verified=live['incremental_output_verified'],visual_verification=False,
                 audit_before=audit_before,audit_after=audit_after)
             result.update(catalogue_coverage_accounting_verified=True,role_tool_assignments_verified=True,
-                report_finding_ids_complete=True,assessment_completion=saved_report['assessment_completion'])
+                report_finding_ids_complete=True,assessment_completion=saved_report['assessment_completion'],
+                coordination_reviews=reviews,execution_ledger_entries=len(ledger))
         except BaseException as error:
             result.update(error=repr(error),traceback=traceback.format_exc())
             raise

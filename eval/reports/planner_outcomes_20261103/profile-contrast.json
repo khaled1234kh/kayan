@@ -1,0 +1,44 @@
+[
+  {
+    "background": "rgb(17, 24, 33)",
+    "color": "rgb(230, 237, 243)",
+    "fontSize": "20px",
+    "selector": ".profile-editor h3",
+    "contrast_ratio": 15.11
+  },
+  {
+    "background": "rgb(17, 24, 33)",
+    "color": "rgb(159, 176, 192)",
+    "fontSize": "14px",
+    "selector": ".profile-editor header p",
+    "contrast_ratio": 8.03
+  },
+  {
+    "background": "rgb(11, 15, 20)",
+    "color": "rgb(230, 237, 243)",
+    "fontSize": "16px",
+    "selector": ".profile-field textarea",
+    "contrast_ratio": 16.27
+  },
+  {
+    "background": "rgb(17, 24, 33)",
+    "color": "rgb(159, 176, 192)",
+    "fontSize": "13px",
+    "selector": ".profile-field small",
+    "contrast_ratio": 8.03
+  },
+  {
+    "background": "rgb(17, 24, 33)",
+    "color": "rgb(230, 237, 243)",
+    "fontSize": "14px",
+    "selector": ".profile-field > span",
+    "contrast_ratio": 15.11
+  },
+  {
+    "background": "rgb(26, 36, 48)",
+    "color": "rgb(230, 237, 243)",
+    "fontSize": "16px",
+    "selector": ".profile-navigation button[aria-current]",
+    "contrast_ratio": 13.27
+  }
+]

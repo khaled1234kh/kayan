@@ -113,3 +113,60 @@ button,input,textarea,select {font:inherit;}
 .viewport {overflow:hidden;}
 
 .btn,.main-nav button,.agent-tabs button,.option-selector button {transition:background-color 120ms ease,color 120ms ease,border-color 120ms ease;}
+.coordination-reviews { margin: 16px 0; overflow-wrap: anywhere; }
+.coordination-reviews summary { cursor: pointer; font-weight: 600; }
+.coordination-reviews .session-entry { padding: 12px; margin-top: 8px; }
+.planning-workspace {width:min(1180px,calc(100vw - 40px));height:min(920px,94dvh);max-height:94dvh;}
+.planning-workspace > header {padding:18px 24px;}
+.planning-content {font-size:16px;line-height:1.55;}
+.planning-stepper {padding:12px 24px;}
+.planning-stepper button,.planning-footer .btn {min-height:44px;}
+.planning-workspace > header .btn {min-height:44px;}
+.planning-paths {display:grid;grid-template-columns:1.5fr 1fr;gap:24px;align-items:start;margin-bottom:8px;}
+.planning-paths h3 {font-size:22px;margin:4px 0 8px;}
+.planning-paths p {color:var(--text-2);margin:6px 0 12px;}
+.saved-path {padding:12px 16px;border-left:2px solid var(--line-strong);background:var(--bg-0);border-radius:0 8px 8px 0;font-size:14px;}
+.saved-path summary {cursor:pointer;font-weight:600;}
+.profile-toolbar {display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 16px;}
+.profile-toolbar .basis-badge {margin:4px 0;}
+.profile-toolbar .sample-origin {margin-right:auto;color:var(--text-2);font-size:12px;}
+.profile-toolbar > .btn:first-of-type {margin-left:auto;}
+.organization-profile {display:grid;grid-template-columns:190px minmax(0,1fr);gap:24px;align-items:start;}
+.profile-navigation {display:grid;gap:8px;}
+.profile-navigation button {display:flex;gap:12px;align-items:center;text-align:left;min-height:72px;padding:12px;background:transparent;color:var(--text-2);border:1px solid transparent;border-radius:10px;cursor:pointer;}
+.profile-navigation button[aria-current=step] {background:var(--bg-2);border-color:var(--line);color:var(--text-1);}
+.profile-navigation small {display:block;font-size:12px;margin-top:4px;}
+.profile-number {display:grid;place-items:center;border:1px solid var(--line-strong);width:28px;height:28px;border-radius:50%;flex-shrink:0;}
+.profile-navigation [aria-current=step] .profile-number {border-color:var(--accent);color:var(--accent);}
+.profile-editor {min-width:0;}
+.profile-editor header {margin:0 0 12px;padding:0;}
+.planning-workspace .profile-editor > header {display:block;position:static;background:transparent;border:0;}
+.profile-editor h3 {margin:4px 0;font-size:20px;}
+.profile-editor header p {font-size:14px;color:var(--text-2);margin:6px 0;}
+.profile-field-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;}
+.profile-field {display:flex;flex-direction:column;gap:8px;min-width:0;font-weight:600;}
+.profile-field small {font-weight:400;color:var(--text-2);font-size:13px;}
+.profile-field textarea {width:100%;min-height:150px;max-height:420px;padding:14px;font:400 16px/1.55 var(--font);background:var(--bg-0);color:var(--text-1);border:1px solid var(--line-strong);border-radius:8px;resize:vertical;box-sizing:border-box;}
+.profile-field textarea::placeholder {color:var(--text-3);}
+.profile-field textarea[aria-invalid=true] {border-color:var(--deny);}
+.profile-field .field-error {color:var(--deny);font-size:13px;}
+.profile-section-actions {display:flex;gap:12px;align-items:center;justify-content:space-between;margin:20px 0;}
+.context-summary {margin:20px 0 10px;border-top:var(--border);padding-top:16px;overflow-wrap:anywhere;}
+.context-summary summary {cursor:pointer;font-weight:600;}
+.context-summary dl {display:grid;gap:16px;}
+.context-summary dt {font-weight:600;color:var(--text-2);font-size:14px;}
+.context-summary dd {margin:8px 0 0;white-space:pre-wrap;overflow-wrap:anywhere;font-size:15px;}
+.draft-notice {font-size:13px;}
+.sample-preview {padding:20px;margin:12px 0 24px;background:var(--bg-0);border:var(--border);border-radius:12px;}
+.sample-preview label {display:grid;gap:8px;}
+.sample-preview .btn {margin-right:8px;}
+.context-fingerprint {display:block;overflow-wrap:anywhere;white-space:normal;}
+.risk-results blockquote,.mitigation-view blockquote {margin:12px 0;padding:12px 16px;border-left:2px solid var(--accent);background:var(--bg-0);overflow-wrap:anywhere;}
+.risk-card details {font-size:14px;}
+.risk-card .eyebrow {color:var(--text-2);}
+.mitigation-recommendation li {margin:10px 0;}
+@media(max-width:1050px) {.organization-profile{grid-template-columns:1fr;gap:16px;}.profile-navigation{grid-template-columns:repeat(3,minmax(0,1fr));}.profile-navigation button{min-height:68px;}}
+@media(max-width:720px) {.planning-workspace{width:calc(100vw - 24px);height:96dvh;max-height:96dvh;}.planning-content{padding:16px;}.planning-workspace>header{padding:16px;}.planning-stepper{padding:8px;gap:2px;}.planning-stepper button{font-size:12px;padding:8px 4px;gap:4px;flex-direction:column;text-align:center;}.planning-paths{grid-template-columns:1fr;gap:12px;}.saved-path{padding:12px;font-size:13px;}.profile-field-grid{grid-template-columns:1fr;gap:16px;}.profile-navigation button{padding:8px;gap:6px;font-size:12px;}.profile-navigation small{font-size:11px;}.profile-number{width:22px;height:22px;}.profile-field textarea{min-height:120px;}.profile-toolbar .basis-badge{width:100%;}.planning-footer{padding:12px 16px;}.context-summary dd{font-size:14px;}}
+@media(prefers-reduced-motion:no-preference) {.profile-navigation button,.profile-field textarea{transition:background-color .14s,border-color .14s;}}
+body:has(dialog[open]) {overflow:hidden;}
+@media(max-width:720px) {.planning-paths{grid-template-columns:1.2fr 1fr;gap:12px;}.planning-paths .context-path h3{display:none;}.planning-paths p{font-size:13px;}.planning-paths .saved-path{font-size:12px;}.planning-paths .eyebrow{font-size:11px;}.profile-editor header p{font-size:13px;}}

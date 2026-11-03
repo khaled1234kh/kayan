@@ -37,6 +37,11 @@ def harness(monkeypatch, roles=ROLES, failure=None):
     def model(a,p,c,shape):
         contexts.append((a.role,c))
         if shape is live.Plan:return live.Plan(assignments=[live.Assignment(role=r,task='Inspect owned lab') for r in roles])
+        if shape is live.CoordinationReview:
+            d=c['task_context']
+            return live.CoordinationReview(next_role=d['next_role'],priority_tools=d['available_tools'][:2],
+                coverage_action=d['required_coverage_action'],evidence_ids=[d['required_evidence_id']],
+                rationale='Use recorded outcomes and keep the remaining checks bounded')
         return live.ReportSummary(summary='Controlled summary',finding_ids=[],recommendations=[])
     e._model_call=model
     def specialist(a,task):
@@ -124,6 +129,9 @@ def test_saved_option_b_preserves_partial_assessment_notice():
     report=ReportingAgent(eid).generate_report([], 'owned lab', eid)
     report['assessment_completion']={'complete':False,'notice':'Incomplete assessment',
         'specialist_outcomes':[{'role':'webapp_agent','status':'failed','error':'controlled stop'}]}
+    report['coordination_reviews']=[{'status':'accepted','rationale':'Preserve bounds and disclose failed coverage'}]
+    report['execution_ledger']=[{'tool':'port_scan','audit_entry_id':'source-audit'}]
+    report['governance']={'allowed':1,'denied':1,'audit_entry_ids':['source-audit']}
     path=Path('reports')/f'report_{eid[:8]}.json'
     assert not path.exists()
     path.write_text(json.dumps(report),encoding='utf-8')
@@ -135,6 +143,9 @@ def test_saved_option_b_preserves_partial_assessment_notice():
             response=client.get('/planning/current-mitigation')
             assert response.status_code==200
             assert response.json()['assessment_completion']==report['assessment_completion']
+            for key in ('coordination_reviews','execution_ledger','governance'):
+                assert response.json()[key]==report[key]
+            assert response.json()['source_generated_at']==report['generated_at']
     finally:
         path.unlink()
 
@@ -174,7 +185,7 @@ def test_planner_consumes_queued_guidance_at_specialist_boundaries(monkeypatch):
         return []
     e._instructions=instructions
     e.run()
-    revised=[c for role,c in contexts if c['task_context'].get('completed_outcomes')]
+    revised=[c for role,c in contexts if c['task_context'].get('completed_outcomes') and c['task_context'].get('operator_instructions')]
     assert revised and revised[0]['task_context']['operator_instructions'][0]['audit_entry_id']=='controlled-instruction'
     assert len(calls)==3
 
@@ -204,7 +215,7 @@ def test_invalid_boundary_revision_does_not_relabel_completed_specialist_as_fail
     base=e._model_call
     def model(a,p,c,shape):
         plan=base(a,p,c,shape)
-        if c['task_context'].get('completed_outcomes'):plan.assignments[0].task='Attempt to rewrite completed work'
+        if shape is live.Plan and c['task_context'].get('completed_outcomes'):plan.assignments[0].task='Attempt to rewrite completed work'
         return plan
     e._instructions=instructions;e._model_call=model
     with pytest.raises(RuntimeError,match='completed work cannot be changed'):e.run()
@@ -335,3 +346,51 @@ def test_reporting_task_may_reference_observed_tools_without_executing_them(monk
         return result
     e._model_call=model
     assert e.run()['assessment_completion']['complete'] is True
+
+
+def test_planner_reviews_actual_outcomes_before_next_assignments(monkeypatch):
+    e,calls,contexts,closed=harness(monkeypatch)
+    e.run()
+    reviews=[t for t in e.transcript if t['kind']=='coordination_review']
+    assert len(reviews)==3
+    assert [t['review']['next_role'] for t in reviews]==ROLES[1:]
+    assert all(t['review']['evidence_ids'] for t in reviews)
+
+
+def test_partial_outcome_must_be_disclosed_by_coordinator(monkeypatch):
+    assert hasattr(live,'CoordinationReview')
+    e,calls,contexts,closed=harness(monkeypatch,failure='webapp_agent')
+    report=e.run()
+    reviews=report['coordination_reviews']
+    assert reviews[1]['coverage_action']=='disclose_partial'
+    assert 'outcome:webapp_agent' in reviews[1]['evidence_ids']
+
+
+@pytest.mark.parametrize('invalid', ['wrong_role','invented_evidence','extra_tool','hide_partial'])
+def test_invalid_review_never_rewrites_or_expands_validated_plan(monkeypatch,invalid):
+    e,calls,contexts,closed=harness(monkeypatch,failure='webapp_agent' if invalid=='hide_partial' else None)
+    base=e._model_call
+    def model(a,p,c,shape):
+        result=base(a,p,c,shape)
+        if shape is live.CoordinationReview:
+            if invalid=='wrong_role':result.next_role='reporting_agent' if result.next_role!='reporting_agent' else 'network_agent'
+            elif invalid=='invented_evidence':result.evidence_ids=['invented']
+            elif invalid=='extra_tool':result.priority_tools=['arbitrary_shell']
+            elif c['task_context']['required_coverage_action']=='disclose_partial':result.coverage_action='continue_bounded'
+        return result
+    e._model_call=model
+    report=e.run()
+    assert len(calls)==3 and all(r['priority_tools']==[] for r in report['coordination_reviews'] if r['status']=='degraded')
+    assert report['assessment_completion']['complete'] is False
+    assert any(r['status']=='degraded' for r in report['coordination_reviews'])
+
+
+def test_review_gate_denial_is_not_a_fallback_authorization(monkeypatch):
+    e,calls,contexts,closed=harness(monkeypatch)
+    base=e._model_call
+    def model(a,p,c,shape):
+        if shape is live.CoordinationReview:raise RuntimeError('TrustGate denied model inference')
+        return base(a,p,c,shape)
+    e._model_call=model
+    with pytest.raises(RuntimeError,match='denied model inference'):e.run()
+    assert [role for role,status in calls]==['recon_agent'] and e.report is None

@@ -9,8 +9,8 @@ from pentagi.agents.reporting_agent import ReportingAgent
 
 def test_context_is_optional_strict_bounded_and_cannot_smuggle_scope():
     assert descriptive_context(None) == {}
-    assert descriptive_context({'departments':'  Support  '}) == {'departments':'Support'}
-    for data in [{'targets':['evil.example']}, {'company_size':30}, {'data_storage':'x'*1001}]:
+    assert descriptive_context({'departments':'  Support  '}) == {'departments':'  Support  '}
+    for data in [{'targets':['evil.example']}, {'company_size':30}, {'data_storage':'x'*12001}]:
         with pytest.raises(ValidationError):
             EngagementContext.model_validate(data)
 
@@ -73,11 +73,11 @@ def test_phase_one_is_offline_hypothetical_and_ranking_is_not_a_risk_measure(mon
     context = {'infrastructure_summary':'Public web application with SQL injection and broken access control concerns',
         'data_storage':'Relational database with customer records'}
     plan = build_risk_plan(context)
-    assert len(plan['risks']) == 3 and plan['target_accessed'] is False
+    assert 1 <= len(plan['risks']) <= 3 and plan['target_accessed'] is False
     assert all(not risk['verified'] and risk['evidence_basis']=='hypothetical_context_match' for risk in plan['risks'])
     assert 'not measured likelihood' in plan['ranking_basis']
     assert plan['risks'] == build_risk_plan(context)['risks']
-    assert all(r['reference']['source_url'] and r['reference']['score'] > 0 for r in plan['risks'])
+    assert all(r['reference']['source_url'] and r['context_evidence'] for r in plan['risks'])
     assert build_risk_plan()['risks'] == []
     assert build_risk_plan({'departments':'zzzzqxxzz'})['status'] == 'insufficient_context_or_matches'
 
@@ -109,7 +109,7 @@ def test_option_a_cannot_execute_or_authorize_and_does_not_invent_findings(monke
 def test_common_mitigation_shape_keeps_unverified_claims_out():
     from pentagi.risk_plan import build_risk_plan
     agent = ReportingAgent('unit')
-    hypothetical = agent.generate_direct_mitigation(build_risk_plan({'infrastructure_summary':'Web SQL injection'}))
+    hypothetical = agent.generate_direct_mitigation(build_risk_plan({'infrastructure_summary':'Public web application using SQL'}))
     fake = {'id':'unproven', 'type':'sql_injection', 'verified':True, 'data':{'vulnerable':True}}
     verified = {'id':'proof', 'type':'xss', 'mitre':'T1190','verified':True,
         'verification':{'result':{'supported':True},'audit_entry_id':'recorded-proof'}}
@@ -164,3 +164,15 @@ def test_context_reaches_only_reporting_model_input(monkeypatch):
     assert 'CONTEXT_ONLY_SENTINEL' not in repr(authorizations)
     planner_input=model_messages('planner_agent','A','Plan',engine.roe,{'task_context':{'available_tools_by_role':{}}})
     assert 'CONTEXT_ONLY_SENTINEL' not in json.dumps(planner_input)
+
+
+def test_live_reporting_excerpts_do_not_mutate_full_context_or_verified_ids():
+    from pentagi.inference_context import model_messages
+    original={'infrastructure_summary':'A'*2000+'END_OF_FULL_CONTEXT'}
+    context={'task_context':{'untrusted_descriptive_context':original,'verified_findings':[{'id':'preserve-this-id'}]}}
+    message=model_messages('reporting_agent','B','Report',{},context)
+    payload=json.loads(message[1]['content'])['task_context']
+    assert len(payload['untrusted_descriptive_context']['infrastructure_summary'])==200
+    assert 'infrastructure_summary' in payload['descriptive_context_excerpt_notice']['truncated_fields']
+    assert payload['verified_findings']==[{'id':'preserve-this-id'}]
+    assert original['infrastructure_summary'].endswith('END_OF_FULL_CONTEXT')

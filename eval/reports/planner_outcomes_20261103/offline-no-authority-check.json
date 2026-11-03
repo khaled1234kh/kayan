@@ -1,0 +1,14 @@
+{
+  "offline_requests": [
+    "risk-plan",
+    "direct-mitigation"
+  ],
+  "gate_audit_unchanged": true,
+  "active_session_unchanged": true,
+  "engagement_id": "a16f71f5-f9b3-4518-a17b-52a908358aba",
+  "audit": {
+    "valid": true,
+    "broken_at": null,
+    "message": "Chain valid \u2014 1130 entries verified"
+  }
+}

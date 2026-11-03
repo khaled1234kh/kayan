@@ -208,3 +208,43 @@ def test_malformed_candidate_cannot_trigger_verified_finding(observation):
     assert dispatch==['xss_test'] and e.findings==[]
     assert 'xss_test' not in result.coverage['successful_tools']
     assert result.coverage['tool_errors']
+
+
+def test_invalid_model_json_recovers_within_existing_rejection_budget():
+    e,a,gate,contexts,executed=harness(['port_scan','finish'])
+    base=e._model_call;attempts=[]
+    def malformed_once(*args):
+        attempts.append(True)
+        if len(attempts)==1:raise ValueError('Invalid model JSON: missing tool')
+        return base(*args)
+    e._model_call=malformed_once
+    e._specialist(a,'Inspect the lab')
+    assert executed==['port_scan'] and len(attempts)==3
+    assert contexts[0]['action_feedback'][0]['reason'].startswith('Invalid model JSON')
+
+
+def test_network_reuses_current_recon_port_observation_without_second_dispatch():
+    e,a,gate,contexts,executed=harness(['service_scan'])
+    e.shared_observations={'port_scan':{'id':'observation-recon-port','tool':'port_scan','result':{'open_ports':[8888]},
+        'source_role':'recon_agent','source_agent_id':'recon-id','engagement_id':e.engagement_id,
+        'target':e.target,'audit_entry_id':'source-authorization','observed_at':__import__('time').monotonic()}}
+    result=e._specialist(a,'Inspect lab listeners')
+    assert executed==['service_scan']
+    assert result.coverage['reused_tools']==['port_scan'] and result.coverage['complete']
+    assert contexts[0]['action_space']['callable_tools']==['service_scan','finish']
+    assert result.observations[0]['audit_entry_id']=='source-authorization'
+    assert any(t['kind']=='observation_reused' for t in e.transcript)
+
+
+@pytest.mark.parametrize('change',[
+    {'engagement_id':'old-engagement'}, {'target':'http://elsewhere.invalid'}, {'audit_entry_id':''},
+    {'source_role':'webapp_agent'}, {'observed_at':0}, {'result':{'open_ports':[22]}},
+    {'result':{'open_ports':[8888],'error':'failed'}},
+])
+def test_stale_foreign_or_failed_scan_is_not_reused(change):
+    e,a,gate,contexts,executed=harness(['port_scan','service_scan'])
+    e.shared_observations={'port_scan':{'id':'source','tool':'port_scan','result':{'open_ports':[8888]},
+        'source_role':'recon_agent','source_agent_id':'recon','engagement_id':e.engagement_id,
+        'target':e.target,'audit_entry_id':'audit','observed_at':__import__('time').monotonic(),**change}}
+    result=e._specialist(a,'Inspect lab listeners')
+    assert executed==['port_scan','service_scan'] and result.coverage['reused_tools']==[]

@@ -8,19 +8,25 @@ KAYAN coordinates a local-model assessment of an owned lab through signed Rules 
 
 [Project proposal PDF](output/pdf/KAYAN_TrustGate_Proposal.pdf) · [Evidence PDF with video links](output/pdf/KAYAN_Evidence_Presentation.pdf) · [Three-path demonstration](https://drive.google.com/file/d/1cBt1aRcKtT3EulSUwK-y9ayTv1UNfWkJ/view?usp=sharing) · [Recorded live assessment](https://drive.google.com/file/d/1SRUVpJtSssnN1zlT0g4Z_ZI4jXg3xfNb/view?usp=sharing)
 
-The screenshots are actual rendered views captured on 2 November 2026. The videos retain the earlier recorded interface and their original engagement evidence.
+The guided-profile screenshot below was captured on 3 November 2026; the office and older result screenshots were captured on 2 November. The videos retain their earlier interface and original engagement evidence.
 
 ## What you can demonstrate
 
 | Path | What happens | Evidence basis |
 |---|---|---|
-| Phase 1: Risk Plan | Descriptive context is matched against the local ATT&CK/OWASP index. | Hypotheses only; no target access or authorization call. |
+| Phase 1: Risk Plan | Authored applicability rules link described technical details to pinned ATT&CK/OWASP references, source excerpts and uncertainty. | Offline hypotheses; context relevance is not severity. No target access or authorization call. |
 | Option A: Direct mitigation | Reporting turns the Risk Plan into a mitigation plan. | Offline recommendations; zero verified findings. |
 | Option B: Assessment to mitigation | Planner coordinates the governed specialists, then Reporting synthesizes reproduced findings. A saved completed report can also be reviewed. | Live signed-scope assessment or its explicitly labeled saved evidence. |
 
 Organization context carries **zero policy weight**. Defense in Depth / Zero Trust labels and recommendation selection are presentation features. Effort points are illustrative comparison weights, not prices or measured implementation costs.
 
-### Risk planning
+### Organization profile and planning
+
+![Guided organization profile with three sections, explicit sample replacement and two readable editors](docs/images/organization-profile.jpg)
+
+The six-field profile preserves full entered descriptions within explicit limits. Preview fictional samples before replacement, review the exact context, then move through **Organization → Hypotheses → Mitigation → Review & Export**. Recommendations use bounded authored scenario controls, not model-generated risk judgments. Weak text-only matches are excluded; insufficient context can produce no supported hypotheses. [Before/after evaluation and actual browser/export evidence](docs/PLANNING_AND_COORDINATION_2026-11-03.md).
+
+The older risk screenshot below documents the previous result presentation:
 
 ![Risk Plan workspace with three explicitly hypothetical risks and ATT&CK references](docs/images/risk-plan.jpg)
 
@@ -80,21 +86,23 @@ All verifies/reuses the Gate, lab, backend and office; it does not start an asse
 
 ## Verified results
 
-The [3 November Planner refinement](docs/PLANNER_REFINEMENT_2026-11-03.md) adds explicit coverage gaps, role/tool assignment validation, bounded corrections and exact verified-ID reporting. Seven small real-Qwen synthetic coordination cases passed their structured contracts on the first attempt. They are not a general accuracy benchmark or model-weight training. New rendered Planner/Option B warnings distinguish completed agent loops from complete testing.
+The [3 November planning/coordination pass](docs/PLANNING_AND_COORDINATION_2026-11-03.md) adds evidence-referenced real-model outcome reviews, bounded next-specialist priorities, attributed observation reuse and exact-context offline planning. Shared local `qwen2.5:7b`, scope and action budgets remain unchanged. Planner has no specialist tool authority and is not a second model. Fixed role order remains; this is not a general dynamic scheduler.
 
-Today's [consolidated checks](eval/reports/checkpoints/planner_refinement_20261103_v3/results.json) passed **14/17 groups**: **115 Python tests** (32 retained warnings), **28 Rust**, **9/9 adversarial**, TypeScript/build and all ten frontend scripts passed. Three Go groups were blocked by Windows Application Control; the overall profile is failed. Final actual-model run **035e7ee6-0a7b-4bfc-84a1-c3e7b51b81ae** returned **2 findings / 29 allowed / 1 denied**, with correct role-specific assignments and explicit incomplete catalogue coverage. No protection was changed or bypassed. The earlier [2 November profile](eval/reports/checkpoints/final_todo_validation_20261102_v5/results.json) passed **17/17 checks**:
+The [final checkpoint](eval/reports/checkpoints/planner_context_final_20261103_v4/results.json) passed **17/17 groups**:
 
 | Check | Result |
 |---|---|
-| Python | 84 passed; 27 retained deprecation warnings in the main profile |
-| Rust | 28 passed, including eight audit regression/edge cases |
+| Python | 145 passed; 46 retained deprecation warnings |
+| Rust | 28 passed |
 | Go | 15 focused boundary tests, 15 config tests and the explicit no-embedding case passed |
 | Adversarial authorization | 9/9 passed |
-| Frontend | Ten scripts plus TypeScript/production build passed; no oversized-chunk warning |
+| Frontend | Ten scripts plus TypeScript/production build passed |
 
-The final actual local-Qwen engagement, `51bba207-f4eb-4ff5-9228-92566ae06377`, produced **2 findings / 29 allowed / 1 denied**. The deliberate tainted-input DENY is included. Planner stayed active through specialist work, completed after Reporting and dispatched no specialist tools. This demonstrates the bounded lab workflow, not general detection accuracy.
+Latest real coordinator engagement **a16f71f5-f9b3-4518-a17b-52a908358aba** produced **2 findings / 30 allowed / 1 denied**, three accepted outcome reviews and nine executed-action records. The denied decision is the deliberate tainted-input test. Coverage is explicitly incomplete: the unchanged Web-App action budget leaves directory traversal untested. Signed service-scan denial returned **2 / 25 / 2**; actual lab outage returned **0 / 24 / 1**, with no invented findings. Different harness inputs mean these allowed totals are not equivalent workloads. Full engagement IDs and count bases are in the linked record. Type-specific saved-report mitigation improvements were tested/browser-checked after the last live run; no new live finding claim is made for those templates.
 
-The audit serialization fix preserves old entries and signatures; the publication check verified all **779 journal entries**, including after service restart. The journal remains mutable local storage. Exact failures, fixes, runtime evidence and limits are in [final readiness](docs/DEMO_READY_2026-11-02.md).
+Five fictional offline before/after cases demonstrate different scenario/control sets for retailer, clinic and manufacturing, plus honest empty results for insufficient/explicit-absence descriptions. Those are deterministic authored-rule checks, **not general model accuracy or a grounding efficacy improvement**. Actual downloaded A JSON preserved all six exact context fields; saved B retained its original reviews, ledger, finding IDs and partial coverage. Sampled profile layouts were inspected at six sizes from 1920×1080 to 640×800, with keyboard/contrast checks. The broader 19-item UI/office redesign remains open in [TODO.md](TODO.md).
+
+Earlier host-blocked Go failures remain preserved. Normal retries now pass without security changes; why host behavior changed is unknown. The latest quiet audit check verified **1,130 entries** without rewriting the journal. Backend restart still opens with no active session although snapshots persist; automatic current-session resume remains an operational limitation. Review/-RestoreDemo preserves its original-session overwrite guard.
 
 To repeat the defined checks against running prerequisites:
 
@@ -102,7 +110,7 @@ To repeat the defined checks against running prerequisites:
 python -B -m eval.functionality_checkpoint --label YOUR_UNIQUE_LABEL
 ```
 
-The full profile additionally requires Go and the Rust toolchain; the Python demo itself does not require Go or Docker. It starts no model assessment. A freshly downloaded GitHub copy also passed all 84 Python tests in an isolated environment, plus frontend installation/build and ten scripts. Actual-model acceptance is separate and documented in the readiness report. Test-suite and geometry checks do not substitute for rendered UI acceptance or measured FPS.
+The full profile additionally requires Go and the Rust toolchain; the Python demo itself does not require Go or Docker. It starts no model assessment. A prior 2 November downloaded copy passed 84 Python tests in an isolated environment plus frontend installation/build/scripts; that historical result is not a fresh-clone certification of this revision. Actual-model acceptance is separate and documented in the readiness report. Test-suite and geometry checks do not substitute for rendered UI acceptance or measured FPS.
 
 ## Scope and honest limits
 
@@ -114,7 +122,8 @@ Python is the primary demo engine. The vendored Go/PentAGI work is a scoped enfo
 
 - [Architecture and Red/Blue allocation](docs/ARCHITECTURE.md)
 - [TA deliverables mapping](docs/TA_DELIVERABLES_ALIGNMENT.md)
-- [Final readiness and exact evidence](docs/DEMO_READY_2026-11-02.md)
+- [Current planning, coordination and browser evidence](docs/PLANNING_AND_COORDINATION_2026-11-03.md)
+- [Earlier readiness](docs/DEMO_READY_2026-11-02.md)
 - [Canonical handoff](MASTER_HANDOFF.md) and [TODO record](TODO.md)
 - [Publication provenance and local recovery history](docs/GITHUB_DELIVERY_2026-11-02.md)
 

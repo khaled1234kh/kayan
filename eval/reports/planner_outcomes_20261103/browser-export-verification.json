@@ -1,0 +1,19 @@
+{
+  "all_six_context_fields_exact": true,
+  "compared_locations": [
+    "narrative_context",
+    "risk_plan.context"
+  ],
+  "counts": {
+    "company_size": 232,
+    "departments": 64,
+    "infrastructure_summary": 139,
+    "network_architecture": 105,
+    "data_storage": 1783,
+    "customer_touchpoints": 84
+  },
+  "sha256": "05a074011f7f0072080bb2ca3f9f13a7e5c18820b39947722821e8ee261a641c",
+  "inference_used": false,
+  "target_accessed": false,
+  "verified_findings": 0
+}

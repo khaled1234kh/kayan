@@ -111,6 +111,9 @@ class ReportingAgent:
         plan = RiskPlan.model_validate(risk_plan).model_dump()
         report = self.generate_report([], 'No target access — Option A', self.engagement_id, plan['context'])
         report.update(option='A', execution_engine='offline_reporting', risk_plan=plan,
+            inference_used=False,
+            generation_context={'role':'reporting_agent','method':'Deterministic Reporting templates with pinned framework references',
+                'model_inference':False,'scope_authority':False},
             evidence_label='Hypothetical context matches only. No live testing or verified findings.',
             target_accessed=False, mitigation_plan=self._mitigation_plan(risks=plan['risks']))
         return report
@@ -132,11 +135,20 @@ class ReportingAgent:
             query = item['reference']['name'] if hypothetical else item['type'].replace('_',' ')+' web application remediation'
             refs = [item['reference']] if hypothetical else local_index().retrieve(query, self.model_tier, limit=2)
             title, action = self._mitigation_text(query)
+            contextual = hypothetical and bool(item.get('scenario_id'))
+            if contextual:
+                title = item['title']
+                action = ' '.join(item['control_actions'])
             recommendations.append({'id':'mitigation_'+item['id'], 'title':title, 'action':action,
                 'evidence_basis':basis, 'risk_ids':[item['id']] if hypothetical else [],
                 'finding_ids':[] if hypothetical else [item['id']],
                 'references':[{k:ref[k] for k in ('id','framework','name','source_url','description')} for ref in refs],
-                'uncertainty':'Applicability requires review; this recommendation is not evidence of an implemented or effective control.'})
+                'assets':item.get('assets',[]) if hypothetical else [item.get('target','authorized target')],
+                'context_evidence':item.get('context_evidence',[]) if hypothetical else [],
+                'why_relevant':item.get('why_relevant','') if hypothetical else 'Derived from the saved verified finding; applicability of the control still requires review.',
+                'controls':item.get('control_actions',[action]) if hypothetical else [action],
+                'validation_steps':item.get('validation_steps',[]) if hypothetical else ['Validate the relevant control in a separately authorized follow-up; no new validation is performed by this report.'],
+                'uncertainty':(item.get('assumptions','')+' ' if contextual else '')+'Applicability requires review; this recommendation is not evidence of an implemented or effective control.'})
         return {'schema_version':1, 'option':'A' if hypothetical else 'B', 'evidence_basis':basis,
             'method':'Shared deterministic Reporting templates with local framework references; no additional model inference.',
             'reference_retrieval':'Post-report local retrieval, separate from agent grounding-on/off inference conditions.',
@@ -147,6 +159,14 @@ class ReportingAgent:
     @staticmethod
     def _mitigation_text(query):
         query = query.lower()
+        if 'sql injection' in query:
+            return ('Separate database commands from user input', 'Replace concatenated SQL in the affected request path with parameterized statements. Limit the application database account to required operations and review authentication/error handling. Retest the recorded finding in a separately authorized follow-up.')
+        if 'command injection' in query:
+            return ('Remove shell interpretation from the affected operation', 'Replace shell command construction with a constrained library/API call where possible. If a process is required, use a fixed executable and argument array without a shell; allow-list valid inputs and limit its OS account permissions. Retest the recorded operation only under renewed authorization.')
+        if 'xss' in query:
+            return ('Encode untrusted output in the affected response', 'Apply context-specific output encoding at the recorded reflection sink and use safe DOM/template APIs. Sanitize only where deliberately permitting HTML; use CSP as defense in depth. An authorized browser test is needed to establish execution and verify the fix; raw script reflection alone does not prove browser execution.')
+        if 'path traversal' in query or 'directory traversal' in query:
+            return ('Constrain file access to approved resources', 'Prefer opaque resource identifiers over user-supplied filesystem paths. Canonicalize resolved paths, enforce containment within the approved root including symlink handling, and authorize each requested resource. Review service-account file permissions and retest the recorded path under separate authorization.')
         if any(word in query for word in ('injection','xss','public-facing','public facing')):
             return ('Harden input processing', 'Use parameterized queries, contextual output encoding and strict input validation. Remove shell interpolation; keep exposed application dependencies patched. Validate the relevant control in an authorized follow-up.')
         if any(word in query for word in ('access','privilege','traversal','authorization')):
@@ -244,6 +264,19 @@ class ReportingAgent:
                         lines.append(f"  - Verification issue ({issue['tool']}): {issue['reason']}")
                     if coverage.get('denied_tools'):
                         lines.append("  - Denied tools: " + ", ".join(coverage['denied_tools']))
+                    for observation in coverage.get('reused_observations', []):
+                        lines.append(f"  - Reused {observation['tool']} from {observation['source_role']}; source audit {observation['audit_entry_id']}. No new execution.")
+            lines.append('')
+        if report.get('coordination_reviews'):
+            lines.extend(['## Planner outcome reviews', '', 'Model-generated operational explanations; evidence records and coverage are authoritative.', ''])
+            for review in report['coordination_reviews']:
+                lines.append(f"- After {review['after_role']} -> {review['next_role']} ({review['status']}): {review['rationale']}")
+                lines.append(f"  - Priority tools: {', '.join(review['priority_tools']) or 'none'}; coverage action: {review['coverage_action']}; evidence: {', '.join(review['evidence_ids'])}")
+            lines.append('')
+        if report.get('execution_ledger'):
+            lines.extend(['## Executed actions', '', 'Reused observations are documented separately and are not counted as new actions.', ''])
+            for action in report['execution_ledger']:
+                lines.append(f"- {action['agent_role']}: {action['tool']}; {'execution error' if action['error'] else 'observation returned'}; audit {action['audit_entry_id']}")
             lines.append('')
         lines.append(f"## Summary")
         lines.append(f"")

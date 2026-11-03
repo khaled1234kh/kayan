@@ -87,6 +87,36 @@ class Reply(BaseModel):
     reply: str
 
 
+def test_unavailable_model_refuses_start_without_overwriting_existing_session(governed,monkeypatch):
+    from fastapi import HTTPException
+    client,state,calls=governed
+    async def unavailable():raise HTTPException(503,'Local model service is unavailable; no assessment was started')
+    monkeypatch.setattr(live_api,'require_model_ready',unavailable)
+    before=json.loads(json.dumps(state))
+    r=client.post('/engagement/start',json={'operator_id':'unit','authorization':'I_AUTHORIZE_OWNED_LAB'})
+    assert r.status_code==503 and state==before and calls==[]
+
+
+@pytest.mark.parametrize('models,expected',[(['qwen2.5:7b'],None),(['qwen2.5:1.5b'],None),([],503)])
+def test_model_readiness_only_reads_installed_models(monkeypatch,models,expected):
+    import asyncio
+    from fastapi import HTTPException
+    requests=[]
+    class Client:
+        def __init__(self,**kw):pass
+        async def __aenter__(self):return self
+        async def __aexit__(self,*args):pass
+        async def get(self,url):
+            requests.append(url)
+            return httpx.Response(200,json={'models':[{'name':name} for name in models]},request=httpx.Request('GET',url))
+    monkeypatch.setattr(httpx,'AsyncClient',Client)
+    if expected:
+        with pytest.raises(HTTPException) as error:asyncio.run(live_api.require_model_ready())
+        assert error.value.status_code==expected
+    else:assert asyncio.run(live_api.require_model_ready()) is None
+    assert requests==['http://127.0.0.1:11434/api/tags']
+
+
 @pytest.mark.parametrize('complete', [True, False])
 def test_ollama_requires_completed_stream_and_exposes_explicit_fallback(complete):
     config = {'base_url':'http://unit.local', 'model':'qwen2.5:7b', 'fallback_model':'qwen2.5:1.5b', 'num_ctx':4096, 'num_predict':384}

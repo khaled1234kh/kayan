@@ -61,3 +61,8 @@ assert(specialistCoverage.includes('Assessment coverage limits') && specialistCo
 const legacy=renderToStaticMarkup(<LiveAgentPanel actor={planner} transcript={[entry]} findings={[]}/>);
 assert(!legacy.includes('Assessment coverage limits'));
 console.log('PASS explicit catalogue gaps, execution/verification issues, escaped failure text and legacy-session compatibility');
+const reviewed=renderToStaticMarkup(<LiveAgentPanel actor={planner} transcript={[{...entry,agent_role:'planner_agent',agent_id:'p1',kind:'coordination_review',
+  review:{after_role:'recon_agent',next_role:'webapp_agent',status:'accepted',priority_tools:['xss_test'],coverage_action:'continue_bounded',
+    evidence_ids:['outcome:recon_agent'],rationale:'Prioritize web inputs after the observed HTTP response'}}]} findings={[]}/>);
+assert(reviewed.includes('Planner outcome reviews (1)') && reviewed.includes('Prioritize web inputs') && reviewed.includes('outcome:recon_agent'));
+assert(reviewed.includes('Model-generated operational explanations') && reviewed.includes('Review accepted'));

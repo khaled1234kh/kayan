@@ -1,0 +1,20 @@
+F                                                                        [100%]
+================================== FAILURES ===================================
+_ test_saved_verified_findings_get_distinct_controls_without_changing_evidence _
+
+    def test_saved_verified_findings_get_distinct_controls_without_changing_evidence():
+        types=['sql_injection','command_injection','xss','path_traversal']
+        findings=[{'id':kind,'type':kind,'target':'http://fictional.invalid',
+                   'mitre':'T1190','verified':True,
+                   'verification':{'result':{'supported':True},'audit_entry_id':'audit-'+kind}}
+                  for kind in types]
+        original=json.dumps(findings,sort_keys=True)
+        recommendations=ReportingAgent('fixture')._mitigation_plan(findings=findings)['recommendations']
+>       assert len({r['title'] for r in recommendations})==4
+E       AssertionError: assert 2 == 4
+E        +  where 2 = len({'Enforce least privilege and resource boundaries', 'Harden input processing'})
+
+tests\test_contextual_planning.py:74: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_contextual_planning.py::test_saved_verified_findings_get_distinct_controls_without_changing_evidence
+1 failed, 8 deselected in 1.72s

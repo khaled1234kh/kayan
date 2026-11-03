@@ -1,6 +1,7 @@
 """Governed operator input and the live runtime on the existing console state/socket."""
 import asyncio
 import hmac
+import json
 import time
 import uuid
 from typing import Literal
@@ -10,7 +11,7 @@ from fastapi import HTTPException, Request
 from pydantic import BaseModel, ConfigDict, Field
 
 from integration.bridge_signing import bridge_signature
-from pentagi.ollama_client import OllamaClient
+from pentagi.ollama_client import OllamaClient, CONFIG_PATH
 from pentagi.engagement_context import EngagementContext
 
 ROLE_TECHNIQUE = {"planner_agent": "planning", "recon_agent": "recon", "webapp_agent": "web-app", "network_agent": "network", "reporting_agent": "reporting"}
@@ -46,6 +47,20 @@ class StartRequest(BaseModel):
 
 class StatusReply(BaseModel):
     reply: str = Field(max_length=1800)
+
+
+async def require_model_ready():
+    """Read-only readiness check, before replacing a session or loading an ROE."""
+    config = json.loads(CONFIG_PATH.read_text(encoding='utf-8'))
+    try:
+        async with httpx.AsyncClient(timeout=5) as client:
+            response = await client.get(config['base_url'].rstrip('/')+'/api/tags')
+            response.raise_for_status()
+            available = {item['name'] for item in response.json()['models']}
+    except (httpx.HTTPError, KeyError, TypeError, ValueError) as error:
+        raise HTTPException(503, 'Local model service is unavailable. Start Ollama and retry; no assessment was started.') from error
+    if not available.intersection({config['model'],config['fallback_model']}):
+        raise HTTPException(503, 'Neither configured local model is installed. Install the configured model and retry; no assessment was started.')
 
 
 async def gate_authorize(state, role, agent_id, tool, args, technique, untrusted=False):
@@ -224,6 +239,7 @@ def install_live_api(app, get_state, mutate):
             nonlocal active_job
             if (active_job is not None and not active_job.done()) or any(not job.done() for job in running_status_jobs):
                 raise HTTPException(409, "A live assessment is already running")
+            await require_model_ready()
             eid = str(uuid.uuid4())
             def initialize(state):
                 state.clear()

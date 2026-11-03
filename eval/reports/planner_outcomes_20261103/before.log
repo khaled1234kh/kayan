@@ -1,0 +1,94 @@
+FFFF                                                                     [100%]
+================================== FAILURES ===================================
+______ test_invalid_model_json_recovers_within_existing_rejection_budget ______
+
+    def test_invalid_model_json_recovers_within_existing_rejection_budget():
+        e,a,gate,contexts,executed=harness(['port_scan','finish'])
+        base=e._model_call;attempts=[]
+        def malformed_once(*args):
+            attempts.append(True)
+            if len(attempts)==1:raise ValueError('Invalid model JSON: missing tool')
+            return base(*args)
+        e._model_call=malformed_once
+>       e._specialist(a,'Inspect the lab')
+
+tests\test_specialist_recovery.py:221: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+pentagi\live_engagement.py:212: in _specialist
+    decision = self._model_call(agent, "Choose next authorized action", self._context(agent, task, details), Decision)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+args = (<pentagi.live_engagement.ReasoningAgent object at 0x000001ED5F241220>, 'Choose next authorized action', {'task_contex..._tools': True}, 'action_feedback': [], 'observations_untrusted': [], ...}}, <class 'pentagi.live_engagement.Decision'>)
+
+    def malformed_once(*args):
+        attempts.append(True)
+>       if len(attempts)==1:raise ValueError('Invalid model JSON: missing tool')
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ValueError: Invalid model JSON: missing tool
+
+tests\test_specialist_recovery.py:218: ValueError
+_ test_network_reuses_current_recon_port_observation_without_second_dispatch __
+
+    def test_network_reuses_current_recon_port_observation_without_second_dispatch():
+        e,a,gate,contexts,executed=harness(['service_scan'])
+        e.shared_observations={'port_scan':{'id':'observation-recon-port','tool':'port_scan','result':{'open_ports':[8888]},
+            'source_role':'recon_agent','source_agent_id':'recon-id','engagement_id':e.engagement_id,
+            'target':e.target,'audit_entry_id':'source-authorization','observed_at':__import__('time').monotonic()}}
+>       result=e._specialist(a,'Inspect lab listeners')
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\test_specialist_recovery.py:231: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+pentagi\live_engagement.py:212: in _specialist
+    decision = self._model_call(agent, "Choose next authorized action", self._context(agent, task, details), Decision)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+agent = <pentagi.live_engagement.ReasoningAgent object at 0x000001ED5F711B50>
+purpose = 'Choose next authorized action'
+context = {'task_context': {'assigned_task': 'Inspect lab listeners', 'action_space': {'callable_tools': ['port_scan', 'finish']...}, 'action_feedback': [], 'observations_untrusted': [{'tool': 'service_scan', 'result': {'open_ports': [8888]}}], ...}}
+shape = <class 'pentagi.live_engagement.Decision'>
+
+    def model(agent, purpose, context, shape):
+        contexts.append(json.loads(json.dumps(context['task_context'])))
+>       proposal = next(sequence)
+                   ^^^^^^^^^^^^^^
+E       StopIteration
+
+tests\test_specialist_recovery.py:44: StopIteration
+________ test_planner_reviews_actual_outcomes_before_next_assignments _________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001ED5F5B5880>
+
+    def test_planner_reviews_actual_outcomes_before_next_assignments(monkeypatch):
+        e,calls,contexts,closed=harness(monkeypatch)
+        e.run()
+        reviews=[t for t in e.transcript if t['kind']=='coordination_review']
+>       assert len(reviews)==3
+E       assert 0 == 3
+E        +  where 0 = len([])
+
+tests\test_planner_coordination.py:344: AssertionError
+____________ test_partial_outcome_must_be_disclosed_by_coordinator ____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x000001ED5F770A70>
+
+    def test_partial_outcome_must_be_disclosed_by_coordinator(monkeypatch):
+>       assert hasattr(live,'CoordinationReview')
+E       AssertionError: assert False
+E        +  where False = hasattr(live, 'CoordinationReview')
+
+tests\test_planner_coordination.py:350: AssertionError
+============================== warnings summary ===============================
+tests/test_planner_coordination.py::test_planner_reviews_actual_outcomes_before_next_assignments
+  C:\Users\khale\Downloads\kayan-trustgate\pentagi\agents\reporting_agent.py:91: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "generated_at": datetime.utcnow().isoformat(),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_specialist_recovery.py::test_invalid_model_json_recovers_within_existing_rejection_budget
+FAILED tests/test_specialist_recovery.py::test_network_reuses_current_recon_port_observation_without_second_dispatch
+FAILED tests/test_planner_coordination.py::test_planner_reviews_actual_outcomes_before_next_assignments
+FAILED tests/test_planner_coordination.py::test_partial_outcome_must_be_disclosed_by_coordinator
+4 failed, 55 deselected, 1 warning in 2.21s

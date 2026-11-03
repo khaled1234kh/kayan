@@ -1,4 +1,14 @@
-# Current status — Planner refinement, 2026-11-03
+# Current status — planning/coordination final retry, 2026-11-03
+
+Final checkpoint `planner_context_final_20261103_v4` passed **17/17 groups**, including all three focused Go groups. The earlier literal Application Control failures below remain historical evidence. No protections, exclusions or executable locations were changed to obtain this pass; why the host later allowed normal tests is unknown. If a block returns, record its exact new output and stop rather than bypassing it.
+
+Current operational limitation: backend restart opens with no active session despite persistent per-engagement snapshots. Saved Option B correctly then returns HTTP 409: `A completed actual-model assessment is required for Option B`. The existing completed a16f71f5… snapshot was explicitly restored into waiting state for rendered recheck, without a new assessment. `-RestoreDemo` restores original 7da73508… only and must refuse another active session. Automatic current-session resume is not implemented.
+
+A reproduced absent-model start previously accepted 202 and later failed with `[WinError 10061] No connection could be made because the target machine actively refused it`. Fixed by read-only readiness validation before mutation: HTTP 503, `Local model service is unavailable. Start Ollama and retry; no assessment was started.` Existing-session preservation was verified. Start installed Ollama separately and wait for it to serve its installed models before live operation. Configuration was not changed.
+
+No browser gate blocked the latest in-app-browser profile/A/B inspection. All 19 broad UI/office redesign tasks remain open. Docker/upstream-swap status was not rechecked in this bounded pass; older Docker errors below must not be described as a fresh retry. Full results/remaining limits: [planning and coordination record](PLANNING_AND_COORDINATION_2026-11-03.md).
+
+## Historical blocked status — earlier Planner refinement, 2026-11-03
 
 The Python/native-Gate demo runs, but the current full test profile is **14/17 groups passed, overall failed**. Three Go groups are blocked by host Application Control. Latest final-profile literal output:
 

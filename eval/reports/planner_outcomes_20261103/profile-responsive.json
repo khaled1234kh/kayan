@@ -1,0 +1,62 @@
+[
+  {
+    "actionReachable": true,
+    "backgroundScrollLocked": true,
+    "contentOverflowX": false,
+    "firstInputVisible": true,
+    "height": 1080,
+    "inputFont": "16px",
+    "pageOverflow": false,
+    "width": 1920
+  },
+  {
+    "actionReachable": true,
+    "backgroundScrollLocked": true,
+    "contentOverflowX": false,
+    "firstInputVisible": true,
+    "height": 900,
+    "inputFont": "16px",
+    "pageOverflow": false,
+    "width": 1600
+  },
+  {
+    "actionReachable": true,
+    "backgroundScrollLocked": true,
+    "contentOverflowX": false,
+    "firstInputVisible": true,
+    "height": 900,
+    "inputFont": "16px",
+    "pageOverflow": false,
+    "width": 1440
+  },
+  {
+    "actionReachable": true,
+    "backgroundScrollLocked": true,
+    "contentOverflowX": false,
+    "firstInputVisible": true,
+    "height": 720,
+    "inputFont": "16px",
+    "pageOverflow": false,
+    "width": 1280
+  },
+  {
+    "actionReachable": true,
+    "backgroundScrollLocked": true,
+    "contentOverflowX": false,
+    "firstInputVisible": true,
+    "height": 768,
+    "inputFont": "16px",
+    "pageOverflow": false,
+    "width": 1024
+  },
+  {
+    "actionReachable": true,
+    "backgroundScrollLocked": true,
+    "contentOverflowX": false,
+    "firstInputVisible": true,
+    "height": 800,
+    "inputFont": "16px",
+    "pageOverflow": false,
+    "width": 640
+  }
+]

@@ -1,0 +1,11 @@
+[
+  {
+    "attempt": 1,
+    "models": [
+      "qwen2.5:7b",
+      "qwen2.5:1.5b",
+      "llama3.2:latest",
+      "llama3.1:8b"
+    ]
+  }
+]

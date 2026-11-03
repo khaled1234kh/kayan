@@ -1,0 +1,305 @@
+{
+  "label": "planner_outcomes_live_20261103_v2",
+  "passed": true,
+  "engagement_id": "2e03dc5f-e54e-4720-af81-e781566ac259",
+  "findings": 2,
+  "allowed": 30,
+  "denied": 1,
+  "assignment_order": [
+    "recon_agent",
+    "webapp_agent",
+    "network_agent",
+    "reporting_agent"
+  ],
+  "specialist_outcomes": [
+    {
+      "role": "recon_agent",
+      "task": "Inspect the lab using http_probe, port_scan and discover_endpoints",
+      "status": "completed",
+      "observations": 3,
+      "verified_findings": 0,
+      "coverage": {
+        "complete": true,
+        "basis": "Registered bounded lab-tool catalogue only; not comprehensive security coverage",
+        "stop_reason": "catalogue_exhausted",
+        "attempted_tools": [
+          "port_scan",
+          "http_probe",
+          "discover_endpoints"
+        ],
+        "successful_tools": [
+          "port_scan",
+          "http_probe",
+          "discover_endpoints"
+        ],
+        "untested_tools": [],
+        "denied_tools": [],
+        "tool_errors": [],
+        "verification_issues": [],
+        "action_budget": 3,
+        "reused_tools": [],
+        "reused_observations": []
+      }
+    },
+    {
+      "role": "webapp_agent",
+      "task": "Test web inputs using xss_test, sql_injection_test and command_injection_test within budget",
+      "status": "completed",
+      "observations": 3,
+      "verified_findings": 2,
+      "coverage": {
+        "complete": false,
+        "basis": "Registered bounded lab-tool catalogue only; not comprehensive security coverage",
+        "stop_reason": "action_budget",
+        "attempted_tools": [
+          "xss_test",
+          "sql_injection_test",
+          "command_injection_test"
+        ],
+        "successful_tools": [
+          "xss_test",
+          "sql_injection_test",
+          "command_injection_test"
+        ],
+        "untested_tools": [
+          "directory_traversal"
+        ],
+        "denied_tools": [],
+        "tool_errors": [],
+        "verification_issues": [],
+        "action_budget": 3,
+        "reused_tools": [],
+        "reused_observations": []
+      }
+    },
+    {
+      "role": "network_agent",
+      "task": "Inspect lab listeners with port_scan and service_scan",
+      "status": "completed",
+      "observations": 2,
+      "verified_findings": 0,
+      "coverage": {
+        "complete": true,
+        "basis": "Registered bounded lab-tool catalogue only; not comprehensive security coverage",
+        "stop_reason": "catalogue_exhausted",
+        "attempted_tools": [
+          "service_scan"
+        ],
+        "successful_tools": [
+          "service_scan"
+        ],
+        "untested_tools": [],
+        "denied_tools": [],
+        "tool_errors": [],
+        "verification_issues": [],
+        "action_budget": 3,
+        "reused_tools": [
+          "port_scan"
+        ],
+        "reused_observations": [
+          {
+            "id": "observation:9f1b9779adb949e399d0edc711aec977",
+            "tool": "port_scan",
+            "result": {
+              "open_ports": [
+                8888
+              ],
+              "scope": "ROE lab port only"
+            },
+            "source_role": "recon_agent",
+            "source_agent_id": "recon-b53f685f",
+            "engagement_id": "2e03dc5f-e54e-4720-af81-e781566ac259",
+            "target": "http://127.0.0.1:8888",
+            "audit_entry_id": "387bad01-01d1-4e6e-9753-be3f1df1b17b",
+            "observed_at": 6336.859,
+            "reused": true
+          }
+        ]
+      }
+    }
+  ],
+  "observed_active_frames": 137,
+  "planner_last_completed": true,
+  "planner_has_no_tool_dispatch": true,
+  "models": [
+    "qwen2.5:7b"
+  ],
+  "incremental_output_verified": true,
+  "visual_verification": false,
+  "audit_before": {
+    "valid": true,
+    "broken_at": null,
+    "message": "Chain valid \u2014 939 entries verified"
+  },
+  "audit_after": {
+    "valid": true,
+    "broken_at": null,
+    "message": "Chain valid \u2014 981 entries verified"
+  },
+  "catalogue_coverage_accounting_verified": true,
+  "role_tool_assignments_verified": true,
+  "report_finding_ids_complete": true,
+  "assessment_completion": {
+    "complete": false,
+    "specialist_outcomes": [
+      {
+        "role": "recon_agent",
+        "task": "Inspect the lab using http_probe, port_scan and discover_endpoints",
+        "status": "completed",
+        "observations": 3,
+        "verified_findings": 0,
+        "coverage": {
+          "complete": true,
+          "basis": "Registered bounded lab-tool catalogue only; not comprehensive security coverage",
+          "stop_reason": "catalogue_exhausted",
+          "attempted_tools": [
+            "port_scan",
+            "http_probe",
+            "discover_endpoints"
+          ],
+          "successful_tools": [
+            "port_scan",
+            "http_probe",
+            "discover_endpoints"
+          ],
+          "untested_tools": [],
+          "denied_tools": [],
+          "tool_errors": [],
+          "verification_issues": [],
+          "action_budget": 3,
+          "reused_tools": [],
+          "reused_observations": []
+        }
+      },
+      {
+        "role": "webapp_agent",
+        "task": "Test web inputs using xss_test, sql_injection_test and command_injection_test within budget",
+        "status": "completed",
+        "observations": 3,
+        "verified_findings": 2,
+        "coverage": {
+          "complete": false,
+          "basis": "Registered bounded lab-tool catalogue only; not comprehensive security coverage",
+          "stop_reason": "action_budget",
+          "attempted_tools": [
+            "xss_test",
+            "sql_injection_test",
+            "command_injection_test"
+          ],
+          "successful_tools": [
+            "xss_test",
+            "sql_injection_test",
+            "command_injection_test"
+          ],
+          "untested_tools": [
+            "directory_traversal"
+          ],
+          "denied_tools": [],
+          "tool_errors": [],
+          "verification_issues": [],
+          "action_budget": 3,
+          "reused_tools": [],
+          "reused_observations": []
+        }
+      },
+      {
+        "role": "network_agent",
+        "task": "Inspect lab listeners with port_scan and service_scan",
+        "status": "completed",
+        "observations": 2,
+        "verified_findings": 0,
+        "coverage": {
+          "complete": true,
+          "basis": "Registered bounded lab-tool catalogue only; not comprehensive security coverage",
+          "stop_reason": "catalogue_exhausted",
+          "attempted_tools": [
+            "service_scan"
+          ],
+          "successful_tools": [
+            "service_scan"
+          ],
+          "untested_tools": [],
+          "denied_tools": [],
+          "tool_errors": [],
+          "verification_issues": [],
+          "action_budget": 3,
+          "reused_tools": [
+            "port_scan"
+          ],
+          "reused_observations": [
+            {
+              "id": "observation:9f1b9779adb949e399d0edc711aec977",
+              "tool": "port_scan",
+              "result": {
+                "open_ports": [
+                  8888
+                ],
+                "scope": "ROE lab port only"
+              },
+              "source_role": "recon_agent",
+              "source_agent_id": "recon-b53f685f",
+              "engagement_id": "2e03dc5f-e54e-4720-af81-e781566ac259",
+              "target": "http://127.0.0.1:8888",
+              "audit_entry_id": "387bad01-01d1-4e6e-9753-be3f1df1b17b",
+              "observed_at": 6336.859,
+              "reused": true
+            }
+          ]
+        }
+      }
+    ],
+    "execution_complete": true,
+    "coverage_basis": "Registered bounded lab-tool catalogue; not comprehensive security coverage",
+    "notice": "Incomplete assessment coverage: review untested tools, execution/verification issues and specialist failures below. Missing findings do not establish safety."
+  },
+  "coordination_reviews": [
+    {
+      "next_role": "webapp_agent",
+      "priority_tools": [
+        "xss_test",
+        "sql_injection_test",
+        "command_injection_test"
+      ],
+      "coverage_action": "continue_bounded",
+      "evidence_ids": [
+        "outcome:recon_agent"
+      ],
+      "rationale": "The reconnaissance phase has completed its tasks within the given budget and observed no verified findings. The next logical step is to test for common web application vulnerabilities such as XSS, SQL injection, and command injection, as it",
+      "status": "accepted",
+      "after_role": "recon_agent"
+    },
+    {
+      "next_role": "network_agent",
+      "priority_tools": [
+        "service_scan"
+      ],
+      "coverage_action": "disclose_partial",
+      "evidence_ids": [
+        "2e03dc5f-e54e-4720-af81-e781566ac259:verified:6a14f73e",
+        "2e03dc5f-e54e-4720-af81-e781566ac259:verified:e7ffb85b",
+        "observation:9f1b9779adb949e399d0edc711aec977",
+        "outcome:recon_agent",
+        "outcome:webapp_agent"
+      ],
+      "rationale": "The web application testing has identified two verified findings: an XSS vulnerability and a command injection vulnerability. The next step is to investigate the network services running on the identified open port (8888) to ensure there is",
+      "status": "accepted",
+      "after_role": "webapp_agent"
+    },
+    {
+      "next_role": "reporting_agent",
+      "priority_tools": [],
+      "coverage_action": "disclose_partial",
+      "evidence_ids": [
+        "2e03dc5f-e54e-4720-af81-e781566ac259:verified:6a14f73e",
+        "2e03dc5f-e54e-4720-af81-e781566ac259:verified:e7ffb85b",
+        "outcome:network_agent",
+        "outcome:recon_agent",
+        "outcome:webapp_agent"
+      ],
+      "rationale": "The reconnaissance, web application, and network assessments have been completed within their respective action budgets. While some findings were verified, the assessments did not cover all potential vulnerabilities due to the limited scope",
+      "status": "accepted",
+      "after_role": "network_agent"
+    }
+  ],
+  "execution_ledger_entries": 9
+}

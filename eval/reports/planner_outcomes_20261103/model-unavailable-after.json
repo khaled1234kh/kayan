@@ -1,0 +1,7 @@
+{
+  "status": 503,
+  "error": {
+    "detail": "Local model service is unavailable. Start Ollama and retry; no assessment was started."
+  },
+  "existing_session_unchanged": true
+}

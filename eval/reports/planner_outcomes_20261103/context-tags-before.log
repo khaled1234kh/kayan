@@ -1,0 +1,23 @@
+npm notice run kayan-trustgate-office@0.1.0 check:ta-alignment
+npm notice run esbuild scripts/ta-alignment-check.tsx --bundle --packages=external --platform=node --format=esm --outfile=scripts/.out-ta-alignment.mjs --log-level=error && node scripts/.out-ta-alignment.mjs
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+  assert(presentationFor({ ...recommendations[0], title: "Review authorization on customer and record APIs" }).frameworks.includes("Zero Trust"))
+
+    at file:///C:/Users/khale/Downloads/kayan-trustgate/console/office/scripts/.out-ta-alignment.mjs:387:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: false,
+  expected: true,
+  operator: '==',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

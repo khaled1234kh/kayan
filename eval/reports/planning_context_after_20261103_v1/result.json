@@ -1,0 +1,89 @@
+{
+  "checked_at": "2026-11-03T17:47:12.973035+00:00",
+  "dataset_sha256": "a7cdd8049521ff2310028944eef6f781de286f3bda19794b80105afb9b4cd1a2",
+  "pipeline": "Deterministic offline Phase 1 and Option A, not the Qwen multi-agent Planner",
+  "cases": [
+    {
+      "id": "fictional_ecommerce",
+      "risk_count": 3,
+      "references": [
+        "T1490",
+        "T1133",
+        "T1530"
+      ],
+      "risk_titles": [
+        "Check recovery of the described business data",
+        "Review vendor access to internal systems",
+        "Review access to cloud-held objects and backups"
+      ],
+      "recommendation_titles": [
+        "Check recovery of the described business data",
+        "Review vendor access to internal systems",
+        "Review access to cloud-held objects and backups"
+      ],
+      "distinct_actions": 3,
+      "context_preserved": true,
+      "target_accessed": false,
+      "verified_findings": 0
+    },
+    {
+      "id": "fictional_clinic",
+      "risk_count": 1,
+      "references": [
+        "T1490"
+      ],
+      "risk_titles": [
+        "Check recovery of the described business data"
+      ],
+      "recommendation_titles": [
+        "Check recovery of the described business data"
+      ],
+      "distinct_actions": 1,
+      "context_preserved": true,
+      "target_accessed": false,
+      "verified_findings": 0
+    },
+    {
+      "id": "fictional_manufacturing",
+      "risk_count": 2,
+      "references": [
+        "T1021",
+        "T1133"
+      ],
+      "risk_titles": [
+        "Review office-to-production network boundaries",
+        "Review vendor access to internal systems"
+      ],
+      "recommendation_titles": [
+        "Review office-to-production network boundaries",
+        "Review vendor access to internal systems"
+      ],
+      "distinct_actions": 2,
+      "context_preserved": true,
+      "target_accessed": false,
+      "verified_findings": 0
+    },
+    {
+      "id": "insufficient_description",
+      "risk_count": 0,
+      "references": [],
+      "risk_titles": [],
+      "recommendation_titles": [],
+      "distinct_actions": 0,
+      "context_preserved": true,
+      "target_accessed": false,
+      "verified_findings": 0
+    },
+    {
+      "id": "explicit_absence",
+      "risk_count": 0,
+      "references": [],
+      "risk_titles": [],
+      "recommendation_titles": [],
+      "distinct_actions": 0,
+      "context_preserved": true,
+      "target_accessed": false,
+      "verified_findings": 0
+    }
+  ]
+}

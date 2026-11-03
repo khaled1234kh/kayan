@@ -1,5 +1,45 @@
 # KAYAN TrustGate — current TODO and delivery queue
 
+## UI/UX, 3D environment and presentation quality — requested 2026-11-03
+
+The current redesign is not final. Preserve all historical completion/evidence below. Each task needs actual rendered acceptance; build/geometry/SSR alone cannot close it. Full user briefs: docs/design/UI_UX_WORKSTREAM_2026-11-03.md and docs/design/PLANNING_CONTEXT_REDESIGN_2026-11-03.md.
+
+- [x] **P0 · Guided planning profile:** replace six stacked textareas with Organization / Technical environment / Data & customer interaction sections; useful examples, exact context review, explicit sample preview/replacement, predictable retained draft, no silent truncation. Pass desktop/laptop/narrow keyboard and full context-to-export browser checks with before/after screenshots.
+- [x] **P0 · Contextual offline planning:** fix input integrity, scenario applicability, weak-match filtering and distinct context-linked controls. Publish repeatable fictional before/after cases separately from Qwen Planner evaluation; never call relevance severity or grant scope.
+- [ ] **P0 · 1 Sidebar architecture:** rethink hierarchy/actions/stages in a responsive 260–320px desktop rail, optional collapse and minimal scrolling; verify useful content is not cramped or cut off.
+- [ ] **P0 · 2 New assessment:** move setup from the narrow rail into a proper modal/drawer with operator/context/target/authorization sections, readable inputs, validation, keyboard order and visible Start/Cancel.
+- [ ] **P0 · 3 Screen balance:** improve central office prominence, intentional empty states and contextual side-panel sizing/collapse across supported widths; no lost five-agent access.
+- [ ] **P0 · 4 Exterior:** replace or substantially improve the artificial yellow-dot skyline with a coherent restrained exterior; inspect actual WebGL and measure any material cost.
+- [ ] **P0 · 5 Camera/composition:** prominent complete five-seat overview, responsive framing, manageable wall occlusion, useful Reset and readable lighting; preserve actual agents/workstations.
+- [ ] **P0 · 6 Office cohesion:** inspect models, animation, desks, monitors, floor/walls, glass, shadows, labels and selection; fix observed inconsistencies with rendered evidence.
+- [ ] **P1 · 7 Agent session:** useful no-selection state and clear identity/task/model/coordination/tools/findings/errors/actions; collapsible raw evidence, no invented activity.
+- [ ] **P1 · 8 Typography:** consistent tokens, heading/label/input/button hierarchy, readable laptop/projector text and checked contrast.
+- [ ] **P1 · 9 Header/footer:** align branding/navigation/connection/presentation/legend/reset/projector controls; reduce clutter without losing operational meaning.
+- [ ] **P1 · 10 Agent interactions:** readable label position/contrast, hover/focus/selection feedback and clear session selection; inspect accepted overview and camera angles, disclose occlusion limits.
+- [ ] **P1 · 11 Planning audit:** inspect Profile → Risk Plan → Mitigation → Review & Export, A/B distinctions, references, filtering, selection and all feedback states; preserve hypothesis/finding distinction.
+- [ ] **P1 · 12 Audit interface:** readable ALLOW/DENY grouping, filters, long raw records, scroll and empty/error states; never mutate underlying evidence for presentation.
+- [ ] **P1 · 13 Restrained transitions:** communicate actual panel/selection/loading/completion state, support reduced motion and avoid fake activity or costly effects.
+- [ ] **P1 · 14 Interaction feedback:** verify focus/hover/disabled/loading/validation/network/model/start/completion/partial/export/selection/empty states are understandable.
+- [ ] **P1 · 15 Responsive acceptance:** actual screenshots and overflow/action-reachability checks at 1920×1080, 1600×900, 1440×900, 1280×720, 1024×768 and 640×800; reset temporary overrides.
+- [ ] **P1 · 16 Presentation mode:** prioritize the five-agent office, readable identities/progress/findings and easy selection/overview switching; do more than resize text.
+- [ ] **P2 · 17 Visual identity:** coherent restrained dark surfaces, accents, spacing, icons and hierarchy across live/planning/audit/dialogs/reports; avoid gaming effects and noise.
+- [ ] **P2 · 18 Performance/loading:** measure meaningful render/picking/loading/asset/bundle changes; disclose measurement conditions, add no decoration-heavy dependencies or invented FPS.
+- [ ] **P2 · 19 Full visual audit:** inspect every major screen and important interaction, record additional observed defects and recheck corrections. The supplied brief ends at “Look for additional”; no missing continuation is assumed.
+
+Completed bounded profile/context checks: [planning and coordination evidence](docs/PLANNING_AND_COORDINATION_2026-11-03.md). Final 17/17 groups: 145 Python / 46 warnings, 28 Rust, focused Go, 9/9 adversarial and frontend. Actual six-field A export and saved B export verified. The 19 numbered broad UI/office items above remain open; earlier checked redesigns below are historical.
+
+## Outcome-aware coordination and final rehearsal — 2026-11-03
+
+Latest requested refinement; supersedes historical completion claims below. Keep model/configuration, scope, Gate and action budgets unchanged.
+
+- [x] Reproduce and fix absent outcome-driven Planner reviews, duplicate same-engagement port scans and unbounded handling of malformed specialist output.
+- [x] Add bounded, evidence-referenced next-specialist prioritization and explicit degraded-review handling. Never repeat completed work or increase authority/budgets.
+- [x] Make reasoning summaries, observation reuse, partial results and exported reports understandable in the actual console.
+- [x] Run relevant suites, actual authorized normal/denied/unavailable-lab paths, and browser rehearsal; preserve exact failures and remaining limitations.
+- [ ] Update handoff/readiness and publish validated source/evidence without private runtime data.
+
+- [ ] **Operational follow-up:** design/test explicit current-session resume after backend restart. Persistent snapshots exist, but the active session defaults to waiting; do not misuse -RestoreDemo or overwrite a different loaded session. Observed during the saved-B recheck.
+
 ## Reopened Planner improvement pass — 2026-11-03
 
 The latest user instruction reopens development. The checked delivery queue below is historical, not a claim that these new tasks are finished. “Fine tune” is interpreted as prompt, validation and coordination refinement; shared qwen2.5:7b weights/configuration remain unchanged. No training or general accuracy improvement is claimed.
@@ -11,9 +51,9 @@ The latest user instruction reopens development. The checked delivery queue belo
 
 - [x] Publish the tested Planner refinement, rendered UI evidence and current handoff to the authorized GitHub main; verify the remote commit. Implementation/evidence e902989 pushed, remote main matched local documentation follow-up 0cb7fed after user account selection. Rendered desktop/narrow coverage and real browser export inspected; see docs/PLANNER_REFINEMENT_2026-11-03.md.
 
-External revalidation remains separate from implementation:
+External revalidation of the earlier block (ordinary retry completed later the same day):
 
-- [ ] Re-run the three blocked Go groups when the host permits their ordinary test executables. Current exact error: `An Application Control policy has blocked this file.` No protection changes or bypass. See docs/BLOCKED.md and the current refinement record. Earlier 17/17 evidence stays historical.
+- [x] Re-run the three previously blocked Go groups normally. Final `planner_context_final_20261103_v4` passed all three and 17/17 groups overall; no protection changes or bypass. Earlier exact `An Application Control policy has blocked this file.` failures remain in docs/BLOCKED.md. The reason for changed host permission is unknown.
 
 Updated 2026-11-02 (Africa/Cairo). Canonical project: C:\Users\khale\Downloads\kayan-trustgate. [MASTER_HANDOFF.md](MASTER_HANDOFF.md) is authoritative for commands, exact blockers and evidence. Checked boxes mean the stated bounded work is verified; they do not mean the entire platform is finished.
 

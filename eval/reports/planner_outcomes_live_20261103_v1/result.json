@@ -1,0 +1,6 @@
+{
+  "label": "planner_outcomes_live_20261103_v1",
+  "passed": false,
+  "error": "HTTPStatusError(\"Server error '503 Service Unavailable' for url 'http://127.0.0.1:8001/engagement/start'\\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503\")",
+  "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\khale\\Downloads\\kayan-trustgate\\eval\\planner_live_acceptance.py\", line 49, in run\n    live=await check(True,label=label)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\khale\\Downloads\\kayan-trustgate\\eval\\live_runtime_check.py\", line 36, in check\n    request.raise_for_status()\n  File \"C:\\Users\\khale\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\httpx\\_models.py\", line 761, in raise_for_status\n    raise HTTPStatusError(message, request=request, response=self)\nhttpx.HTTPStatusError: Server error '503 Service Unavailable' for url 'http://127.0.0.1:8001/engagement/start'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503\n"
+}

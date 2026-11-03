@@ -1,0 +1,11 @@
+{
+  "reason": "Backend restarted to load corrected offline Reporting templates; default active state is waiting",
+  "source": "persisted SessionStore snapshot",
+  "engagement_id": "a16f71f5-f9b3-4518-a17b-52a908358aba",
+  "http_status": 200,
+  "response": {
+    "status": "ok",
+    "revision": 1
+  },
+  "new_assessment_started": false
+}

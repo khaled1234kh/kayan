@@ -1,0 +1,95 @@
+{
+  "engagement_id": "fictional-insufficient_description",
+  "target": "No target access — Option A",
+  "generated_at": "2026-11-03T18:20:32.524512",
+  "summary": {
+    "total_findings": 0,
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "info": 0
+  },
+  "mitre_coverage": {},
+  "findings": [],
+  "generation_context": {
+    "role": "reporting_agent",
+    "method": "Deterministic Reporting templates with pinned framework references",
+    "model_inference": false,
+    "scope_authority": false
+  },
+  "narrative_context": {
+    "company_size": "A fictional small organization with eight staff.",
+    "departments": "Administration."
+  },
+  "context_label": "Descriptive context only — zero policy weight; not scope, authorization or verified evidence.",
+  "mitigation_plan": {
+    "schema_version": 1,
+    "option": "A",
+    "evidence_basis": "hypothetical_risk_plan",
+    "method": "Shared deterministic Reporting templates with local framework references; no additional model inference.",
+    "reference_retrieval": "Post-report local retrieval, separate from agent grounding-on/off inference conditions.",
+    "verified_finding_count": 0,
+    "hypothetical_risk_count": 0,
+    "recommendations": [],
+    "limits": "Hypotheses are not findings. References support review, not authorization or proof that a control works."
+  },
+  "option": "A",
+  "execution_engine": "offline_reporting",
+  "risk_plan": {
+    "schema_version": 2,
+    "kind": "hypothetical_risk_plan",
+    "generated_at": "2026-11-03T18:20:32.521502+00:00",
+    "context": {
+      "company_size": "A fictional small organization with eight staff.",
+      "departments": "Administration."
+    },
+    "context_label": "Descriptive context only — zero policy weight; not scope, authorization or verified evidence.",
+    "ranking_basis": "Context applicability/relevance order from named technical signals and explicitly described control gaps; not measured likelihood, impact, severity or mitigation urgency. TF-IDF is diagnostic text similarity only.",
+    "uncertainty": "Descriptions are unverified. Matches are hypotheses to review, not findings. No target was contacted.",
+    "target_accessed": false,
+    "status": "insufficient_context_or_matches",
+    "index_built_at": "2026-10-31T19:53:56.703352+00:00",
+    "risks": [],
+    "context_integrity": {
+      "algorithm": "sha256",
+      "canonicalization": "UTF-8 JSON, sorted field names, compact separators; blank optional fields omitted; entered text preserved exactly",
+      "sha256": "a4e9eaaf3313a5ca810201ae294067e5e351d5d71414b42c4a184c166d623055",
+      "field_characters": {
+        "company_size": 48,
+        "departments": 15
+      }
+    },
+    "selection_method": "Version-2 authored scenario requirements with local pinned framework references; no LLM.",
+    "filtered_text_matches": [
+      {
+        "id": "T1609",
+        "name": "Container Administration Command",
+        "text_similarity": 0.151718,
+        "reason": "Text similarity alone does not establish applicability; the required technical details for a supported scenario are absent."
+      },
+      {
+        "id": "T1593.001",
+        "name": "Social Media",
+        "text_similarity": 0.13872,
+        "reason": "Text similarity alone does not establish applicability; the required technical details for a supported scenario are absent."
+      },
+      {
+        "id": "T1651",
+        "name": "Cloud Administration Command",
+        "text_similarity": 0.138072,
+        "reason": "Text similarity alone does not establish applicability; the required technical details for a supported scenario are absent."
+      }
+    ],
+    "limitations": [
+      "Authored rules cover a bounded set of scenarios, not a comprehensive company risk assessment.",
+      "Descriptions and stated control gaps are unverified. Missing details do not establish missing controls.",
+      "Fewer than three supported scenarios is a valid result; no weak matches are added to fill slots.",
+      "No supported technical scenario: describe the relevant assets, interfaces, trust boundaries or specific control concerns."
+    ],
+    "supported_scenario_count": 0,
+    "additional_supported_scenarios": []
+  },
+  "inference_used": false,
+  "evidence_label": "Hypothetical context matches only. No live testing or verified findings.",
+  "target_accessed": false
+}

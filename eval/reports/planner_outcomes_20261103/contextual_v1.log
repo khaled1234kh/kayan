@@ -1,0 +1,102 @@
+......F.....FFF..                                                        [100%]
+================================== FAILURES ===================================
+_ test_recommendations_change_with_organization_and_do_not_invent_crm_or_chat_secrets _
+
+    def test_recommendations_change_with_organization_and_do_not_invent_crm_or_chat_secrets():
+        plans=[build_risk_plan(case['engagement_context']) for case in CASES[:3]]
+        scenarios=[{r['scenario_id'] for r in plan['risks']} for plan in plans]
+        assert 'vendor_remote_access' in scenarios[0] and 'recovery_readiness' in scenarios[0]
+>       assert 'shared_identity' in scenarios[1] and not any('web_input' in s for s in scenarios[1])
+E       AssertionError: assert ('shared_identity' in {'recovery_readiness'})
+
+tests\test_contextual_planning.py:48: AssertionError
+__ test_phase_one_is_offline_hypothetical_and_ranking_is_not_a_risk_measure ___
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000017E8920EAB0>
+
+    def test_phase_one_is_offline_hypothetical_and_ranking_is_not_a_risk_measure(monkeypatch):
+        import socket, subprocess
+        from integration.trustgate_client import TrustGateClient
+        from pentagi.lab_tools import LabTools
+        from pentagi.risk_plan import build_risk_plan
+        def forbidden(*args, **kwargs):
+            raise AssertionError('Offline planning attempted network, execution or authorization')
+        monkeypatch.setattr(socket.socket, 'connect', forbidden)
+        monkeypatch.setattr(subprocess, 'Popen', forbidden)
+        monkeypatch.setattr(TrustGateClient, 'authorize', forbidden)
+        monkeypatch.setattr(TrustGateClient, 'load_roe', forbidden)
+        monkeypatch.setattr(LabTools, 'run', forbidden)
+        context = {'infrastructure_summary':'Public web application with SQL injection and broken access control concerns',
+            'data_storage':'Relational database with customer records'}
+        plan = build_risk_plan(context)
+>       assert 1 <= len(plan['risks']) <= 3 and plan['target_accessed'] is False
+E       assert (1 <= 0)
+E        +  where 0 = len([])
+
+tests\test_ta_alignment.py:76: AssertionError
+___ test_option_a_cannot_execute_or_authorize_and_does_not_invent_findings ____
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000017E8920F1A0>
+
+    def test_option_a_cannot_execute_or_authorize_and_does_not_invent_findings(monkeypatch):
+        import socket, subprocess
+        from integration.trustgate_client import TrustGateClient
+        from pentagi.lab_tools import LabTools
+        from pentagi.live_engagement import LiveEngagement
+        from pentagi.ollama_client import OllamaClient
+        from pentagi.risk_plan import build_risk_plan, RiskPlan
+        def forbidden(*args, **kwargs): raise AssertionError('Option A touched a live path')
+        for cls, method in [(socket.socket,'connect'), (subprocess,'Popen'),
+            (TrustGateClient,'authorize'), (TrustGateClient,'load_roe'), (LabTools,'run'),
+            (LiveEngagement,'__init__'), (OllamaClient,'__init__')]:
+            monkeypatch.setattr(cls,method,forbidden)
+        plan = build_risk_plan({'infrastructure_summary':'Public web application SQL injection'})
+        agent = ReportingAgent('unit')
+        report = agent.generate_direct_mitigation(plan)
+        assert report['target_accessed'] is False and report['execution_engine']=='offline_reporting'
+        assert report['summary']['total_findings']==0 and not report['findings']
+        assert len(report['mitigation_plan']['recommendations'])==len(plan['risks'])
+        assert all(not r['finding_ids'] and r['risk_ids'] for r in report['mitigation_plan']['recommendations'])
+        assert 'hypothetical_risk_plan' in agent.to_markdown(report)
+>       plan['risks'][0]['verified'] = True
+        ^^^^^^^^^^^^^^^^
+E       IndexError: list index out of range
+
+tests\test_ta_alignment.py:105: IndexError
+__________ test_common_mitigation_shape_keeps_unverified_claims_out ___________
+
+    def test_common_mitigation_shape_keeps_unverified_claims_out():
+        from pentagi.risk_plan import build_risk_plan
+        agent = ReportingAgent('unit')
+        hypothetical = agent.generate_direct_mitigation(build_risk_plan({'infrastructure_summary':'Web SQL injection'}))
+        fake = {'id':'unproven', 'type':'sql_injection', 'verified':True, 'data':{'vulnerable':True}}
+        verified = {'id':'proof', 'type':'xss', 'mitre':'T1190','verified':True,
+            'verification':{'result':{'supported':True},'audit_entry_id':'recorded-proof'}}
+        live = agent.generate_report([fake,verified], 'local lab', 'unit')
+        a,b = hypothetical['mitigation_plan'], live['mitigation_plan']
+>       assert set(a)==set(b) and set(a['recommendations'][0])==set(b['recommendations'][0])
+                                      ^^^^^^^^^^^^^^^^^^^^^^^
+E       IndexError: list index out of range
+
+tests\test_ta_alignment.py:118: IndexError
+============================== warnings summary ===============================
+tests/test_contextual_planning.py: 5 warnings
+tests/test_ta_alignment.py: 6 warnings
+  C:\Users\khale\Downloads\kayan-trustgate\pentagi\agents\reporting_agent.py:91: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "generated_at": datetime.utcnow().isoformat(),
+
+tests/test_ta_alignment.py::test_descriptive_context_never_enters_signed_roe_or_gate
+  C:\Users\khale\Downloads\kayan-trustgate\pentagi\orchestrator.py:75: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "start": datetime.utcnow().isoformat(),
+
+tests/test_ta_alignment.py::test_descriptive_context_never_enters_signed_roe_or_gate
+  C:\Users\khale\Downloads\kayan-trustgate\pentagi\orchestrator.py:129: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    self.start_time = datetime.utcnow().isoformat()
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_contextual_planning.py::test_recommendations_change_with_organization_and_do_not_invent_crm_or_chat_secrets
+FAILED tests/test_ta_alignment.py::test_phase_one_is_offline_hypothetical_and_ranking_is_not_a_risk_measure
+FAILED tests/test_ta_alignment.py::test_option_a_cannot_execute_or_authorize_and_does_not_invent_findings
+FAILED tests/test_ta_alignment.py::test_common_mitigation_shape_keeps_unverified_claims_out
+4 failed, 13 passed, 13 warnings in 3.63s

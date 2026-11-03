@@ -1,0 +1,86 @@
+[
+  {
+    "actionReachable": true,
+    "contentOverflowX": false,
+    "dialog": {
+      "height": 920,
+      "width": 1180,
+      "x": 370,
+      "y": 80
+    },
+    "height": 1080,
+    "inputFont": "16px",
+    "pageOverflow": false,
+    "width": 1920
+  },
+  {
+    "actionReachable": true,
+    "contentOverflowX": false,
+    "dialog": {
+      "height": 846,
+      "width": 1180,
+      "x": 210,
+      "y": 27
+    },
+    "height": 900,
+    "inputFont": "16px",
+    "pageOverflow": false,
+    "width": 1600
+  },
+  {
+    "actionReachable": true,
+    "contentOverflowX": false,
+    "dialog": {
+      "height": 846,
+      "width": 1180,
+      "x": 130,
+      "y": 27
+    },
+    "height": 900,
+    "inputFont": "16px",
+    "pageOverflow": false,
+    "width": 1440
+  },
+  {
+    "actionReachable": true,
+    "contentOverflowX": false,
+    "dialog": {
+      "height": 676.796875,
+      "width": 1180,
+      "x": 50,
+      "y": 21.59375
+    },
+    "height": 720,
+    "inputFont": "16px",
+    "pageOverflow": false,
+    "width": 1280
+  },
+  {
+    "actionReachable": true,
+    "contentOverflowX": false,
+    "dialog": {
+      "height": 721.90625,
+      "width": 984,
+      "x": 20,
+      "y": 23.046875
+    },
+    "height": 768,
+    "inputFont": "16px",
+    "pageOverflow": false,
+    "width": 1024
+  },
+  {
+    "actionReachable": true,
+    "contentOverflowX": false,
+    "dialog": {
+      "height": 768,
+      "width": 591,
+      "x": 17,
+      "y": 16
+    },
+    "height": 800,
+    "inputFont": "16px",
+    "pageOverflow": false,
+    "width": 640
+  }
+]

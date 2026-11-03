@@ -4,6 +4,7 @@ import { TRUSTGATE_SEATS, type TrustGateFinding, type TrustGateTranscriptEntry }
 import { TierBadge } from './TierBadge';
 import { AgentMessageComposer } from './OperatorControls';
 import { CoverageDetails, coverageRoleLabel, parseCoverage, type SpecialistCoverage } from './CoverageDetails';
+import { CoordinationDetails, parseOutcomeReview } from './CoordinationDetails';
 
 export function decisionTone(entry: TrustGateTranscriptEntry): string {
   const decision = String(entry.decision ?? entry.trustgate_decision ?? '').toUpperCase();
@@ -49,6 +50,7 @@ export function LiveAgentPanel({ actor, transcript, findings, decision, gateAvai
     <div className="kv"><span className="k">Current task</span><strong data-testid="current-task">{actor.currentTask ?? 'No active task'}</strong></div>
     <p className="session-activity" data-testid="agent-activity">{actor.activity || 'Standing by'}</p>
     {coordinator && <p className="muted">Coordinator only · Recon → Web-App → Network → Reporting. Shared local model; no specialist tool authority.</p>}
+    {coordinator && <CoordinationDetails reviews={entries.map(e => parseOutcomeReview(e.review)).filter(r => r !== null)}/>}
     {!!incomplete.length && <details className="coverage-warning"><summary>Assessment coverage limits ({incomplete.length})</summary>
       {incomplete.map(([role, coverage]) => <section key={role}><strong>{coverageRoleLabel(role)}</strong>
         <CoverageDetails coverage={coverage}/></section>)}

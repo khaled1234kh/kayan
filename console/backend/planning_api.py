@@ -49,6 +49,10 @@ def install_planning_api(app, get_state):
             source.get('narrative_context'))
         if source.get('assessment_completion'):
             report['assessment_completion'] = source['assessment_completion']
+        for key in ('coordination_reviews', 'execution_ledger', 'governance', 'model_summary'):
+            if key in source:
+                report[key] = source[key]
+        report['source_generated_at'] = source.get('generated_at')
         report.update(option='B', execution_engine='offline_report_view',
             source_report=str(path.relative_to(path.parents[1])),
             evidence_label='Verified findings supplied by the saved governed run; this view performs no new testing.')

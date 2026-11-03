@@ -1,0 +1,100 @@
+.......................................F.F.................              [100%]
+================================== FAILURES ===================================
+_______ test_planner_consumes_queued_guidance_at_specialist_boundaries ________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000014568329280>
+
+    def test_planner_consumes_queued_guidance_at_specialist_boundaries(monkeypatch):
+        e,calls,contexts,closed=harness(monkeypatch)
+        n=0
+        def instructions(a):
+            nonlocal n
+            if a is e.planner:
+                n+=1
+                if n==4:return [{'instruction':'Keep remaining checks read-only','audit_entry_id':'controlled-instruction'}]
+            return []
+        e._instructions=instructions
+        e.run()
+        revised=[c for role,c in contexts if c['task_context'].get('completed_outcomes')]
+>       assert revised and revised[0]['task_context']['operator_instructions'][0]['audit_entry_id']=='controlled-instruction'
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'operator_instructions'
+
+tests\test_planner_coordination.py:183: KeyError
+_ test_invalid_boundary_revision_does_not_relabel_completed_specialist_as_failed _
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000014568467380>
+
+    def test_invalid_boundary_revision_does_not_relabel_completed_specialist_as_failed(monkeypatch):
+        e,calls,contexts,closed=harness(monkeypatch)
+        count=0
+        def instructions(a):
+            nonlocal count
+            if a is e.planner:
+                count+=1
+                if count==4:return [{'instruction':'bounded update','audit_entry_id':'unit'}]
+            return []
+        base=e._model_call
+        def model(a,p,c,shape):
+            plan=base(a,p,c,shape)
+            if c['task_context'].get('completed_outcomes'):plan.assignments[0].task='Attempt to rewrite completed work'
+            return plan
+        e._instructions=instructions;e._model_call=model
+>       with pytest.raises(RuntimeError,match='completed work cannot be changed'):e.run()
+                                                                                  ^^^^^^^
+
+tests\test_planner_coordination.py:215: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+pentagi\live_engagement.py:521: in run
+    self._review_outcomes(outcomes, plan.assignments[index+1])
+pentagi\live_engagement.py:352: in _review_outcomes
+    review = self._model_call(self.planner, "Review specialist outcome and next priorities" if attempt == 0 else
+tests\test_planner_coordination.py:212: in model
+    if c['task_context'].get('completed_outcomes'):plan.assignments[0].task='Attempt to rewrite completed work'
+                                                   ^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = CoordinationReview(next_role='webapp_agent', priority_tools=['xss_test', 'sql_injection_test'], coverage_action='conti...ounded', evidence_ids=['outcome:recon_agent'], rationale='Use recorded outcomes and keep the remaining checks bounded')
+item = 'assignments'
+
+    def __getattr__(self, item: str) -> Any:
+        private_attributes = object.__getattribute__(self, '__private_attributes__')
+        if item in private_attributes:
+            attribute = private_attributes[item]
+            if hasattr(attribute, '__get__'):
+                return attribute.__get__(self, type(self))  # type: ignore
+    
+            try:
+                # Note: self.__pydantic_private__ cannot be None if self.__private_attributes__ has items
+                return self.__pydantic_private__[item]  # type: ignore
+            except KeyError as exc:
+                raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}') from exc
+        else:
+            # `__pydantic_extra__` can fail to be set if the model is not yet fully initialized.
+            # See `BaseModel.__repr_args__` for more details
+            try:
+                pydantic_extra = object.__getattribute__(self, '__pydantic_extra__')
+            except AttributeError:
+                pydantic_extra = None
+    
+            if pydantic_extra and item in pydantic_extra:
+                return pydantic_extra[item]
+            else:
+                if hasattr(self.__class__, item):
+                    return super().__getattribute__(item)  # Raises AttributeError if appropriate
+                else:
+                    # this is the current error
+>                   raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+E                   AttributeError: 'CoordinationReview' object has no attribute 'assignments'
+
+..\..\AppData\Local\Programs\Python\Python312\Lib\site-packages\pydantic\main.py:1042: AttributeError
+============================== warnings summary ===============================
+tests/test_planner_coordination.py: 18 warnings
+  C:\Users\khale\Downloads\kayan-trustgate\pentagi\agents\reporting_agent.py:91: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    "generated_at": datetime.utcnow().isoformat(),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_planner_coordination.py::test_planner_consumes_queued_guidance_at_specialist_boundaries
+FAILED tests/test_planner_coordination.py::test_invalid_boundary_revision_does_not_relabel_completed_specialist_as_failed
+2 failed, 57 passed, 18 warnings in 2.79s

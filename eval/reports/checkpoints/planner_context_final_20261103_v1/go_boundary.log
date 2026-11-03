@@ -1,0 +1,73 @@
+{"Time":"2026-11-03T19:57:43.2149073+02:00","Action":"start","Package":"pentagi/pkg/trustgate"}
+{"Time":"2026-11-03T19:57:44.4774991+02:00","Action":"run","Package":"pentagi/pkg/trustgate","Test":"TestCedarLiveProfile"}
+{"Time":"2026-11-03T19:57:44.4774991+02:00","Action":"output","Package":"pentagi/pkg/trustgate","Test":"TestCedarLiveProfile","Output":"=== RUN   TestCedarLiveProfile\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:44.4982619+02:00","Action":"output","Package":"pentagi/pkg/trustgate","Test":"TestCedarLiveProfile","Output":"    cedar_live_test.go:72: engagement=go-wire-1793728664477499100 approved audit=a07cb0c1-9f50-4a0e-a790-98484a22cb0a metadata audit=d3688858-b6fb-4c8d-8a32-5b4ddbff78f5 duplicate denial audit=078fe12e-05d0-49fa-ba7f-d78f4557f8f0\n"}
+{"Time":"2026-11-03T19:57:44.4982619+02:00","Action":"output","Package":"pentagi/pkg/trustgate","Test":"TestCedarLiveProfile","Output":"--- PASS: TestCedarLiveProfile (0.02s)\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:44.4982619+02:00","Action":"pass","Package":"pentagi/pkg/trustgate","Test":"TestCedarLiveProfile","Elapsed":0.02}
+{"Time":"2026-11-03T19:57:44.4982619+02:00","Action":"run","Package":"pentagi/pkg/trustgate","Test":"TestBindingAuthenticationAndExpiry"}
+{"Time":"2026-11-03T19:57:44.4982619+02:00","Action":"output","Package":"pentagi/pkg/trustgate","Test":"TestBindingAuthenticationAndExpiry","Output":"=== RUN   TestBindingAuthenticationAndExpiry\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:44.4982619+02:00","Action":"output","Package":"pentagi/pkg/trustgate","Test":"TestBindingAuthenticationAndExpiry","Output":"--- PASS: TestBindingAuthenticationAndExpiry (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:44.4982619+02:00","Action":"pass","Package":"pentagi/pkg/trustgate","Test":"TestBindingAuthenticationAndExpiry","Elapsed":0}
+{"Time":"2026-11-03T19:57:44.4982619+02:00","Action":"run","Package":"pentagi/pkg/trustgate","Test":"TestBindingRejectsNonLabEndpoint"}
+{"Time":"2026-11-03T19:57:44.4982619+02:00","Action":"output","Package":"pentagi/pkg/trustgate","Test":"TestBindingRejectsNonLabEndpoint","Output":"=== RUN   TestBindingRejectsNonLabEndpoint\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:44.4982619+02:00","Action":"output","Package":"pentagi/pkg/trustgate","Test":"TestBindingRejectsNonLabEndpoint","Output":"--- PASS: TestBindingRejectsNonLabEndpoint (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:44.4982619+02:00","Action":"pass","Package":"pentagi/pkg/trustgate","Test":"TestBindingRejectsNonLabEndpoint","Elapsed":0}
+{"Time":"2026-11-03T19:57:44.4982619+02:00","Action":"run","Package":"pentagi/pkg/trustgate","Test":"TestContextRequiresActualAuthenticatedOwner"}
+{"Time":"2026-11-03T19:57:44.4982619+02:00","Action":"output","Package":"pentagi/pkg/trustgate","Test":"TestContextRequiresActualAuthenticatedOwner","Output":"=== RUN   TestContextRequiresActualAuthenticatedOwner\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:44.5054404+02:00","Action":"output","Package":"pentagi/pkg/trustgate","Test":"TestContextRequiresActualAuthenticatedOwner","Output":"--- PASS: TestContextRequiresActualAuthenticatedOwner (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:44.5054404+02:00","Action":"pass","Package":"pentagi/pkg/trustgate","Test":"TestContextRequiresActualAuthenticatedOwner","Elapsed":0.01}
+{"Time":"2026-11-03T19:57:44.5054404+02:00","Action":"run","Package":"pentagi/pkg/trustgate","Test":"TestActualArgumentsIdentityAndSemanticTechnique"}
+{"Time":"2026-11-03T19:57:44.5054404+02:00","Action":"output","Package":"pentagi/pkg/trustgate","Test":"TestActualArgumentsIdentityAndSemanticTechnique","Output":"=== RUN   TestActualArgumentsIdentityAndSemanticTechnique\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:44.5101113+02:00","Action":"output","Package":"pentagi/pkg/trustgate","Test":"TestActualArgumentsIdentityAndSemanticTechnique","Output":"--- PASS: TestActualArgumentsIdentityAndSemanticTechnique (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:44.5101113+02:00","Action":"pass","Package":"pentagi/pkg/trustgate","Test":"TestActualArgumentsIdentityAndSemanticTechnique","Elapsed":0}
+{"Time":"2026-11-03T19:57:44.5106528+02:00","Action":"run","Package":"pentagi/pkg/trustgate","Test":"TestUntrustedTargetAndUnknownToolAreNeverPromoted"}
+{"Time":"2026-11-03T19:57:44.5106528+02:00","Action":"output","Package":"pentagi/pkg/trustgate","Test":"TestUntrustedTargetAndUnknownToolAreNeverPromoted","Output":"=== RUN   TestUntrustedTargetAndUnknownToolAreNeverPromoted\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:44.5148999+02:00","Action":"output","Package":"pentagi/pkg/trustgate","Test":"TestUntrustedTargetAndUnknownToolAreNeverPromoted","Output":"--- PASS: TestUntrustedTargetAndUnknownToolAreNeverPromoted (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:44.5154514+02:00","Action":"pass","Package":"pentagi/pkg/trustgate","Test":"TestUntrustedTargetAndUnknownToolAreNeverPromoted","Elapsed":0}
+{"Time":"2026-11-03T19:57:44.5154514+02:00","Action":"run","Package":"pentagi/pkg/trustgate","Test":"TestTargetLineageStaysUntrustedWhileSignedArgumentsAreMaterializedIndependently"}
+{"Time":"2026-11-03T19:57:44.5154514+02:00","Action":"output","Package":"pentagi/pkg/trustgate","Test":"TestTargetLineageStaysUntrustedWhileSignedArgumentsAreMaterializedIndependently","Output":"=== RUN   TestTargetLineageStaysUntrustedWhileSignedArgumentsAreMaterializedIndependently\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:44.5204888+02:00","Action":"output","Package":"pentagi/pkg/trustgate","Test":"TestTargetLineageStaysUntrustedWhileSignedArgumentsAreMaterializedIndependently","Output":"--- PASS: TestTargetLineageStaysUntrustedWhileSignedArgumentsAreMaterializedIndependently (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:44.5210421+02:00","Action":"pass","Package":"pentagi/pkg/trustgate","Test":"TestTargetLineageStaysUntrustedWhileSignedArgumentsAreMaterializedIndependently","Elapsed":0.01}
+{"Time":"2026-11-03T19:57:44.5210421+02:00","Action":"run","Package":"pentagi/pkg/trustgate","Test":"TestResumedFlowCannotAssumeCleanPriorHistory"}
+{"Time":"2026-11-03T19:57:44.5210421+02:00","Action":"output","Package":"pentagi/pkg/trustgate","Test":"TestResumedFlowCannotAssumeCleanPriorHistory","Output":"=== RUN   TestResumedFlowCannotAssumeCleanPriorHistory\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:44.5258532+02:00","Action":"output","Package":"pentagi/pkg/trustgate","Test":"TestResumedFlowCannotAssumeCleanPriorHistory","Output":"--- PASS: TestResumedFlowCannotAssumeCleanPriorHistory (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:44.5264038+02:00","Action":"pass","Package":"pentagi/pkg/trustgate","Test":"TestResumedFlowCannotAssumeCleanPriorHistory","Elapsed":0.01}
+{"Time":"2026-11-03T19:57:44.5264038+02:00","Action":"run","Package":"pentagi/pkg/trustgate","Test":"TestUnsupportedShellOrRedirectOperationsFailClosed"}
+{"Time":"2026-11-03T19:57:44.5264038+02:00","Action":"output","Package":"pentagi/pkg/trustgate","Test":"TestUnsupportedShellOrRedirectOperationsFailClosed","Output":"=== RUN   TestUnsupportedShellOrRedirectOperationsFailClosed\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:44.5309221+02:00","Action":"output","Package":"pentagi/pkg/trustgate","Test":"TestUnsupportedShellOrRedirectOperationsFailClosed","Output":"--- PASS: TestUnsupportedShellOrRedirectOperationsFailClosed (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:44.5309221+02:00","Action":"pass","Package":"pentagi/pkg/trustgate","Test":"TestUnsupportedShellOrRedirectOperationsFailClosed","Elapsed":0}
+{"Time":"2026-11-03T19:57:44.5309221+02:00","Action":"run","Package":"pentagi/pkg/trustgate","Test":"TestExecutionProjectionDropsEveryUnapprovedFieldAndCrossActorReplay"}
+{"Time":"2026-11-03T19:57:44.5309221+02:00","Action":"output","Package":"pentagi/pkg/trustgate","Test":"TestExecutionProjectionDropsEveryUnapprovedFieldAndCrossActorReplay","Output":"=== RUN   TestExecutionProjectionDropsEveryUnapprovedFieldAndCrossActorReplay\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:44.5359603+02:00","Action":"output","Package":"pentagi/pkg/trustgate","Test":"TestExecutionProjectionDropsEveryUnapprovedFieldAndCrossActorReplay","Output":"--- PASS: TestExecutionProjectionDropsEveryUnapprovedFieldAndCrossActorReplay (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:44.5359603+02:00","Action":"pass","Package":"pentagi/pkg/trustgate","Test":"TestExecutionProjectionDropsEveryUnapprovedFieldAndCrossActorReplay","Elapsed":0.01}
+{"Time":"2026-11-03T19:57:44.5359603+02:00","Action":"run","Package":"pentagi/pkg/trustgate","Test":"TestClientRejectsNon200OrIncompleteAllow"}
+{"Time":"2026-11-03T19:57:44.5359603+02:00","Action":"output","Package":"pentagi/pkg/trustgate","Test":"TestClientRejectsNon200OrIncompleteAllow","Output":"=== RUN   TestClientRejectsNon200OrIncompleteAllow\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:44.5397233+02:00","Action":"output","Package":"pentagi/pkg/trustgate","Test":"TestClientRejectsNon200OrIncompleteAllow","Output":"--- PASS: TestClientRejectsNon200OrIncompleteAllow (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:44.5397233+02:00","Action":"pass","Package":"pentagi/pkg/trustgate","Test":"TestClientRejectsNon200OrIncompleteAllow","Elapsed":0}
+{"Time":"2026-11-03T19:57:44.5402906+02:00","Action":"output","Package":"pentagi/pkg/trustgate","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:44.5448285+02:00","Action":"output","Package":"pentagi/pkg/trustgate","Output":"ok  \tpentagi/pkg/trustgate\t1.328s\n"}
+{"Time":"2026-11-03T19:57:44.5448285+02:00","Action":"pass","Package":"pentagi/pkg/trustgate","Elapsed":1.33}
+{"Time":"2026-11-03T19:57:45.6126515+02:00","Action":"start","Package":"pentagi/pkg/tools"}
+{"Time":"2026-11-03T19:57:45.6126515+02:00","Action":"start","Package":"pentagi/pkg/providers"}
+{"Time":"2026-11-03T19:57:46.725577+02:00","Action":"run","Package":"pentagi/pkg/providers","Test":"TestGovernancePromptsReachDelegatesWithoutChangingSetupParsers"}
+{"Time":"2026-11-03T19:57:46.725577+02:00","Action":"output","Package":"pentagi/pkg/providers","Test":"TestGovernancePromptsReachDelegatesWithoutChangingSetupParsers","Output":"=== RUN   TestGovernancePromptsReachDelegatesWithoutChangingSetupParsers\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:46.725577+02:00","Action":"output","Package":"pentagi/pkg/providers","Test":"TestGovernancePromptsReachDelegatesWithoutChangingSetupParsers","Output":"--- PASS: TestGovernancePromptsReachDelegatesWithoutChangingSetupParsers (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:46.725577+02:00","Action":"pass","Package":"pentagi/pkg/providers","Test":"TestGovernancePromptsReachDelegatesWithoutChangingSetupParsers","Elapsed":0}
+{"Time":"2026-11-03T19:57:46.725577+02:00","Action":"output","Package":"pentagi/pkg/providers","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:46.7371953+02:00","Action":"output","Package":"pentagi/pkg/providers","Output":"ok  \tpentagi/pkg/providers\t1.125s\n"}
+{"Time":"2026-11-03T19:57:46.7371953+02:00","Action":"pass","Package":"pentagi/pkg/providers","Elapsed":1.125}
+{"Time":"2026-11-03T19:57:46.8554039+02:00","Action":"run","Package":"pentagi/pkg/tools","Test":"TestGovernanceExternalRegistryCannotShadowMetadataHandlers"}
+{"Time":"2026-11-03T19:57:46.8554039+02:00","Action":"output","Package":"pentagi/pkg/tools","Test":"TestGovernanceExternalRegistryCannotShadowMetadataHandlers","Output":"=== RUN   TestGovernanceExternalRegistryCannotShadowMetadataHandlers\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:46.8554039+02:00","Action":"output","Package":"pentagi/pkg/tools","Test":"TestGovernanceExternalRegistryCannotShadowMetadataHandlers","Output":"--- PASS: TestGovernanceExternalRegistryCannotShadowMetadataHandlers (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:46.8554039+02:00","Action":"pass","Package":"pentagi/pkg/tools","Test":"TestGovernanceExternalRegistryCannotShadowMetadataHandlers","Elapsed":0}
+{"Time":"2026-11-03T19:57:46.8554039+02:00","Action":"run","Package":"pentagi/pkg/tools","Test":"TestGovernanceExecutorRefusesMissingActualAgentContext"}
+{"Time":"2026-11-03T19:57:46.8554039+02:00","Action":"output","Package":"pentagi/pkg/tools","Test":"TestGovernanceExecutorRefusesMissingActualAgentContext","Output":"=== RUN   TestGovernanceExecutorRefusesMissingActualAgentContext\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:46.8554039+02:00","Action":"output","Package":"pentagi/pkg/tools","Test":"TestGovernanceExecutorRefusesMissingActualAgentContext","Output":"--- PASS: TestGovernanceExecutorRefusesMissingActualAgentContext (0.00s)\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:46.8554039+02:00","Action":"pass","Package":"pentagi/pkg/tools","Test":"TestGovernanceExecutorRefusesMissingActualAgentContext","Elapsed":0}
+{"Time":"2026-11-03T19:57:46.8554039+02:00","Action":"run","Package":"pentagi/pkg/tools","Test":"TestGovernanceExecutorDispatchesApprovedHandlerOnceThenPropagatesTaint"}
+{"Time":"2026-11-03T19:57:46.8554039+02:00","Action":"output","Package":"pentagi/pkg/tools","Test":"TestGovernanceExecutorDispatchesApprovedHandlerOnceThenPropagatesTaint","Output":"=== RUN   TestGovernanceExecutorDispatchesApprovedHandlerOnceThenPropagatesTaint\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:46.8660876+02:00","Action":"output","Package":"pentagi/pkg/tools","Test":"TestGovernanceExecutorDispatchesApprovedHandlerOnceThenPropagatesTaint","Output":"--- PASS: TestGovernanceExecutorDispatchesApprovedHandlerOnceThenPropagatesTaint (0.01s)\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:46.8660876+02:00","Action":"pass","Package":"pentagi/pkg/tools","Test":"TestGovernanceExecutorDispatchesApprovedHandlerOnceThenPropagatesTaint","Elapsed":0.01}
+{"Time":"2026-11-03T19:57:46.8660876+02:00","Action":"output","Package":"pentagi/pkg/tools","Output":"PASS\n","OutputType":"frame"}
+{"Time":"2026-11-03T19:57:46.8728664+02:00","Action":"output","Package":"pentagi/pkg/tools","Output":"ok  \tpentagi/pkg/tools\t1.259s\n"}
+{"Time":"2026-11-03T19:57:46.8728664+02:00","Action":"pass","Package":"pentagi/pkg/tools","Elapsed":1.26}

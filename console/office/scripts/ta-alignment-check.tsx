@@ -4,6 +4,9 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { EngagementContextFields } from '../src/components/ui/EngagementContextFields';
 import { MitigationView } from '../src/components/ui/PlanningPanel';
 import { illustrativeDisclaimer, selectedPresentation, type MitigationReport, presentationFor } from '../src/components/ui/mitigationPresentation';
+import {replaceContextField,invalidContext} from '../src/components/ui/EngagementContextFields';
+import {sameEnteredContext} from '../src/components/ui/PlanningPanel';
+import {OrganizationProfile} from '../src/components/ui/OrganizationProfile';
 
 const recommendations = ['Harden input processing', 'Strengthen identity controls'].map((title, i) => ({
   id: `r${i}`, title, action: 'Review controls', evidence_basis: 'hypothetical_risk_plan',
@@ -23,6 +26,18 @@ const input = renderToStaticMarkup(<EngagementContextFields value={{ infrastruct
 assert.ok(input.includes('Zero policy weight'));
 assert.ok(input.includes('&lt;script&gt;') && !input.includes('<script>'));
 assert.equal((input.match(/<textarea/g) ?? []).length, 6);
+assert(!input.includes('maxLength=') && !input.includes('maxlength='));
+const longText='Company with '+('many employees and locations. '.repeat(20));
+const edited=replaceContextField({company_size:'sample',data_storage:'Original storage'},'company_size',longText);
+assert.equal(edited.company_size,longText);assert.equal(edited.data_storage,'Original storage');
+assert(!invalidContext(edited));assert(invalidContext({data_storage:'x'.repeat(12001)}));
+assert(sameEnteredContext({company_size:longText,data_storage:'  exact\nvalue  '},{data_storage:'  exact\nvalue  ',company_size:longText}));
+assert(!sameEnteredContext({company_size:longText},{company_size:longText.slice(0,120)}));
+const profile=renderToStaticMarkup(<OrganizationProfile value={edited} onFieldChange={()=>{}}/>);
+assert(profile.includes('Organization profile sections') && profile.includes('1/2 fields supplied') && profile.includes(longText));
+assert.equal((profile.match(/<textarea/g)??[]).length,2);
+assert(presentationFor({...recommendations[0],title:'Review authorization on customer and record APIs'}).frameworks.includes('Zero Trust'));
+assert(presentationFor({...recommendations[0],title:'Review vendor access to internal systems'}).frameworks.includes('Zero Trust'));
 console.log('TA presentation checks passed: selection totals/deduplication, framework tags, visible illustrative disclaimer, evidence basis and escaped six-field intake. SSR is not browser acceptance.');
 
 const partial = renderToStaticMarkup(<MitigationView report={{...report, assessment_completion: {

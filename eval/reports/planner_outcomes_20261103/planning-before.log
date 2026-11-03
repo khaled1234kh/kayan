@@ -1,0 +1,122 @@
+{
+  "checked_at": "2026-11-03T17:42:03.123309+00:00",
+  "dataset_sha256": "a7cdd8049521ff2310028944eef6f781de286f3bda19794b80105afb9b4cd1a2",
+  "pipeline": "Deterministic offline Phase 1 and Option A, not the Qwen multi-agent Planner",
+  "cases": [
+    {
+      "id": "fictional_ecommerce",
+      "risk_count": 3,
+      "references": [
+        "T1213.004",
+        "T1505.001",
+        "T1597.001"
+      ],
+      "risk_titles": [
+        "Risk 1: Customer Relationship Management Software",
+        "Risk 2: SQL Stored Procedures",
+        "Risk 3: Threat Intel Vendors"
+      ],
+      "recommendation_titles": [
+        "Review layered preventive and detective controls",
+        "Review layered preventive and detective controls",
+        "Review layered preventive and detective controls"
+      ],
+      "distinct_actions": 1,
+      "context_preserved": true,
+      "target_accessed": false,
+      "verified_findings": 0
+    },
+    {
+      "id": "fictional_clinic",
+      "risk_count": 3,
+      "references": [
+        "T1070.005",
+        "T1217",
+        "T1593.003"
+      ],
+      "risk_titles": [
+        "Risk 1: Network Share Connection Removal",
+        "Risk 2: Browser Information Discovery",
+        "Risk 3: Code Repositories"
+      ],
+      "recommendation_titles": [
+        "Reduce and monitor exposed services",
+        "Review layered preventive and detective controls",
+        "Review layered preventive and detective controls"
+      ],
+      "distinct_actions": 2,
+      "context_preserved": true,
+      "target_accessed": false,
+      "verified_findings": 0
+    },
+    {
+      "id": "fictional_manufacturing",
+      "risk_count": 3,
+      "references": [
+        "T1070.005",
+        "T1584.008",
+        "T1135"
+      ],
+      "risk_titles": [
+        "Risk 1: Network Share Connection Removal",
+        "Risk 2: Network Devices",
+        "Risk 3: Network Share Discovery"
+      ],
+      "recommendation_titles": [
+        "Reduce and monitor exposed services",
+        "Reduce and monitor exposed services",
+        "Reduce and monitor exposed services"
+      ],
+      "distinct_actions": 1,
+      "context_preserved": true,
+      "target_accessed": false,
+      "verified_findings": 0
+    },
+    {
+      "id": "insufficient_description",
+      "risk_count": 3,
+      "references": [
+        "T1609",
+        "T1593.001",
+        "T1651"
+      ],
+      "risk_titles": [
+        "Risk 1: Container Administration Command",
+        "Risk 2: Social Media",
+        "Risk 3: Cloud Administration Command"
+      ],
+      "recommendation_titles": [
+        "Review layered preventive and detective controls",
+        "Review layered preventive and detective controls",
+        "Review layered preventive and detective controls"
+      ],
+      "distinct_actions": 1,
+      "context_preserved": true,
+      "target_accessed": false,
+      "verified_findings": 0
+    },
+    {
+      "id": "explicit_absence",
+      "risk_count": 3,
+      "references": [
+        "T1530",
+        "T1619",
+        "T1505.001"
+      ],
+      "risk_titles": [
+        "Risk 1: Data from Cloud Storage",
+        "Risk 2: Cloud Storage Object Discovery",
+        "Risk 3: SQL Stored Procedures"
+      ],
+      "recommendation_titles": [
+        "Protect stored data",
+        "Protect stored data",
+        "Review layered preventive and detective controls"
+      ],
+      "distinct_actions": 2,
+      "context_preserved": true,
+      "target_accessed": false,
+      "verified_findings": 0
+    }
+  ]
+}

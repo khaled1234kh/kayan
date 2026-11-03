@@ -1,0 +1,23 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\khale\Downloads\kayan-trustgate\eval\planner_live_acceptance.py", line 125, in <module>
+    asyncio.run(run(args.label))
+  File "C:\Users\khale\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\khale\AppData\Local\Programs\Python\Python312\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\khale\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\khale\Downloads\kayan-trustgate\eval\planner_live_acceptance.py", line 49, in run
+    live=await check(True,label=label)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\khale\Downloads\kayan-trustgate\eval\live_runtime_check.py", line 36, in check
+    request.raise_for_status()
+  File "C:\Users\khale\AppData\Local\Programs\Python\Python312\Lib\site-packages\httpx\_models.py", line 761, in raise_for_status
+    raise HTTPStatusError(message, request=request, response=self)
+httpx.HTTPStatusError: Server error '503 Service Unavailable' for url 'http://127.0.0.1:8001/engagement/start'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503
