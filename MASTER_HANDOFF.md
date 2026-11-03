@@ -18,6 +18,8 @@ Actual rendered browser checks covered the Planner coverage disclosure, accurate
 
 **Next concrete task:** retry the three Go groups via the normal consolidated command only after the host permits their ordinary executables. The new implementation/rendered/delivery tasks are complete, but that revalidation remains unchecked. Do not change security protections or describe today's full profile as green. Current UI holds final 035e7ee6...; screenshot/export checks used separately preserved v2 28490c2e... . The original 7da73508... recordings/PDF remain dated historical evidence.
 
+Publication follow-up: implementation/evidence are committed locally as **e90298973b8ea75a84204a0bc50ef3eb1ce8093b**. The push is currently waiting in Git Credential Manager's “Select an account” dialog; the agent requested the user's account selection and has not operated that authentication dialog. Until remote verification succeeds, publication remains unchecked in TODO.md. The previous remote main observed this pass was 28e5b3a... . Finish that publication before treating this pass as delivered.
+
 ## Latest verified delivery — final retry, 2026-11-02
 
 **17/17 consolidated checks passed:** 84 Python tests (27 retained warnings), 28 Rust tests, 15 top-level focused Go boundary tests plus the no-embedding case, 9 adversarial cases, production build and ten frontend scripts. Three actual shared-Qwen assessments each returned **2 findings / 29 allowed / 1 denied**. Final engagement: **51bba207-f4eb-4ff5-9228-92566ae06377**, with Planner active through specialists/Reporting and completed last; no specialist tools were dispatched by Planner.
