@@ -55,7 +55,7 @@ sharing_pdf=ROOT/'output/pdf/KAYAN_Evidence_Presentation.pdf'
 if sharing_pdf.is_file():
     shutil.copyfile(sharing_pdf,DEST/'presentation.pdf')
     page=page.replace('<a class="button" href="/review/proposal.pdf" target="_blank">Open proposal PDF</a>',
-        '<a class="button" href="/review/presentation.pdf" target="_blank">Sharing PDF with video links</a><a href="/review/proposal.pdf" target="_blank">Original proposal</a>')
+        '<a class="button" href="/review/presentation.pdf" target="_blank">Sharing PDF with video links</a><a href="/review/proposal.pdf" target="_blank">Updated project proposal</a>')
 (PUBLIC/'review.html').write_bytes(page.encode('utf-8'))
 manifest={'prepared_at_utc':datetime.now(timezone.utc).isoformat(),'new_engagement_started':False,'rehearsal_source':recovery,
     'artifacts':[{ 'file':name,'bytes':(DEST/name).stat().st_size,'sha256':value} for name,value in expected.items()]}

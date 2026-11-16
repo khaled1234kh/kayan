@@ -14,7 +14,12 @@
     7,
     8
   ],
-  "pdf_sha256": "e8c6b0e711f2ceadbdadc501a525e66772164c5a35cc0a87a04628af49b49a59",
-  "source_sha256": "ddd7ee1f017be418b542e7a951b0e9a11e150e9ea1893a643f940b7eb8585e35",
-  "project_consolidation": "Paused at user instruction; PDF is current priority."
+  "pdf_sha256": "1bc5e0707a6c7d1d9283ae82be9e7a1a97650eef813f439981a3a4e5973928fe",
+  "source_sha256": "fd4d77328e01001974395a663ff2603e38f2767af3277875e3c9194a71cf0f97",
+  "revision_date": "2026-11-16",
+  "verified_https_links": [
+    "https://drive.google.com/file/d/1SRUVpJtSssnN1zlT0g4Z_ZI4jXg3xfNb/view?usp=sharing",
+    "https://drive.google.com/file/d/1cBt1aRcKtT3EulSUwK-y9ayTv1UNfWkJ/view?usp=sharing",
+    "https://github.com/khaled1234kh/kayan/blob/main/docs/RESEARCH_UPDATE.md"
+  ]
 }

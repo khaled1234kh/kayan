@@ -27,8 +27,9 @@ CELL=ParagraphStyle('Cell',parent=SMALL,fontSize=8.5,leading=11.3,spaceAfter=0)
 
 def inline(text):
     text=text.replace('\u2014',' - ').replace('\u2013','-').replace('\u2011','-').replace('\u00a0',' ').replace('\u2192',' to ')
-    text=re.sub(r'\[([^]]+)\]\([^)]+\)',r'\1',text)
     text=html.escape(text)
+    text=re.sub(r'\[([^]]+)\]\(([^)]+)\)',lambda m:
+        f'<link href="{m[2]}" color="#237A72">{m[1]}</link>' if m[2].startswith('https://') else m[1],text)
     text=re.sub(r'\*\*(.*?)\*\*',r'<b>\1</b>',text)
     text=re.sub(r'`([^`]+)`',r'<font name="Helvetica">\1</font>',text)
     return text
@@ -77,7 +78,7 @@ class Architecture(Flowable):
     def draw(self):
         c=self.canv;w=self.width;bw=(w-32)/3;bh=37
         boxes=[(0,96,'Signed ROE','Scope, roles and expiry'),(bw+16,96,'Rust / Cedar gate','ALLOW / DENY'),(2*(bw+16),96,'Audit trail','Hash chain + HMAC'),
-               (0,33,'Shared Qwen','Planner + four specialists'),(bw+16,33,'Bounded tools','Independent reproduction'),(2*(bw+16),33,'Owned lab','127.0.0.1:8888')]
+               (0,33,'Python coordinator','Uses shared local Qwen'),(bw+16,33,'Bounded tools','Independent reproduction'),(2*(bw+16),33,'Owned lab','Local test environment')]
         for x,y,title,sub in boxes:
             c.setFillColor(MINT);c.setStrokeColor(GREEN);c.roundRect(x,y,bw,bh,5,fill=1,stroke=1)
             c.setFillColor(NAVY);c.setFont('Helvetica-Bold',9);c.drawCentredString(x+bw/2,y+22,title)
@@ -96,11 +97,12 @@ class Architecture(Flowable):
 def chrome(c,doc):
     c.saveState();c.setStrokeColor(colors.HexColor('#C4D4D0'));c.line(16*mm,A4[1]-13*mm,A4[0]-16*mm,A4[1]-13*mm)
     c.setFont('Helvetica-Bold',7.3);c.setFillColor(GREEN);c.drawString(16*mm,A4[1]-11*mm,'KAYAN TRUSTGATE  /  CYBERSECURITY PROJECT PROPOSAL')
-    c.setFont('Georgia',7.4);c.setFillColor(colors.HexColor('#66757D'));c.drawString(16*mm,9*mm,'TA review  |  1 November 2026')
+    c.setFont('Georgia',7.4);c.setFillColor(colors.HexColor('#66757D'));c.drawString(16*mm,9*mm,'Revised  |  16 November 2026')
     c.drawRightString(A4[0]-16*mm,9*mm,f'KAYAN  |  {doc.page}');c.restoreState()
 
 def build():
     students=json.loads((ROOT/'docs/proposal/students.json').read_text())
+    videos=json.loads((ROOT/'docs/proposal/video_links.json').read_text())
     text=(ROOT/'docs/TA_PROPOSAL_REPORT.md').read_text(encoding='utf-8')
     sections=re.split(r'^## (\d\. .+)$',text,flags=re.M)
     assert len(sections)==13
@@ -128,16 +130,18 @@ def build():
         ['Red / Blue Team structure','Recon, Web-App, Network = Red; Reporting = Blue; Planner coordinates.','Implemented'],
         ['Base and distinct helper model','One shared Qwen model with role-specific contracts; no separate helper model.','Design substitution'],
         ['Six organization/context inputs','Six optional descriptive fields; zero policy weight. Signed scope remains separate.','Implemented'],
-        ['Phase 1 Risk Plan','Offline TF-IDF hypotheses, up to three risks, uncertainty and references.','Implemented'],
+        ['Phase 1 Risk Plan','Offline scenario rules, source excerpts, assumptions and framework references.','Implemented'],
         ['Option A - direct mitigation','Reporting consumes hypotheses; no target testing, zero verified findings.','Implemented'],
         ['Option B - pentest to mitigation','Governed live testing, independently reproduced findings, shared mitigation shape.','Implemented'],
         ['Strategic frameworks / dynamic cost','Defense in Depth / Zero Trust filters; additive illustrative points and selection export.','Bounded implementation'],
         ['LLM training-time comparison','No fine-tuning experiment. Pretrained-model retrieval grounding evaluated off/on. No time figure or winner invented.','Methodology substitution'],
-        ['Combined ATT&CK + OWASP approach','Both are included in the pinned local retrieval index. No demonstrated grounding gain.','Implemented; negative/equal outcome'],
+        ['Combined ATT&CK + OWASP approach','Both are included in the pinned local index. Live grounding regressed in v1 and tied in v2.','Implemented; live results retained'],
         ['Blue Team task allocation','Reporting owns mitigation synthesis in both Phase 2 paths.','Resolved']]
     story.extend([table(rows,[WIDTH*.24,WIDTH*.57,WIDTH*.19]),Spacer(1,12),
         callout('EVIDENCE BOUNDARY','Original v1 grounding regressed; v2 off/on outcomes were equal. Reproduction, legacy evidence precision and five-label lab coverage are separate metrics. No classification-accuracy or mitigation-effectiveness claim is made.'),Spacer(1,12),
         p('Evidence guide',H2),p('Canonical project documents: TA_PROPOSAL_REPORT.md; TA_DELIVERABLES_ALIGNMENT.md; CLOSURE_EVIDENCE_REVIEW_2026-11-01.md; TA_MEETING_READINESS_2026-11-01.md. Recorded experiments: live_grounding_comparison.md; live_grounding_comparison_v2_bounded_retry.md; pentagi_go_comparison_2026-11-01.md. These are dated evidence records, not newly rerun comparisons.',SMALL)])
+    story.append(p(f'[Research update](https://github.com/khaled1234kh/kayan/blob/main/docs/RESEARCH_UPDATE.md)  |  '
+        f'[Three-path demo]({videos["three_path"]["url"]})  |  [Recorded rehearsal]({videos["rehearsal"]["url"]})',SMALL))
     OUT.parent.mkdir(parents=True,exist_ok=True)
     doc=SimpleDocTemplate(str(OUT),pagesize=A4,rightMargin=16*mm,leftMargin=16*mm,topMargin=22*mm,bottomMargin=18*mm,
         title='KAYAN TrustGate - Project Proposal',author='; '.join(s['name'] for s in students),subject='TA deliverables and verified implementation')
