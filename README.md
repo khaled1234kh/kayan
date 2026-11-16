@@ -108,12 +108,13 @@ Five earlier fictional offline before/after cases preserve organization-specific
 
 ## Scope and honest limits
 
-**No grounding improvement was demonstrated. Preserve this failure.** The original regression and later comparisons remain in the evidence; retrieval combines ATT&CK and OWASP without a claimed accuracy advantage. Fine-tuning and a separate helper inference model are documented design substitutions, not completed training experiments.
+**No grounding improvement was demonstrated in the live lab.** The original regression and the later tie remain in the evidence. The separate offline study measured ATT&CK mapping on authored records. Fine-tuning and a separate helper inference model were outside these experiments.
 
 Python is the primary demo engine. The vendored Go/PentAGI work is a scoped enforcement evaluation, not a completed autonomous runtime replacement. Production identity/isolation, immutable audit storage, development-key hardening and completion-triggered ROE revocation remain disclosed limits. Earlier Windows execution failures are preserved; the final normal build/start succeeded without weakening protections. No universal visual, security or performance guarantee is claimed.
 
 ## Project guide
 
+- [Research update, benchmark results and proposed cloud architecture](docs/RESEARCH_UPDATE.md)
 - [Architecture and Red/Blue allocation](docs/ARCHITECTURE.md)
 - [TA deliverables mapping](docs/TA_DELIVERABLES_ALIGNMENT.md)
 - [Current UI/office acceptance](docs/UI_OFFICE_ACCEPTANCE_2026-11-03.md)
