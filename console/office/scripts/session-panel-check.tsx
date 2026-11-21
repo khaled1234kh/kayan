@@ -6,7 +6,7 @@ import { SEED_ACTORS } from '../src/data/actors';
 import type { TrustGateTranscriptEntry } from '../src/types/trustgate';
 import { agentDecision } from '../src/security/agentDecision';
 import { TrustGatePanel } from '../src/components/ui/Panels';
-import { AdditionalVerifiedActions, ReportEvidence, ReportExecutionDetails, ReportSummaryCoverage, readSavedReport } from '../src/components/ui/ArchivedReport';
+import { AdditionalVerifiedActions, AuditCountsView, ReportEvidence, ReportExecutionDetails, ReportSummaryCoverage, readSavedReport } from '../src/components/ui/ArchivedReport';
 
 const actor = { ...SEED_ACTORS.find((a) => a.id === 'ai-sales')!, modelTier: 'A' as const,
   backendAgentId: 'webapp1', engagementId: 'eng1', currentTask: 'sql_injection_test', state: 'working' as const };
@@ -152,3 +152,12 @@ assert(additionalActions.includes('event-a') && additionalActions.includes('Exac
 assert(!additionalActions.includes('event-b') && !additionalActions.includes('Outcome only'));
 assert.equal(renderToStaticMarkup(<AdditionalVerifiedActions report={{ findings: [archivedFinding] }} />), '');
 console.log('PASS verified action disclosure only resolves same-occurrence mechanic evidence');
+
+const auditCounts = renderToStaticMarkup(<AuditCountsView counts={{
+  verified: 1, missing_entry: 3, ledger_invalid: 2, unavailable: 1,
+}} />);
+assert(auditCounts.includes('Match in verified ledger · 1'));
+assert(auditCounts.includes('No matching audit entry · 3'));
+assert(auditCounts.includes('Ledger verification failed · 2') && auditCounts.includes('Audit service unavailable · 1'));
+assert(renderToStaticMarkup(<AuditCountsView counts={{}} />).includes('No captured decisions to check.'));
+console.log('PASS archive audit view distinguishes confirmed, missing, invalid and unavailable audit evidence');

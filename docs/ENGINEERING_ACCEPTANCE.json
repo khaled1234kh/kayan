@@ -210,6 +210,15 @@
       "evidence": "Five stale publication cases and six contradictory authorization cases were reproduced and rejected after the corrections. Current local retries and unaffected capture controls passed. A completely independent audit cross-check remains open."
     },
     {
+      "id": "security.reporting_audit_reconciliation",
+      "requirement": "Corroborate captured authorization decisions against TrustGate's verified ledger without changing case admission or releasing raw audit arguments.",
+      "implementation": ["trustgate/service/src/main.rs", "trustgate/service/src/audit.rs", "console/backend/reporting_audit.py", "console/backend/reporting_api.py", "console/office/src/components/ui/ArchivedReport.tsx"],
+      "verification": ["tests/test_reporting_audit.py", "docs/REUSABLE_REPORTING.md#trustgate-audit-reconciliation"],
+      "metrics": ["exact scoped decision matches", "missing and unavailable references", "invalid journal rejection", "audit journal entry count"],
+      "status": "verified_operational",
+      "evidence": "Actual cross-runtime loopback smoke found one matching denial and one missing reference with one journal entry before and after. The rendered mock kept audit outcomes separate from custody. No data left the loopback check."
+    },
+    {
       "id": "reliability.system",
       "requirement": "Exercise restart recovery, concurrency, cancellation, provider outage, egress restrictions and audit integrity across relevant Python, Go, Rust and frontend suites.",
       "implementation": ["console/backend/session_store.py", "console/backend/reporting_api.py", "trustgate/service", "console/office"],

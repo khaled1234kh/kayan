@@ -5,6 +5,7 @@ import { EvidenceReview } from './EvidenceReview';
 type Mode = 'local' | 'sovereigneg';
 type Assessment = { title: string; assessment_id: string };
 type Archive = Assessment & {
+  source_sha256: string;
   cloud_available: boolean;
   cloud_selection_supported?: boolean;
   source_status?: string;
@@ -15,6 +16,7 @@ type Archive = Assessment & {
   coverage: {
     recorded_tools?: number;
     captured_tools?: number;
+    invalid_sources?: number;
     failed_tools?: number;
     truncated_tools?: number;
     specialists?: { role: string; complete: boolean; status: string; stop_reason?: string }[];
@@ -70,6 +72,63 @@ type Report = {
 
 const endpoint = `${apiUrl.replace(/\/$/, '')}/reporting/archive`;
 const metricNumber = new Intl.NumberFormat('en', { maximumFractionDigits: 3 });
+
+const auditStatusLabels = {
+  verified: 'Match in verified ledger',
+  mismatch: 'Decision details differ',
+  missing_entry: 'No matching audit entry',
+  ledger_invalid: 'Ledger verification failed',
+  unavailable: 'Audit service unavailable',
+  missing_reference: 'Missing audit reference',
+  reused_reference: 'Reused audit reference',
+  invalid_source: 'Invalid capture',
+} as const;
+type AuditCounts = Partial<Record<keyof typeof auditStatusLabels, number>>;
+
+export function AuditCountsView({ counts }: { counts: AuditCounts }) {
+  const rows = Object.entries(auditStatusLabels).flatMap(([key, label]) => {
+    const count = counts[key as keyof AuditCounts];
+    return count ? [{ key, label, count }] : [];
+  });
+  return <div role="status">
+    {rows.length ? <ul aria-label="Audit decision reconciliation">
+      {rows.map(({ key, label, count }) => <li key={key}>{label} · {count}</li>)}
+    </ul> : <p>No captured decisions to check.</p>}
+  </div>;
+}
+
+function ArchiveAuditCheck({ assessmentId, sourceSha }: { assessmentId: string; sourceSha: string }) {
+  const [counts, setCounts] = useState<AuditCounts>();
+  const [checking, setChecking] = useState(false);
+  const [error, setError] = useState('');
+
+  async function check() {
+    setChecking(true);
+    setCounts(undefined);
+    setError('');
+    try {
+      const response = await fetch(`${endpoint}/audit?assessment_id=${encodeURIComponent(assessmentId)}`, { cache: 'no-store' });
+      if (!response.ok) throw new Error('Audit check unavailable. Try again.');
+      const result: { assessment_id: string; source_sha256: string; counts: AuditCounts } = await response.json();
+      if (result.assessment_id !== assessmentId || result.source_sha256 !== sourceSha) {
+        throw new Error('Evidence changed. Reopen this archive before checking again.');
+      }
+      setCounts(result.counts);
+    } catch (failure) {
+      setError(failure instanceof Error ? failure.message : 'Audit check unavailable. Try again.');
+    } finally {
+      setChecking(false);
+    }
+  }
+
+  return <>
+    <button className="btn" type="button" disabled={checking} onClick={() => void check()}>
+      {checking ? 'Checking audit references…' : 'Check TrustGate audit'}
+    </button>
+    {error && <p role="alert">{error}</p>}
+    {counts && <AuditCountsView counts={counts} />}
+  </>;
+}
 
 export async function readSavedReport(response: Response) {
   if (!response.ok) {
@@ -305,6 +364,8 @@ function AssessmentReport({ assessmentId, open, onPending }: {
             {specialistName[item.role]} · {item.complete ? 'complete' : item.status === 'unavailable' ? 'coverage not recorded' : 'incomplete'}
             {item.stop_reason && <span> · {item.stop_reason.replace(/_/g, ' ')}</span>}
           </li>)}</ul>
+          {Boolean(archive.coverage.captured_tools || archive.coverage.invalid_sources) &&
+            <ArchiveAuditCheck key={archive.source_sha256} assessmentId={assessmentId} sourceSha={archive.source_sha256} />}
         </details>
         {archive.verification !== 'fixture_custody' && <>
           <ol aria-label="Evidence review progress">

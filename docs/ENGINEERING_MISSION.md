@@ -45,4 +45,6 @@ Saved Reporting results now recheck their archive identity, finding decisions, c
 
 Reporting now rejects archive changes across awaited write, inference and response boundaries. Passive capture also rejects late or wrong-agent contradictions in authorization history. Five stale publication cases and six capture defects reproduced before the correction. [Verification and scope](REUSABLE_REPORTING.md#publication-and-capture-consistency)
 
-Next, implement a read-only reconciliation of captured decision references with TrustGate's independently verified audit ledger. Match the engagement, agent, role, tool, target and verdict. Report missing or unavailable audit evidence explicitly.
+Archived Reporting can reconcile captured decisions through the Rust ledger without granting new authority or changing custody. Rust verifies and selects entries under one read lock. The client matches case, actor, role, tool, target and verdict. The real Rust-to-Python smoke observed one match and one missing reference, and the browser mock displayed both alongside missing custody. [Verification and limits](REUSABLE_REPORTING.md#trustgate-audit-reconciliation)
+
+Next, exercise a persisted signed-custody archive and its read-only audit check across an isolated TrustGate restart. Verify that corrupt or unavailable audit history stays distinguishable from valid custody and that historical report bytes remain intact.

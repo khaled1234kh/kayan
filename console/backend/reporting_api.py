@@ -18,6 +18,7 @@ from pydantic import BaseModel, ConfigDict
 from ai.config import load_config, require_api_key
 from ai.providers.reporting_sovereign import DESTINATION, MODEL, OUTPUT_TOKENS, ReportingSovereignProvider
 from ai.trustgate.client import AITrustGate
+from console.backend.reporting_audit import reconcile
 from pentagi.agents.archived_reporting import compose, request_for, review_archive, verify_saved_presentation
 
 Mode = Literal["local", "sovereigneg"]
@@ -69,7 +70,8 @@ def _report_response(body, *, expected_sha256=None, filename=None):
 
 def install_reporting_api(app, *, load_archive=review_archive, output=RESULTS,
                           make_gate=AITrustGate, make_provider=ReportingSovereignProvider,
-                          approved_scope=None, catalog=None, supplement_actions=True):
+                          approved_scope=None, catalog=None, supplement_actions=True,
+                          reconcile_audit=reconcile):
     lock = asyncio.Lock()
 
     def guard_loopback(request):
@@ -134,6 +136,7 @@ def install_reporting_api(app, *, load_archive=review_archive, output=RESULTS,
         report, prepared = archive_inputs(assessment_id)
         digest = prepared[2] if prepared else None
         return {"assessment_id": report["assessment_id"], "title": report["title"],
+                "source_sha256": report["source_sha256"],
                 "request_sha256": digest, "cloud_model": MODEL,
                 "verification": report.get("verification", "fixture_custody"),
                 "coverage": report.get("coverage", {}),
@@ -177,6 +180,19 @@ def install_reporting_api(app, *, load_archive=review_archive, output=RESULTS,
             raise HTTPException(409, INVALID_REPORT) from None
         filename = f'{report["assessment_id"]}-{mode}.json' if download else None
         return _report_response(body, expected_sha256=expected_sha256, filename=filename)
+
+    @app.get("/reporting/archive/audit")
+    def archived_audit(request: Request, assessment_id: str):
+        guard_loopback(request)
+        if catalog is None:
+            raise HTTPException(404, "No captured assessment audit evidence")
+        try:
+            snapshot, source_sha = catalog.review_inputs(assessment_id)
+        except LookupError:
+            raise HTTPException(404, "No captured assessment audit evidence") from None
+        except (OSError, ValueError):
+            raise HTTPException(409, "Captured assessment evidence failed verification") from None
+        return reconcile_audit(snapshot, source_sha, catalog.source_store)
 
     @app.post("/reporting/archive/run")
     async def run_archived_reporting(request: Request, payload: ReportRequest):

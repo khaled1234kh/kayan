@@ -4,7 +4,7 @@ use hex;
 use hmac::{Hmac, KeyInit, Mac};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 use std::fs::OpenOptions;
 use std::io::{BufRead, BufReader, Write};
 use std::path::Path;
@@ -18,6 +18,17 @@ pub struct AuditLog {
     // Original payload order is needed to verify pre-canonicalization records.
     persisted_payloads: Vec<serde_json::Value>,
     load_error: Option<(usize, String)>,
+}
+
+#[derive(Serialize)]
+pub struct DecisionReference {
+    pub entry_id: String,
+    pub engagement_id: String,
+    pub agent_id: String,
+    pub agent_role: String,
+    pub tool_name: String,
+    pub target: String,
+    pub decision: String,
 }
 
 #[cfg(test)]
@@ -350,6 +361,30 @@ impl AuditLog {
 
     pub fn entry_count(&self) -> usize {
         self.entries.len()
+    }
+
+    pub fn decision_references(&self, engagement_id: &str, ids: &HashSet<&str>) -> Vec<DecisionReference> {
+        let mut found = HashMap::new();
+        for entry in &self.entries {
+            let id = entry.entry_id.as_str();
+            if ids.contains(id) {
+                // An ambiguous ledger identity cannot corroborate any capture.
+                found.entry(id).and_modify(|match_| *match_ = None).or_insert(Some(entry));
+            }
+        }
+        let mut result: Vec<_> = found.into_values().flatten()
+            .filter(|entry| entry.engagement_id == engagement_id)
+            .map(|entry| DecisionReference {
+                entry_id: entry.entry_id.clone(),
+                engagement_id: entry.engagement_id.clone(),
+                agent_id: entry.agent_id.clone(),
+                agent_role: entry.agent_role.clone(),
+                tool_name: entry.tool_name.clone(),
+                target: entry.target.clone(),
+                decision: entry.decision.clone(),
+            }).collect();
+        result.sort_unstable_by(|left, right| left.entry_id.cmp(&right.entry_id));
+        result
     }
 
     pub fn verify_chain(&self) -> (bool, Option<usize>, String) {
