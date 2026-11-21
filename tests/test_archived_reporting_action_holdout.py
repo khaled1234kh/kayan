@@ -62,6 +62,7 @@ def test_production_supplement_matches_frozen_holdout_and_marks_only_additions()
         selection = json.loads(row["raw_reply"])["message"]["content"]
         expected, added = add_observed_actions(report, selection)
         actual = compose(report, selection, supplement_actions=True)
+        extra = actual.pop("summary_additional_actions", [])
         original = compose(report, selection)
         assert actual["summary"][:len(original["summary"])] == original["summary"]
         assert len(actual["summary"]) <= 8
@@ -69,4 +70,6 @@ def test_production_supplement_matches_frozen_holdout_and_marks_only_additions()
         for item in actual["summary"][len(original["summary"]):]:
             assert item.pop("selection_origin") == "verified_action_supplement"
             assert "mechanic" in item["roles"]
+        coverage = actual["summary_coverage"]
+        assert len(extra) == coverage["admitted_occurrences"] - coverage["action_covered_occurrences"]
         assert actual == expected, row["id"]

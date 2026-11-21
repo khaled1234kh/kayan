@@ -39,4 +39,6 @@ The frozen action holdout compared seven real loopback replies in eight distinct
 
 Archived Reporting now appends verified action excerpts after a valid selection, labels each deterministic addition, and preserves the request digest and finding decisions. The 3D mock preview showed the action label and correct dispositions. The downloaded JSON matched the saved bytes. [Application check](ARCHIVED_REPORTING_ACTION_HOLDOUT.md#application-verification)
 
-Next, evaluate a deterministic policy for already-full summaries on separate frozen cases. Keep the current append-only policy as the baseline. Compare action coverage, excerpt preference and retention of model order before replacing any selected excerpt.
+The frozen full-summary comparison found that swapping references improved aggregate observed-action coverage from 9/50 to 16/50 and lost two preferred excerpts in one case. The application preserves the selected summary and discloses remaining verified actions separately, with exact occurrence-bound references in the export. The rendered mock check and byte-identical browser download passed. [Capacity results and application](ARCHIVED_REPORTING_FULL_SUMMARY.md)
+
+Next, verify that persisted archived report reads and exports still match the current verified archive and its presentation rules after restart or file corruption.

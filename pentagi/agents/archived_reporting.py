@@ -228,21 +228,18 @@ def request_for(report):
 def _missing_action_highlights(excerpts, selected):
     covered = {(row["technique"], row["occurrence"]) for row, source in selected
                if "mechanic" in source["roles"]}
-    additions = []
     for finding, source in excerpts:
-        if len(selected) + len(additions) >= MAX_HIGHLIGHTS:
-            break
         occurrence = finding["technique"], finding["occurrence"]
         if occurrence not in covered and "mechanic" in source["roles"]:
             covered.add(occurrence)
-            additions.append((finding, source))
-    return additions
+            yield finding, source
 
 
 def compose(report, selection=None, *, supplement_actions=False):
     repeats = repeated_techniques(report)
     excerpts, controls = _selection_options(report, bool(repeats))
     additions = []
+    additional_actions = []
     if selection is None:
         highlights = [(row, source) for row, source in excerpts.values() if "mechanic" in source["roles"]]
         actions = list(controls)
@@ -255,7 +252,13 @@ def compose(report, selection=None, *, supplement_actions=False):
             raise ValueError("Selection includes unsupported or duplicate references")
         highlights = [excerpts[key] for key in ids]
         if supplement_actions:
-            additions = _missing_action_highlights(excerpts.values(), highlights)
+            missing = list(_missing_action_highlights(excerpts.values(), highlights))
+            available = MAX_HIGHLIGHTS - len(highlights)
+            additions = missing[:available]
+            additional_actions = [
+                {"technique": row["technique"], "occurrence": row["occurrence"], "source_id": source["id"]}
+                for row, source in missing[available:]
+            ]
     visible = highlights + additions
     covered = {(row["technique"], row["occurrence"]) for row, _ in visible}
     action_covered = {(row["technique"], row["occurrence"]) for row, source in visible
@@ -271,6 +274,7 @@ def compose(report, selection=None, *, supplement_actions=False):
             "covered_occurrences": len(covered),
             "action_covered_occurrences": len(action_covered),
         },
+        **({"summary_additional_actions": additional_actions} if additional_actions else {}),
         "recommendations": [controls[key] for key in actions],
         "emphasis": emphasis,
     }

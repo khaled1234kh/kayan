@@ -6,7 +6,7 @@ import { SEED_ACTORS } from '../src/data/actors';
 import type { TrustGateTranscriptEntry } from '../src/types/trustgate';
 import { agentDecision } from '../src/security/agentDecision';
 import { TrustGatePanel } from '../src/components/ui/Panels';
-import { ReportEvidence, ReportExecutionDetails, ReportSummaryCoverage, readSavedReport } from '../src/components/ui/ArchivedReport';
+import { AdditionalVerifiedActions, ReportEvidence, ReportExecutionDetails, ReportSummaryCoverage, readSavedReport } from '../src/components/ui/ArchivedReport';
 
 const actor = { ...SEED_ACTORS.find((a) => a.id === 'ai-sales')!, modelTier: 'A' as const,
   backendAgentId: 'webapp1', engagementId: 'eng1', currentTask: 'sql_injection_test', state: 'working' as const };
@@ -132,3 +132,20 @@ assert(supplementedEvidence.includes('Observed action added by KAYAN'));
 assert(supplementedEvidence.includes('E2.1') && supplementedEvidence.includes('Exact source statement'));
 assert(!renderToStaticMarkup(<ReportEvidence source={observedAction} />).includes('added by KAYAN'));
 console.log('PASS Archived Reporting identifies deterministically appended action excerpts');
+
+const archivedFinding = { technique: 'T1486', title: 'Test finding', occurrence: 'event-a', sources: [
+  observedAction, { id: 'E2.2', roles: ['outcome'], statements: ['Outcome only'] },
+] };
+const additionalActions = renderToStaticMarkup(<AdditionalVerifiedActions report={{
+  findings: [archivedFinding],
+  summary_additional_actions: [
+    { technique: 'T1486', occurrence: 'event-a', source_id: 'E2.1' },
+    { technique: 'T1486', occurrence: 'event-b', source_id: 'E2.1' },
+    { technique: 'T1486', occurrence: 'event-a', source_id: 'E2.2' },
+  ],
+}} />);
+assert(additionalActions.includes('<summary>Other verified actions (1)</summary>'));
+assert(additionalActions.includes('event-a') && additionalActions.includes('Exact source statement'));
+assert(!additionalActions.includes('event-b') && !additionalActions.includes('Outcome only'));
+assert.equal(renderToStaticMarkup(<AdditionalVerifiedActions report={{ findings: [archivedFinding] }} />), '');
+console.log('PASS verified action disclosure only resolves same-occurrence mechanic evidence');

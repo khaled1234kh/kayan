@@ -50,6 +50,7 @@ type SummaryCoverage = {
   covered_occurrences: number;
   action_covered_occurrences: number;
 };
+type ActionReference = { technique: string; occurrence: string; source_id: string };
 type Report = {
   status: 'local' | 'selected' | 'degraded';
   provider: string | null;
@@ -62,6 +63,7 @@ type Report = {
   withheld: { technique: string; reasons: string[]; occurrence?: string; event_revision?: number }[];
   summary: SummarySource[];
   summary_coverage?: SummaryCoverage;
+  summary_additional_actions?: ActionReference[];
   recommendations: { id: string; text: string }[];
   limitation: string;
 };
@@ -117,6 +119,28 @@ export function ReportSummaryCoverage({ coverage }: { coverage?: SummaryCoverage
   return <p className="muted">
     Summary cites {cited} of {total} admitted occurrences. Observed-action excerpts cover {actions} of {total}.
   </p>;
+}
+
+export function AdditionalVerifiedActions({ report }: {
+  report: Pick<Report, 'findings' | 'summary_additional_actions'>;
+}) {
+  if (!report.summary_additional_actions?.length) return null;
+  const findings = new Map(report.findings.map(finding => [
+    JSON.stringify([finding.technique, finding.occurrence]), finding,
+  ]));
+  const actions = report.summary_additional_actions.flatMap(ref => {
+    const finding = findings.get(JSON.stringify([ref.technique, ref.occurrence]));
+    const source = finding?.sources.find(item => item.id === ref.source_id && item.roles.includes('mechanic'));
+    return source ? [{ ref, source }] : [];
+  });
+  if (!actions.length) return null;
+  return <details className="session-finding">
+    <summary>Other verified actions ({actions.length})</summary>
+    {actions.map(({ ref, source }) => <div key={JSON.stringify([ref.technique, ref.occurrence, ref.source_id])}>
+      <p className="muted">{ref.technique} · {ref.occurrence}</p>
+      <ReportEvidence source={source} />
+    </div>)}
+  </details>;
 }
 
 export function ArchivedReport() {
@@ -311,6 +335,7 @@ function AssessmentReport({ assessmentId, open, onPending }: {
           <ReportExecutionDetails report={report} />
           <h4>Executive summary</h4>
           <ReportSummaryCoverage coverage={report.summary_coverage} />
+          <AdditionalVerifiedActions report={report} />
           {report.summary.length ? report.summary.map(source =>
             <div key={`${source.technique}/${source.occurrence}/${source.id}`}>
               {source.occurrence && <p className="muted">{source.occurrence}</p>}

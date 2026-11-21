@@ -183,6 +183,15 @@
       "evidence": "The new presentation recovered both occurrences in the partial and weak-relevance mocked cases. A rendered desktop fixture showed the label and correct supported and withheld claims. The browser export matched the saved file. Summaries at capacity still cannot append an action."
     },
     {
+      "id": "reporting.capacity_and_preservation",
+      "requirement": "Preserve selected summaries at capacity while keeping remaining admitted actions accessible with exact occurrence and source references.",
+      "implementation": ["pentagi/agents/archived_reporting.py", "console/office/src/components/ui/ArchivedReport.tsx"],
+      "verification": ["tests/test_archived_reporting_full_summary.py", "docs/ARCHIVED_REPORTING_FULL_SUMMARY.md"],
+      "metrics": ["selected references and original order", "overflow action coverage", "withheld reference isolation", "exact download bytes"],
+      "status": "verified_automated",
+      "evidence": "A frozen six-case comparison rejected a swap policy because of a case-level preference loss. The rendered mock confirmed one action in the eight-excerpt summary and seven additional occurrence-bound actions. The ninth occurrence stayed withheld, and the download matched the saved bytes."
+    },
+    {
       "id": "reliability.system",
       "requirement": "Exercise restart recovery, concurrency, cancellation, provider outage, egress restrictions and audit integrity across relevant Python, Go, Rust and frontend suites.",
       "implementation": ["console/backend/session_store.py", "console/backend/reporting_api.py", "trustgate/service", "console/office"],
