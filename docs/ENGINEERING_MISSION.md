@@ -55,4 +55,6 @@ Archived Reporting now counts retained evidence per specialist. An exact replay 
 
 Signed Reporting now matches 7/7 frozen three-role cases, from 2/7 before the occurrence correction. Explicit, corroborated adverse review scope preserves valid siblings. Ambiguous scope keeps the broad veto. The combined run passed 293 tests, including real Rust restart coverage. [Synthetic proof and limits](REUSABLE_REPORTING.md#signed-finding-and-occurrence-attribution)
 
-Next, exercise signed receipt acceptance while the source revision changes between package validation and admission. Reproduce any mixed-revision verdict with an inert capture fixture and bind both checks to one evidence snapshot if needed.
+Signed Reporting now uses one snapshot for coverage and admission and checks the current source digest before adding a receipt. Two controlled source-update tests prevent mixed-revision reporting and stale receipt insertion. [Before and after checks](REUSABLE_REPORTING.md#signed-source-revision-consistency)
+
+Next, check whether a reviewer revision or enrollment change during signed receipt import can leave Reporting with a stale current receipt. Use deterministic test-only interleavings and preserve existing receipt bytes and independent admission.

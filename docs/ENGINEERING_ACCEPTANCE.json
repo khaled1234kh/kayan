@@ -36,7 +36,7 @@
       "verification": ["tests/test_tool_evidence.py", "tests/test_signed_reporting_exchange.py"],
       "metrics": ["tampered or misbound records rejected", "source capture completeness", "review and custody state recovery"],
       "status": "verified_automated",
-      "evidence": "Completed synthetic and saved loopback fixtures cover capture, receipt replay and restoration. Independent operational custody and reviewer enrollment are pending."
+      "evidence": "Completed synthetic and saved loopback fixtures cover capture, receipt replay and restoration. The signed-snapshot regression exercises one revision for admission and coverage and rejects an observed source change before adding a receipt. Independent operational custody and reviewer enrollment are pending."
     },
     {
       "id": "correctness.admission",

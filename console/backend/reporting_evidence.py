@@ -280,7 +280,7 @@ class ReportingCatalog:
             if snapshot.get("invalid_sources"):
                 raise ValueError("Source capture failed integrity checks")
             reviewed = (self._custody(snapshot, sha) if snapshot["version"] == VERSION
-                        else self.exchange.evaluate_current(assessment_id))
+                        else self.exchange.evaluate_current(assessment_id, (snapshot, sha)))
             verification = "independent_custody" if reviewed else "missing_custody"
         except (LookupError, TypeError, ValueError, OSError, ReceiptStoreError):
             reviewed = None

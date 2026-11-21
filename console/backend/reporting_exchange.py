@@ -97,11 +97,14 @@ class SignedExchange:
         return active
 
     def package(self, assessment_id):
-        snapshot, source_sha256 = self.catalog.review_inputs(assessment_id)
+        return self._package(assessment_id, self.catalog.review_inputs(assessment_id), enrolment())
+
+    def _package(self, assessment_id, evidence, people):
+        snapshot, source_sha256 = evidence
         captures = [row for row in snapshot["records"] if "artifact_sha256" in row]
         if snapshot.get("invalid_sources") or not captures:
             raise ValueError("No intact execution evidence is available for exchange")
-        active = self.reviews(assessment_id, source_sha256, enrolment())
+        active = self.reviews(assessment_id, source_sha256, people)
         reviews = {proof: review for group in active.values() for _, proof, review in group.values()}
         # Export only execution captures. Historical transcript output may include private data.
         payload = {"version": PACKAGE_VERSION, "assessment_id": assessment_id, "source_sha256": source_sha256,
@@ -121,7 +124,7 @@ class SignedExchange:
             row = self._head(db, assessment_id)
         return {"sequence": row[0], "receipt_sha256": row[1]} if row else None
 
-    def _evaluate(self, receipt):
+    def _evaluate(self, receipt, evidence=None):
         people = enrolment()
         signer = next((row for row in people.values() if row.get("key_id") == receipt.key_id), None)
         if (not signer or signer["role"] != "custodian" or not signer["active"]
@@ -139,7 +142,9 @@ class SignedExchange:
         except (InvalidSignature, ValueError) as exc:
             raise ValueError("Custody receipt signature is invalid") from exc
 
-        package, active = self.package(receipt.assessment_id)
+        if evidence is None:
+            evidence = self.catalog.review_inputs(receipt.assessment_id)
+        package, active = self._package(receipt.assessment_id, evidence, people)
         if receipt.package_sha256 != package["package_sha256"] or not active:
             raise ValueError("Custody receipt does not match current evidence and reviews")
         if signer["reviewer_id"].casefold() in {person.casefold() for person in active}:
@@ -158,7 +163,7 @@ class SignedExchange:
         if any(len(values) > 1 for values in dispositions.values()):
             raise ValueError("Reviewers disagree on at least one current assertion")
 
-        snapshot, source_sha256 = self.catalog.review_inputs(receipt.assessment_id)
+        snapshot, source_sha256 = evidence
         review_hashes = {row["sha256"] for row in package["package"]["reviews"]}
         if set(receipt.catalogue.get("review_receipt_sha256", ())) != review_hashes:
             raise ValueError("Catalogue does not bind the active reviewer decisions")
@@ -212,11 +217,14 @@ class SignedExchange:
             if (receipt.sequence != (previous[0] + 1 if previous else 1)
                     or receipt.previous_receipt_sha256 != (previous[1] if previous else None)):
                 raise ValueError("Receipt replay or invalid predecessor")
+            _, current_source = self.catalog.review_inputs(receipt.assessment_id)
+            if current_source != report["source_sha256"]:
+                raise ValueError("Evidence changed during custody import")
             db.execute("INSERT INTO receipts VALUES (?, ?, ?, ?)",
                        (receipt.assessment_id, receipt.sequence, proof, body))
         return {"receipt_sha256": proof, "sequence": receipt.sequence, "admission_status": report["admission_status"]}
 
-    def evaluate_current(self, assessment_id):
+    def evaluate_current(self, assessment_id, evidence):
         if not self.database.is_file():
             return None
         with self._connect() as db:
@@ -231,5 +239,5 @@ class SignedExchange:
                 or (sequence > 1 and previous is None)
                 or receipt.previous_receipt_sha256 != (previous[0] if previous else None)):
             raise ValueError("Stored receipt integrity or continuity check failed")
-        return {**self._evaluate(receipt), "report_revision": proof, "custody_receipt_sha256": proof}
+        return {**self._evaluate(receipt, evidence), "report_revision": proof, "custody_receipt_sha256": proof}
 

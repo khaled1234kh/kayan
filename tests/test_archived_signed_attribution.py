@@ -198,3 +198,84 @@ def test_invalid_occurrence_scope_cannot_create_a_review(setup, scope, dispositi
     })
     assert submitted.status_code == 422
     assert export(client)["package"]["reviews"] == []
+
+
+def test_reporting_binds_coverage_and_signed_admission_to_one_snapshot(setup, monkeypatch):
+    launch, key, people, provision, _ = setup
+    people[0]["reviewer_id"] = "synthetic-reviewer"
+    provision()
+    catalog, client = launch()
+    manifest, payloads, decisions, _ = signed_fixture(BY_ID["three_roles_bound"], catalog)
+    current = catalog.sessions.load(ID)
+    # Simulate a read that caught the completed session just before the last capture arrived.
+    catalog.sessions.save({**current, "transcript": current["transcript"][:-2]})
+    older = catalog.review_inputs(ID)
+    catalog.sessions.save(current)
+    newer = catalog.review_inputs(ID)
+    assert older[1] != newer[1]
+    assert len(older[0]["records"]) == 2 and len(newer[0]["records"]) == 3
+    submitted = client.post("/reporting/review", headers=REVIEW, json={
+        "assessment_id": ID, "source_sha256": newer[1], "assertions": decisions,
+    })
+    assert submitted.status_code == 200, submitted.text
+    package = export(client)
+    catalogue = catalogue_for(package["package"], manifest, payloads)
+    receipt = build_receipt(package, catalogue, "fixture-key", key).model_dump()
+    assert client.post("/reporting/custody/receipt", headers=CUSTODY, json=receipt).status_code == 201
+
+    reads = []
+
+    def read_across_capture(assessment_id):
+        assert assessment_id == ID
+        evidence = newer if reads else older
+        reads.append(evidence[1])
+        return evidence
+
+    with monkeypatch.context() as patch:
+        patch.setattr(catalog, "review_inputs", read_across_capture)
+        interrupted = catalog.load(ID)
+
+    observed = (
+        interrupted["source_sha256"], interrupted["coverage"]["captured_tools"],
+        interrupted["verification"], [row["occurrence"] for row in interrupted["findings"]],
+    )
+    assert observed == (older[1], 2, "invalid_custody", []), observed
+    assert reads == [older[1]]
+
+    restored, _ = launch()
+    consistent = restored.load(ID)
+    assert consistent["source_sha256"] == newer[1]
+    assert consistent["coverage"]["captured_tools"] == 3
+    assert consistent["verification"] == "independent_custody"
+    assert [row["occurrence"] for row in consistent["findings"]] == ["alpha"]
+
+
+def test_receipt_import_does_not_advance_head_after_source_changes(setup, monkeypatch):
+    launch, key, people, provision, _ = setup
+    people[0]["reviewer_id"] = "synthetic-reviewer"
+    provision()
+    catalog, client = launch()
+    manifest, payloads, decisions, _ = signed_fixture(BY_ID["three_roles_bound"], catalog)
+    signed_evidence = catalog.review_inputs(ID)
+    submitted = client.post("/reporting/review", headers=REVIEW, json={
+        "assessment_id": ID, "source_sha256": signed_evidence[1], "assertions": decisions,
+    })
+    assert submitted.status_code == 200, submitted.text
+    package = export(client)
+    catalogue = catalogue_for(package["package"], manifest, payloads)
+    receipt = build_receipt(package, catalogue, "fixture-key", key).model_dump()
+    read = catalog.review_inputs
+
+    def read_then_replace(assessment_id):
+        evidence = read(assessment_id)
+        if evidence[1] == signed_evidence[1]:
+            state = catalog.sessions.load(assessment_id)
+            catalog.sessions.save({**state, "transcript": state["transcript"][:-2]})
+        return evidence
+
+    monkeypatch.setattr(catalog, "review_inputs", read_then_replace)
+    response = client.post("/reporting/custody/receipt", headers=CUSTODY, json=receipt)
+    assert response.status_code == 409, response.text
+    assert response.json()["detail"] == "Evidence changed during custody import"
+    assert catalog.exchange.head(ID) is None
+    assert catalog.load(ID)["findings"] == []
