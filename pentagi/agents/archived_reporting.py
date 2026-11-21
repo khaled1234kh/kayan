@@ -238,11 +238,19 @@ def compose(report, selection=None):
                 or len(ids) != len(set(ids)) or len(actions) != len(set(actions))):
             raise ValueError("Selection includes unsupported or duplicate references")
         highlights = [excerpts[key] for key in ids]
+    covered = {(row["technique"], row["occurrence"]) for row, _ in highlights}
+    action_covered = {(row["technique"], row["occurrence"]) for row, source in highlights
+                      if "mechanic" in source["roles"]}
     return {
         **report,
         "summary": [{"technique": row["technique"], **source,
                      **({"occurrence": row["occurrence"]} if row["technique"] in repeats else {})}
                     for row, source in highlights],
+        "summary_coverage": {
+            "admitted_occurrences": len(report["findings"]),
+            "covered_occurrences": len(covered),
+            "action_covered_occurrences": len(action_covered),
+        },
         "recommendations": [controls[key] for key in actions],
         "emphasis": emphasis,
     }

@@ -147,6 +147,15 @@
       "evidence": "Mocked selections matched the indicated occurrence even with shared addresses. Duplicate JSON keys and invalid aliases failed. Custody or grant changes were refused before provider setup or before publication. Two app instances sharing the directory made one mock request. Real provider behavior remains unverified for the occurrence-aware format."
     },
     {
+      "id": "evaluation.reporting_selection_replay",
+      "requirement": "Measure authored Reporting selection relevance, ordering, fallback, coverage and finding integrity as distinct outcomes.",
+      "implementation": ["eval/archived_reporting_selection.py", "pentagi/agents/archived_reporting.py", "console/office/src/components/ui/ArchivedReport.tsx"],
+      "verification": ["tests/test_archived_reporting_selection.py", "console/office/scripts/session-panel-check.tsx", "docs/ARCHIVED_REPORTING_SELECTION_REPLAY.md"],
+      "metrics": ["desired reference precision and recall", "exact ordering and comparable pairs", "occurrence and action coverage", "fallback and exact export", "immutable findings"],
+      "status": "verified_automated",
+      "evidence": "All 14 synthetic replays matched the expected outcomes, with 7 selected, 6 local fallbacks and 1 blocked before any request. Admitted and withheld findings were identical in every case. New coverage fields explain partial and weakly relevant results. Browser visual verification and live model quality remain open."
+    },
+    {
       "id": "reliability.system",
       "requirement": "Exercise restart recovery, concurrency, cancellation, provider outage, egress restrictions and audit integrity across relevant Python, Go, Rust and frontend suites.",
       "implementation": ["console/backend/session_store.py", "console/backend/reporting_api.py", "trustgate/service", "console/office"],

@@ -40,6 +40,11 @@ const specialistName: Record<string, string> = {
   recon_agent: 'Recon', webapp_agent: 'Web-App', network_agent: 'Network',
 };
 type Source = { id: string; roles: string[]; statements: string[] };
+type SummaryCoverage = {
+  admitted_occurrences: number;
+  covered_occurrences: number;
+  action_covered_occurrences: number;
+};
 type Report = {
   status: 'local' | 'selected' | 'degraded';
   provider: string | null;
@@ -51,6 +56,7 @@ type Report = {
   findings: { technique: string; title: string; occurrence: string; sources: Source[] }[];
   withheld: { technique: string; reasons: string[]; occurrence?: string; event_revision?: number }[];
   summary: (Source & { technique?: string; occurrence?: string })[];
+  summary_coverage?: SummaryCoverage;
   recommendations: { id: string; text: string }[];
   limitation: string;
 };
@@ -96,6 +102,14 @@ function Evidence({ source }: { source: Source }) {
     <strong>{source.id}</strong> <span className="muted">{source.roles.join(' · ')}</span>
     {source.statements.map(statement => <p key={statement}>{statement}</p>)}
   </div>;
+}
+
+export function ReportSummaryCoverage({ coverage }: { coverage?: SummaryCoverage }) {
+  if (!coverage || coverage.admitted_occurrences === 0) return null;
+  const { admitted_occurrences: total, covered_occurrences: cited, action_covered_occurrences: actions } = coverage;
+  return <p className="muted">
+    Summary cites {cited} of {total} admitted occurrences. Observed-action excerpts cover {actions} of {total}.
+  </p>;
 }
 
 export function ArchivedReport() {
@@ -289,6 +303,7 @@ function AssessmentReport({ assessmentId, open, onPending }: {
           {report.notice && <p role="status">{report.notice}</p>}
           <ReportExecutionDetails report={report} />
           <h4>Executive summary</h4>
+          <ReportSummaryCoverage coverage={report.summary_coverage} />
           {report.summary.length ? report.summary.map(source =>
             <div key={`${source.technique}/${source.occurrence}/${source.id}`}>
               {source.occurrence && <p className="muted">{source.occurrence}</p>}

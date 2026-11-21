@@ -6,7 +6,7 @@ import { SEED_ACTORS } from '../src/data/actors';
 import type { TrustGateTranscriptEntry } from '../src/types/trustgate';
 import { agentDecision } from '../src/security/agentDecision';
 import { TrustGatePanel } from '../src/components/ui/Panels';
-import { ReportExecutionDetails, readSavedReport } from '../src/components/ui/ArchivedReport';
+import { ReportExecutionDetails, ReportSummaryCoverage, readSavedReport } from '../src/components/ui/ArchivedReport';
 
 const actor = { ...SEED_ACTORS.find((a) => a.id === 'ai-sales')!, modelTier: 'A' as const,
   backendAgentId: 'webapp1', engagementId: 'eng1', currentTask: 'sql_injection_test', state: 'working' as const };
@@ -107,3 +107,19 @@ assert.deepEqual(await readSavedReport(makeSavedResponse(`"${digest}"`)), { repo
 assert.equal((await readSavedReport(makeSavedResponse(`W/"${digest}"`))).digest, undefined);
 assert.equal((await readSavedReport(Response.json({ status: 'local' }))).digest, undefined);
 console.log('PASS saved Reporting response and exact export identity');
+
+const partialSummary = renderToStaticMarkup(<ReportSummaryCoverage coverage={{
+  admitted_occurrences: 2, covered_occurrences: 1, action_covered_occurrences: 1,
+}} />);
+assert(partialSummary.includes('Summary cites 1 of 2 admitted occurrences.'));
+assert(partialSummary.includes('Observed-action excerpts cover 1 of 2.'));
+const weakSummary = renderToStaticMarkup(<ReportSummaryCoverage coverage={{
+  admitted_occurrences: 2, covered_occurrences: 2, action_covered_occurrences: 0,
+}} />);
+assert(weakSummary.includes('Summary cites 2 of 2 admitted occurrences.'));
+assert(weakSummary.includes('Observed-action excerpts cover 0 of 2.'));
+assert.equal(renderToStaticMarkup(<ReportSummaryCoverage />), '');
+assert.equal(renderToStaticMarkup(<ReportSummaryCoverage coverage={{
+  admitted_occurrences: 0, covered_occurrences: 0, action_covered_occurrences: 0,
+}} />), '');
+console.log('PASS Archived Reporting distinguishes occurrence coverage and observed-action coverage');

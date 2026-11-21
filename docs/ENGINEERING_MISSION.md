@@ -31,4 +31,6 @@ The frozen Reporting projection benchmark measured nine archives. Baseline Repor
 
 The new occurrence-aware selection contract passed offline tests for exact aliases, malformed and withheld choices, approval and custody changes, and one-shot reservation across independently locked app instances. The pinned Slate request and prior projection output reproduced exactly. [Selection contract and limits](ARCHIVED_REPORTING.md#occurrence-aware-selection)
 
-Next, build a frozen replay set for Reporting selection with correct and incorrect ordering, unsupported choices and partial coverage. Measure selection fidelity and fallback separately from immutable findings and from live model accuracy.
+The frozen Reporting selection replay matched all 14 expected outcomes. Seven replies were accepted, six used exact local fallback, and one archive made no attempt. The console and export now show occurrence and observed-action coverage so readers can see partial or weakly relevant summaries. Relevance and ranking scores use authored preferences and do not measure model accuracy. [Replay results and reproduction](ARCHIVED_REPORTING_SELECTION_REPLAY.md)
+
+Next, compare the deterministic composer with an installed local model on a separately frozen synthetic Reporting ranking set. Pin the model and request parameters, preserve returned selections, and score relevance, ordering, coverage and fallback against the same oracle. Keep this separate from the authored transport replay and live cloud evaluation.

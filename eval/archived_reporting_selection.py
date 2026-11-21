@@ -141,8 +141,8 @@ def run_replays():
             "attempts": attempts,
             "findings_unchanged": result["findings"] == local["findings"] == original["findings"],
             "withheld_unchanged": result["withheld"] == local["withheld"] == original["withheld"],
-            "fallback_matches_local": (all(cloud[field] == local[field]
-                                            for field in ("summary", "recommendations", "emphasis"))
+            "fallback_matches_local": (all(cloud.get(field) == local.get(field)
+                                            for field in ("summary", "summary_coverage", "recommendations", "emphasis"))
                                        if cloud is not None and cloud["status"] == "degraded" else None),
             "export_matches": exported if cloud is not None else None,
             "local": selection_metrics(local, oracle),
