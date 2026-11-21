@@ -165,3 +165,101 @@ def test_conflict_and_source_tampering_fail_closed(setup):
     assert client.get("/reporting/custody/package", params={"assessment_id": ID}, headers=CUSTODY).status_code == 409
     assert catalog.load(ID)["source_status"] == "invalid_source"
 
+
+@pytest.mark.parametrize(("change", "denial"), [
+    ("review_revision", "Custody receipt does not match current evidence and reviews"),
+    ("reviewer_revocation", "A current review comes from an inactive or unassigned reviewer"),
+    ("custodian_revocation", "Custodian key is revoked or untrusted for this assessment"),
+    ("custodian_reassignment", "Custodian assignment changed during import"),
+    ("unrelated_enrollment", None),
+])
+def test_receipt_import_uses_current_reviews_and_assignments(setup, monkeypatch, change, denial):
+    launch, key, entries, provision, _ = setup
+    catalog, client = launch()
+    _, reviewer_client = launch()
+    initial_review = review(reviewer_client)
+    first = sign(client, key)
+    assert client.post("/reporting/custody/receipt", headers=CUSTODY, json=first).status_code == 201
+    head = catalog.exchange.head(ID)
+    successor = sign(client, key)
+    evaluate = catalog.exchange._evaluate
+
+    def evaluate_then_update(receipt):
+        result = evaluate(receipt)
+        if change == "review_revision":
+            saved = review(reviewer_client, disposition="contradicted")
+            assert saved["previous_review_sha256"] == initial_review["review_sha256"]
+        elif change == "reviewer_revocation":
+            entries[0]["active"] = False
+            provision()
+        elif change == "custodian_revocation":
+            entries[2]["active"] = False
+            provision()
+        elif change == "custodian_reassignment":
+            entries[2]["reviewer_id"] = "Another Test Custodian"
+            entries[2]["token_sha256"] = digest(b"another-custodian-test-only")
+            provision()
+        elif change == "unrelated_enrollment":
+            entries[1]["active"] = False
+            provision()
+        return result
+
+    with monkeypatch.context() as patch:
+        patch.setattr(catalog.exchange, "_evaluate", evaluate_then_update)
+        response = client.post("/reporting/custody/receipt", headers=CUSTODY, json=successor)
+
+    if denial:
+        assert response.status_code == 409, (change, response.text)
+        assert response.json()["detail"] == denial
+        assert catalog.exchange.head(ID) == head
+    else:
+        assert response.status_code == 201, (change, response.text)
+        assert catalog.exchange.head(ID)["sequence"] == head["sequence"] + 1
+    with catalog.exchange._connect() as db:
+        stored, = db.execute("SELECT body FROM receipts WHERE assessment = ? AND sequence = 1", (ID,)).fetchone()
+    assert stored == canonical(first)
+
+
+def test_review_publish_and_receipt_insert_share_the_sqlite_writer_lock(setup, monkeypatch):
+    launch, key, _, _, _ = setup
+    catalog, custodian_client = launch()
+    reviewer_catalog, reviewer_client = launch()
+    initial = review(reviewer_client)
+    receipt = sign(custodian_client, key)
+    revision = {
+        "assessment_id": ID, "source_sha256": initial["source_sha256"],
+        "previous_review_sha256": initial["review_sha256"],
+        "assertions": [{"source_id": TASK, "technique": "T1486", "role": "actor", "disposition": "contradicted"}],
+    }
+    open_connection = reviewer_catalog.exchange._connect
+
+    def no_wait():
+        connection = open_connection()
+        connection.execute("PRAGMA busy_timeout = 0")
+        return connection
+
+    validate_package = catalog.exchange._receipt_package
+    checks = []
+
+    def try_review_during_import(*args):
+        package = validate_package(*args)
+        checks.append(package[0]["package_sha256"])
+        if len(checks) == 2:
+            with monkeypatch.context() as patch:
+                patch.setattr(reviewer_catalog.exchange, "_connect", no_wait)
+                outcome = reviewer_client.post("/reporting/review", headers=REVIEW, json=revision)
+            assert outcome.status_code == 409, outcome.text
+            assert "Review history could not be updated" in outcome.json()["detail"]
+        return package
+
+    monkeypatch.setattr(catalog.exchange, "_receipt_package", try_review_during_import)
+    imported = custodian_client.post("/reporting/custody/receipt", headers=CUSTODY, json=receipt)
+    assert imported.status_code == 201, imported.text
+    assert checks == [receipt["package_sha256"]] * 2
+    assert catalog.load(ID)["verification"] == "independent_custody"
+    later = reviewer_client.post("/reporting/review", headers=REVIEW, json=revision)
+    assert later.status_code == 200, later.text
+    assert later.json()["revision"] == 2
+    assert catalog.exchange.head(ID)["sequence"] == 1
+    assert catalog.load(ID)["verification"] == "invalid_custody"
+

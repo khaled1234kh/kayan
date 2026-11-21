@@ -10,6 +10,8 @@ python -m console.backend.sign_reporting_receipt --package review.json --catalog
 
 An assigned custodian imports that JSON in the console. The receipt signature covers the canonical catalogue, canonical package digest, assessment ID, sequence and predecessor. The server rejects stale or conflicting reviews and rechecks the active enrollment and key whenever Reporting opens the receipt. The SQLite receipt history must be kept in trusted storage. It prevents replay against the current database and does not protect against an administrator restoring the entire database to an older backup.
 
+Review publication and receipt imports share the SQLite write lock. Before appending a receipt, the server rechecks the current package and authenticated custodian assignment. A review saved after a receipt can make that receipt stale without changing its bytes or removing its history. [Concurrency checks](REUSABLE_REPORTING.md#current-review-and-enrollment-at-receipt-import)
+
 An authenticated reviewer can send an optional `occurrence` in a contradicted or unresolved assertion to the review API. Use the exact occurrence identifier from the independently reviewed catalogue. The signed package commits to this field. Reporting narrows the adverse decision only if the verifier independently binds its source to that one occurrence. Otherwise the decision withholds every candidate for the technique. The review form still submits unscoped assertions. [Signed fixture verification](REUSABLE_REPORTING.md#signed-finding-and-occurrence-attribution)
 
 ## Enroll real people

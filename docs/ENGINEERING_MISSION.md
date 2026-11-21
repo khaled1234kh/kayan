@@ -57,4 +57,6 @@ Signed Reporting now matches 7/7 frozen three-role cases, from 2/7 before the oc
 
 Signed Reporting now uses one snapshot for coverage and admission and checks the current source digest before adding a receipt. Two controlled source-update tests prevent mixed-revision reporting and stale receipt insertion. [Before and after checks](REUSABLE_REPORTING.md#signed-source-revision-consistency)
 
-Next, check whether a reviewer revision or enrollment change during signed receipt import can leave Reporting with a stale current receipt. Use deterministic test-only interleavings and preserve existing receipt bytes and independent admission.
+Signed import now rechecks the active assertions and the current authenticated custodian assignment before receipt insertion. Review publication and receipt insertion share the SQLite writer lock. Four stale imports reproduced and now leave the existing head intact. [Concurrency and scope](REUSABLE_REPORTING.md#current-review-and-enrollment-at-receipt-import)
+
+Next, check whether Phase 1 wrongly links an API to a separately described record or tenant workflow. Freeze positive, unrelated, and absent relationships as fictional cases. Compare exact risk hypotheses and Option A evidence links before changing the offline rule.

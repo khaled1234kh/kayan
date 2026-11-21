@@ -83,3 +83,13 @@ An interleaved synthetic read returned a valid signed three-record finding toget
 Receipt import validates one source revision and rechecks its digest immediately before advancing custody history. The single-read implementation without that recheck returned HTTP 201 for a receipt after the source changed. The corrected import returned HTTP 409 and kept the receipt head empty. This check observes the persisted source at the time of the pre-commit read. Source storage and the receipt database do not share a transaction.
 
 Reproduce with `python -B -m pytest -q -p no:cacheprovider tests/test_archived_signed_attribution.py -k "one_snapshot or does_not_advance_head"`. The tests use synthetic captures and test-only signatures. The focused Reporting suite passed 43 tests. The canonical run passed 295 tests, including the isolated real Rust restart. Seven saved evaluations, 76 pinned digests and the saved Slate result verified again.
+
+## Current review and enrollment at receipt import
+
+Four controlled test-only updates arrived after initial receipt validation. A new adverse review, a reviewer revocation, a custodian revocation and a reassignment of the custodian key identifier all returned HTTP 201 in the baseline. Each now returns HTTP 409 with a distinct reason. The old head and exact signed bytes remain intact. Changing an unused enrollment still permits a valid successor.
+
+Receipt import now rereads the current evidence, verifies the signer and authenticated assignment, and checks the current reviewed package inside the SQLite write transaction. Review publication uses the same database write lock. A second application instance with a zero-wait test connection could not publish its review while the receipt insert was in progress. Once the lock was released, the same review advanced normally and the now-outdated receipt stopped verifying, with its signed history retained.
+
+External enrollment updates and source storage do not participate in this transaction. The final check samples their current state, and Reporting rechecks the receipt when loading it. External operators retain control of enrollment, keys, and independent review. The replays used synthetic captures and test-only identities.
+
+Reproduce with `python -B -m pytest -q -p no:cacheprovider tests/test_signed_reporting_exchange.py`. The focused set passed 63 tests. The canonical set passed 301, including the isolated Rust restart fixture. Seven saved evaluations, all 76 pinned digests, the Slate request and the saved provider result verified offline.

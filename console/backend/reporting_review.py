@@ -6,7 +6,6 @@ import os
 from pathlib import Path
 from sqlite3 import Error as ReceiptStoreError
 from tempfile import NamedTemporaryFile
-from threading import Lock
 from typing import Literal
 
 from fastapi import HTTPException, Request, Response
@@ -36,8 +35,6 @@ class Submission(BaseModel):
 
 
 def install_review_api(app, catalog, directory):
-    revisions = Lock()
-
     def latest(identity, assessment, source):
         saved = [entry for _, _, entry in catalog.exchange.reviews(assessment, source).get(identity, {}).values()]
         if not saved:
@@ -87,35 +84,44 @@ def install_review_api(app, catalog, directory):
         if any(row.value is not None and row.value not in ({MECHANICS.get(row.technique)} if row.role == "mechanic"
                                                            else values[row.role]) for row in submission.assertions):
             raise HTTPException(422, "Evidence value is invalid for the selected role")
-        with revisions:
-            try:
-                revision, head = latest(identity, submission.assessment_id, digest)
-            except (KeyError, ValueError, OSError, TypeError):
-                raise HTTPException(409, "Review history failed integrity verification") from None
-            if submission.previous_review_sha256 != head:
-                raise HTTPException(409, "Review head changed; reopen evidence before submitting")
-            body = submission.model_dump(exclude={"assertions": {
-                index: {"occurrence"} for index, row in enumerate(submission.assertions) if row.occurrence is None
-            }})
-            receipt = {**body, "reviewer": identity, "revision": revision + 1,
-                       "created_at": datetime.now(timezone.utc).isoformat(),
-                       "status": "submitted_awaiting_independent_admission"}
-            raw = canonical(receipt)
-            proof = sha256(raw).hexdigest()
-            slot = sha256(canonical([identity, submission.assessment_id, digest, revision + 1])).hexdigest()
-            directory.mkdir(parents=True, exist_ok=True)
-            with NamedTemporaryFile(dir=directory, delete=False) as pending:
-                temporary = Path(pending.name)
-                pending.write(raw)
-            try:
-                # Reserve the revision separately so process-level races fail closed.
-                with (directory / f"{slot}.lock").open("xb"):
-                    pass
-                os.link(temporary, directory / f"{slot}-{proof}.json")
-            except FileExistsError:
-                raise HTTPException(409, "Review revision already reserved") from None
-            finally:
-                temporary.unlink(missing_ok=True)
+        try:
+            with catalog.exchange.write_transaction():
+                current = authenticate(request, submission.assessment_id, {"reviewer"})
+                if current["reviewer_id"] != identity:
+                    raise HTTPException(409, "Reviewer assignment changed; reopen evidence before submitting")
+                return save_review(submission, identity, digest)
+        except ReceiptStoreError:
+            raise HTTPException(409, "Review history could not be updated; reopen evidence before submitting") from None
+
+    def save_review(submission, identity, digest):
+        try:
+            revision, head = latest(identity, submission.assessment_id, digest)
+        except (KeyError, ValueError, OSError, TypeError):
+            raise HTTPException(409, "Review history failed integrity verification") from None
+        if submission.previous_review_sha256 != head:
+            raise HTTPException(409, "Review head changed; reopen evidence before submitting")
+        body = submission.model_dump(exclude={"assertions": {
+            index: {"occurrence"} for index, row in enumerate(submission.assertions) if row.occurrence is None
+        }})
+        receipt = {**body, "reviewer": identity, "revision": revision + 1,
+                   "created_at": datetime.now(timezone.utc).isoformat(),
+                   "status": "submitted_awaiting_independent_admission"}
+        raw = canonical(receipt)
+        proof = sha256(raw).hexdigest()
+        slot = sha256(canonical([identity, submission.assessment_id, digest, revision + 1])).hexdigest()
+        directory.mkdir(parents=True, exist_ok=True)
+        with NamedTemporaryFile(dir=directory, delete=False) as pending:
+            temporary = Path(pending.name)
+            pending.write(raw)
+        try:
+            # Reserve the revision separately so process-level races fail closed.
+            with (directory / f"{slot}.lock").open("xb"):
+                pass
+            os.link(temporary, directory / f"{slot}-{proof}.json")
+        except FileExistsError:
+            raise HTTPException(409, "Review revision already reserved") from None
+        finally:
+            temporary.unlink(missing_ok=True)
         return {**receipt, "review_sha256": proof}
 
     @app.get("/reporting/custody/package")

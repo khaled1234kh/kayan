@@ -2,6 +2,7 @@
 
 from base64 import b64decode
 from collections import Counter, defaultdict
+from contextlib import closing, contextmanager
 from hashlib import sha256
 import json
 from pathlib import Path
@@ -53,6 +54,13 @@ class SignedExchange:
             (assessment TEXT, sequence INTEGER, digest TEXT UNIQUE, body BLOB,
              PRIMARY KEY (assessment, sequence))""")
         return db
+
+    @contextmanager
+    def write_transaction(self):
+        # Review publication and receipt insertion use the same cross-process writer lock.
+        with closing(self._connect()) as db, db:
+            db.execute("BEGIN IMMEDIATE")
+            yield db
 
     def reviews(self, assessment_id, source_sha256, people=None):
         active, chains = {}, {}
@@ -124,8 +132,8 @@ class SignedExchange:
             row = self._head(db, assessment_id)
         return {"sequence": row[0], "receipt_sha256": row[1]} if row else None
 
-    def _evaluate(self, receipt, evidence=None):
-        people = enrolment()
+    @staticmethod
+    def _verify_signer(receipt, people):
         signer = next((row for row in people.values() if row.get("key_id") == receipt.key_id), None)
         if (not signer or signer["role"] != "custodian" or not signer["active"]
                 or receipt.assessment_id not in signer["assessment_ids"]):
@@ -141,9 +149,9 @@ class SignedExchange:
             key.verify(b64decode(receipt.signature, validate=True), receipt.signed_bytes())
         except (InvalidSignature, ValueError) as exc:
             raise ValueError("Custody receipt signature is invalid") from exc
+        return signer
 
-        if evidence is None:
-            evidence = self.catalog.review_inputs(receipt.assessment_id)
+    def _receipt_package(self, receipt, evidence, people, signer):
         package, active = self._package(receipt.assessment_id, evidence, people)
         if receipt.package_sha256 != package["package_sha256"] or not active:
             raise ValueError("Custody receipt does not match current evidence and reviews")
@@ -151,6 +159,14 @@ class SignedExchange:
             raise ValueError("Reviewer and custodian must be different people")
         if any(people[person.casefold()]["test_only"] != signer["test_only"] for person in active):
             raise ValueError("Test-only identities cannot be mixed with operational reviewers or custodians")
+        return package, active
+
+    def _evaluate(self, receipt, evidence=None):
+        people = enrolment()
+        signer = self._verify_signer(receipt, people)
+        if evidence is None:
+            evidence = self.catalog.review_inputs(receipt.assessment_id)
+        package, active = self._receipt_package(receipt, evidence, people, signer)
         dispositions, approved_sources = {}, set()
         for reviewer, group in active.items():
             for assertion_key, (_, _, review) in group.items():
@@ -211,15 +227,20 @@ class SignedExchange:
         report = self._evaluate(receipt)
         body = canonical(receipt.model_dump())
         proof = digest(body)
-        with self._connect() as db:
-            db.execute("BEGIN IMMEDIATE")
+        with self.write_transaction() as db:
             previous = self._head(db, receipt.assessment_id)
             if (receipt.sequence != (previous[0] + 1 if previous else 1)
                     or receipt.previous_receipt_sha256 != (previous[1] if previous else None)):
                 raise ValueError("Receipt replay or invalid predecessor")
-            _, current_source = self.catalog.review_inputs(receipt.assessment_id)
-            if current_source != report["source_sha256"]:
+            evidence = self.catalog.review_inputs(receipt.assessment_id)
+            if evidence[1] != report["source_sha256"]:
                 raise ValueError("Evidence changed during custody import")
+            people = enrolment()
+            signer = self._verify_signer(receipt, people)
+            fields = ("reviewer_id", "token_sha256", "public_key_sha256", "test_only")
+            if any(signer[field] != identity[field] for field in fields):
+                raise ValueError("Custodian assignment changed during import")
+            self._receipt_package(receipt, evidence, people, signer)
             db.execute("INSERT INTO receipts VALUES (?, ?, ?, ?)",
                        (receipt.assessment_id, receipt.sequence, proof, body))
         return {"receipt_sha256": proof, "sequence": receipt.sequence, "admission_status": report["admission_status"]}
