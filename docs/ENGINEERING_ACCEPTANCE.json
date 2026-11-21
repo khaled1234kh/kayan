@@ -165,6 +165,15 @@
       "evidence": "Six actual loopback Qwen replies were valid. Preferred excerpt recall was 10/14 versus 6/14 for the deterministic composer. Action coverage was 2/8 versus 8/8. A bounded offline replay of the saved selections recovered 8/8 action coverage at 14/17 preference precision. These are authored development cases, with no cloud requests."
     },
     {
+      "id": "evaluation.reporting_action_holdout",
+      "requirement": "Measure action coverage, preferred-reference precision and ordering on distinct synthetic archive families frozen before local inference.",
+      "implementation": ["eval/archived_reporting_action_holdout.py", "eval/fixtures/ai/archived_reporting_action_holdout_v1.lock.json"],
+      "verification": ["tests/test_archived_reporting_action_holdout.py", "docs/ARCHIVED_REPORTING_ACTION_HOLDOUT.md"],
+      "metrics": ["observed-action coverage", "preferred-reference precision and recall", "comparable pair order", "eight-excerpt cap", "immutable findings and controls"],
+      "status": "verified_automated",
+      "evidence": "Seven local replies were valid. The offline supplement changed primary action coverage from 1/8 to 8/8 and preferred-reference precision from 9/12 to 16/19 without changing findings or controls. The full-cap report stayed at 0/9 action coverage. The authorized-only case made zero requests."
+    },
+    {
       "id": "reliability.system",
       "requirement": "Exercise restart recovery, concurrency, cancellation, provider outage, egress restrictions and audit integrity across relevant Python, Go, Rust and frontend suites.",
       "implementation": ["console/backend/session_store.py", "console/backend/reporting_api.py", "trustgate/service", "console/office"],

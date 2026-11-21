@@ -1,0 +1,921 @@
+{
+  "protocol": "archived-reporting-action-holdout-v1",
+  "fixture_sha256": "1684e8ad27b33a288318d367456436a365d9f76c32a8d9c17a93cb6d0183c644",
+  "trace_sha256": "38ff96c614a92302307c80853915852e5335b7d6c598d5d98dc304165022bf90",
+  "decision_thresholds": {
+    "minimum_selected_primary_cases": 5,
+    "minimum_action_coverage_percent": 90,
+    "minimum_comparable_pairs_per_arm": 2,
+    "maximum_precision_loss_points": 10,
+    "maximum_order_loss_points": 10
+  },
+  "primary_selected": 6,
+  "primary_cases": 6,
+  "totals_on_selected_primary_cases": {
+    "deterministic": {
+      "highlights": {
+        "matching": 8,
+        "returned": 8,
+        "desired": 16,
+        "exact": 0,
+        "ordered_pairs": 2,
+        "comparable_pairs": 2
+      },
+      "recommendations": {
+        "matching": 8,
+        "returned": 8,
+        "desired": 8,
+        "exact": 6,
+        "ordered_pairs": 2,
+        "comparable_pairs": 2
+      },
+      "coverage": {
+        "admitted_occurrences": 8,
+        "covered_occurrences": 8,
+        "action_covered_occurrences": 8
+      }
+    },
+    "raw_model": {
+      "highlights": {
+        "matching": 9,
+        "returned": 12,
+        "desired": 16,
+        "exact": 0,
+        "ordered_pairs": 2,
+        "comparable_pairs": 3
+      },
+      "recommendations": {
+        "matching": 8,
+        "returned": 8,
+        "desired": 8,
+        "exact": 6,
+        "ordered_pairs": 2,
+        "comparable_pairs": 2
+      },
+      "coverage": {
+        "admitted_occurrences": 8,
+        "covered_occurrences": 8,
+        "action_covered_occurrences": 1
+      }
+    },
+    "supplemented": {
+      "highlights": {
+        "matching": 16,
+        "returned": 19,
+        "desired": 16,
+        "exact": 1,
+        "ordered_pairs": 14,
+        "comparable_pairs": 16
+      },
+      "recommendations": {
+        "matching": 8,
+        "returned": 8,
+        "desired": 8,
+        "exact": 6,
+        "ordered_pairs": 2,
+        "comparable_pairs": 2
+      },
+      "coverage": {
+        "admitted_occurrences": 8,
+        "covered_occurrences": 8,
+        "action_covered_occurrences": 8
+      }
+    }
+  },
+  "decision": {
+    "checks": {
+      "unchanged_findings_controls_and_attempt_scope": true,
+      "full_cap_behavior": true,
+      "enough_selected_primary_cases": true,
+      "action_coverage_improves_and_meets_floor": true,
+      "preferred_reference_precision_within_budget": true,
+      "comparable_pair_order_within_budget": true
+    },
+    "passes_predeclared_gate": true
+  },
+  "case_statuses": [
+    {
+      "id": "observatory-recovery-window",
+      "status": "selected",
+      "attempts": 1
+    },
+    {
+      "id": "clinic-display-review",
+      "status": "selected",
+      "attempts": 1
+    },
+    {
+      "id": "marina-access-reconciliation",
+      "status": "selected",
+      "attempts": 1
+    },
+    {
+      "id": "museum-collection-continuity",
+      "status": "selected",
+      "attempts": 1
+    },
+    {
+      "id": "union-correspondence-review",
+      "status": "selected",
+      "attempts": 1
+    },
+    {
+      "id": "municipal-custody-reconciliation",
+      "status": "selected",
+      "attempts": 1
+    },
+    {
+      "id": "storm-collection-cap",
+      "status": "selected",
+      "attempts": 1
+    },
+    {
+      "id": "weather-notice-rehearsal",
+      "status": "blocked",
+      "attempts": 0
+    }
+  ],
+  "primary": [
+    {
+      "id": "observatory-recovery-window",
+      "added_highlights": [
+        "T1490/E1.1"
+      ],
+      "findings_and_controls_unchanged": true,
+      "raw": {
+        "admitted_occurrences": 1,
+        "covered_occurrences": 1,
+        "highlights": {
+          "comparable_pairs": 0,
+          "desired": 2,
+          "exact": false,
+          "matching": 1,
+          "ordered_pairs": 0,
+          "references": [
+            [
+              "T1490",
+              null,
+              "E1.3"
+            ],
+            [
+              "T1490",
+              null,
+              "E1.4"
+            ]
+          ],
+          "returned": 2
+        },
+        "published_coverage": {
+          "action_covered_occurrences": 0,
+          "admitted_occurrences": 1,
+          "covered_occurrences": 1
+        },
+        "recommendations": {
+          "comparable_pairs": 0,
+          "desired": 1,
+          "exact": true,
+          "matching": 1,
+          "ordered_pairs": 0,
+          "references": [
+            "T1490-1"
+          ],
+          "returned": 1
+        }
+      },
+      "augmented": {
+        "highlights": {
+          "references": [
+            [
+              "T1490",
+              null,
+              "E1.3"
+            ],
+            [
+              "T1490",
+              null,
+              "E1.4"
+            ],
+            [
+              "T1490",
+              null,
+              "E1.1"
+            ]
+          ],
+          "matching": 2,
+          "returned": 3,
+          "desired": 2,
+          "exact": false,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "recommendations": {
+          "references": [
+            "T1490-1"
+          ],
+          "matching": 1,
+          "returned": 1,
+          "desired": 1,
+          "exact": true,
+          "ordered_pairs": 0,
+          "comparable_pairs": 0
+        },
+        "covered_occurrences": 1,
+        "admitted_occurrences": 1,
+        "published_coverage": {
+          "admitted_occurrences": 1,
+          "covered_occurrences": 1,
+          "action_covered_occurrences": 1
+        }
+      }
+    },
+    {
+      "id": "clinic-display-review",
+      "added_highlights": [],
+      "findings_and_controls_unchanged": true,
+      "raw": {
+        "admitted_occurrences": 1,
+        "covered_occurrences": 1,
+        "highlights": {
+          "comparable_pairs": 1,
+          "desired": 2,
+          "exact": false,
+          "matching": 2,
+          "ordered_pairs": 0,
+          "references": [
+            [
+              "T1113",
+              null,
+              "E1.1"
+            ],
+            [
+              "T1113",
+              null,
+              "E1.3"
+            ]
+          ],
+          "returned": 2
+        },
+        "published_coverage": {
+          "action_covered_occurrences": 1,
+          "admitted_occurrences": 1,
+          "covered_occurrences": 1
+        },
+        "recommendations": {
+          "comparable_pairs": 0,
+          "desired": 1,
+          "exact": true,
+          "matching": 1,
+          "ordered_pairs": 0,
+          "references": [
+            "T1113-1"
+          ],
+          "returned": 1
+        }
+      },
+      "augmented": {
+        "highlights": {
+          "references": [
+            [
+              "T1113",
+              null,
+              "E1.1"
+            ],
+            [
+              "T1113",
+              null,
+              "E1.3"
+            ]
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": false,
+          "ordered_pairs": 0,
+          "comparable_pairs": 1
+        },
+        "recommendations": {
+          "references": [
+            "T1113-1"
+          ],
+          "matching": 1,
+          "returned": 1,
+          "desired": 1,
+          "exact": true,
+          "ordered_pairs": 0,
+          "comparable_pairs": 0
+        },
+        "covered_occurrences": 1,
+        "admitted_occurrences": 1,
+        "published_coverage": {
+          "admitted_occurrences": 1,
+          "covered_occurrences": 1,
+          "action_covered_occurrences": 1
+        }
+      }
+    },
+    {
+      "id": "marina-access-reconciliation",
+      "added_highlights": [
+        "F1/S1"
+      ],
+      "findings_and_controls_unchanged": true,
+      "raw": {
+        "admitted_occurrences": 1,
+        "covered_occurrences": 1,
+        "highlights": {
+          "comparable_pairs": 0,
+          "desired": 2,
+          "exact": false,
+          "matching": 1,
+          "ordered_pairs": 0,
+          "references": [
+            [
+              "T1098.003",
+              "event-2",
+              "E2.3"
+            ],
+            [
+              "T1098.003",
+              "event-2",
+              "E2.4"
+            ]
+          ],
+          "returned": 2
+        },
+        "published_coverage": {
+          "action_covered_occurrences": 0,
+          "admitted_occurrences": 1,
+          "covered_occurrences": 1
+        },
+        "recommendations": {
+          "comparable_pairs": 0,
+          "desired": 1,
+          "exact": true,
+          "matching": 1,
+          "ordered_pairs": 0,
+          "references": [
+            "T1098.003-1"
+          ],
+          "returned": 1
+        }
+      },
+      "augmented": {
+        "highlights": {
+          "references": [
+            [
+              "T1098.003",
+              "event-2",
+              "E2.3"
+            ],
+            [
+              "T1098.003",
+              "event-2",
+              "E2.4"
+            ],
+            [
+              "T1098.003",
+              "event-2",
+              "E2.1"
+            ]
+          ],
+          "matching": 2,
+          "returned": 3,
+          "desired": 2,
+          "exact": false,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "recommendations": {
+          "references": [
+            "T1098.003-1"
+          ],
+          "matching": 1,
+          "returned": 1,
+          "desired": 1,
+          "exact": true,
+          "ordered_pairs": 0,
+          "comparable_pairs": 0
+        },
+        "covered_occurrences": 1,
+        "admitted_occurrences": 1,
+        "published_coverage": {
+          "admitted_occurrences": 1,
+          "covered_occurrences": 1,
+          "action_covered_occurrences": 1
+        }
+      }
+    },
+    {
+      "id": "museum-collection-continuity",
+      "added_highlights": [
+        "F1/S1",
+        "F2/S1"
+      ],
+      "findings_and_controls_unchanged": true,
+      "raw": {
+        "admitted_occurrences": 2,
+        "covered_occurrences": 2,
+        "highlights": {
+          "comparable_pairs": 1,
+          "desired": 4,
+          "exact": false,
+          "matching": 2,
+          "ordered_pairs": 1,
+          "references": [
+            [
+              "T1486",
+              "event-1",
+              "E1.3"
+            ],
+            [
+              "T1486",
+              "event-2",
+              "E2.3"
+            ]
+          ],
+          "returned": 2
+        },
+        "published_coverage": {
+          "action_covered_occurrences": 0,
+          "admitted_occurrences": 2,
+          "covered_occurrences": 2
+        },
+        "recommendations": {
+          "comparable_pairs": 1,
+          "desired": 2,
+          "exact": true,
+          "matching": 2,
+          "ordered_pairs": 1,
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "returned": 2
+        }
+      },
+      "augmented": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "event-1",
+              "E1.3"
+            ],
+            [
+              "T1486",
+              "event-2",
+              "E2.3"
+            ],
+            [
+              "T1486",
+              "event-1",
+              "E1.1"
+            ],
+            [
+              "T1486",
+              "event-2",
+              "E2.1"
+            ]
+          ],
+          "matching": 4,
+          "returned": 4,
+          "desired": 4,
+          "exact": false,
+          "ordered_pairs": 5,
+          "comparable_pairs": 6
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 2,
+        "admitted_occurrences": 2,
+        "published_coverage": {
+          "admitted_occurrences": 2,
+          "covered_occurrences": 2,
+          "action_covered_occurrences": 2
+        }
+      }
+    },
+    {
+      "id": "union-correspondence-review",
+      "added_highlights": [
+        "T1114.003/E1.1"
+      ],
+      "findings_and_controls_unchanged": true,
+      "raw": {
+        "admitted_occurrences": 1,
+        "covered_occurrences": 1,
+        "highlights": {
+          "comparable_pairs": 0,
+          "desired": 2,
+          "exact": false,
+          "matching": 1,
+          "ordered_pairs": 0,
+          "references": [
+            [
+              "T1114.003",
+              null,
+              "E1.3"
+            ],
+            [
+              "T1114.003",
+              null,
+              "E1.4"
+            ]
+          ],
+          "returned": 2
+        },
+        "published_coverage": {
+          "action_covered_occurrences": 0,
+          "admitted_occurrences": 1,
+          "covered_occurrences": 1
+        },
+        "recommendations": {
+          "comparable_pairs": 0,
+          "desired": 1,
+          "exact": true,
+          "matching": 1,
+          "ordered_pairs": 0,
+          "references": [
+            "T1114.003-1"
+          ],
+          "returned": 1
+        }
+      },
+      "augmented": {
+        "highlights": {
+          "references": [
+            [
+              "T1114.003",
+              null,
+              "E1.3"
+            ],
+            [
+              "T1114.003",
+              null,
+              "E1.4"
+            ],
+            [
+              "T1114.003",
+              null,
+              "E1.1"
+            ]
+          ],
+          "matching": 2,
+          "returned": 3,
+          "desired": 2,
+          "exact": false,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "recommendations": {
+          "references": [
+            "T1114.003-1"
+          ],
+          "matching": 1,
+          "returned": 1,
+          "desired": 1,
+          "exact": true,
+          "ordered_pairs": 0,
+          "comparable_pairs": 0
+        },
+        "covered_occurrences": 1,
+        "admitted_occurrences": 1,
+        "published_coverage": {
+          "admitted_occurrences": 1,
+          "covered_occurrences": 1,
+          "action_covered_occurrences": 1
+        }
+      }
+    },
+    {
+      "id": "municipal-custody-reconciliation",
+      "added_highlights": [
+        "T1490/E2.1",
+        "T1685.005/E1.1"
+      ],
+      "findings_and_controls_unchanged": true,
+      "raw": {
+        "admitted_occurrences": 2,
+        "covered_occurrences": 2,
+        "highlights": {
+          "comparable_pairs": 1,
+          "desired": 4,
+          "exact": false,
+          "matching": 2,
+          "ordered_pairs": 1,
+          "references": [
+            [
+              "T1490",
+              null,
+              "E2.3"
+            ],
+            [
+              "T1685.005",
+              null,
+              "E1.3"
+            ]
+          ],
+          "returned": 2
+        },
+        "published_coverage": {
+          "action_covered_occurrences": 0,
+          "admitted_occurrences": 2,
+          "covered_occurrences": 2
+        },
+        "recommendations": {
+          "comparable_pairs": 1,
+          "desired": 2,
+          "exact": true,
+          "matching": 2,
+          "ordered_pairs": 1,
+          "references": [
+            "T1490-1",
+            "T1685.005-1"
+          ],
+          "returned": 2
+        }
+      },
+      "augmented": {
+        "highlights": {
+          "references": [
+            [
+              "T1490",
+              null,
+              "E2.3"
+            ],
+            [
+              "T1685.005",
+              null,
+              "E1.3"
+            ],
+            [
+              "T1490",
+              null,
+              "E2.1"
+            ],
+            [
+              "T1685.005",
+              null,
+              "E1.1"
+            ]
+          ],
+          "matching": 4,
+          "returned": 4,
+          "desired": 4,
+          "exact": true,
+          "ordered_pairs": 6,
+          "comparable_pairs": 6
+        },
+        "recommendations": {
+          "references": [
+            "T1490-1",
+            "T1685.005-1"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 2,
+        "admitted_occurrences": 2,
+        "published_coverage": {
+          "admitted_occurrences": 2,
+          "covered_occurrences": 2,
+          "action_covered_occurrences": 2
+        }
+      }
+    }
+  ],
+  "capacity": {
+    "real_reply": {
+      "id": "storm-collection-cap",
+      "added_highlights": [],
+      "findings_and_controls_unchanged": true,
+      "raw": {
+        "admitted_occurrences": 9,
+        "covered_occurrences": 8,
+        "highlights": {
+          "comparable_pairs": 21,
+          "desired": 8,
+          "exact": false,
+          "matching": 7,
+          "ordered_pairs": 13,
+          "references": [
+            [
+              "T1486",
+              "event-1",
+              "E1.3"
+            ],
+            [
+              "T1486",
+              "event-2",
+              "E2.3"
+            ],
+            [
+              "T1486",
+              "event-3",
+              "E3.3"
+            ],
+            [
+              "T1486",
+              "event-4",
+              "E4.3"
+            ],
+            [
+              "T1486",
+              "event-5",
+              "E5.3"
+            ],
+            [
+              "T1486",
+              "event-6",
+              "E6.3"
+            ],
+            [
+              "T1486",
+              "event-7",
+              "E7.3"
+            ],
+            [
+              "T1486",
+              "event-8",
+              "E8.3"
+            ]
+          ],
+          "returned": 8
+        },
+        "published_coverage": {
+          "action_covered_occurrences": 0,
+          "admitted_occurrences": 9,
+          "covered_occurrences": 8
+        },
+        "recommendations": {
+          "comparable_pairs": 1,
+          "desired": 2,
+          "exact": true,
+          "matching": 2,
+          "ordered_pairs": 1,
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "returned": 2
+        }
+      },
+      "augmented": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "event-1",
+              "E1.3"
+            ],
+            [
+              "T1486",
+              "event-2",
+              "E2.3"
+            ],
+            [
+              "T1486",
+              "event-3",
+              "E3.3"
+            ],
+            [
+              "T1486",
+              "event-4",
+              "E4.3"
+            ],
+            [
+              "T1486",
+              "event-5",
+              "E5.3"
+            ],
+            [
+              "T1486",
+              "event-6",
+              "E6.3"
+            ],
+            [
+              "T1486",
+              "event-7",
+              "E7.3"
+            ],
+            [
+              "T1486",
+              "event-8",
+              "E8.3"
+            ]
+          ],
+          "matching": 7,
+          "returned": 8,
+          "desired": 8,
+          "exact": false,
+          "ordered_pairs": 13,
+          "comparable_pairs": 21
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 8,
+        "admitted_occurrences": 9,
+        "published_coverage": {
+          "admitted_occurrences": 9,
+          "covered_occurrences": 8,
+          "action_covered_occurrences": 0
+        }
+      }
+    },
+    "authored_full_cap_reply": {
+      "highlights": {
+        "references": [
+          [
+            "T1486",
+            "event-1",
+            "E1.3"
+          ],
+          [
+            "T1486",
+            "event-2",
+            "E2.3"
+          ],
+          [
+            "T1486",
+            "event-3",
+            "E3.3"
+          ],
+          [
+            "T1486",
+            "event-4",
+            "E4.3"
+          ],
+          [
+            "T1486",
+            "event-5",
+            "E5.3"
+          ],
+          [
+            "T1486",
+            "event-6",
+            "E6.3"
+          ],
+          [
+            "T1486",
+            "event-7",
+            "E7.3"
+          ],
+          [
+            "T1486",
+            "event-8",
+            "E8.3"
+          ]
+        ],
+        "matching": 7,
+        "returned": 8,
+        "desired": 8,
+        "exact": false,
+        "ordered_pairs": 13,
+        "comparable_pairs": 21
+      },
+      "recommendations": {
+        "references": [
+          "T1486-1",
+          "T1486-2"
+        ],
+        "matching": 2,
+        "returned": 2,
+        "desired": 2,
+        "exact": true,
+        "ordered_pairs": 1,
+        "comparable_pairs": 1
+      },
+      "covered_occurrences": 8,
+      "admitted_occurrences": 9,
+      "published_coverage": {
+        "admitted_occurrences": 9,
+        "covered_occurrences": 8,
+        "action_covered_occurrences": 0
+      }
+    }
+  }
+}
