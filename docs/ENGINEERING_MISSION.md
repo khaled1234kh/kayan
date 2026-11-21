@@ -47,4 +47,6 @@ Reporting now rejects archive changes across awaited write, inference and respon
 
 Archived Reporting can reconcile captured decisions through the Rust ledger without granting new authority or changing custody. Rust verifies and selects entries under one read lock. The client matches case, actor, role, tool, target and verdict. The real Rust-to-Python smoke observed one match and one missing reference, and the browser mock displayed both alongside missing custody. [Verification and limits](REUSABLE_REPORTING.md#trustgate-audit-reconciliation)
 
-Next, exercise a persisted signed-custody archive and its read-only audit check across an isolated TrustGate restart. Verify that corrupt or unavailable audit history stays distinguishable from valid custody and that historical report bytes remain intact.
+The opt-in signed-archive test reopened the same custody receipt and exact report through a real Ubuntu TrustGate restart, a damaged journal and restoration. Verification states moved independently of the signed custody status. [Recovery results](REUSABLE_REPORTING.md#signed-custody-and-audit-restart)
+
+Next, verify that the offline Phase 1 risk plan distinguishes vendor access from unrelated mentions of a vendor and a VPN. Use frozen fictional profiles and preserve the earlier planning scores.

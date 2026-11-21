@@ -219,6 +219,15 @@
       "evidence": "Actual cross-runtime loopback smoke found one matching denial and one missing reference with one journal entry before and after. The rendered mock kept audit outcomes separate from custody. No data left the loopback check."
     },
     {
+      "id": "reliability.signed_archive_audit_restart",
+      "requirement": "Keep the persisted signed archive and report available while exposing TrustGate journal restart, outage and integrity states separately.",
+      "implementation": ["console/backend/reporting_audit.py", "console/backend/reporting_exchange.py", "console/backend/reporting_api.py"],
+      "verification": ["tests/test_reporting_signed_audit_restart.py", "docs/REUSABLE_REPORTING.md#signed-custody-and-audit-restart"],
+      "metrics": ["audit status through service restart", "byte-identical export", "stable receipt head", "unchanged withheld findings"],
+      "status": "verified_operational",
+      "evidence": "The cross-runtime test uses real Rust over localhost, a test-only local write decision and independently checked test signatures. All five lifecycle checkpoints preserved the receipt and report, with one inert denial in the journal."
+    },
+    {
       "id": "reliability.system",
       "requirement": "Exercise restart recovery, concurrency, cancellation, provider outage, egress restrictions and audit integrity across relevant Python, Go, Rust and frontend suites.",
       "implementation": ["console/backend/session_store.py", "console/backend/reporting_api.py", "trustgate/service", "console/office"],
