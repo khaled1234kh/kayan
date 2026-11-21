@@ -111,6 +111,15 @@
       "evidence": "Rendered-HTML assertions and the production build passed. The browser visual check remains pending."
     },
     {
+      "id": "correctness.report_export_identity",
+      "requirement": "Export the exact report bytes loaded by the console, or reject the export and prompt review after custody or saved output changes.",
+      "implementation": ["console/backend/reporting_api.py", "console/office/src/components/ui/ArchivedReport.tsx"],
+      "verification": ["tests/test_reusable_reporting.py", "tests/test_archived_reporting.py", "console/office/scripts/session-panel-check.tsx"],
+      "metrics": ["view and download byte equality", "custody changes rejected", "same-revision replacements rejected", "restart fallback identity"],
+      "status": "verified_automated",
+      "evidence": "A stale export previously returned the next custody decision's report with HTTP 200. A digest-bound export now returns HTTP 409 until the operator loads the current report. Runs, views and matching exports have identical bytes and hashes."
+    },
+    {
       "id": "reliability.system",
       "requirement": "Exercise restart recovery, concurrency, cancellation, provider outage, egress restrictions and audit integrity across relevant Python, Go, Rust and frontend suites.",
       "implementation": ["console/backend/session_store.py", "console/backend/reporting_api.py", "trustgate/service", "console/office"],

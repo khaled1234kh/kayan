@@ -2,6 +2,7 @@ import asyncio
 import json
 from concurrent.futures import CancelledError
 from dataclasses import replace
+from hashlib import sha256
 
 import httpx
 import pytest
@@ -144,7 +145,12 @@ def test_interrupted_cloud_report_recovers_fallback_after_restart(center, tmp_pa
         assert report["audit"] == {"write_report": "1", "llm_inference": "2"}
         assert [finding["technique"] for finding in report["findings"]] == ["T1486"]
         assert report["withheld"] == [{"technique": "T1490", "reasons": ["independent_attribution_missing"]}]
-        assert restarted.get(url + "&download=true").json() == report
+        fallback_digest = sha256(saved.content).hexdigest()
+        assert saved.headers["etag"] == f'"{fallback_digest}"'
+        download = restarted.get(PREFIX + "/result", params={
+            "mode": "sovereigneg", "download": True, "expected_sha256": fallback_digest,
+        })
+        assert download.status_code == 200 and download.content == saved.content
         assert not restarted.get(PREFIX).json()["cloud_available"]
         assert restarted.post(PREFIX + "/run", json={"mode": "sovereigneg"}).status_code == 409
     assert len(requests) == 1
@@ -191,6 +197,26 @@ def test_local_report_does_not_request_inference_and_cannot_supply_evidence(cent
     assert client.get(PREFIX + "/result").json() == result.json()
     assert not requests
     assert [entry["action"] for entry in approvals] == ["write_report"]
+
+
+def test_export_checks_exact_bytes_after_same_revision_rerun(center):
+    client, _, requests, _ = center
+    first = client.post(PREFIX + "/run", json={"mode": "local"})
+    second = client.post(PREFIX + "/run", json={"mode": "local"})
+    assert first.status_code == second.status_code == 200
+    assert first.json()["source_sha256"] == second.json()["source_sha256"]
+    assert first.json()["audit"] != second.json()["audit"]
+    result = PREFIX + "/result"
+    old_digest = sha256(first.content).hexdigest()
+    assert client.get(result, params={"download": True, "expected_sha256": old_digest}).status_code == 409
+    assert client.get(result, params={"download": True, "expected_sha256": "../report"}).status_code == 422
+    current = client.get(result)
+    assert current.content == second.content
+    new_digest = sha256(current.content).hexdigest()
+    assert current.headers["etag"] == f'"{new_digest}"'
+    export = client.get(result, params={"download": True, "expected_sha256": new_digest})
+    assert export.status_code == 200 and export.content == current.content
+    assert not requests
 
 
 def test_default_router_requires_exact_approval(center):

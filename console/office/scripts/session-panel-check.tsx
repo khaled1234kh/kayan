@@ -6,7 +6,7 @@ import { SEED_ACTORS } from '../src/data/actors';
 import type { TrustGateTranscriptEntry } from '../src/types/trustgate';
 import { agentDecision } from '../src/security/agentDecision';
 import { TrustGatePanel } from '../src/components/ui/Panels';
-import { ReportExecutionDetails } from '../src/components/ui/ArchivedReport';
+import { ReportExecutionDetails, readSavedReport } from '../src/components/ui/ArchivedReport';
 
 const actor = { ...SEED_ACTORS.find((a) => a.id === 'ai-sales')!, modelTier: 'A' as const,
   backendAgentId: 'webapp1', engagementId: 'eng1', currentTask: 'sql_injection_test', state: 'working' as const };
@@ -100,3 +100,10 @@ for (const status of ['local', 'degraded'] as const) {
   assert.equal(renderToStaticMarkup(<ReportExecutionDetails report={{ status, ...execution }} />), '');
 }
 console.log('PASS saved Reporting usage, genuine zero, partial legacy metadata and local fallback');
+
+const digest = 'a'.repeat(64);
+const makeSavedResponse = (tag: string) => Response.json({ status: 'local' }, { headers: { ETag: tag } });
+assert.deepEqual(await readSavedReport(makeSavedResponse(`"${digest}"`)), { report: { status: 'local' }, digest });
+assert.equal((await readSavedReport(makeSavedResponse(`W/"${digest}"`))).digest, undefined);
+assert.equal((await readSavedReport(Response.json({ status: 'local' }))).digest, undefined);
+console.log('PASS saved Reporting response and exact export identity');

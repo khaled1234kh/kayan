@@ -2,15 +2,17 @@
 
 import asyncio
 from dataclasses import replace
+from hashlib import sha256
 import json
 from pathlib import Path
 import os
 from tempfile import NamedTemporaryFile
 from typing import Literal
+from urllib.parse import quote
 
 import httpx
-from fastapi import HTTPException, Request
-from fastapi.responses import FileResponse
+from fastapi import HTTPException, Query, Request
+from fastapi.responses import Response
 from pydantic import BaseModel, ConfigDict
 
 from ai.config import load_config, require_api_key
@@ -20,6 +22,7 @@ from pentagi.agents.archived_reporting import compose, request_for, review_archi
 
 Mode = Literal["local", "sovereigneg"]
 RESULTS = Path(__file__).resolve().parents[2] / ".build/reporting-archive"
+STALE_REPORT = "Saved report changed. Review the current report before exporting."
 
 
 class ReportRequest(BaseModel):
@@ -29,11 +32,12 @@ class ReportRequest(BaseModel):
 
 
 def _publish(path, report, *, exclusive=False):
+    body = json.dumps(report, ensure_ascii=False, indent=2).encode("utf-8")
     temporary = None
     try:
-        with NamedTemporaryFile(mode="w", encoding="utf-8", dir=path.parent, delete=False) as file:
+        with NamedTemporaryFile(mode="wb", dir=path.parent, delete=False) as file:
             temporary = Path(file.name)
-            json.dump(report, file, ensure_ascii=False, indent=2)
+            file.write(body)
             if exclusive:
                 file.flush()
                 os.fsync(file.fileno())
@@ -44,6 +48,21 @@ def _publish(path, report, *, exclusive=False):
     finally:
         if temporary is not None:
             temporary.unlink(missing_ok=True)
+    return body
+
+
+def _report_response(body, *, expected_sha256=None, filename=None):
+    digest = sha256(body).hexdigest()
+    if expected_sha256 is not None and digest != expected_sha256:
+        raise HTTPException(409, STALE_REPORT)
+    headers = {"ETag": f'"{digest}"', "Cache-Control": "no-store"}
+    if filename is not None:
+        encoded_filename = quote(filename, safe="")
+        headers["Content-Disposition"] = (
+            f'attachment; filename="{filename}"' if encoded_filename == filename
+            else f"attachment; filename*=UTF-8''{encoded_filename}"
+        )
+    return Response(body, media_type="application/json", headers=headers)
 
 
 def install_reporting_api(app, *, load_archive=review_archive, output=RESULTS,
@@ -107,30 +126,33 @@ def install_reporting_api(app, *, load_archive=review_archive, output=RESULTS,
                 "cloud_available": bool(digest and digest == scope() and not attempt_path(digest).exists())}
 
     @app.get("/reporting/archive/result")
-    def archived_result(request: Request, mode: Mode = "local", download: bool = False, assessment_id: str | None = None):
+    def archived_result(request: Request, mode: Mode = "local", download: bool = False,
+                        assessment_id: str | None = None,
+                        expected_sha256: str | None = Query(default=None, pattern=r"^[a-f0-9]{64}$")):
         guard_loopback(request)
         report, prepared = archive_inputs(assessment_id)
-        path = result_path(report, mode)
-        if not path.is_file():
-            if mode != "sovereigneg" or not prepared:
-                raise HTTPException(404, "No saved report in this mode")
-            digest = prepared[2]
-            path = attempt_path(digest)
-            try:
-                fallback = json.loads(path.read_text(encoding="utf-8"))
-            except (ValueError, OSError):
-                fallback = None
-            if (not isinstance(fallback, dict) or fallback.get("status") != "degraded"
-                    or fallback.get("request_sha256") != digest
-                    or any(fallback.get(field) != report.get(field)
-                           for field in ("assessment_id", "source_sha256", "report_revision"))):
-                raise HTTPException(404, "No saved report in this mode")
-            if not download:
-                return fallback
-        if download:
-            return FileResponse(path, media_type="application/json",
-                                filename=f'{report["assessment_id"]}-{mode}.json')
-        return json.loads(path.read_text(encoding="utf-8"))
+        try:
+            body = result_path(report, mode).read_bytes()
+        except FileNotFoundError:
+            body = None
+            if mode == "sovereigneg" and prepared:
+                digest = prepared[2]
+                try:
+                    reserved = attempt_path(digest).read_bytes()
+                    fallback = json.loads(reserved)
+                except (ValueError, OSError):
+                    fallback = None
+                if (isinstance(fallback, dict) and fallback.get("status") == "degraded"
+                        and fallback.get("request_sha256") == digest
+                        and all(fallback.get(field) == report.get(field)
+                                for field in ("assessment_id", "source_sha256", "report_revision"))):
+                    body = reserved
+        if body is None:
+            if expected_sha256 is not None:
+                raise HTTPException(409, STALE_REPORT)
+            raise HTTPException(404, "No saved report in this mode")
+        filename = f'{report["assessment_id"]}-{mode}.json' if download else None
+        return _report_response(body, expected_sha256=expected_sha256, filename=filename)
 
     @app.post("/reporting/archive/run")
     async def run_archived_reporting(request: Request, payload: ReportRequest):
@@ -207,12 +229,12 @@ def install_reporting_api(app, *, load_archive=review_archive, output=RESULTS,
                                                  "reasoning": reply.reasoning_tokens,
                                                  "latency_s": reply.latency_s})
                             result.pop("notice")
-                        _publish(result_path(report, payload.mode), result)
+                        body = _publish(result_path(report, payload.mode), result)
                     finally:
                         await provider.close()
                 else:
-                    _publish(result_path(report, payload.mode), result)
-                return result
+                    body = _publish(result_path(report, payload.mode), result)
+                return _report_response(body)
             finally:
                 gate.close()
 

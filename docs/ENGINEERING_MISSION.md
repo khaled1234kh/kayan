@@ -23,4 +23,6 @@ Archived Reporting now also enforces the configured request time as a total dead
 
 The Reporting panel displays saved input, output and reasoning tokens, provider latency and finish reason. Rendered-HTML tests cover a measured zero, legacy partial records, unusable values and local fallback. Production build passed. Windows Computer Use ended before navigating to the fixture because it could not reliably determine Brave's current URL. Browser visual verification remains pending.
 
-Next, check that the selected saved report and the exported file bind the same evidence revision if custody changes while the panel is open. Reproduce the behavior through the report API using synthetic inputs before changing the contract.
+Archived Reporting now binds the console export to the SHA-256 of the exact saved JSON shown in the panel. The API returns HTTP 409 if custody changed, the report was replaced, or the viewed result is no longer available. The panel asks the operator to review the current report before exporting. Legacy API callers can still request the current report without a digest.
+
+Next, audit how Reporting carries admitted statement addresses and evidence roles from the verifier into summaries. Use reviewed synthetic fixtures with multiple statements and check that displayed support remains tied to the correct finding and occurrence.

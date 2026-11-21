@@ -57,6 +57,11 @@ type Report = {
 const endpoint = `${apiUrl.replace(/\/$/, '')}/reporting/archive`;
 const metricNumber = new Intl.NumberFormat('en', { maximumFractionDigits: 3 });
 
+export async function readSavedReport(response: Response) {
+  const digest = /^"([a-f0-9]{64})"$/.exec(response.headers.get('ETag') ?? '')?.[1];
+  return { report: await response.json() as Report, digest };
+}
+
 export function ReportExecutionDetails({ report }: {
   report: Pick<Report, 'status' | 'usage' | 'finish_reason'>;
 }) {
@@ -137,17 +142,22 @@ function AssessmentReport({ assessmentId, open, onPending }: {
   const [archive, setArchive] = useState<Archive>();
   const [refresh, setRefresh] = useState(0);
   const [mode, setMode] = useState<Mode>('local');
-  const [report, setReport] = useState<Report>();
+  const [saved, setSaved] = useState<Awaited<ReturnType<typeof readSavedReport>>>();
   const [pending, setPending] = useState(false);
+  const [exporting, setExporting] = useState(false);
   const [error, setError] = useState('');
   const [loadError, setLoadError] = useState('');
+  const resultUrl = `${endpoint}/result?${selection}&mode=${mode}`;
+  const report = saved?.report;
+  const busy = pending || exporting;
 
   useEffect(() => {
     if (!open) return;
     const controller = new AbortController();
     fetch(`${endpoint}?${selection}`, { signal: controller.signal }).then(async response => {
       if (!response.ok) throw new Error('Saved synthetic assessment is unavailable.');
-      setArchive(await response.json());
+      const loaded: Archive = await response.json();
+      if (!controller.signal.aborted) setArchive(loaded);
     }).catch(() => {
       if (!controller.signal.aborted) setLoadError('Could not open the archived assessment.');
     });
@@ -155,17 +165,17 @@ function AssessmentReport({ assessmentId, open, onPending }: {
   }, [open, selection, refresh]);
 
   useEffect(() => {
-    if (!open || pending) return;
+    if (!open || busy) return;
     const controller = new AbortController();
-    fetch(`${endpoint}/result?${selection}&mode=${mode}`, { signal: controller.signal }).then(async response => {
-      if (response.ok) setReport(await response.json());
-      else if (response.status === 404) setReport(undefined);
-      else throw new Error('Could not load the saved report.');
+    fetch(resultUrl, { signal: controller.signal }).then(async response => {
+      if (!response.ok && response.status !== 404) throw new Error('Could not load the saved report.');
+      const loaded = response.ok ? await readSavedReport(response) : undefined;
+      if (!controller.signal.aborted) setSaved(loaded);
     }).catch(() => {
       if (!controller.signal.aborted) setError('Could not load the saved report.');
     });
     return () => controller.abort();
-  }, [open, mode, pending, selection, refresh]);
+  }, [open, busy, resultUrl, refresh]);
 
   async function run() {
     setPending(true);
@@ -177,9 +187,11 @@ function AssessmentReport({ assessmentId, open, onPending }: {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ mode, assessment_id: assessmentId }),
       });
-      const value = await response.json();
-      if (!response.ok) throw new Error(typeof value.detail === 'string' ? value.detail : 'Reporting failed.');
-      setReport(value);
+      if (!response.ok) {
+        const failure = await response.json();
+        throw new Error(typeof failure.detail === 'string' ? failure.detail : 'Reporting failed.');
+      }
+      setSaved(await readSavedReport(response));
     } catch (failure) {
       setError(failure instanceof Error ? failure.message : 'Reporting failed.');
     } finally {
@@ -193,6 +205,38 @@ function AssessmentReport({ assessmentId, open, onPending }: {
           setArchive(current => current && { ...current, cloud_available: false });
         }
       }
+    }
+  }
+
+  async function exportReport() {
+    if (!saved?.digest || busy) return;
+    setExporting(true);
+    onPending(true);
+    setError('');
+    try {
+      const response = await fetch(`${resultUrl}&download=true&expected_sha256=${saved.digest}`);
+      if (response.status === 409 || response.status === 404) {
+        setSaved(undefined);
+        setArchive(undefined);
+        setLoadError('');
+        setRefresh(count => count + 1);
+        setError('Saved report changed. Review the current report before exporting.');
+        return;
+      }
+      if (!response.ok || response.headers.get('ETag') !== `"${saved.digest}"`) {
+        throw new Error('Could not export the saved report.');
+      }
+      const url = URL.createObjectURL(await response.blob());
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${assessmentId}-${mode}.json`;
+      link.click();
+      window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    } catch {
+      setError('Could not export the saved report.');
+    } finally {
+      setExporting(false);
+      onPending(false);
     }
   }
 
@@ -220,9 +264,9 @@ function AssessmentReport({ assessmentId, open, onPending }: {
           <EvidenceReview assessmentId={assessmentId} reviewStatus={archive.review_status} onChange={() => setRefresh(count => count + 1)} />
         </>}
         <label htmlFor="archived-report-mode">Reporting mode</label>
-        <select id="archived-report-mode" value={mode} disabled={pending} onChange={event => {
+        <select id="archived-report-mode" value={mode} disabled={busy} onChange={event => {
           setMode(event.target.value as Mode);
-          setReport(undefined);
+          setSaved(undefined);
           setError('');
         }}>
           <option value="local">Local evidence report</option>
@@ -231,7 +275,7 @@ function AssessmentReport({ assessmentId, open, onPending }: {
         {mode === 'sovereigneg' && <p className="muted">{archive.cloud_available
           ? 'One approved request. TrustGate checks this archive before sending admitted evidence.'
           : 'Cloud execution needs an unused approval for this archive. Saved reports remain available.'}</p>}
-        <button className="btn" type="button" disabled={pending || (mode === 'sovereigneg' && !archive.cloud_available)} onClick={() => void run()}>
+        <button className="btn" type="button" disabled={busy || (mode === 'sovereigneg' && !archive.cloud_available)} onClick={() => void run()}>
           {pending ? 'Preparing report…' : 'Run Reporting'}
         </button>
         {error && <p role="alert">{error}</p>}
@@ -256,7 +300,9 @@ function AssessmentReport({ assessmentId, open, onPending }: {
             <li key={claim.technique}>{claim.technique} · {claim.reasons.map(reason => reason.replace(/_/g, ' ')).join(', ')}</li>)}</ul>
             : <p>No withheld claims in this archive.</p>}
           <p className="muted">{report.limitation}</p>
-          <a className="btn" href={`${endpoint}/result?${selection}&mode=${mode}&download=true`}>Export report JSON</a>
+          {saved?.digest ? <button className="btn" type="button" disabled={busy} onClick={() => void exportReport()}>
+            {exporting ? 'Exporting report…' : 'Export report JSON'}
+          </button> : <p className="muted">Verified JSON export is unavailable for this saved response.</p>}
         </section>}
       </>}
   </>;

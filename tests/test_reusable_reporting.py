@@ -120,11 +120,40 @@ def test_catalogue_uses_admission_and_rejects_other_case_or_mutated_record(tmp_p
     assert request_for(reviewed)[2] != request_for({**reviewed, "assessment_id": NEIGHBOR})[2]
     assert catalog.load(NEIGHBOR)["verification"] == "invalid_custody"
 
-    package["records"][0]["text"] += "modified"
-    pin({ID: package})
-    failed = catalog.load(ID)
-    assert failed["verification"] == "invalid_custody"
-    assert failed["findings"] == [] and request_for(failed) is None
+    with client_for(catalog, tmp_path / "reports") as client:
+        result_url = "/reporting/archive/result"
+        selection = {"assessment_id": ID}
+        run_payload = {"mode": "local", **selection}
+        admitted = client.post("/reporting/archive/run", json=run_payload)
+        assert admitted.status_code == 200
+        before = client.get(result_url, params=selection)
+        before_export = client.get(result_url, params={**selection, "download": True})
+        expected = digest(before_export.content)
+        assert before.json() == before_export.json()
+        assert [row["technique"] for row in before.json()["findings"]] == ["T1486"]
+
+        package["records"][0]["text"] += "modified"
+        pin({ID: package})
+        failed = catalog.load(ID)
+        assert failed["verification"] == "invalid_custody"
+        assert failed["findings"] == [] and request_for(failed) is None
+
+        download_params = {**selection, "download": True, "expected_sha256": expected}
+        assert client.get(result_url, params=download_params).status_code == 409
+        next_run = client.post("/reporting/archive/run", json=run_payload)
+        assert next_run.status_code == 200
+        assert next_run.json()["findings"] == []
+        stale = client.get(result_url, params=download_params)
+        assert stale.status_code == 409
+        assert "content-disposition" not in stale.headers
+
+        current = client.get(result_url, params=selection)
+        assert current.content == next_run.content
+        assert admitted.content == before.content == before_export.content
+        assert admitted.headers["etag"] == before.headers["etag"] == f'"{expected}"'
+        fresh = client.get(result_url, params={**download_params, "expected_sha256": digest(current.content)})
+        assert fresh.status_code == 200 and fresh.content == current.content
+        assert fresh.headers["cache-control"] == "no-store"
 
 
 @pytest.mark.parametrize("changes", [{"status": "active"}, {"target": "http://outside.invalid"},
