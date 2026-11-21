@@ -1,0 +1,245 @@
+{
+  "protocol": "archived-reporting-full-summary-v1",
+  "max_replacements": 2,
+  "criteria": {
+    "minimum_total_gain": 4,
+    "maximum_preference_loss_per_case": 0,
+    "minimum_original_refs_retained": 6
+  },
+  "cases": [
+    {
+      "id": "orchard-sorting-review",
+      "group": "change",
+      "assets": [
+        "produce intake",
+        "sorting settings",
+        "packing labels",
+        "crate history",
+        "weighbridge queue",
+        "cooling rounds",
+        "driver roster",
+        "dispatch receipts"
+      ],
+      "expected": {
+        "admitted": 8,
+        "withheld": 0
+      },
+      "selection": [
+        [1, 3],
+        [2, 3],
+        [3, 3],
+        [4, 3],
+        [5, 2],
+        [6, 4],
+        [7, 3],
+        [8, 3]
+      ],
+      "preferred": [
+        [1, 3],
+        [2, 3],
+        [3, 3],
+        [4, 3],
+        [5, 1],
+        [6, 1],
+        [7, 3],
+        [8, 3]
+      ]
+    },
+    {
+      "id": "printworks-recovery-review",
+      "group": "change",
+      "assets": [
+        "plate schedules",
+        "ink inventory",
+        "colour profiles",
+        "proof notes",
+        "delivery slips",
+        "binder logs",
+        "stock ledger",
+        "job history",
+        "recovery calendar"
+      ],
+      "expected": {
+        "admitted": 9,
+        "withheld": 0
+      },
+      "selection": [
+        [1, 3],
+        [2, 3],
+        [3, 3],
+        [4, 3],
+        [5, 3],
+        [5, 2],
+        [6, 3],
+        [6, 4]
+      ],
+      "preferred": [
+        [1, 3],
+        [2, 3],
+        [3, 3],
+        [4, 3],
+        [5, 3],
+        [6, 3],
+        [7, 1],
+        [8, 1]
+      ]
+    },
+    {
+      "id": "maker-space-access-review",
+      "group": "change",
+      "assets": [
+        "access roster",
+        "cabinet checklist",
+        "bench schedules",
+        "safety sheets",
+        "supplier labels",
+        "maintenance ledger",
+        "session notes",
+        "fixture drawings",
+        "approved mock archive"
+      ],
+      "authorized": [
+        9
+      ],
+      "expected": {
+        "admitted": 8,
+        "withheld": 1
+      },
+      "selection": [
+        [1, 1],
+        [2, 3],
+        [3, 3],
+        [4, 3],
+        [5, 3],
+        [6, 3],
+        [7, 3],
+        [1, 4]
+      ],
+      "preferred": [
+        [1, 1],
+        [2, 3],
+        [3, 3],
+        [4, 3],
+        [5, 3],
+        [6, 3],
+        [7, 3],
+        [8, 1]
+      ]
+    },
+    {
+      "id": "fishery-impact-records",
+      "group": "retain",
+      "assets": [
+        "cold room log",
+        "dispatch notes",
+        "harbour notices",
+        "icing sheets",
+        "crate inventory",
+        "check-in counter",
+        "sampling records",
+        "service journal"
+      ],
+      "expected": {
+        "admitted": 8,
+        "withheld": 0
+      },
+      "selection": [
+        [1, 3],
+        [2, 3],
+        [3, 3],
+        [4, 3],
+        [5, 3],
+        [6, 3],
+        [7, 3],
+        [8, 3]
+      ],
+      "preferred": [
+        [1, 3],
+        [2, 3],
+        [3, 3],
+        [4, 3],
+        [5, 3],
+        [6, 3],
+        [7, 3],
+        [8, 3]
+      ]
+    },
+    {
+      "id": "transit-action-records",
+      "group": "retain",
+      "assets": [
+        "stop survey",
+        "sign audit",
+        "fare tests",
+        "handrail checklist",
+        "display drawings",
+        "lighting inventory",
+        "shelter records",
+        "schedule archive",
+        "fallback schedules"
+      ],
+      "expected": {
+        "admitted": 9,
+        "withheld": 0
+      },
+      "selection": [
+        [2, 1],
+        [4, 1],
+        [6, 1],
+        [8, 1],
+        [1, 1],
+        [3, 1],
+        [5, 1],
+        [7, 1]
+      ],
+      "preferred": [
+        [2, 1],
+        [4, 1],
+        [6, 1],
+        [8, 1],
+        [1, 1],
+        [3, 1],
+        [5, 1],
+        [7, 1]
+      ]
+    },
+    {
+      "id": "harvest-review-priority-tradeoff",
+      "group": "tradeoff",
+      "assets": [
+        "grading records",
+        "inspection schedule",
+        "equipment ledger",
+        "refund notes",
+        "handover calendar",
+        "warranty slips",
+        "storage checklists",
+        "yard traffic survey"
+      ],
+      "expected": {
+        "admitted": 8,
+        "withheld": 0
+      },
+      "selection": [
+        [1, 3],
+        [2, 3],
+        [3, 3],
+        [4, 3],
+        [5, 3],
+        [6, 3],
+        [7, 2],
+        [8, 4]
+      ],
+      "preferred": [
+        [1, 3],
+        [2, 3],
+        [3, 3],
+        [4, 3],
+        [5, 3],
+        [6, 3],
+        [7, 2],
+        [8, 4]
+      ]
+    }
+  ]
+}
