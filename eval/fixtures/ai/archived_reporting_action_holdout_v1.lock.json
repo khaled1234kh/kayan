@@ -1,0 +1,46 @@
+{
+  "protocol": "archived-reporting-action-holdout-v1",
+  "fixture_sha256": "1684e8ad27b33a288318d367456436a365d9f76c32a8d9c17a93cb6d0183c644",
+  "cases": [
+    {
+      "id": "observatory-recovery-window",
+      "archive_sha256": "6d739582d4333ebb5e2dc413d8ffa1246dc0bc5bbf94a637f0e3c4c3c97b0ba8",
+      "request_sha256": "5136d8d2637c66e23b02105d716abad47e75c09fee38865a8bd693a51d0d7cf8"
+    },
+    {
+      "id": "clinic-display-review",
+      "archive_sha256": "a3402afbb86ae5760265dae875071943b6f36b08eb32fc60eb78432d0e779ab1",
+      "request_sha256": "5f4057ab5974bc28e5f6b330a75cf363f40354d1d255f24dece1f274944d5ff9"
+    },
+    {
+      "id": "marina-access-reconciliation",
+      "archive_sha256": "ba20d7b0b5efc9ad1ecc6a2d33f75d07e04fdcc9528e981735c6219f9956a7ca",
+      "request_sha256": "5d5c26d2c0c1c0f225a94d03bad19f8e4c1fe6d1f3951fbeec56db820107c7dc"
+    },
+    {
+      "id": "museum-collection-continuity",
+      "archive_sha256": "a29cac52d94c166f22bbdabfcbfd0be88fbe728a2d9539b1fc44022410e27c09",
+      "request_sha256": "a5a5c74de0d5e20896a86084a0ac1f6001ef91aef1408d7f0de8118b6f637c63"
+    },
+    {
+      "id": "union-correspondence-review",
+      "archive_sha256": "f4fa113897899801ff2445051359e5c07c2db2c152f6bfa6d78170d7aeda33f5",
+      "request_sha256": "bb37fc64f0948a60c255c18b81fc0edfc9ce0fadc1c090096f74828de8d71a25"
+    },
+    {
+      "id": "municipal-custody-reconciliation",
+      "archive_sha256": "1dedb259dce957d320a91786e92da6bd814c5b3340b271379a0a98ff9f7baa6d",
+      "request_sha256": "19cd414397b1183b23f729a57215206e82a76555b5ffe38213fbb7aefc8b64a4"
+    },
+    {
+      "id": "storm-collection-cap",
+      "archive_sha256": "d97b003002d9435b4b4eaef629d0c1709645a129d1f1a962c907b43bd3b100d9",
+      "request_sha256": "c3798b022c884ff445dea2745f5a3e39665800216cdee50c1acac63c3ef28ac1"
+    },
+    {
+      "id": "weather-notice-rehearsal",
+      "archive_sha256": "8c165e087e5cfc9cbb2ebe949948254e533e499a7c4a91c07b505c6a0470c9c8",
+      "request_sha256": null
+    }
+  ]
+}

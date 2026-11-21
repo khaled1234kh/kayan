@@ -4,7 +4,7 @@ import json
 from hashlib import sha256
 from pathlib import Path
 
-from eval.archived_reporting_local_ranking import LOCK, prepare, selection_from_reply
+from eval.archived_reporting_local_ranking import LOCK, SPEC, prepare, selection_from_reply
 from eval.archived_reporting_selection import selection_metrics
 from eval.attack_evidence_v2 import parse
 from pentagi.agents.archived_reporting import ReportSelection, _selection_options, compose, repeated_techniques
@@ -36,11 +36,11 @@ def add_observed_actions(report, selection):
     return augmented, added
 
 
-def compare_trace(path=TRACE):
+def compare_trace(path=TRACE, *, spec_path=SPEC, lock_path=LOCK):
     raw = path.read_bytes()
     header, *rows = map(json.loads, raw.splitlines())
-    spec, cases, plan = prepare()
-    if json.loads(LOCK.read_bytes()) != plan or header["plan"] != plan or header["runtime"] != spec["runtime"]:
+    spec, cases, plan = prepare(spec_path)
+    if json.loads(lock_path.read_bytes()) != plan or header["plan"] != plan or header["runtime"] != spec["runtime"]:
         raise ValueError("Trace does not match the frozen local ranking plan")
     details = []
     for case, (review, _), row in zip(spec["cases"], cases, rows, strict=True):

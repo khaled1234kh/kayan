@@ -61,8 +61,8 @@ def prepare_case(case, runtime):
     }
 
 
-def prepare():
-    raw = SPEC.read_bytes()
+def prepare(spec_path=SPEC):
+    raw = spec_path.read_bytes()
     spec = json.loads(raw)
     cases = [prepare_case(case, spec["runtime"]) for case in spec["cases"]]
     plan = {
@@ -139,8 +139,8 @@ def evaluate_case(client, case, review, payload, runtime):
     return row
 
 
-def run(output, startup_log, spec, cases, plan):
-    if json.loads(LOCK.read_bytes()) != plan:
+def run(output, startup_log, spec, cases, plan, lock_path=LOCK):
+    if json.loads(lock_path.read_bytes()) != plan:
         raise ValueError("Frozen ranking plan changed")
     if "Ollama cloud disabled: true" not in startup_log.read_text(encoding="utf-8"):
         raise ValueError("Missing isolated local-only Ollama startup evidence")
@@ -167,14 +167,18 @@ def main():
     parser.add_argument("mode", choices=["plan", "run"])
     parser.add_argument("--output", type=Path)
     parser.add_argument("--startup-log", type=Path)
+    parser.add_argument("--fixture", type=Path)
+    parser.add_argument("--lock", type=Path)
     args = parser.parse_args()
-    spec, cases, plan = prepare()
+    spec, cases, plan = prepare(args.fixture or SPEC)
     if args.mode == "plan":
         print(json.dumps(plan, indent=2, ensure_ascii=True))
     elif args.output is None or args.startup_log is None:
         parser.error("run requires --output and --startup-log")
+    elif (args.fixture is None) != (args.lock is None):
+        parser.error("custom runs require both --fixture and --lock")
     else:
-        run(args.output, args.startup_log, spec, cases, plan)
+        run(args.output, args.startup_log, spec, cases, plan, args.lock or LOCK)
 
 
 if __name__ == "__main__":
