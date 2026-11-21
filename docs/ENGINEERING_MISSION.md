@@ -21,4 +21,6 @@ New cloud selections persist validated finish reason, input/output/reasoning tok
 
 Archived Reporting now also enforces the configured request time as a total deadline. A mocked response exceeding the deadline across individually short waits produces an exportable local fallback and consumes only one attempt.
 
-The next coding task is to render saved provider usage and completion metadata in the Reporting panel. Cover selected cloud output, older reports with partial metadata and local fallback, then verify the rendered panel using fixtures.
+The Reporting panel displays saved input, output and reasoning tokens, provider latency and finish reason. Rendered-HTML tests cover a measured zero, legacy partial records, unusable values and local fallback. Production build passed. Windows Computer Use ended before navigating to the fixture because it could not reliably determine Brave's current URL. Browser visual verification remains pending.
+
+Next, check that the selected saved report and the exported file bind the same evidence revision if custody changes while the panel is open. Reproduce the behavior through the report API using synthetic inputs before changing the contract.

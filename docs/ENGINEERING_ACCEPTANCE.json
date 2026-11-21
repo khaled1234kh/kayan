@@ -102,6 +102,15 @@
       "evidence": "An interrupted transport call previously returned no saved result (404). The same evidence revision now returns the degraded local report after app recreation and rejects replay. A separate mock exceeded a 0.2-second total deadline across individually shorter waits and also recovered the fallback without retry."
     },
     {
+      "id": "operational.saved_report_metrics",
+      "requirement": "Display verified provider metadata from a saved report, including genuine zero reasoning tokens. Omit cloud metrics for local output and degraded fallback.",
+      "implementation": ["console/office/src/components/ui/ArchivedReport.tsx", "console/backend/reporting_api.py"],
+      "verification": ["console/office/scripts/session-panel-check.tsx", "tests/test_archived_reporting.py"],
+      "metrics": ["saved and exported usage", "partial legacy metadata", "zero and invalid values", "fallback attribution"],
+      "status": "verified_automated",
+      "evidence": "Rendered-HTML assertions and the production build passed. The browser visual check remains pending."
+    },
+    {
       "id": "reliability.system",
       "requirement": "Exercise restart recovery, concurrency, cancellation, provider outage, egress restrictions and audit integrity across relevant Python, Go, Rust and frontend suites.",
       "implementation": ["console/backend/session_store.py", "console/backend/reporting_api.py", "trustgate/service", "console/office"],

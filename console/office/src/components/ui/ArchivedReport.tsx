@@ -45,6 +45,8 @@ type Report = {
   model: string | null;
   attempted_model?: string;
   notice?: string;
+  finish_reason?: string;
+  usage?: { input?: number; output?: number; reasoning?: number; latency_s?: number };
   findings: { technique: string; title: string; occurrence: string; sources: Source[] }[];
   withheld: { technique: string; reasons: string[] }[];
   summary: Source[];
@@ -53,6 +55,35 @@ type Report = {
 };
 
 const endpoint = `${apiUrl.replace(/\/$/, '')}/reporting/archive`;
+const metricNumber = new Intl.NumberFormat('en', { maximumFractionDigits: 3 });
+
+export function ReportExecutionDetails({ report }: {
+  report: Pick<Report, 'status' | 'usage' | 'finish_reason'>;
+}) {
+  if (report.status !== 'selected') return null;
+
+  const { input, output, reasoning, latency_s: latency } = report.usage ?? {};
+  const fields: [string, string][] = [];
+  const tokenCounts = [
+    ['Input tokens', input],
+    ['Output tokens', output],
+    ['Reasoning tokens', reasoning],
+  ] as const;
+  for (const [label, count] of tokenCounts) {
+    if (typeof count === 'number' && Number.isSafeInteger(count) && count >= 0) {
+      fields.push([label, metricNumber.format(count)]);
+    }
+  }
+  if (typeof latency === 'number' && Number.isFinite(latency) && latency >= 0) {
+    fields.push(['Provider latency', `${metricNumber.format(latency)} s`]);
+  }
+  if (report.finish_reason === 'stop') fields.push(['Finish reason', report.finish_reason]);
+  if (fields.length === 0) return <p className="muted">Provider metrics unavailable for this saved report.</p>;
+
+  return <dl className="archived-report-metrics" aria-label="Saved provider metrics">
+    {fields.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}
+  </dl>;
+}
 
 function Evidence({ source }: { source: Source }) {
   return <div className="archived-evidence">
@@ -209,6 +240,7 @@ function AssessmentReport({ assessmentId, open, onPending }: {
           <p className="muted" role="status">{report.status === 'selected' ? `${report.provider === 'sovereigneg' ? 'SovereignEG' : report.provider} · ${report.model}`
             : report.status === 'degraded' ? `Local fallback · attempted ${report.attempted_model}` : 'Local deterministic evidence report'}</p>
           {report.notice && <p role="status">{report.notice}</p>}
+          <ReportExecutionDetails report={report} />
           <h4>Executive summary</h4>
           {report.summary.length ? report.summary.map(source => <Evidence key={source.id} source={source} />) : <p>No supported findings.</p>}
           <h4>Supported findings ({report.findings.length})</h4>

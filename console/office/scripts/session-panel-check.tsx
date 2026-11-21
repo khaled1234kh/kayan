@@ -6,6 +6,7 @@ import { SEED_ACTORS } from '../src/data/actors';
 import type { TrustGateTranscriptEntry } from '../src/types/trustgate';
 import { agentDecision } from '../src/security/agentDecision';
 import { TrustGatePanel } from '../src/components/ui/Panels';
+import { ReportExecutionDetails } from '../src/components/ui/ArchivedReport';
 
 const actor = { ...SEED_ACTORS.find((a) => a.id === 'ai-sales')!, modelTier: 'A' as const,
   backendAgentId: 'webapp1', engagementId: 'eng1', currentTask: 'sql_injection_test', state: 'working' as const };
@@ -74,3 +75,28 @@ console.log('PASS Reporting shows assessment findings while preserving specialis
 
 assert.equal(findingLabel('command_injection'),'Command injection');assert.equal(findingLabel('xss'),'XSS');
 assert(html.includes('tabindex="0"')&&html.includes('tabindex="-1"'));
+
+const execution = {
+  finish_reason: 'stop',
+  usage: { input: 1250, output: 241, reasoning: 0, latency_s: 1.234 },
+};
+const selectedCloud = renderToStaticMarkup(<ReportExecutionDetails report={{ status: 'selected', ...execution }} />);
+assert(selectedCloud.includes('<dt>Input tokens</dt><dd>1,250</dd>'));
+assert(selectedCloud.includes('<dt>Output tokens</dt><dd>241</dd>'));
+assert(selectedCloud.includes('<dt>Reasoning tokens</dt><dd>0</dd>'));
+assert(selectedCloud.includes('<dt>Provider latency</dt><dd>1.234 s</dd>'));
+assert(selectedCloud.includes('<dt>Finish reason</dt><dd>stop</dd>'));
+
+const legacyCloud = renderToStaticMarkup(<ReportExecutionDetails report={{ status: 'selected', usage: { input: 32 } }} />);
+assert(legacyCloud.includes('<dt>Input tokens</dt><dd>32</dd>'));
+assert(!legacyCloud.includes('Reasoning tokens') && !legacyCloud.includes('Finish reason'));
+const emptyCloud = renderToStaticMarkup(<ReportExecutionDetails report={{ status: 'selected' }} />);
+assert(emptyCloud.includes('Provider metrics unavailable'));
+const invalidCloud = renderToStaticMarkup(<ReportExecutionDetails report={{
+  status: 'selected', usage: { input: -1, output: 1.5, reasoning: Number.NaN, latency_s: Infinity },
+}} />);
+assert(!invalidCloud.includes('<dt>') && invalidCloud.includes('Provider metrics unavailable'));
+for (const status of ['local', 'degraded'] as const) {
+  assert.equal(renderToStaticMarkup(<ReportExecutionDetails report={{ status, ...execution }} />), '');
+}
+console.log('PASS saved Reporting usage, genuine zero, partial legacy metadata and local fallback');
