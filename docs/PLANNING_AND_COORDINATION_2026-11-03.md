@@ -109,3 +109,19 @@ Use a new safe label for every evidence run. The live acceptance/edge CLIs creat
 ## Publication verification
 
 Implementation/evidence commit `ce459f8ae74cecd864cb4b580a8ee0c62c3e032c` was pushed to the authorized GitHub main and matched remote HEAD. An existing clean downloaded verification checkout was fast-forwarded to that commit; all 26 recorded source hashes matched, and its Python suite passed **145 tests / 46 warnings** using the installed host dependencies. It remained clean afterward. This is a downloaded-source recheck, not a new isolated dependency installation. `publication-verification.json` and `published-copy-python.log` in the evidence base retain the result. The closure commit is documentation/evidence only; earlier real-model, suite and screenshot records are not relabeled as new runs.
+
+## Vendor remote access validity · 2026-11-21
+
+Phase 1 previously associated a vendor with a VPN whenever both cues appeared in the same clause. It now requires an explicit operator-to-access relationship. Supported patterns include vendors using or connecting through the path, a vendor-qualified connection, and a path explicitly provided to vendors. The matched relationship appears in the evidence with exact source offsets. The rule remains a hypothetical applicability check.
+
+| Scoped result | Baseline | Corrected |
+| --- | ---: | ---: |
+| Exact fictional profiles | 9/16 | 16/16 |
+| Correct abstentions | 1/8 | 8/8 |
+| Supported scenarios recovered | 8/8 | 8/8 |
+| False scenario matches | 7 | 0 |
+| Context, boundary or recommendation errors | 0 | 0 |
+
+The frozen set contains eight genuine described relationships and eight lexical collisions or inactive examples. It was committed with the existing canonical planner in `cff6fbe` before evaluation. Its SHA-256 is `3c05e24e52cb480fc59d7d72f5b38ac5cd6a654fb44eb57de6a04f77b6f4ab2a`. Both the 32-case validity set and the 12-case transfer set stayed exact. The scorer exercises the Phase 1 Risk Plan and Option A endpoints with live engagement access disabled. The profiles and labels are authored regression cases. Unfamiliar relationship wording can still require manual review.
+
+Reproduce with `python -B -m eval.planning_validity_eval --fixture eval/fixtures/planning_vendor_relationship_v1.json --output <new-output.json>`. The canonical checkout passed 266 focused planning, Reporting and provenance tests, including the real audit restart fixture. [Frozen profiles](../eval/fixtures/planning_vendor_relationship_v1.json) · [Baseline](../eval/reports/planning_vendor_relationship_v1_baseline.json) · [Corrected result](../eval/reports/planning_vendor_relationship_v1_after.json)

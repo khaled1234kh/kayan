@@ -49,4 +49,6 @@ Archived Reporting can reconcile captured decisions through the Rust ledger with
 
 The opt-in signed-archive test reopened the same custody receipt and exact report through a real Ubuntu TrustGate restart, a damaged journal and restoration. Verification states moved independently of the signed custody status. [Recovery results](REUSABLE_REPORTING.md#signed-custody-and-audit-restart)
 
-Next, verify that the offline Phase 1 risk plan distinguishes vendor access from unrelated mentions of a vendor and a VPN. Use frozen fictional profiles and preserve the earlier planning scores.
+Offline Phase 1 now requires a stated relationship between an external actor and the remote access path. The frozen 16-case regression removed seven false vendor-access hypotheses and retained all eight positives. The earlier 32-case and 12-case sets stayed exact. [Planning validity and scope](PLANNING_AND_COORDINATION_2026-11-03.md#vendor-remote-access-validity--2026-11-21)
+
+Next, audit per-role evidence attribution on saved defensive artifacts. Freeze separate expected observations, exclusions and missing-proof controls so specialist claims can be measured without dispatching tools.

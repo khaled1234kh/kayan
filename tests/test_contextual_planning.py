@@ -70,6 +70,25 @@ def test_labelled_offline_profiles_agree_in_phase_one_and_option_a():
     assert [case for case in result['cases'] if not case['exact']] == []
 
 
+def test_vendor_relationship_fixture_requires_a_current_link_and_preserves_option_a():
+    from eval.planning_validity_eval import FIXTURE, run
+
+    result = run(FIXTURE.with_name('planning_vendor_relationship_v1.json'))
+    assert result['exact_cases'] == result['case_count'] == 16, [
+        case for case in result['cases'] if not case['exact']
+    ]
+    assert result['correct_abstentions'] == 8
+
+
+def test_vendor_access_result_points_to_the_linking_phrase():
+    context = {'network_architecture': 'The equipment vendor ships parts, and maintenance contractors use a VPN.'}
+    plan = build_risk_plan(context)
+    risk, = plan['risks']
+    link, = [entry for entry in risk['context_evidence'] if entry['signal'] == 'vendor-to-remote access link']
+    assert link['matched_text'] == 'contractors use a VPN'
+    assert context[link['field']][link['start']:link['end']] == link['excerpt']
+
+
 def test_question_is_not_an_operating_fact_and_untested_restore_is_a_review_gap():
     plan = build_risk_plan({
         'data_storage':'The inventory database is backed up daily. We have not checked whether it can be restored.'

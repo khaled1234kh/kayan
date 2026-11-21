@@ -57,6 +57,15 @@
       "evidence": "Diagnostic top-5 runs scored 22/32 exact for field BM25 and 26/32 for hybrid. Experiment D yielded 0/3 complete groups in both mapping arms. Better technique selection has not established better proof assembly."
     },
     {
+      "id": "correctness.phase_one_vendor_access",
+      "requirement": "Distinguish a stated external-access relationship from co-occurring vendor and VPN words in offline planning and preserve exact evidence and Option A links.",
+      "implementation": ["pentagi/contextual_planning.py", "pentagi/risk_plan.py", "console/backend/planning_api.py"],
+      "verification": ["tests/test_contextual_planning.py", "eval/fixtures/planning_vendor_relationship_v1.json", "docs/PLANNING_AND_COORDINATION_2026-11-03.md#vendor-remote-access-validity--2026-11-21"],
+      "metrics": ["true and false vendor hypotheses", "correct abstentions", "unchanged exact context and mitigation evidence links"],
+      "status": "verified_automated",
+      "evidence": "The frozen authored set moved from 9/16 to 16/16 exact, with eight supported matches retained and seven false matches removed. Both archived planning sets stayed exact. Phase 1 and Option A were exercised without inference or target access."
+    },
+    {
       "id": "evaluation.planner",
       "requirement": "Measure Planner assignment, dependencies, intent, recovery, loops and unnecessary operations independently from deterministic Phase 1 planning.",
       "implementation": ["pentagi/live_engagement.py", "eval/planner_accuracy.py"],

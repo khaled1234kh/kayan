@@ -18,12 +18,24 @@ SUPPORT_GAP = (
     r'\bunsupported\b', r'\bend[- ]of[- ]life\b',
     r'\b(?:out\s+of\s+support|no\s+longer\s+supported|cannot\s+be\s+patched)\b',
 )
+EXTERNAL_OPERATOR = r'\b(?:vendors?|third[- ]part(?:y|ies)|contractors?)\b'
+REMOTE_PATH = r'\b(?:VPNs?|remote\s+access)\b'
+ACCESS_RECIPIENT = rf'(?:(?:the|external|approved)\s+)*{EXTERNAL_OPERATOR}'
+PATH_WORDS = r"(?:(?!\b(?:and|or|who|which|where|staff|employees?|not|without|never)\b)[\w'-]+\s+){0,10}"
+VENDOR_ACCESS_LINK = (
+    rf'{EXTERNAL_OPERATOR}\s+(?:and\s+(?:internal\s+)?(?:staff|employees)\s+)?'
+    rf'(?:uses?|connects?|access(?:es)?)\s+{PATH_WORDS}{REMOTE_PATH}',
+    rf'{EXTERNAL_OPERATOR}\s+(?:(?:support|maintenance)\s+)?{REMOTE_PATH}',
+    rf'{REMOTE_PATH}\s+(?:(?:is|are)\s+)?(?:used\s+by|provided\s+(?:for|to)|'
+    rf'lets?|allows?|permits?|for|to)\s+{ACCESS_RECIPIENT}',
+)
 
 
 RULES = [
     dict(id='vendor_remote_access', title='Review vendor access to internal systems', reference='T1133',
          same_clause=True,
-         groups={'remote access': [r'\bVPNs?\b', r'\bremote\s+access\b'], 'external operators': [r'\bvendors?\b', r'\bthird.party\b', r'\bcontractors?\b']},
+         groups={'remote access': [REMOTE_PATH], 'external operators': [EXTERNAL_OPERATOR]},
+         relationship=VENDOR_ACCESS_LINK,
          gaps=[r'access\s+reviews?[^.;\n]{0,55}(?:infrequent|missing|not\s+documented)', r'shared[^.;\n]{0,25}accounts?'],
          consequence='A compromised or stale external account could provide an entry path to the internal systems reachable through that connection.',
          why='External Remote Services describes remote entry paths such as VPN access; the description explicitly names both the connection and its external users.',
@@ -172,8 +184,12 @@ def contextual_candidates(context,index):
         groups = [_matches(clauses, patterns, signal) for signal, patterns in rule['groups'].items()]
         if not all(groups) or rule['reference'] not in refs:
             continue
+        relationship = rule.get('relationship')
+        linked = _matches(clauses, relationship, 'vendor-to-remote access link') if relationship else None
         if rule.get('same_clause'):
             shared_clauses = set.intersection(*(set(group) for group in groups))
+            if linked is not None:
+                shared_clauses &= linked.keys()
             if rule['id'] == 'shared_identity':
                 # Suppress duplicate account cues only where external access is also supported.
                 shared_clauses -= vendor_access_clauses
@@ -185,6 +201,8 @@ def contextual_candidates(context,index):
         else:
             evidence_scopes = [next(iter(group)) for group in groups]
         evidence = [group[scope] for group, scope in zip(groups, evidence_scopes)]
+        if linked is not None:
+            evidence.append(linked[evidence_scopes[0]])
         gaps = _matches(clauses, rule['gaps'], 'stated control gap')
         # A separate vendor-access review sentence can qualify when it names the external party.
         gap = next((item for scope, item in gaps.items() if scope in evidence_scopes
