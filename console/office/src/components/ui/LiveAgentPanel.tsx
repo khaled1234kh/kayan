@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from 'react';
 import type { Actor } from '../../types';
 import { TRUSTGATE_SEATS, type TrustGateFinding, type TrustGateTranscriptEntry } from '../../types/trustgate';
 import { TierBadge } from './TierBadge';
+import { ArchivedReport } from './ArchivedReport';
 import { AgentMessageComposer } from './OperatorControls';
 import { CoverageDetails, coverageRoleLabel, parseCoverage, type SpecialistCoverage } from './CoverageDetails';
 import { CoordinationDetails, parseOutcomeReview } from './CoordinationDetails';
@@ -11,7 +12,7 @@ export function decisionTone(entry: TrustGateTranscriptEntry): string {
   return decision === 'DENY' ? 'is-denied' : decision === 'ALLOW' ? 'is-allowed' : '';
 }
 
-export function findingLabel(kind:string){return ({sql_injection:'SQL injection',command_injection:'Command injection',path_traversal:'Path traversal',xss:'XSS'} as Record<string,string>)[kind]??kind.replace(/_/g,' ');}
+export function findingLabel(kind:unknown){if (typeof kind !== 'string' || !kind) return 'Unclassified record'; return ({sql_injection:'SQL injection',command_injection:'Command injection',path_traversal:'Path traversal',xss:'XSS'} as Record<string,string>)[kind]??kind.replace(/_/g,' ');}
 
 function rawTranscript(entry: TrustGateTranscriptEntry): string {
   // The transcript scrolls to its end as output grows. Keep the streamed
@@ -60,6 +61,7 @@ export function LiveAgentPanel({ actor, transcript, findings, decision, gateAvai
       {incomplete.map(([role, coverage]) => <section key={role}><strong>{coverageRoleLabel(role)}</strong>
         <CoverageDetails coverage={coverage}/></section>)}
     </details>}
+    {actor.id === TRUSTGATE_SEATS.reporting_agent && <ArchivedReport />}
     <div className="agent-tabs" role="tablist" aria-label="Agent details">{['Activity','Findings','Decision','Message'].map(label =>
       <button type="button" key={label} role="tab" id={`agent-tab-${label}`} aria-selected={tab === label} tabIndex={tab===label?0:-1} onKeyDown={event=>{const labels=['Activity','Findings','Decision','Message'];let index=labels.indexOf(label);if(event.key==='ArrowRight')index=(index+1)%4;else if(event.key==='ArrowLeft')index=(index+3)%4;else if(event.key==='Home')index=0;else if(event.key==='End')index=3;else return;event.preventDefault();setTab(labels[index]);document.getElementById(`agent-tab-${labels[index]}`)?.focus();}} aria-controls={`agent-pane-${label}`} onClick={() => setTab(label)}>{label}</button>)}</div>
     <section role="tabpanel" id="agent-pane-Activity" aria-labelledby="agent-tab-Activity" hidden={tab !== 'Activity'}>

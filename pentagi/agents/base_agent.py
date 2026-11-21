@@ -2,12 +2,14 @@
 
 import uuid
 import json
+import logging
 from typing import Any, Dict, List, Optional
 from abc import ABC, abstractmethod
 
 from integration.trustgate_client import TrustGateClient, AuthorizationResult
 from pentagi.agent_config import agent_config
 from pentagi.call_context import prepare_context
+from pentagi.execution_evidence import LAB_URL
 
 
 class BaseAgent(ABC):
@@ -25,6 +27,7 @@ class BaseAgent(ABC):
         self.denied_actions: List[Dict] = []
         self.allowed_actions: List[Dict] = []
         self.event_sink = None
+        self.evidence_store = None
         self.capability_contract = agent_config(role)
         self.model_tier = self.capability_contract["model_tier"]
         self.model_name = self.capability_contract["model_name"]
@@ -84,6 +87,18 @@ class BaseAgent(ABC):
         self._activity("authorization_decision", task_id,
                        f"{auth.decision}: {tool_name} — {auth.reason}", **decision)
 
+        def capture(result=None, *, dispatched=False):
+            if self.evidence_store is None or tool_args.get("target") != LAB_URL or target != "127.0.0.1":
+                return {}
+            try:
+                digest = self.evidence_store.record(engagement=self.engagement_id, agent=self.agent_id,
+                    role=self.role, task=task_id, tool=tool_name, target=target,
+                    auth=auth, result=result, dispatched=dispatched)
+                return {"source_artifact_sha256": digest}
+            except (ValueError, OSError):
+                logging.getLogger(__name__).warning("Evidence capture failed for task %s", task_id)
+                return {"source_capture_failed": True}
+
         if not auth.allowed:
             self.denied_actions.append({
                 "tool": tool_name,
@@ -94,7 +109,7 @@ class BaseAgent(ABC):
                 "audit_entry_id": auth.audit_entry_id,
             })
             self._activity("tool_denied", task_id,
-                           f"Skipped {tool_name}: {auth.reason}", **decision)
+                           f"Skipped {tool_name}: {auth.reason}", **decision, **capture())
             return {
                 "allowed": False,
                 "result": None,
@@ -111,6 +126,7 @@ class BaseAgent(ABC):
             except Exception as e:
                 result = {"error": str(e)}
 
+        captured = capture(result, dispatched=executor_fn is not None)
         self.allowed_actions.append({
             "tool": tool_name,
             "args": tool_args,
@@ -122,7 +138,7 @@ class BaseAgent(ABC):
         truncated = len(rendered) > 4000
         self._activity("tool_result", task_id,
                        f"{tool_name}: {rendered[:4000]}" + (" [truncated]" if truncated else ""),
-                       **details, truncated=truncated,
+                       **details, truncated=truncated, **captured,
                        result=result,
                        error=isinstance(result, dict) and "error" in result)
 

@@ -213,6 +213,12 @@ from console.backend.live_api import install_live_api
 install_live_api(app, lambda: _engagement_state, mutate_state)
 from console.backend.planning_api import install_planning_api
 install_planning_api(app, lambda: dict(_engagement_state))
+from console.backend.reporting_api import RESULTS, install_reporting_api
+from console.backend.reporting_evidence import ReportingCatalog
+from console.backend.reporting_review import install_review_api
+reporting_catalog = ReportingCatalog(session_store, RESULTS / "evidence")
+install_reporting_api(app, catalog=reporting_catalog)
+install_review_api(app, reporting_catalog, RESULTS / "reviews")
 
 
 if __name__ == "__main__":

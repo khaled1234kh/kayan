@@ -18,6 +18,7 @@ from pentagi.lab_tools import LabTools, ROLE_TOOLS, MITRE, FINDING_TYPES
 from pentagi.ollama_client import OllamaClient
 from pentagi.orchestrator import EngagementOrchestrator
 from pentagi.inference_context import model_messages
+from pentagi.execution_evidence import ToolEvidenceStore
 from pentagi.engagement_context import descriptive_context
 
 TECHNIQUES = {"planner_agent": "planning", "recon_agent": "recon", "webapp_agent": "web-app", "network_agent": "network", "reporting_agent": "reporting"}
@@ -91,6 +92,9 @@ class LiveEngagement(EngagementOrchestrator):
             ["recon", "web-app", "network", "reporting", "planning", "operator-status", "operator-instruction", "agent-message"],
             forbidden_actions, engagement_id=engagement_id)
         self.agents = [ReasoningAgent(a.agent_id, a.role, self.engagement_id, self.trustgate) for a in self.agents]
+        evidence_store = ToolEvidenceStore()
+        for specialist in self.agents:
+            specialist.evidence_store = evidence_store
         self.planner = ReasoningAgent("planner-"+uuid.uuid4().hex[:8], "planner_agent", self.engagement_id, self.trustgate)
         participants = [self.planner, *self.agents, self.reporting_agent]
         for agent in participants:

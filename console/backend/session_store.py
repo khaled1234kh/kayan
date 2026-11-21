@@ -34,6 +34,20 @@ class SessionStore:
             raise ValueError("Stored engagement ID mismatch")
         return state
 
+    def completed(self):
+        """Read completed snapshots without resuming or selecting an engagement."""
+        for candidate in sorted(self.directory.glob("*.json"), key=lambda file: file.name):
+            if not re.fullmatch(r"[0-9a-f]{64}\.json", candidate.name):
+                continue
+            try:
+                state = json.loads(candidate.read_bytes())
+                if (isinstance(state, dict) and state.get("status") == "completed"
+                        and isinstance(state.get("engagement_id"), str)
+                        and self.path(state["engagement_id"]) == candidate):
+                    yield state
+            except (ValueError, OSError):
+                continue
+
     def current(self):
         """Restore records only. A pointer is authoritative; corruption never selects another run."""
         pointer = self.directory / 'current-session.json'

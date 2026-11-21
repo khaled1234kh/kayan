@@ -5,3 +5,4 @@ httpx>=0.24.0
 pytest>=7.0.0
 websockets==17.1
 python-multipart==0.0.32
+cryptography>=43

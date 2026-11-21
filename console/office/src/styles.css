@@ -1902,3 +1902,33 @@ body {
 .planning-dialog .descriptive-context { max-height: none; overflow: visible; }
 .planning-dialog > header { position: sticky; top: -20px; z-index: 1; background: #101820; padding-block: 12px; }
 .planning-dialog > fieldset { min-width: 0; }
+
+.archived-report-body {
+  display: grid;
+  gap: .55rem;
+  padding-block: .65rem;
+  overflow-wrap: anywhere;
+}
+.archived-report-body h3,
+.archived-report-body h4,
+.archived-report-body p {
+  margin-block: .3rem;
+}
+.archived-report-body select,
+.archived-report-body .btn {
+  min-height: 44px;
+  max-width: 100%;
+}
+.archived-report-body .btn {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+}
+.archived-report-body ul {
+  padding-inline-start: 1.2rem;
+}
+.archived-evidence {
+  border-inline-start: 1px solid currentColor;
+  padding-inline-start: .65rem;
+  margin-block: .55rem;
+}

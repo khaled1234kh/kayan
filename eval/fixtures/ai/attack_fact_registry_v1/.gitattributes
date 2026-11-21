@@ -1,0 +1,3 @@
+*.xml -text
+*.txt -text
+*-manifest.json -text

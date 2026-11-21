@@ -1,0 +1,141 @@
+{
+  "schema": "kayan.engineering-acceptance/1",
+  "verified_on": "2026-11-21",
+  "reference_root": "Canonical KAYAN development checkout. Narrow feature branches may omit historical research files.",
+  "status_values": [
+    "not_started",
+    "in_progress",
+    "implemented_unverified",
+    "verified_automated",
+    "verified_operational",
+    "independently_validated"
+  ],
+  "criteria": [
+    {
+      "id": "operational.five_roles",
+      "requirement": "Planner, Recon, Web-App, Network and Reporting have distinct capabilities and auditable assignment, outcome and recovery states.",
+      "implementation": ["pentagi/live_engagement.py", "console/backend/session_store.py"],
+      "verification": ["tests/test_planner_coordination.py", "docs/PLANNER_ACCURACY_2026-11-04.md"],
+      "metrics": ["role completion", "assignment order", "recovery decisions", "unnecessary operations", "user-visible state accuracy"],
+      "status": "in_progress",
+      "evidence": "The five-role implementation is present and historical owned-lab examples exist. Current full-workflow failure and recovery cases were not rerun."
+    },
+    {
+      "id": "security.authorization",
+      "requirement": "Verify signed ROE and independently authorize each operation with action-specific Rust/Cedar decisions and auditable outcomes. Missing or invalid authorization must fail closed.",
+      "implementation": ["trustgate/service", "integration/trustgate_client.py", "pentagi_upstream/backend/pkg/tools/executor.go"],
+      "verification": ["pentagi_upstream/backend/pkg/tools/governance_test.go", "https://github.com/khaled1234kh/kayan/actions/runs/44919189760"],
+      "metrics": ["unauthorized side effects", "false denials", "audit coverage"],
+      "status": "verified_automated",
+      "evidence": "Ubuntu CI passed 180 tools and 10 Go TrustGate tests, with the live Cedar test skipped. Executor bookkeeping tests do not measure live authorization."
+    },
+    {
+      "id": "security.evidence_isolation",
+      "requirement": "Bind source captures, approved review, custody and admission to the same case and revision. Reject tampering, forged approvals and cross-case reuse.",
+      "implementation": ["pentagi/execution_evidence.py", "console/backend/reporting_evidence.py", "console/backend/reporting_exchange.py"],
+      "verification": ["tests/test_tool_evidence.py", "tests/test_signed_reporting_exchange.py"],
+      "metrics": ["tampered or misbound records rejected", "source capture completeness", "review and custody state recovery"],
+      "status": "verified_automated",
+      "evidence": "Completed synthetic and saved loopback fixtures cover capture, receipt replay and restoration. Independent operational custody and reviewer enrollment are pending."
+    },
+    {
+      "id": "correctness.admission",
+      "requirement": "Admit a finding only with the complete reviewed provenance required by admission v2. Withhold unsupported, ambiguous and contradicted claims per occurrence.",
+      "implementation": ["eval/attack_evidence_admission_v2.py", "eval/attack_evidence_guard_v4.py", "pentagi/agents/archived_reporting.py"],
+      "verification": ["tests/test_attack_evidence_admission_v2.py", "docs/ATTACK_PROVENANCE_ADMISSION_V2_FINAL_SIGNOFF_2026-11-20.md"],
+      "metrics": ["false eligible findings", "eligible supported findings", "complete evidence groups", "exact occurrence and citation attribution"],
+      "status": "independently_validated",
+      "evidence": "Documented independent engineering sign-off covers the bounded offline verifier using synthetic inputs. Real-telemetry intake remains NO-GO."
+    },
+    {
+      "id": "correctness.mapping_generation",
+      "requirement": "Compare grounded ATT&CK generation against separate retrieval, occurrence, source, role and complete evidence oracles.",
+      "implementation": ["eval/attack_evidence_guard_v4.py", "ai/mitre/ranking.py"],
+      "verification": ["docs/ATTACK_MAPPING_ABLATION_2026-11-20.md", "docs/ATTACK_DIAGNOSTIC_D_RESULTS_V3_2026-11-20.md", "docs/CLOUD_PIVOT_EXTRACTION_V2_RESULTS.md"],
+      "metrics": ["technique precision/recall/F1", "role and citation precision/recall", "complete proof recall", "unsupported outputs", "semantic abstention"],
+      "status": "in_progress",
+      "evidence": "Diagnostic top-5 runs scored 22/32 exact for field BM25 and 26/32 for hybrid. Experiment D yielded 0/3 complete groups in both mapping arms. Better technique selection has not established better proof assembly."
+    },
+    {
+      "id": "evaluation.planner",
+      "requirement": "Measure Planner assignment, dependencies, intent, recovery, loops and unnecessary operations independently from deterministic Phase 1 planning.",
+      "implementation": ["pentagi/live_engagement.py", "eval/planner_accuracy.py"],
+      "verification": ["tests/test_planner_accuracy_eval.py", "docs/PLANNER_ACCURACY_2026-11-04.md"],
+      "metrics": ["first-pass and post-correction exactness", "scope fidelity", "recovery accuracy", "duplicate operations"],
+      "status": "in_progress",
+      "evidence": "The historical closed-world inference benchmark reported 24/30 first pass and 26/30 after correction. Cases were authored and supplied runtime constraints; the score does not establish held-out accuracy."
+    },
+    {
+      "id": "evaluation.specialists",
+      "requirement": "Measure Recon attribution and coverage, Web-App finding and remediation fidelity, and Network observation accuracy and scope fidelity with distinct oracles.",
+      "implementation": ["pentagi/live_engagement.py"],
+      "verification": ["tests/test_planner_coordination.py", "docs/RESEARCH_UPDATE.md"],
+      "metrics": ["grounded discovery coverage", "false positives and false negatives by role", "reproducible findings", "duplicate observations", "remediation fidelity"],
+      "status": "in_progress",
+      "evidence": "Existing coordination and reports cover selected synthetic cases. Independent per-role quality scores and a held-out evaluation are unestablished."
+    },
+    {
+      "id": "cloud.reporting",
+      "requirement": "Allow bounded provider selection for defensive Reporting under digest-specific approval, independent egress authorization and deterministic admission.",
+      "implementation": ["console/backend/reporting_api.py", "ai/providers/reporting_sovereign.py", "pentagi/agents/archived_reporting.py"],
+      "verification": ["tests/test_archived_reporting.py", "docs/ARCHIVED_REPORTING.md"],
+      "metrics": ["egress attempts per approval", "provider/model attribution", "verified selection", "unchanged supported and withheld findings", "latency and tokens"],
+      "status": "verified_operational",
+      "evidence": "One historical authorized Slate request returned a valid excerpt and control selection and the browser export matched. The smoke test does not measure generation of independently grounded findings."
+    },
+    {
+      "id": "cloud.role_selection",
+      "requirement": "Measure local, cloud and role-specific configurations with safe provider substitution, structured outputs, independent authorization and attributable results.",
+      "implementation": ["pentagi/ollama_client.py", "ai/providers/registry.py", "console/backend/reporting_api.py"],
+      "verification": ["tests/test_ai_layer.py", "docs/CLOUD_PIVOT_REAL_EXECUTION_RESULTS_2026-11-21.md"],
+      "metrics": ["accuracy, latency, token use and spend by role", "failure and fallback rates", "effective provider and model"],
+      "status": "in_progress",
+      "evidence": "The actual sequential assessment uses local Ollama. Experimental cloud dispatch is paused. Archived Reporting is the only demonstrated real cloud workflow. There is no active approval for a new cloud request."
+    },
+    {
+      "id": "reliability.reporting_recovery",
+      "requirement": "Recover a verified local report after interruption of an approved cloud attempt without reissuing the request.",
+      "implementation": ["console/backend/reporting_api.py"],
+      "verification": ["tests/test_archived_reporting.py"],
+      "metrics": ["one mock transport invocation", "identical recovered API/download JSON", "unchanged findings and audit references", "approval replay rejected"],
+      "status": "verified_automated",
+      "evidence": "The test interrupted the transport call and recreated the application. Before the fix the result returned 404. After it the same evidence revision returns the degraded local report and rejects replay."
+    },
+    {
+      "id": "reliability.system",
+      "requirement": "Exercise restart recovery, concurrency, cancellation, provider outage, egress restrictions and audit integrity across relevant Python, Go, Rust and frontend suites.",
+      "implementation": ["console/backend/session_store.py", "console/backend/reporting_api.py", "trustgate/service", "console/office"],
+      "verification": ["tests/test_archived_reporting.py", "docs/REUSABLE_REPORTING.md", "https://github.com/khaled1234kh/kayan/actions/runs/44919189760"],
+      "metrics": ["restart completeness", "terminal and duplicate operations", "timeout and recovery rate", "pass/fail/skip totals per suite"],
+      "status": "in_progress",
+      "evidence": "Focused recovery, Go CI and saved console operational evidence exist. No matched current cross-component reliability run was performed."
+    },
+    {
+      "id": "evaluation.held_out",
+      "requirement": "Freeze matched local, cloud and hybrid comparisons with held-out case families, independent ground truth, uncertainty analysis and negative controls.",
+      "implementation": ["eval/planner_accuracy.py", "eval/attack_evidence_v2.py"],
+      "verification": ["docs/ATTACK_RESEARCH_VALIDITY_2026-11-20.md", "docs/ATTACK_ADMISSION_FEASIBILITY_PREREGISTRATION.md"],
+      "metrics": ["paired uncertainty intervals", "model and fallback costs", "reviewer agreement", "unsupported and missed events"],
+      "status": "in_progress",
+      "evidence": "Exposed diagnostics and authored oracles exist. No independently labelled and adjudicated fresh confirmation or frozen stakeholder thresholds have been verified."
+    },
+    {
+      "id": "academic.reproducibility",
+      "requirement": "Retain frozen inputs, model parameters, raw outcomes, scoring commands and historical failures. Report findings at the scope supported by the evidence.",
+      "implementation": ["eval", "docs/RESEARCH_UPDATE.md"],
+      "verification": ["docs/ATTACK_EXPLORATORY_V2_RESULTS_2026-11-20.md", "docs/ATTACK_DIAGNOSTIC_D_RESULTS_V3_2026-11-20.md"],
+      "metrics": ["hash verification", "score replay", "missing or invalid responses", "inter-run variation"],
+      "status": "in_progress",
+      "evidence": "The historical v2 and D reports record reproducible checks and negative outcomes. Several supporting sources and artifacts are unpublished in the local checkout."
+    },
+    {
+      "id": "production.readiness",
+      "requirement": "Validate operator/reviewer identity, protected keys, service isolation, secure storage, monitoring, bounded concurrency, deployment, incident recovery and real custody independently.",
+      "implementation": ["console/backend/reporting_identity.py", "console/backend/reporting_exchange.py"],
+      "verification": ["docs/ATTACK_ADMISSION_FEASIBILITY_READINESS.md", "docs/SIGNED_REPORTING_REVIEW.md"],
+      "metrics": ["operational control sign-offs", "data-owner and ethics approvals", "source and time attestations", "recovery and revocation evidence"],
+      "status": "in_progress",
+      "evidence": "Only bounded offline engineering and test-only review exchange are established. Data intake, external custody, reviewer independence and production readiness remain open."
+    }
+  ]
+}

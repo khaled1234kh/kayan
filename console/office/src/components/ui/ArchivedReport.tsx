@@ -1,0 +1,232 @@
+import { useEffect, useState } from 'react';
+import { apiUrl } from '../../transport';
+import { EvidenceReview } from './EvidenceReview';
+
+type Mode = 'local' | 'sovereigneg';
+type Assessment = { title: string; assessment_id: string };
+type Archive = Assessment & {
+  cloud_available: boolean;
+  source_status?: string;
+  custody_test_only?: boolean;
+  admission_status?: 'evaluated' | 'pending';
+  review_status?: 'verified' | 'submitted' | 'awaiting';
+  verification: 'fixture_custody' | 'independent_custody' | 'missing_custody' | 'invalid_custody';
+  coverage: {
+    recorded_tools?: number;
+    captured_tools?: number;
+    failed_tools?: number;
+    truncated_tools?: number;
+    specialists?: { role: string; complete: boolean; status: string; stop_reason?: string }[];
+  };
+};
+
+const verificationLabel: Record<Archive['verification'], string> = {
+  fixture_custody: 'Verified using pinned synthetic custody',
+  independent_custody: 'Independent custody verified',
+  missing_custody: 'Independent custody missing',
+  invalid_custody: 'Independent custody failed verification',
+};
+
+const sourceLabel: Record<string, string> = {
+  source_captured: 'Captured at tool execution',
+  mixed_source: 'Execution artifacts and lower-assurance transcript records',
+  transcript_only: 'Historical transcript only · lower assurance',
+  invalid_source: 'Source artifact missing or invalid',
+  no_evidence: 'No tool records available',
+};
+
+const specialistName: Record<string, string> = {
+  recon_agent: 'Recon', webapp_agent: 'Web-App', network_agent: 'Network',
+};
+type Source = { id: string; roles: string[]; statements: string[] };
+type Report = {
+  status: 'local' | 'selected' | 'degraded';
+  provider: string | null;
+  model: string | null;
+  attempted_model?: string;
+  notice?: string;
+  findings: { technique: string; title: string; occurrence: string; sources: Source[] }[];
+  withheld: { technique: string; reasons: string[] }[];
+  summary: Source[];
+  recommendations: { id: string; text: string }[];
+  limitation: string;
+};
+
+const endpoint = `${apiUrl.replace(/\/$/, '')}/reporting/archive`;
+
+function Evidence({ source }: { source: Source }) {
+  return <div className="archived-evidence">
+    <strong>{source.id}</strong> <span className="muted">{source.roles.join(' · ')}</span>
+    {source.statements.map(statement => <p key={statement}>{statement}</p>)}
+  </div>;
+}
+
+export function ArchivedReport() {
+  const [open, setOpen] = useState(false);
+  const [assessments, setAssessments] = useState<Assessment[]>();
+  const [selected, setSelected] = useState('');
+  const [error, setError] = useState('');
+  const [pending, setPending] = useState(false);
+
+  useEffect(() => {
+    if (!open) return;
+    const controller = new AbortController();
+    setError('');
+    fetch(endpoint.replace(/archive$/, 'assessments'), { signal: controller.signal }).then(async response => {
+      if (!response.ok) throw new Error('Completed assessments are unavailable.');
+      const list: Assessment[] = await response.json();
+      if (controller.signal.aborted) return;
+      setAssessments(list);
+      setSelected(current => list.some(item => item.assessment_id === current) ? current : list[0]?.assessment_id ?? '');
+    }).catch(() => {
+      if (!controller.signal.aborted) setError('Could not load completed assessments.');
+    });
+    return () => controller.abort();
+  }, [open]);
+
+  return <details className="archived-report role-boundary" onToggle={event => setOpen(event.currentTarget.open)}>
+    <summary>Archived Reporting</summary>
+    <div className="archived-report-body">
+      {error ? <p role="alert">{error}</p> : !assessments ? <p role="status">Loading completed assessments…</p>
+        : assessments.length === 0 ? <p>No completed synthetic assessments are available.</p> : <>
+          <label htmlFor="report-assessment">Completed assessment</label>
+          <select id="report-assessment" value={selected} disabled={pending} onChange={event => setSelected(event.target.value)}>
+            {assessments.map(item => <option key={item.assessment_id} value={item.assessment_id}>{item.title}</option>)}
+          </select>
+          {selected && <AssessmentReport key={selected} assessmentId={selected} open={open} onPending={setPending} />}
+        </>}
+    </div>
+  </details>;
+}
+
+function AssessmentReport({ assessmentId, open, onPending }: {
+  assessmentId: string; open: boolean; onPending: (value: boolean) => void;
+}) {
+  const selection = `assessment_id=${encodeURIComponent(assessmentId)}`;
+  const [archive, setArchive] = useState<Archive>();
+  const [refresh, setRefresh] = useState(0);
+  const [mode, setMode] = useState<Mode>('local');
+  const [report, setReport] = useState<Report>();
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState('');
+  const [loadError, setLoadError] = useState('');
+
+  useEffect(() => {
+    if (!open) return;
+    const controller = new AbortController();
+    fetch(`${endpoint}?${selection}`, { signal: controller.signal }).then(async response => {
+      if (!response.ok) throw new Error('Saved synthetic assessment is unavailable.');
+      setArchive(await response.json());
+    }).catch(() => {
+      if (!controller.signal.aborted) setLoadError('Could not open the archived assessment.');
+    });
+    return () => controller.abort();
+  }, [open, selection, refresh]);
+
+  useEffect(() => {
+    if (!open || pending) return;
+    const controller = new AbortController();
+    fetch(`${endpoint}/result?${selection}&mode=${mode}`, { signal: controller.signal }).then(async response => {
+      if (response.ok) setReport(await response.json());
+      else if (response.status === 404) setReport(undefined);
+      else throw new Error('Could not load the saved report.');
+    }).catch(() => {
+      if (!controller.signal.aborted) setError('Could not load the saved report.');
+    });
+    return () => controller.abort();
+  }, [open, mode, pending, selection, refresh]);
+
+  async function run() {
+    setPending(true);
+    onPending(true);
+    setError('');
+    try {
+      const response = await fetch(`${endpoint}/run`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mode, assessment_id: assessmentId }),
+      });
+      const value = await response.json();
+      if (!response.ok) throw new Error(typeof value.detail === 'string' ? value.detail : 'Reporting failed.');
+      setReport(value);
+    } catch (failure) {
+      setError(failure instanceof Error ? failure.message : 'Reporting failed.');
+    } finally {
+      setPending(false);
+      onPending(false);
+      if (mode === 'sovereigneg') {
+        try {
+          const response = await fetch(`${endpoint}?${selection}`);
+          if (response.ok) setArchive(await response.json());
+        } catch {
+          setArchive(current => current && { ...current, cloud_available: false });
+        }
+      }
+    }
+  }
+
+  return <>
+      {loadError && !archive ? <p role="alert">{loadError}</p> : !archive ? <p role="status">Opening archived assessment…</p> : <>
+        <p role="status"><strong>{verificationLabel[archive.verification]}</strong></p>
+        {archive.custody_test_only && <p><strong>Test-only custody and review</strong></p>}
+        {archive.source_status && sourceLabel[archive.source_status] && <p className="muted">{sourceLabel[archive.source_status]}</p>}
+        <details className="coverage-warning">
+          <summary>Evidence coverage · {archive.coverage.recorded_tools ?? 0} records</summary>
+          {archive.coverage.failed_tools !== undefined &&
+            <p>{archive.coverage.failed_tools} failed · {archive.coverage.truncated_tools} truncated</p>}
+          <ul>{archive.coverage.specialists?.map(item => <li key={item.role}>
+            {specialistName[item.role]} · {item.complete ? 'complete' : item.status === 'unavailable' ? 'coverage not recorded' : 'incomplete'}
+            {item.stop_reason && <span> · {item.stop_reason.replace(/_/g, ' ')}</span>}
+          </li>)}</ul>
+        </details>
+        {archive.verification !== 'fixture_custody' && <>
+          <ol aria-label="Evidence review progress">
+            <li>{archive.coverage.captured_tools ? 'Captured' : 'Capture pending'}</li>
+            <li>{archive.review_status === 'awaiting' ? 'Pending review' : 'Reviewed'}</li>
+            <li>{archive.verification === 'independent_custody' ? 'Custody verified' : 'Custody pending'}</li>
+            <li>{archive.admission_status === 'evaluated' ? 'Admission evaluated' : 'Admission pending'}</li>
+          </ol>
+          <EvidenceReview assessmentId={assessmentId} reviewStatus={archive.review_status} onChange={() => setRefresh(count => count + 1)} />
+        </>}
+        <label htmlFor="archived-report-mode">Reporting mode</label>
+        <select id="archived-report-mode" value={mode} disabled={pending} onChange={event => {
+          setMode(event.target.value as Mode);
+          setReport(undefined);
+          setError('');
+        }}>
+          <option value="local">Local evidence report</option>
+          <option value="sovereigneg">SovereignEG · Qwen 27B</option>
+        </select>
+        {mode === 'sovereigneg' && <p className="muted">{archive.cloud_available
+          ? 'One approved request. TrustGate checks this archive before sending admitted evidence.'
+          : 'Cloud execution needs an unused approval for this archive. Saved reports remain available.'}</p>}
+        <button className="btn" type="button" disabled={pending || (mode === 'sovereigneg' && !archive.cloud_available)} onClick={() => void run()}>
+          {pending ? 'Preparing report…' : 'Run Reporting'}
+        </button>
+        {error && <p role="alert">{error}</p>}
+        {!report && !pending && !error && <p className="muted">No report loaded for this mode.</p>}
+        {report && <section aria-label="Saved evidence report">
+          <p className="muted" role="status">{report.status === 'selected' ? `${report.provider === 'sovereigneg' ? 'SovereignEG' : report.provider} · ${report.model}`
+            : report.status === 'degraded' ? `Local fallback · attempted ${report.attempted_model}` : 'Local deterministic evidence report'}</p>
+          {report.notice && <p role="status">{report.notice}</p>}
+          <h4>Executive summary</h4>
+          {report.summary.length ? report.summary.map(source => <Evidence key={source.id} source={source} />) : <p>No supported findings.</p>}
+          <h4>Supported findings ({report.findings.length})</h4>
+          {report.findings.map(finding => <details key={finding.technique} className="session-finding">
+            <summary>{finding.technique} · {finding.title}</summary>
+            <p className="muted">{finding.occurrence}</p>
+            {finding.sources.map(source => <Evidence key={source.id} source={source} />)}
+          </details>)}
+          {report.recommendations.length > 0 && <><h4>Defensive recommendations</h4>
+            <ul>{report.recommendations.map(action => <li key={action.id}>{action.text}</li>)}</ul></>}
+          <h4>Withheld claims ({report.withheld.length})</h4>
+          {report.withheld.length ? <ul>{report.withheld.map(claim =>
+            <li key={claim.technique}>{claim.technique} · {claim.reasons.map(reason => reason.replace(/_/g, ' ')).join(', ')}</li>)}</ul>
+            : <p>No withheld claims in this archive.</p>}
+          <p className="muted">{report.limitation}</p>
+          <a className="btn" href={`${endpoint}/result?${selection}&mode=${mode}&download=true`}>Export report JSON</a>
+        </section>}
+      </>}
+  </>;
+}
+
