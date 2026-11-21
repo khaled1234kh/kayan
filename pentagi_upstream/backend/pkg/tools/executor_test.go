@@ -11,7 +11,6 @@ import (
 	"slices"
 	"strings"
 	"sync"
-	"sync/atomic"
 	"testing"
 	"time"
 	"unicode/utf8"
@@ -22,7 +21,6 @@ import (
 	obs "pentagi/pkg/observability"
 	"pentagi/pkg/observability/langfuse"
 
-	"github.com/moby/moby/client"
 	"github.com/sirupsen/logrus"
 	"github.com/vxcontrol/langchaingo/llms"
 )
@@ -61,6 +59,7 @@ func (l *executorMsgLog) UpdateMsgResult(
 // executorToolCallLog stands in for the tool call log and, like the database, refuses a write through a done context.
 type executorToolCallLog struct {
 	putErr     error
+	started    int
 	successErr error
 
 	success []string
@@ -70,6 +69,7 @@ type executorToolCallLog struct {
 func (l *executorToolCallLog) PutLog(
 	ctx context.Context, _, _ string, _ json.RawMessage, _, _ *int64,
 ) (int64, error) {
+	l.started++
 	if err := ctx.Err(); err != nil {
 		return 0, err
 	}
@@ -199,7 +199,20 @@ func executorObserveLangfuse(t *testing.T) *executorLangfuse {
 	return lf
 }
 
-func TestExecutor_Execute_AnswersACallItCannotRunWithACorrection(t *testing.T) {
+func recordFixtureResult(ce *customExecutor, ctx context.Context, id, name string, args json.RawMessage, output string, handlerErr error) (string, error) {
+	started := time.Now()
+	call, err := ce.beginToolCall(ctx, 1, id, name, "", args)
+	if err != nil {
+		return "", err
+	}
+	result, format, err := ce.finishToolCall(ctx, started, id, name, args, call.logID, output, handlerErr)
+	if err == nil {
+		ce.publishToolResult(ctx, 1, id, name, args, call, result, format)
+	}
+	return result, err
+}
+
+func TestExecutor_Bookkeeping_AnswersACallItCannotRunWithACorrection(t *testing.T) {
 	t.Parallel()
 
 	for _, tc := range []struct {
@@ -256,30 +269,18 @@ func TestExecutor_Execute_AnswersACallItCannotRunWithACorrection(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			t.Parallel()
 
-			var runs atomic.Int32
-			handler := func(context.Context, string, json.RawMessage) (string, error) {
-				runs.Add(1)
-				return "ran", nil
-			}
 			ce := &customExecutor{handlers: map[string]ExecutorHandler{
-				TerminalToolName: handler,
-				FileToolName:     handler,
-				BrowserToolName:  handler,
+				TerminalToolName: nil,
+				FileToolName:     nil,
+				BrowserToolName:  nil,
 			}}
-
-			answer, err := ce.Execute(t.Context(), 1, "call-1", tc.tool, "", "", json.RawMessage(tc.args))
-			if err != nil {
-				t.Fatalf("the model has to be answered, yet Execute failed: %v", err)
-			}
-			if runs.Load() != 0 {
-				t.Errorf("a call the executor cannot run reached a handler")
-			}
+			answer := ce.callCorrection(t.Context(), "call-1", tc.tool, json.RawMessage(tc.args))
 			tc.check(t, answer)
 		})
 	}
 }
 
-func TestExecutor_Execute_ReportsALoggingFailureOnlyBeforeTheToolRuns(t *testing.T) {
+func TestExecutor_Bookkeeping_ReportsALoggingFailureOnlyBeforeTheToolRuns(t *testing.T) {
 	obs.InitObserver(context.Background(), nil, nil, []logrus.Level{})
 
 	errWrite := errors.New("connection reset by peer")
@@ -312,43 +313,34 @@ func TestExecutor_Execute_ReportsALoggingFailureOnlyBeforeTheToolRuns(t *testing
 		},
 	} {
 		t.Run(name, func(t *testing.T) {
-			var runs atomic.Int32
 			ce := &customExecutor{
 				flowID:   1,
 				mlp:      tc.mlp,
 				tclp:     tc.tclp,
 				replacer: identityReplacer{},
-				handlers: map[string]ExecutorHandler{
-					TerminalToolName: func(context.Context, string, json.RawMessage) (string, error) {
-						runs.Add(1)
-						return "uid=0(root)", nil
-					},
-				},
 			}
 			if tc.embedder != nil {
 				ce.store = newFakeVectorStore(t, &fakeVectorConn{}, tc.embedder)
 			}
 
-			result, err := ce.Execute(t.Context(), 1, "call-1", TerminalToolName, TerminalToolName, "", args)
-
+			result, err := recordFixtureResult(ce, t.Context(), "call-1", TerminalToolName, args, "sample result", nil)
 			if !tc.wantRun {
-				if !errors.Is(err, errWrite) || runs.Load() != 0 {
-					t.Fatalf("a call that could not be logged must be reported failed without running, "+
-						"got result %q and error %v after %d runs", result, err, runs.Load())
+				if !errors.Is(err, errWrite) || result != "" || len(tc.tclp.success) != 0 || tc.mlp.result != "" {
+					t.Fatalf("start failure must stop result publication: result=%q error=%v", result, err)
 				}
 				return
 			}
-			if err != nil {
-				t.Fatalf("the command ran, yet Execute reported a failure the performer answers by running it again: %v", err)
+			if err != nil || result != "sample result" {
+				t.Fatalf("a post-completion log or memory failure hid the result: %q, %v", result, err)
 			}
-			if result != "uid=0(root)" || runs.Load() != 1 {
-				t.Fatalf("result %q after %d runs", result, runs.Load())
+			if !slices.Equal(tc.tclp.success, []string{result}) || tc.mlp.result != result {
+				t.Fatalf("both updates were not attempted: call=%q message=%q", tc.tclp.success, tc.mlp.result)
 			}
 		})
 	}
 }
 
-func TestExecutor_Execute_ClosesTheToolCallLogEvenAfterTheFlowStops(t *testing.T) {
+func TestExecutor_Bookkeeping_ClosesTheToolCallLogEvenAfterTheFlowStops(t *testing.T) {
 	errHandler := errors.New("docker daemon is not reachable")
 	withMessage := mustJSON(map[string]any{"input": "id", "message": "Check the user."})
 
@@ -374,7 +366,7 @@ func TestExecutor_Execute_ClosesTheToolCallLogEvenAfterTheFlowStops(t *testing.T
 		},
 		{
 			name: "a result that arrives once its flow is stopped", args: withMessage, stopFlow: true,
-			wantSuccess: []string{"uid=0(root)"},
+			wantSuccess: []string{"sample result"},
 		},
 	} {
 		t.Run(tc.name, func(t *testing.T) {
@@ -387,26 +379,23 @@ func TestExecutor_Execute_ClosesTheToolCallLogEvenAfterTheFlowStops(t *testing.T
 				mlp:      &executorMsgLog{},
 				tclp:     tclp,
 				replacer: identityReplacer{},
-				handlers: map[string]ExecutorHandler{
-					TerminalToolName: func(context.Context, string, json.RawMessage) (string, error) {
-						if tc.stopFlow {
-							stop()
-						}
-						if tc.handlerErr != nil {
-							return "", tc.handlerErr
-						}
-						return "uid=0(root)", nil
-					},
-				},
 			}
-
-			result, err := ce.Execute(ctx, 1, "call-1", TerminalToolName, TerminalToolName, "", tc.args)
+			started := time.Now()
+			call, err := ce.beginToolCall(ctx, 1, "call-1", TerminalToolName, "", tc.args)
+			if err != nil {
+				t.Fatal(err)
+			}
+			if tc.stopFlow {
+				stop()
+			}
+			result, _, err := ce.finishToolCall(ctx, started, "call-1", TerminalToolName, tc.args,
+				call.logID, "sample result", tc.handlerErr)
 			if tc.handlerErr != nil {
 				if !errors.Is(err, tc.handlerErr) || result != "" {
 					t.Fatalf("the handler's failure must reach the caller, got result %q and error %v", result, err)
 				}
-			} else if err != nil || result != "uid=0(root)" {
-				t.Fatalf("the command ran, got result %q and error %v", result, err)
+			} else if err != nil || result != "sample result" {
+				t.Fatalf("the completed result was lost, got %q and error %v", result, err)
 			}
 			if !slices.Equal(tclp.failed, tc.wantFailed) || !slices.Equal(tclp.success, tc.wantSuccess) {
 				t.Fatalf("the tool call log was closed with failed %q and success %q, want failed %q and success %q",
@@ -416,26 +405,20 @@ func TestExecutor_Execute_ClosesTheToolCallLogEvenAfterTheFlowStops(t *testing.T
 	}
 }
 
-func TestExecutor_Execute_CleansTheHandlersOutputOfBytesPostgresRejects(t *testing.T) {
+func TestExecutor_Bookkeeping_CleansTheHandlersOutputOfBytesPostgresRejects(t *testing.T) {
 	tclp, mlp := &executorToolCallLog{}, &executorMsgLog{}
 	ce := &customExecutor{
 		mlp:      mlp,
 		tclp:     tclp,
 		replacer: identityReplacer{},
-		handlers: map[string]ExecutorHandler{
-			TerminalToolName: func(context.Context, string, json.RawMessage) (string, error) {
-				return "uid=0\xff(root)\x00", nil
-			},
-		},
 	}
-
-	args := mustJSON(map[string]any{"input": "id", "message": "Check the user."})
-	result, err := ce.Execute(t.Context(), 1, "call-1", TerminalToolName, TerminalToolName, "", args)
+	args := mustJSON(map[string]any{"message": "Record sample."})
+	result, err := recordFixtureResult(ce, t.Context(), "call-1", TerminalToolName, args, "result\xff\x00", nil)
 	if err != nil {
-		t.Fatalf("the command ran, yet Execute reported a failure: %v", err)
+		t.Fatalf("recording the observed result: %v", err)
 	}
 
-	const want = "uid=0�(root)"
+	const want = "result�"
 	if result != want {
 		t.Errorf("the agent received %q, want %q", result, want)
 	}
@@ -445,7 +428,7 @@ func TestExecutor_Execute_CleansTheHandlersOutputOfBytesPostgresRejects(t *testi
 }
 
 // Both logs must hold exactly what the agent receives: the summary, or the page cut down.
-func TestExecutor_Execute_SummarizesALargeResultOrTruncatesIt(t *testing.T) {
+func TestExecutor_Bookkeeping_SummarizesALargeResultOrTruncatesIt(t *testing.T) {
 	page := strings.Repeat("x", DefaultResultSizeLimit*3)
 	longURL := "https://example.com/?q=" + strings.Repeat("u", maxArgValueLength)
 	args := mustJSON(map[string]any{"url": longURL, "action": "markdown", "message": "Read the page."})
@@ -491,11 +474,6 @@ func TestExecutor_Execute_SummarizesALargeResultOrTruncatesIt(t *testing.T) {
 				mlp:      mlp,
 				tclp:     tclp,
 				replacer: identityReplacer{},
-				handlers: map[string]ExecutorHandler{
-					BrowserToolName: func(context.Context, string, json.RawMessage) (string, error) {
-						return page, nil
-					},
-				},
 			}
 			if tc.summarize {
 				ce.summarizer = func(_ context.Context, p string) (string, error) {
@@ -504,9 +482,9 @@ func TestExecutor_Execute_SummarizesALargeResultOrTruncatesIt(t *testing.T) {
 				}
 			}
 
-			result, err := ce.Execute(t.Context(), 1, "call-1", BrowserToolName, BrowserToolName, "", args)
+			result, err := recordFixtureResult(ce, t.Context(), "call-1", BrowserToolName, args, page, nil)
 			if err != nil {
-				t.Fatalf("the page was fetched, yet Execute reported a failure: %v", err)
+				t.Fatalf("recording the supplied result failed: %v", err)
 			}
 			tc.check(t, result)
 
@@ -538,17 +516,12 @@ func TestExecutor_Execute_SummarizesALargeResultOrTruncatesIt(t *testing.T) {
 	}
 }
 
-func TestExecutor_Execute_StopsSummarizingWhenTheFlowStops(t *testing.T) {
+func TestExecutor_Bookkeeping_StopsSummarizingWhenTheFlowStops(t *testing.T) {
 	entered := make(chan struct{})
 	tclp := &executorToolCallLog{}
 
 	ce := &customExecutor{
 		tclp: tclp,
-		handlers: map[string]ExecutorHandler{
-			BrowserToolName: func(context.Context, string, json.RawMessage) (string, error) {
-				return strings.Repeat("x", DefaultResultSizeLimit+1), nil
-			},
-		},
 		summarizer: func(ctx context.Context, _ string) (string, error) {
 			close(entered)
 			<-ctx.Done()
@@ -562,14 +535,15 @@ func TestExecutor_Execute_StopsSummarizingWhenTheFlowStops(t *testing.T) {
 
 	done := make(chan error, 1)
 	go func() {
-		_, err := ce.Execute(ctx, 1, "id", BrowserToolName, "", "", json.RawMessage(`{"action":"markdown"}`))
+		_, _, err := ce.finishToolCall(ctx, time.Now(), "id", BrowserToolName,
+			json.RawMessage(`{"action":"markdown"}`), 1, strings.Repeat("x", DefaultResultSizeLimit+1), nil)
 		done <- err
 	}()
 
 	select {
 	case <-entered:
 	case err := <-done:
-		t.Fatalf("the result was never handed to the summarizer, Execute returned %v", err)
+		t.Fatalf("the result was never handed to the summarizer, bookkeeping returned %v", err)
 	case <-time.After(5 * time.Second):
 		t.Fatal("the result was never handed to the summarizer")
 	}
@@ -589,7 +563,7 @@ func TestExecutor_Execute_StopsSummarizingWhenTheFlowStops(t *testing.T) {
 	}
 }
 
-func TestExecutor_Execute_AnonymizesWhatEveryAgentStoresInMemory(t *testing.T) {
+func TestExecutor_Bookkeeping_AnonymizesWhatEveryAgentStoresInMemory(t *testing.T) {
 	obs.InitObserver(context.Background(), nil, nil, []logrus.Level{})
 
 	handler := func(context.Context, string, json.RawMessage) (string, error) { return "done", nil }
@@ -669,14 +643,10 @@ func TestExecutor_Execute_AnonymizesWhatEveryAgentStoresInMemory(t *testing.T) {
 
 			log := &recordingVectorStoreLog{}
 			fte := &flowToolsExecutor{
-				flowID: 1,
-				cfg:    &config.Config{},
-				db:     &fakeContainerDB{row: &database.Container{ID: 1, LocalID: sql.NullString{String: "primary", Valid: true}}},
-				docker: &fakeDockerClient{
-					isRunning:      true,
-					execCreateResp: client.ExecCreateResult{ID: "exec"},
-					attachOutput:   []byte("inet " + secretHost + "/24 scope global eth0"),
-				},
+				flowID:   1,
+				cfg:      &config.Config{},
+				db:       &fakeContainerDB{row: &database.Container{ID: 1, LocalID: sql.NullString{String: "primary", Valid: true}}},
+				docker:   &fakeDockerClient{},
 				tlp:      &recordingTermLog{},
 				mlp:      &executorMsgLog{},
 				tclp:     &executorToolCallLog{},
@@ -691,13 +661,14 @@ func TestExecutor_Execute_AnonymizesWhatEveryAgentStoresInMemory(t *testing.T) {
 			}
 
 			args := mustJSON(map[string]any{
-				"input": "ip addr | grep " + secretHost, "cwd": "", "detach": false, "timeout": 0,
+				"sample":  secretHost,
 				"message": "Check which interface carries the address.",
 			})
 			ctx := PutAgentContext(t.Context(), tc.agent)
 
-			if _, err := executor.Execute(ctx, 1, "call-1", TerminalToolName, TerminalToolName, "", args); err != nil {
-				t.Fatalf("the terminal call failed: %v", err)
+			ce := executor.(*customExecutor)
+			if err := ce.storeToolResult(ctx, TerminalToolName, "synthetic observation "+secretHost, args); err != nil {
+				t.Fatalf("recording the supplied result failed: %v", err)
 			}
 
 			if len(conn.added) == 0 || len(log.entries) == 0 || log.entries[len(log.entries)-1].result == "" {
@@ -718,7 +689,7 @@ func TestExecutor_Execute_AnonymizesWhatEveryAgentStoresInMemory(t *testing.T) {
 	}
 }
 
-func TestExecutor_Execute_StoresAMemoryToolResultUnderItsScope(t *testing.T) {
+func TestExecutor_Bookkeeping_StoresAMemoryToolResultUnderItsScope(t *testing.T) {
 	taskID, subtaskID := int64(2), int64(3)
 
 	for _, tc := range []struct {
@@ -754,17 +725,14 @@ func TestExecutor_Execute_StoresAMemoryToolResultUnderItsScope(t *testing.T) {
 				replacer:  identityReplacer{},
 				store:     store,
 				vslp:      vslp,
-				handlers: map[string]ExecutorHandler{
-					tc.tool: func(context.Context, string, json.RawMessage) (string, error) { return "uid=0(root)", nil },
-				},
 			}
 
-			fields := map[string]any{"input": "id"}
+			fields := map[string]any{"sample": "observation"}
 			if tc.message != "" {
 				fields["message"] = tc.message
 			}
 			ctx := PutAgentContext(t.Context(), database.MsgchainTypePentester)
-			if _, err := ce.Execute(ctx, 1, "call-1", tc.tool, tc.tool, "", mustJSON(fields)); err != nil {
+			if _, err := recordFixtureResult(ce, ctx, "call-1", tc.tool, mustJSON(fields), "sample result", nil); err != nil {
 				t.Fatalf("the call failed: %v", err)
 			}
 
@@ -804,8 +772,8 @@ func TestExecutor_Execute_StoresAMemoryToolResultUnderItsScope(t *testing.T) {
 	}
 }
 
-// Each observation Execute opens is filed by its kind, carries flow, task and subtask, and marks failure by level.
-func TestExecutor_Execute_ObservesEachToolTypeUnderTheCallersTrace(t *testing.T) {
+// Each observation the bookkeeping opens is filed by its kind, carries flow, task and subtask, and marks failure by level.
+func TestExecutor_Bookkeeping_ObservesEachToolTypeUnderTheCallersTrace(t *testing.T) {
 	lf := executorObserveLangfuse(t)
 
 	taskID, subtaskID := int64(2), int64(3)
@@ -839,27 +807,22 @@ func TestExecutor_Execute_ObservesEachToolTypeUnderTheCallersTrace(t *testing.T)
 				taskID:    &taskID,
 				subtaskID: &subtaskID,
 				tclp:      &executorToolCallLog{},
-				handlers: map[string]ExecutorHandler{
-					tc.tool: func(ctx context.Context, _ string, args json.RawMessage) (string, error) {
-						_, observation := obs.Observer.NewObservation(ctx)
-						ranIn = append(ranIn, observation)
-						if agent, ok := GetAgentContext(ctx); !ok || agent.CurrentAgentType != database.MsgchainTypePentester {
-							t.Errorf("the handler lost the calling agent, got %+v", agent)
-						}
-						if string(args) == string(failing) {
-							return "", errHandler
-						}
-						return "handled", nil
-					},
-				},
 			}
-
-			result, err := ce.Execute(caller, 1, "call-1", tc.tool, tc.tool, "", json.RawMessage(`{}`))
-			if err != nil || result != "handled" {
-				t.Fatalf("Execute must return what the handler did, got %q and %v", result, err)
-			}
-			if _, err := ce.Execute(caller, 1, "call-2", tc.tool, tc.tool, "", failing); !errors.Is(err, errHandler) {
-				t.Fatalf("Execute must return the handler's failure, got %v", err)
+			for _, fixture := range []struct {
+				args   json.RawMessage
+				result string
+				err    error
+			}{
+				{json.RawMessage(`{}`), "observed", nil},
+				{failing, "", fmt.Errorf("failed to execute handler: %w", errHandler)},
+			} {
+				wrapper := ce.observeToolCall(caller, tc.tool, tc.tool, fixture.args)
+				_, current := obs.Observer.NewObservation(wrapper.ctx())
+				ranIn = append(ranIn, current)
+				if agent, ok := GetAgentContext(wrapper.ctx()); !ok || agent.CurrentAgentType != database.MsgchainTypePentester {
+					t.Errorf("observation lost the calling agent: %+v", agent)
+				}
+				wrapper.end(fixture.result, fixture.err, 0)
 			}
 
 			sent := lf.sent(t)
@@ -872,16 +835,16 @@ func TestExecutor_Execute_ObservesEachToolTypeUnderTheCallersTrace(t *testing.T)
 
 			for _, observation := range ranIn {
 				if observation.TraceID() != traceID {
-					t.Errorf("the handler ran in trace %q, want the caller's %q", observation.TraceID(), traceID)
+					t.Errorf("the fixture used trace %q, want the caller's %q", observation.TraceID(), traceID)
 				}
 			}
 			if tc.opens == "" {
 				if len(opened) != 0 {
-					t.Errorf("Execute sent Langfuse %d observations, want none: %+v", len(opened), opened)
+					t.Errorf("the wrapper sent Langfuse %d observations, want none: %+v", len(opened), opened)
 				}
 				for _, observation := range ranIn {
 					if observation.ID() != callerID {
-						t.Errorf("the handler ran in observation %q, want the caller's %q with nothing around it",
+						t.Errorf("the fixture used observation %q, want the caller's %q with nothing around it",
 							observation.ID(), callerID)
 					}
 				}
@@ -889,7 +852,7 @@ func TestExecutor_Execute_ObservesEachToolTypeUnderTheCallersTrace(t *testing.T)
 			}
 
 			if len(opened) != 2 || len(ranIn) != 2 {
-				t.Fatalf("two calls opened %d observations and ran %d handlers, want one of each per call",
+				t.Fatalf("two calls opened %d observations and captured %d observation contexts, want one of each per call",
 					len(opened), len(ranIn))
 			}
 			for i, want := range []struct{ level, status string }{
@@ -899,12 +862,12 @@ func TestExecutor_Execute_ObservesEachToolTypeUnderTheCallersTrace(t *testing.T)
 				id := ranIn[i].ID()
 				idx := slices.IndexFunc(opened, func(e executorLangfuseEvent) bool { return e.Body.ID == id })
 				if idx < 0 {
-					t.Errorf("call %d: the handler ran in observation %q, which Execute never sent to Langfuse", i+1, id)
+					t.Errorf("call %d: the fixture used observation %q, which the wrapper never sent to Langfuse", i+1, id)
 					continue
 				}
 				opening := opened[idx]
 				if opening.Type != tc.opens || opening.Body.Name != tc.tool || opening.Body.ParentObservationID != callerID {
-					t.Errorf("call %d: Execute opened %s %q under %q, want %s %q under the caller's %q", i+1,
+					t.Errorf("call %d: the wrapper opened %s %q under %q, want %s %q under the caller's %q", i+1,
 						opening.Type, opening.Body.Name, opening.Body.ParentObservationID, tc.opens, tc.tool, callerID)
 				}
 				for key, value := range map[string]any{
@@ -915,7 +878,7 @@ func TestExecutor_Execute_ObservesEachToolTypeUnderTheCallersTrace(t *testing.T)
 					}
 				}
 
-				// One goroutine sends events in the order Execute made them, so an observation's second event is its close.
+				// One goroutine sends events in the order the wrappers made them, so an observation's second event is its close.
 				var lifecycle []executorLangfuseEvent
 				for _, event := range sent {
 					if event.Body.ID == id {
@@ -1222,7 +1185,7 @@ func TestExecutor_ArgsToMarkdown_ListsEveryArgumentButTheMessage(t *testing.T) {
 }
 
 // Not parallel: captureLogrus swaps the standard logger's hooks.
-func TestExecutor_Execute_LogsAMissingToolButNotTheSummarizationMarker(t *testing.T) {
+func TestExecutor_Bookkeeping_LogsAMissingToolButNotTheSummarizationMarker(t *testing.T) {
 	for _, tc := range []struct {
 		name    string
 		tool    string
@@ -1243,9 +1206,7 @@ func TestExecutor_Execute_LogsAMissingToolButNotTheSummarizationMarker(t *testin
 				}},
 			}
 
-			if _, err := ce.Execute(t.Context(), 1, "call-1", tc.tool, tc.tool, "", json.RawMessage(`{}`)); err != nil {
-				t.Fatalf("an unknown tool is answered, not failed: %v", err)
-			}
+			ce.callCorrection(t.Context(), "call-1", tc.tool, json.RawMessage(`{}`))
 
 			var logged bool
 			for _, entry := range hook.AllEntries() {
@@ -1260,7 +1221,7 @@ func TestExecutor_Execute_LogsAMissingToolButNotTheSummarizationMarker(t *testin
 	}
 }
 
-func TestExecutor_Execute_WritesTheMessageResultEvenAfterTheFlowStops(t *testing.T) {
+func TestExecutor_Bookkeeping_WritesTheMessageResultEvenAfterTheFlowStops(t *testing.T) {
 	t.Parallel()
 
 	// The toolcall row and the message log are two halves of one record. A flow
@@ -1272,24 +1233,24 @@ func TestExecutor_Execute_WritesTheMessageResultEvenAfterTheFlowStops(t *testing
 	tclp, mlp := &executorToolCallLog{}, &executorMsgLog{}
 	ce := &customExecutor{
 		flowID: 1, mlp: mlp, tclp: tclp, replacer: identityReplacer{},
-		handlers: map[string]ExecutorHandler{TerminalToolName: func(
-			context.Context, string, json.RawMessage,
-		) (string, error) {
-			stop()
-
-			return "uid=0(root)", nil
-		}},
 	}
-
-	args := mustJSON(map[string]any{"input": "id", "message": "Check the user."})
-	if _, err := ce.Execute(ctx, 1, "call-1", TerminalToolName, TerminalToolName, "", args); err != nil {
-		t.Fatalf("the command ran: %v", err)
+	args := mustJSON(map[string]any{"message": "Record the observation."})
+	started := time.Now()
+	call, err := ce.beginToolCall(ctx, 1, "call-1", TerminalToolName, "", args)
+	if err != nil {
+		t.Fatal(err)
 	}
+	stop()
+	result, format, err := ce.finishToolCall(ctx, started, "call-1", TerminalToolName, args, call.logID, "sample result", nil)
+	if err != nil {
+		t.Fatalf("recording the completed result failed: %v", err)
+	}
+	ce.publishToolResult(ctx, 1, "call-1", TerminalToolName, args, call, result, format)
 
-	if !slices.Equal(tclp.success, []string{"uid=0(root)"}) {
+	if !slices.Equal(tclp.success, []string{"sample result"}) {
 		t.Fatalf("the tool call log holds %q, want the result", tclp.success)
 	}
-	if mlp.result != "uid=0(root)" {
+	if mlp.result != "sample result" {
 		t.Errorf("the message log holds %q, want the same result the tool call log has", mlp.result)
 	}
 }

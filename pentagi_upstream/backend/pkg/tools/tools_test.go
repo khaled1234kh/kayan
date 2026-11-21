@@ -25,6 +25,7 @@ import (
 	"pentagi/pkg/config"
 	"pentagi/pkg/database"
 	"pentagi/pkg/database/knowledge/limits"
+	"pentagi/pkg/docker"
 	"pentagi/pkg/flowfiles"
 	"pentagi/pkg/graphiti"
 	"pentagi/pkg/providers/embeddings"
@@ -180,13 +181,20 @@ func TestTools_Prepare_KeepsOrReplacesTheSandbox(t *testing.T) {
 			assert.Equal(t, tc.wantUpdates, db.updates)
 			assert.Equal(t, tc.wantRemoved, docker.removed)
 			assert.Equal(t, tc.wantLaunch, len(docker.launches) == 1, "launches: %+v", docker.launches)
+			if len(docker.launches) == 1 {
+				launch := docker.launches[0]
+				assert.Equal(t, "pentagi-terminal-42", launch.name)
+				assert.Equal(t, database.ContainerTypePrimary, launch.kind)
+				assert.Equal(t, int64(42), launch.flowID)
+			}
 			assert.Equal(t, tc.wantPrimary, fte.primaryID)
 			assert.Equal(t, tc.wantLocalID, fte.primaryLID, "Release removes the container by this id")
 		})
 	}
 }
 
-func TestTools_Prepare_LaunchesTheSandboxWithTheCapabilityAllowList(t *testing.T) {
+// Configuration can be inspected without constructing an executor or launching Docker.
+func TestTools_SandboxWorkerSpecHasCapabilityAllowList(t *testing.T) {
 	allowList := []string{
 		"CHOWN", "DAC_OVERRIDE", "FSETID", "FOWNER", "NET_RAW", "SETGID", "SETUID", "SETFCAP", "SETPCAP",
 		"NET_BIND_SERVICE", "SYS_CHROOT", "KILL", "AUDIT_WRITE", "SYS_PTRACE",
@@ -211,23 +219,13 @@ func TestTools_Prepare_LaunchesTheSandboxWithTheCapabilityAllowList(t *testing.T
 
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {
-			docker := &fakeDockerClient{}
-			cfg := &config.Config{DataDir: t.TempDir(), TenantID: tc.tenant, DockerNetAdmin: tc.netAdmin}
-			executor, err := NewFlowToolsExecutor(&fakeContainerDB{}, cfg, docker, nil, 1, 42)
-			require.NoError(t, err)
-			executor.SetImage("vxcontrol/kali-linux:test")
-
-			require.NoError(t, executor.Prepare(t.Context()))
-
-			require.Len(t, docker.launches, 1)
-			launch := docker.launches[0]
-			assert.Equal(t, tc.wantName, launch.name)
-			assert.Equal(t, database.ContainerTypePrimary, launch.kind)
-			assert.Equal(t, int64(42), launch.flowID)
-			assert.Equal(t, "vxcontrol/kali-linux:test", launch.config.Image)
-			assert.Equal(t, []string{"tail", "-f", "/dev/null"}, launch.config.Entrypoint)
-			assert.Equal(t, []string{"ALL"}, launch.hostConfig.CapDrop)
-			assert.ElementsMatch(t, tc.wantCaps, launch.hostConfig.CapAdd)
+			cfg := &config.Config{TenantID: tc.tenant, DockerNetAdmin: tc.netAdmin}
+			assert.Equal(t, tc.wantName, PrimaryTerminalName(cfg.TenantPrefix(), 42))
+			workerConfig, hostConfig := docker.WorkerSpec(cfg, "fixture-worker:test")
+			assert.Equal(t, "fixture-worker:test", workerConfig.Image)
+			assert.Equal(t, []string{"tail", "-f", "/dev/null"}, workerConfig.Entrypoint)
+			assert.Equal(t, []string{"ALL"}, hostConfig.CapDrop)
+			assert.ElementsMatch(t, tc.wantCaps, hostConfig.CapAdd)
 		})
 	}
 }
