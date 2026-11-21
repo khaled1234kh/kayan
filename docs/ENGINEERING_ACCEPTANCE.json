@@ -156,6 +156,15 @@
       "evidence": "All 14 synthetic replays matched the expected outcomes, with 7 selected, 6 local fallbacks and 1 blocked before any request. Admitted and withheld findings were identical in every case. New coverage fields explain partial and weakly relevant results. Browser visual verification and live model quality remain open."
     },
     {
+      "id": "evaluation.reporting_local_ranking",
+      "requirement": "Compare pinned local model selection and deterministic composition on frozen synthetic archives, preserving clear scope and the raw responses.",
+      "implementation": ["eval/archived_reporting_local_ranking.py", "eval/archived_reporting_action_coverage_ablation.py"],
+      "verification": ["tests/test_archived_reporting_local_ranking.py", "docs/ARCHIVED_REPORTING_LOCAL_RANKING.md"],
+      "metrics": ["preferred-reference precision and recall", "ordered pairs", "admitted action coverage", "immutable findings", "local latency and tokens"],
+      "status": "verified_automated",
+      "evidence": "Six actual loopback Qwen replies were valid. Preferred excerpt recall was 10/14 versus 6/14 for the deterministic composer. Action coverage was 2/8 versus 8/8. A bounded offline replay of the saved selections recovered 8/8 action coverage at 14/17 preference precision. These are authored development cases, with no cloud requests."
+    },
+    {
       "id": "reliability.system",
       "requirement": "Exercise restart recovery, concurrency, cancellation, provider outage, egress restrictions and audit integrity across relevant Python, Go, Rust and frontend suites.",
       "implementation": ["console/backend/session_store.py", "console/backend/reporting_api.py", "trustgate/service", "console/office"],
