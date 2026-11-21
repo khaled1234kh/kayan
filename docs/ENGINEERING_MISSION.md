@@ -25,4 +25,6 @@ The Reporting panel displays saved input, output and reasoning tokens, provider 
 
 Archived Reporting now binds the console export to the SHA-256 of the exact saved JSON shown in the panel. The API returns HTTP 409 if custody changed, the report was replaced, or the viewed result is no longer available. The panel asks the operator to review the current report before exporting. Legacy API callers can still request the current report without a digest.
 
-Next, audit how Reporting carries admitted statement addresses and evidence roles from the verifier into summaries. Use reviewed synthetic fixtures with multiple statements and check that displayed support remains tied to the correct finding and occurrence.
+A reviewed synthetic Windows case exposed a false negative in Reporting. The verifier used one primary address per fact, but the report proposed the secondary logon statement as another fact and triggered an extraneous-citation rejection. Reporting now proposes primary addresses and preserves the verifier's full support in the finding. The regression admits the supported occurrence, withholds authorized activity, and fails verification if the secondary record is missing. The signed-off verifier and approved Slate request digest are intact.
+
+Next, evaluate Reporting projection with a frozen synthetic set that includes disputed evidence, multiple occurrences, missing support and authorized benign activity. Record false admission and false withholding separately from verifier decisions and model accuracy.

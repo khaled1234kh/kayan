@@ -70,7 +70,9 @@ def review_archive_document(archive, expected_digest, *, include_bindings=False)
     mechanics = defaultdict(set)
     for assertion in snapshot.assertions:
         event = (assertion.event.id, assertion.event.revision)
-        references[event].update(statements[s] for s in assertion.statements)
+        # The admission adapter addresses each fact by its primary statement.
+        # The verifier returns the rest of its support with the admitted finding.
+        references[event].add(statements[assertion.statements[0]])
         if assertion.role == "mechanic" and assertion.value in techniques:
             mechanics[event].add(techniques[assertion.value])
     proposed = defaultdict(set)

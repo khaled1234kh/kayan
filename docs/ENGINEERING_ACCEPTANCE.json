@@ -120,6 +120,15 @@
       "evidence": "A stale export previously returned the next custody decision's report with HTTP 200. A digest-bound export now returns HTTP 409 until the operator loads the current report. Runs, views and matching exports have identical bytes and hashes."
     },
     {
+      "id": "correctness.report_citation_projection",
+      "requirement": "Send primary verifier addresses in retrospective proposals and preserve the verifier's attached supporting statements in the admitted report.",
+      "implementation": ["pentagi/agents/archived_reporting.py", "eval/attack_fact_guard_adapter_v1.py"],
+      "verification": ["tests/test_archived_reporting.py"],
+      "metrics": ["supported finding recovered", "exact occurrence and statement addresses", "missing support rejected", "authorized activity withheld"],
+      "status": "verified_automated",
+      "evidence": "One reviewed synthetic Windows fixture went from incorrectly withheld to correctly admitted with E1.2 retained as supporting context. Its authorized variant stays withheld, and omitting the supporting record fails verification. The pinned Slate request digest is unchanged."
+    },
+    {
       "id": "reliability.system",
       "requirement": "Exercise restart recovery, concurrency, cancellation, provider outage, egress restrictions and audit integrity across relevant Python, Go, Rust and frontend suites.",
       "implementation": ["console/backend/session_store.py", "console/backend/reporting_api.py", "trustgate/service", "console/office"],

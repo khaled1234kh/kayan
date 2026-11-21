@@ -1,7 +1,7 @@
 import asyncio
 import json
 from concurrent.futures import CancelledError
-from dataclasses import replace
+from dataclasses import asdict, replace
 from hashlib import sha256
 
 import httpx
@@ -13,7 +13,7 @@ from ai.providers.reporting_sovereign import DESTINATION, MODEL, ReportingSovere
 from ai.trustgate.client import TrustGateDecision
 from console.backend import reporting_api
 from console.backend.reporting_api import install_reporting_api
-from pentagi.agents.archived_reporting import ARCHIVE, request_for, review_archive
+from pentagi.agents.archived_reporting import ARCHIVE, compose, request_for, review_archive
 
 SELECTION = {"highlights": ["T1486/E2.1"], "recommendations": ["T1486-1"], "emphasis": "observed_impact"}
 PREFIX = "/reporting/archive"
@@ -233,12 +233,11 @@ def test_modified_archive_fails_before_admission(tmp_path):
     with pytest.raises(ValueError, match="integrity"):
         review_archive(forged)
 
+def test_pinned_slate_request_identity_is_unchanged():
+    assert request_for(review_archive())[2] == "0173f8049d8c4190487ac75f321d976dce58c9b557005dc5a1c2dbfece7d0fb0"
 
 
-def test_authorized_activity_cannot_become_a_verified_finding(tmp_path):
-    from dataclasses import asdict
-    from hashlib import sha256
-
+def signed_windows_report(tmp_path, *, authorized=False, include_secondary=True):
     from eval.attack_evidence_admission_v2 import VERSION
     from eval.fixtures.ai.attack_admission_v2 import issue
     from eval.fixtures.ai.attack_fact_registry_v1.demo import windows
@@ -247,25 +246,50 @@ def test_authorized_activity_cannot_become_a_verified_finding(tmp_path):
     case["schema_version"] = VERSION
     for source in case["sources"]:
         source["upstream"] = []
-    next(row for row in case["assertions"] if row["role"] == "authorization")["value"] = "authorized"
-    permission = (b"The Security log clear by BLUE\\operator on JUN-4 at 09:10 UTC "
-                  b"was explicitly authorized in the signed maintenance window 09:05 to 09:15 UTC.")
-    records["permission", 1] = permission
-    digest = sha256(permission).hexdigest()
-    next(row for row in case["records"] if row["id"] == "permission").update(
-        sha256=digest, byte_length=len(permission))
-    next(row for row in case["statements"] if row["id"] == "permission").update(
-        sha256=digest, span=[0, len(permission)])
+    if authorized:
+        next(row for row in case["assertions"] if row["role"] == "authorization")["value"] = "authorized"
+        permission = (b"The Security log clear by BLUE\\operator on JUN-4 at 09:10 UTC "
+                      b"was explicitly authorized in the signed maintenance window 09:05 to 09:15 UTC.")
+        records["permission", 1] = permission
+        digest = sha256(permission).hexdigest()
+        next(row for row in case["records"] if row["id"] == "permission").update(
+            sha256=digest, byte_length=len(permission))
+        next(row for row in case["statements"] if row["id"] == "permission").update(
+            sha256=digest, span=[0, len(permission)])
     manifest, authority = issue(case)
+    if not include_secondary:
+        del records["logon", 1]
     archive = {
-        "assessment_id": "synthetic-authorized-test", "title": "Authorized maintenance",
+        "assessment_id": case["case_id"], "title": "Synthetic Windows assessment",
         "status": "completed", "snapshot": manifest.decode("ascii"), "custody": asdict(authority),
         "records": [{"id": key, "revision": revision, "text": value.decode()}
                     for (key, revision), value in records.items()],
     }
     path = tmp_path / "archive.json"
     path.write_bytes(json.dumps(archive, default=sorted).encode())
-    verified = review_archive(path, sha256(path.read_bytes()).hexdigest())
+    return review_archive(path, sha256(path.read_bytes()).hexdigest())
+
+
+def test_verified_multi_statement_finding_keeps_secondary_support(tmp_path):
+    report = signed_windows_report(tmp_path)
+    finding, = report["findings"]
+    assert not report["withheld"]
+    assert finding["technique"] == "T1685.005" and finding["occurrence"] == "clear-event"
+    sources = {source["id"]: source for source in finding["sources"]}
+    assert set(sources) == {"E1.1", "E1.2", "E2.1", "E3.1"}
+    assert "mechanic" in sources["E1.1"]["roles"]
+    assert sources["E1.2"]["statements"] and "mechanic" not in sources["E1.2"]["roles"]
+    assert [source["id"] for source in compose(report)["summary"]] == ["E1.1"]
+
+
+def test_multi_statement_finding_still_requires_verified_secondary_support(tmp_path):
+    with pytest.raises(ValueError, match="admission could not verify"):
+        signed_windows_report(tmp_path, include_secondary=False)
+
+
+def test_authorized_activity_cannot_become_a_verified_finding(tmp_path):
+    verified = signed_windows_report(tmp_path, authorized=True)
     assert not verified["findings"]
     assert verified["withheld"] and verified["withheld"][0]["technique"] == "T1685.005"
+    assert "authorization_unverified" in verified["withheld"][0]["reasons"]
     assert request_for(verified) is None
