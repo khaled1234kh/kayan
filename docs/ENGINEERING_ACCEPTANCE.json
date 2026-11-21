@@ -174,6 +174,15 @@
       "evidence": "Seven local replies were valid. The offline supplement changed primary action coverage from 1/8 to 8/8 and preferred-reference precision from 9/12 to 16/19 without changing findings or controls. The full-cap report stayed at 0/9 action coverage. The authorized-only case made zero requests."
     },
     {
+      "id": "reporting.verified_action_presentation",
+      "requirement": "Show action excerpts from findings verified by admission v2 in remaining summary space, identify deterministic additions, and export exactly the saved report without changing claim decisions.",
+      "implementation": ["pentagi/agents/archived_reporting.py", "console/backend/reporting_api.py", "console/office/src/components/ui/ArchivedReport.tsx"],
+      "verification": ["tests/test_archived_reporting_action_holdout.py", "tests/test_archived_reporting.py", "tests/test_archived_reporting_selection.py", "docs/ARCHIVED_REPORTING_ACTION_HOLDOUT.md#application-verification"],
+      "metrics": ["observed-action coverage", "stable selection order", "verified origin marker", "exact download bytes", "immutable findings"],
+      "status": "verified_automated",
+      "evidence": "The new presentation recovered both occurrences in the partial and weak-relevance mocked cases. A rendered desktop fixture showed the label and correct supported and withheld claims. The browser export matched the saved file. Summaries at capacity still cannot append an action."
+    },
+    {
       "id": "reliability.system",
       "requirement": "Exercise restart recovery, concurrency, cancellation, provider outage, egress restrictions and audit integrity across relevant Python, Go, Rust and frontend suites.",
       "implementation": ["console/backend/session_store.py", "console/backend/reporting_api.py", "trustgate/service", "console/office"],

@@ -40,6 +40,11 @@ const specialistName: Record<string, string> = {
   recon_agent: 'Recon', webapp_agent: 'Web-App', network_agent: 'Network',
 };
 type Source = { id: string; roles: string[]; statements: string[] };
+type SummarySource = Source & {
+  technique?: string;
+  occurrence?: string;
+  selection_origin?: 'verified_action_supplement';
+};
 type SummaryCoverage = {
   admitted_occurrences: number;
   covered_occurrences: number;
@@ -55,7 +60,7 @@ type Report = {
   usage?: { input?: number; output?: number; reasoning?: number; latency_s?: number };
   findings: { technique: string; title: string; occurrence: string; sources: Source[] }[];
   withheld: { technique: string; reasons: string[]; occurrence?: string; event_revision?: number }[];
-  summary: (Source & { technique?: string; occurrence?: string })[];
+  summary: SummarySource[];
   summary_coverage?: SummaryCoverage;
   recommendations: { id: string; text: string }[];
   limitation: string;
@@ -97,9 +102,11 @@ export function ReportExecutionDetails({ report }: {
   </dl>;
 }
 
-function Evidence({ source }: { source: Source }) {
+export function ReportEvidence({ source }: { source: SummarySource }) {
   return <div className="archived-evidence">
     <strong>{source.id}</strong> <span className="muted">{source.roles.join(' · ')}</span>
+    {source.selection_origin === 'verified_action_supplement' &&
+      <p className="muted">Observed action added by KAYAN</p>}
     {source.statements.map(statement => <p key={statement}>{statement}</p>)}
   </div>;
 }
@@ -307,13 +314,13 @@ function AssessmentReport({ assessmentId, open, onPending }: {
           {report.summary.length ? report.summary.map(source =>
             <div key={`${source.technique}/${source.occurrence}/${source.id}`}>
               {source.occurrence && <p className="muted">{source.occurrence}</p>}
-              <Evidence source={source} />
+              <ReportEvidence source={source} />
             </div>) : <p>No supported findings.</p>}
           <h4>Supported findings ({report.findings.length})</h4>
           {report.findings.map(finding => <details key={`${finding.technique}/${finding.occurrence}`} className="session-finding">
             <summary>{finding.technique} · {finding.title}</summary>
             <p className="muted">{finding.occurrence}</p>
-            {finding.sources.map(source => <Evidence key={source.id} source={source} />)}
+            {finding.sources.map(source => <ReportEvidence key={source.id} source={source} />)}
           </details>)}
           {report.recommendations.length > 0 && <><h4>Defensive recommendations</h4>
             <ul>{report.recommendations.map(action => <li key={action.id}>{action.text}</li>)}</ul></>}

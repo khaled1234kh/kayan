@@ -6,7 +6,7 @@ import { SEED_ACTORS } from '../src/data/actors';
 import type { TrustGateTranscriptEntry } from '../src/types/trustgate';
 import { agentDecision } from '../src/security/agentDecision';
 import { TrustGatePanel } from '../src/components/ui/Panels';
-import { ReportExecutionDetails, ReportSummaryCoverage, readSavedReport } from '../src/components/ui/ArchivedReport';
+import { ReportEvidence, ReportExecutionDetails, ReportSummaryCoverage, readSavedReport } from '../src/components/ui/ArchivedReport';
 
 const actor = { ...SEED_ACTORS.find((a) => a.id === 'ai-sales')!, modelTier: 'A' as const,
   backendAgentId: 'webapp1', engagementId: 'eng1', currentTask: 'sql_injection_test', state: 'working' as const };
@@ -123,3 +123,12 @@ assert.equal(renderToStaticMarkup(<ReportSummaryCoverage coverage={{
   admitted_occurrences: 0, covered_occurrences: 0, action_covered_occurrences: 0,
 }} />), '');
 console.log('PASS Archived Reporting distinguishes occurrence coverage and observed-action coverage');
+
+const observedAction = { id: 'E2.1', roles: ['mechanic'], statements: ['Exact source statement'] };
+const supplementedEvidence = renderToStaticMarkup(<ReportEvidence source={{
+  ...observedAction, selection_origin: 'verified_action_supplement',
+}} />);
+assert(supplementedEvidence.includes('Observed action added by KAYAN'));
+assert(supplementedEvidence.includes('E2.1') && supplementedEvidence.includes('Exact source statement'));
+assert(!renderToStaticMarkup(<ReportEvidence source={observedAction} />).includes('added by KAYAN'));
+console.log('PASS Archived Reporting identifies deterministically appended action excerpts');

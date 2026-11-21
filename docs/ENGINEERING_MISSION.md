@@ -37,4 +37,6 @@ The pinned local Qwen run selected valid evidence on six frozen Reporting cases.
 
 The frozen action holdout compared seven real loopback replies in eight distinct synthetic archive families. Across six primary cases, appending verified action excerpts raised observed-action coverage from 1/8 to 8/8 and preferred-excerpt recovery from 9/16 to 16/16. The full nine-occurrence case still surfaced no actions because all eight excerpt slots were occupied. The authorized-only archive made no request. [Results and scope](ARCHIVED_REPORTING_ACTION_HOLDOUT.md)
 
-Next, connect the bounded action supplement to archived report presentation. Preserve model ordering, mark the appended excerpts as deterministic, and verify published and exported bytes with mocked transport. Retain the full-cap limitation in the current decision.
+Archived Reporting now appends verified action excerpts after a valid selection, labels each deterministic addition, and preserves the request digest and finding decisions. The 3D mock preview showed the action label and correct dispositions. The downloaded JSON matched the saved bytes. [Application check](ARCHIVED_REPORTING_ACTION_HOLDOUT.md#application-verification)
+
+Next, evaluate a deterministic policy for already-full summaries on separate frozen cases. Keep the current append-only policy as the baseline. Compare action coverage, excerpt preference and retention of model order before replacing any selected excerpt.

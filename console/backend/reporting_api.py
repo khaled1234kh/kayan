@@ -67,7 +67,7 @@ def _report_response(body, *, expected_sha256=None, filename=None):
 
 def install_reporting_api(app, *, load_archive=review_archive, output=RESULTS,
                           make_gate=AITrustGate, make_provider=ReportingSovereignProvider,
-                          approved_scope=None, catalog=None):
+                          approved_scope=None, catalog=None, supplement_actions=True):
     lock = asyncio.Lock()
 
     def guard_loopback(request):
@@ -225,7 +225,7 @@ def install_reporting_api(app, *, load_archive=review_archive, output=RESULTS,
                                               temperature=0, response_format=schema),
                                 timeout=settings.request_timeout_s,
                             )
-                            presented = compose(report, selection=reply.content)
+                            presented = compose(report, selection=reply.content, supplement_actions=supplement_actions)
                         except asyncio.TimeoutError:
                             presented = None
                             result["notice"] = "The cloud request reached its time limit. Showing the local evidence report."

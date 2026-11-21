@@ -94,6 +94,30 @@ def test_governed_report_has_same_stored_display_and_export(center):
     assert len(requests) == 1
 
 
+def test_archived_reporting_marks_appended_actions_in_saved_report_and_exact_export(center):
+    client, approvals, requests, scenario = center
+    scenario["content"] = json.dumps({**SELECTION, "highlights": ["T1486/E1.1"]})
+    result = client.post(PREFIX + "/run", json={"mode": "sovereigneg"})
+    assert result.status_code == 200
+    report = result.json()
+    assert report["status"] == "selected"
+    assert [(item["id"], item.get("selection_origin")) for item in report["summary"]] == [
+        ("E1.1", None), ("E2.1", "verified_action_supplement"),
+    ]
+    assert report["summary_coverage"] == {
+        "admitted_occurrences": 1, "covered_occurrences": 1, "action_covered_occurrences": 1,
+    }
+    review = review_archive()
+    assert report["findings"] == review["findings"] and report["withheld"] == review["withheld"]
+    assert report["recommendations"] == review["findings"][0]["actions"][:1]
+    assert [entry["action"] for entry in approvals] == ["write_report", "llm_inference"]
+    assert len(requests) == 1
+    download = client.get(PREFIX + "/result", params={
+        "mode": "sovereigneg", "download": True, "expected_sha256": sha256(result.content).hexdigest(),
+    })
+    assert download.status_code == 200 and download.content == result.content
+
+
 @pytest.mark.parametrize("denied", ["write_report", "llm_inference"])
 def test_denial_prevents_cloud_egress_and_publication(center, denied):
     client, _, requests, config = center

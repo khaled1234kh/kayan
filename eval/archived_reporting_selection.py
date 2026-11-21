@@ -39,7 +39,7 @@ def load_archives(spec):
     return reports
 
 
-def replay(case, report, digest):
+def replay(case, report, digest, *, supplement_actions=False):
     attempts = []
 
     class Gate:
@@ -73,7 +73,8 @@ def replay(case, report, digest):
     with TemporaryDirectory(prefix="reporting-selection-replay-") as directory:
         install_reporting_api(
             app, load_archive=lambda: report, output=Path(directory), make_gate=lambda _: Gate(),
-            approved_scope=digest or "", make_provider=lambda config, **kw: ReportingSovereignProvider(
+            approved_scope=digest or "", supplement_actions=supplement_actions,
+            make_provider=lambda config, **kw: ReportingSovereignProvider(
                 config, transport=httpx.MockTransport(respond), **kw),
         )
         with patch("console.backend.reporting_api.require_api_key", return_value="synthetic-replay-key"):
@@ -123,7 +124,8 @@ def selection_metrics(report, oracle):
     }
 
 
-def run_replays():
+def run_replays(*, supplement_actions=False):
+    # The default reproduces the historical v1 presentation.
     raw = LOCK.read_bytes()
     spec = json.loads(raw)
     reports = load_archives(spec["archives"])
@@ -131,7 +133,9 @@ def run_replays():
     for case in spec["replays"]:
         oracle = spec["archives"][case["archive"]]
         original = reports[case["archive"]]
-        local, cloud, attempts, exported = replay(case, original, oracle["request_sha256"])
+        local, cloud, attempts, exported = replay(
+            case, original, oracle["request_sha256"], supplement_actions=supplement_actions,
+        )
         result = cloud if cloud is not None else local
         runs.append({
             "id": case["id"],

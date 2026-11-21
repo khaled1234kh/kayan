@@ -29,6 +29,7 @@ LIMITATION = (
     "This review covers only the supplied synthetic records and reviewed associations. "
     "It cannot establish safety outside that coverage."
 )
+MAX_HIGHLIGHTS = 8
 
 
 def _head(fields):
@@ -148,7 +149,7 @@ def review_archive_document(archive, expected_digest, *, include_bindings=False)
 
 class ReportSelection(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True)
-    highlights: list[str] = Field(min_length=1, max_length=8)
+    highlights: list[str] = Field(min_length=1, max_length=MAX_HIGHLIGHTS)
     recommendations: list[str] = Field(min_length=1, max_length=8)
     emphasis: Literal["observed_impact", "defensive_priorities"]
 
@@ -224,9 +225,24 @@ def request_for(report):
     return messages, fmt, digest
 
 
-def compose(report, selection=None):
+def _missing_action_highlights(excerpts, selected):
+    covered = {(row["technique"], row["occurrence"]) for row, source in selected
+               if "mechanic" in source["roles"]}
+    additions = []
+    for finding, source in excerpts:
+        if len(selected) + len(additions) >= MAX_HIGHLIGHTS:
+            break
+        occurrence = finding["technique"], finding["occurrence"]
+        if occurrence not in covered and "mechanic" in source["roles"]:
+            covered.add(occurrence)
+            additions.append((finding, source))
+    return additions
+
+
+def compose(report, selection=None, *, supplement_actions=False):
     repeats = repeated_techniques(report)
     excerpts, controls = _selection_options(report, bool(repeats))
+    additions = []
     if selection is None:
         highlights = [(row, source) for row, source in excerpts.values() if "mechanic" in source["roles"]]
         actions = list(controls)
@@ -238,14 +254,18 @@ def compose(report, selection=None):
                 or len(ids) != len(set(ids)) or len(actions) != len(set(actions))):
             raise ValueError("Selection includes unsupported or duplicate references")
         highlights = [excerpts[key] for key in ids]
-    covered = {(row["technique"], row["occurrence"]) for row, _ in highlights}
-    action_covered = {(row["technique"], row["occurrence"]) for row, source in highlights
+        if supplement_actions:
+            additions = _missing_action_highlights(excerpts.values(), highlights)
+    visible = highlights + additions
+    covered = {(row["technique"], row["occurrence"]) for row, _ in visible}
+    action_covered = {(row["technique"], row["occurrence"]) for row, source in visible
                       if "mechanic" in source["roles"]}
     return {
         **report,
         "summary": [{"technique": row["technique"], **source,
-                     **({"occurrence": row["occurrence"]} if row["technique"] in repeats else {})}
-                    for row, source in highlights],
+                     **({"occurrence": row["occurrence"]} if row["technique"] in repeats else {}),
+                     **({"selection_origin": "verified_action_supplement"} if index >= len(highlights) else {})}
+                    for index, (row, source) in enumerate(visible)],
         "summary_coverage": {
             "admitted_occurrences": len(report["findings"]),
             "covered_occurrences": len(covered),

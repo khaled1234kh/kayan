@@ -33,3 +33,19 @@ def test_frozen_selection_replays_preserve_findings_and_explain_coverage():
     weak = by_id["repeated-weak-relevance"]["selected"]
     assert weak["covered_occurrences"] == 2 and weak["highlights"]["matching"] == 0
     assert by_id["repeated-partial"]["selected"]["covered_occurrences"] == 1
+def test_supplemented_api_replay_repairs_partial_and_weak_action_coverage():
+    results = run_replays(supplement_actions=True)["cases"]
+    cases = {case["id"]: case for case in results}
+    assert Counter(case["status"] for case in results) == {"selected": 7, "degraded": 6, "blocked": 1}
+    assert all(case["findings_unchanged"] and case["withheld_unchanged"] for case in results)
+    for case in results:
+        if case["status"] == "blocked":
+            assert case["attempts"] == 0
+        else:
+            assert case["attempts"] == 1 and case["export_matches"]
+        if case["status"] == "degraded":
+            assert case["fallback_matches_local"]
+    for case_id in ("repeated-weak-relevance", "repeated-partial"):
+        assert cases[case_id]["selected"]["published_coverage"] == {
+            "admitted_occurrences": 2, "covered_occurrences": 2, "action_covered_occurrences": 2,
+        }
