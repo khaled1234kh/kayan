@@ -22,6 +22,14 @@ The SovereignEG option is disabled unless the operator sets `KAYAN_REPORTING_APP
 
 SovereignEG can select and prioritize verified quotations and defensive controls. The server renders the selected material with the underlying source identifiers and ATT&CK title. Admitted findings, withheld hypotheses and coverage limits always come from the deterministic path. The feature intentionally uses extractive explanations and reviewed templates because an address allowlist cannot validate arbitrary model-written claims. Empty, malformed, truncated, mismatched and out-of-scope responses produce a clearly marked local fallback.
 
+## Occurrence-aware selection
+
+For repeated techniques, a versioned payload gives each admitted finding and excerpt a request-local alias. Withheld occurrences contribute only an alias and technique ID. The payload binds an opaque digest of the assessment and evidence revision. The server resolves each permitted selection back to its original source address and occurrence. It rejects duplicate JSON fields, duplicate selections, legacy-style IDs in the new format, and unknown or withheld IDs.
+
+The backend reloads the verified archive and rechecks the exact grant after the egress decision and before provider setup. It checks again before publishing the response. In mocked tests, changes detected before provider setup left the grant unspent. An in-flight change still consumed the one attempt and prevented publication of the stale cloud result. These checks do not form an atomic lease across the local custody store and the provider. Two competing app instances sharing one attempt directory made exactly one mock request.
+
+The legacy Slate digest is unchanged. The occurrence-aware payload requires separate approval for its digest, provider and spending boundary. The tests used only synthetic archives and mock transport.
+
 ## Verification
 
 - Actual browser interaction on the existing 3D console used the running FastAPI app, the real Rust/Cedar gate and a mocked SovereignEG HTTP response. The panel rendered the model label, E1.1 and E2.1, T1486, the withheld T1490, and the export link. The HTTP view and download matched the saved mock report. No external provider call was sent. TrustGate audit entries were `6e0f6b80-ec6e-40c9-afb5-6ba8eb870940` for report writing and `b03cc325-2ca8-40d3-a89c-e9a0812e0a0f` for inference. Saved report SHA-256 `43d2a2bfe47d5d541515dfa0f55bfffad364c3bb4680e95e2033dc17dcb547c3`. Evidence is under `.build/reporting-ui-verification/`.

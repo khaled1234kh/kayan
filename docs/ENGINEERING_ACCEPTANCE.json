@@ -135,7 +135,16 @@
       "verification": ["tests/test_archived_reporting_projection.py", "docs/ARCHIVED_REPORTING_PROJECTION_BENCHMARK.md"],
       "metrics": ["supported occurrences recovered", "false admissions", "false withholdings", "exact source addresses", "invalid evidence rejected"],
       "status": "verified_automated",
-      "evidence": "The frozen synthetic test recovered 4/4 supported occurrences from a baseline of 1/4. Both runs admitted 0/6 withheld occurrences. Ambiguous shared anchors remain withheld. Cloud selection for repeated techniques is unavailable in the current protocol."
+      "evidence": "The frozen synthetic test recovered 4/4 supported occurrences from a baseline of 1/4. Both runs admitted 0/6 withheld occurrences. Ambiguous shared anchors remain withheld."
+    },
+    {
+      "id": "cloud.occurrence_selection",
+      "requirement": "Resolve cloud selections to exact admitted occurrences, preserve existing approved requests, and reject stale, ambiguous or repeated use.",
+      "implementation": ["pentagi/agents/archived_reporting.py", "console/backend/reporting_api.py"],
+      "verification": ["tests/test_archived_reporting_projection.py", "tests/test_archived_reporting.py", "docs/ARCHIVED_REPORTING.md"],
+      "metrics": ["distinct source bindings", "withheld or ambiguous aliases rejected", "legacy digest equality", "stale scope refusal", "attempts across competing app instances"],
+      "status": "verified_automated",
+      "evidence": "Mocked selections matched the indicated occurrence even with shared addresses. Duplicate JSON keys and invalid aliases failed. Custody or grant changes were refused before provider setup or before publication. Two app instances sharing the directory made one mock request. Real provider behavior remains unverified for the occurrence-aware format."
     },
     {
       "id": "reliability.system",

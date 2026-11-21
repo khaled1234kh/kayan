@@ -95,6 +95,13 @@ def install_reporting_api(app, *, load_archive=review_archive, output=RESULTS,
         return (os.environ.get("KAYAN_REPORTING_APPROVED_SHA256")
                 if approved_scope is None else approved_scope)
 
+    def confirm_cloud_scope(report, digest):
+        current, prepared = archive_inputs(report["assessment_id"])
+        if (not prepared or prepared[2] != digest or scope() != digest
+                or any(current.get(field) != report.get(field)
+                       for field in ("assessment_id", "source_sha256", "report_revision"))):
+            raise HTTPException(409, "Archived evidence or cloud approval changed. Review the current archive.")
+
     def attempt_path(digest):
         return output / f"attempt-{digest}.lock"
 
@@ -190,7 +197,9 @@ def install_reporting_api(app, *, load_archive=review_archive, output=RESULTS,
                 result.update(status="local", provider=None, model=None, audit={"write_report": write_audit})
                 output.mkdir(parents=True, exist_ok=True)
                 if payload.mode == "sovereigneg":
+                    messages, schema, digest = prepared
                     audit_id = await authorize("llm_inference", egress=True)
+                    confirm_cloud_scope(report, digest)
                     result["audit"]["llm_inference"] = audit_id
                     configured = config.get_provider("sovereigneg")
                     settings = replace(configured, max_retries=1, max_concurrency=1,
@@ -201,7 +210,6 @@ def install_reporting_api(app, *, load_archive=review_archive, output=RESULTS,
                     except (ValueError, RuntimeError, KeyError):
                         raise HTTPException(503, "SovereignEG Reporting is not configured") from None
                     try:
-                        messages, schema, digest = prepared
                         result.update(status="degraded", attempted_provider="sovereigneg", attempted_model=MODEL,
                                       request_sha256=digest,
                                       notice="No verified cloud response is available. Showing the local evidence report.")
@@ -223,18 +231,17 @@ def install_reporting_api(app, *, load_archive=review_archive, output=RESULTS,
                             result["notice"] = "The cloud request reached its time limit. Showing the local evidence report."
                         except (httpx.HTTPError, ValueError, RuntimeError, TypeError, AttributeError, KeyError, OSError):
                             presented = None
-                        if presented is not None:
-                            result.update(presented, status="selected", provider=reply.provider, model=reply.model,
-                                          finish_reason=reply.finish_reason,
-                                          usage={"input": reply.prompt_tokens, "output": reply.completion_tokens,
-                                                 "reasoning": reply.reasoning_tokens,
-                                                 "latency_s": reply.latency_s})
-                            result.pop("notice")
-                        body = _publish(result_path(report, payload.mode), result)
                     finally:
                         await provider.close()
-                else:
-                    body = _publish(result_path(report, payload.mode), result)
+                    confirm_cloud_scope(report, digest)
+                    if presented is not None:
+                        result.update(presented, status="selected", provider=reply.provider, model=reply.model,
+                                      finish_reason=reply.finish_reason,
+                                      usage={"input": reply.prompt_tokens, "output": reply.completion_tokens,
+                                             "reasoning": reply.reasoning_tokens,
+                                             "latency_s": reply.latency_s})
+                        result.pop("notice")
+                body = _publish(result_path(report, payload.mode), result)
                 return _report_response(body)
             finally:
                 gate.close()
