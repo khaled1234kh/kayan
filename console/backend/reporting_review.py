@@ -24,6 +24,7 @@ class AssertionReview(BaseModel):
     role: Literal["actor", "authorization", "mechanic", "outcome", "process_session"]
     value: str | None = Field(default=None, max_length=100)
     disposition: Literal["supported", "contradicted", "unresolved"]
+    occurrence: str | None = Field(default=None, min_length=1, max_length=128, strict=True)
 
 
 class Submission(BaseModel):
@@ -78,6 +79,9 @@ def install_review_api(app, catalog, directory):
         if (len(set(claims)) != len(claims)
                 or any(src not in sources or tid not in candidates or tid == "Unmapped" for src, tid, _ in claims)):
             raise HTTPException(422, "Review assertions must reference unique in-scope sources and candidates")
+        if any(row.occurrence is not None and (not row.occurrence.strip() or row.disposition == "supported")
+               for row in submission.assertions):
+            raise HTTPException(422, "An occurrence can scope only a contradicted or unresolved assertion")
         values = {"actor": {"adversary", "benign"}, "authorization": {"authorized", "unauthorized"},
                   "outcome": {"completed", "failed"}, "process_session": {"linked", "unlinked"}}
         if any(row.value is not None and row.value not in ({MECHANICS.get(row.technique)} if row.role == "mechanic"
@@ -90,7 +94,10 @@ def install_review_api(app, catalog, directory):
                 raise HTTPException(409, "Review history failed integrity verification") from None
             if submission.previous_review_sha256 != head:
                 raise HTTPException(409, "Review head changed; reopen evidence before submitting")
-            receipt = {**submission.model_dump(), "reviewer": identity, "revision": revision + 1,
+            body = submission.model_dump(exclude={"assertions": {
+                index: {"occurrence"} for index, row in enumerate(submission.assertions) if row.occurrence is None
+            }})
+            receipt = {**body, "reviewer": identity, "revision": revision + 1,
                        "created_at": datetime.now(timezone.utc).isoformat(),
                        "status": "submitted_awaiting_independent_admission"}
             raw = canonical(receipt)

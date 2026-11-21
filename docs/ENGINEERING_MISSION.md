@@ -53,4 +53,6 @@ Offline Phase 1 now requires a stated relationship between an external actor and
 
 Archived Reporting now counts retained evidence per specialist. An exact replay counts once. Conflicting versions of one source are excluded and reported separately. The frozen passive attribution set moved from 7/9 to 9/9 exact, and the historical owned-lab archive kept all ten records classified as transcript-only. [Before and after results](REUSABLE_REPORTING.md#specialist-observation-attribution)
 
-Next, exercise finding-to-source attribution across all three specialist roles using frozen supported and withheld examples. Verify that source availability and role counts alone never promote a finding through the signed admission path.
+Signed Reporting now matches 7/7 frozen three-role cases, from 2/7 before the occurrence correction. Explicit, corroborated adverse review scope preserves valid siblings. Ambiguous scope keeps the broad veto. The combined run passed 293 tests, including real Rust restart coverage. [Synthetic proof and limits](REUSABLE_REPORTING.md#signed-finding-and-occurrence-attribution)
+
+Next, exercise signed receipt acceptance while the source revision changes between package validation and admission. Reproduce any mixed-revision verdict with an inert capture fixture and bind both checks to one evidence snapshot if needed.

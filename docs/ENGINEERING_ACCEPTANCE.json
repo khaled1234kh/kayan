@@ -48,6 +48,15 @@
       "evidence": "Documented independent engineering sign-off covers the bounded offline verifier using synthetic inputs. Real-telemetry intake remains NO-GO."
     },
     {
+      "id": "correctness.signed_occurrence_attribution",
+      "requirement": "Only explicitly scoped adverse reviews with a unique verifier source binding may narrow the veto. Preserve exact per-occurrence decisions and reviewed source roles.",
+      "implementation": ["console/backend/reporting_review.py", "console/backend/reporting_exchange.py"],
+      "verification": ["tests/test_archived_signed_attribution.py", "docs/REUSABLE_REPORTING.md#signed-finding-and-occurrence-attribution"],
+      "metrics": ["exact admitted and withheld occurrence IDs", "exact reviewed source-role bindings", "false withholdings", "false admissions"],
+      "status": "verified_automated",
+      "evidence": "Seven frozen synthetic cases passed versus two at baseline. Eight additional scope and intake controls passed. Signed test-only import, local Reporting and exact export were exercised after app recreation. No real reviewer or custody enrollment."
+    },
+    {
       "id": "correctness.mapping_generation",
       "requirement": "Compare grounded ATT&CK generation against separate retrieval, occurrence, source, role and complete evidence oracles.",
       "implementation": ["eval/attack_evidence_guard_v4.py", "ai/mitre/ranking.py"],

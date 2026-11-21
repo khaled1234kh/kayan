@@ -1,6 +1,7 @@
 """Canonical evidence packages and externally signed, append-only custody receipts."""
 
 from base64 import b64decode
+from collections import Counter, defaultdict
 from hashlib import sha256
 import json
 from pathlib import Path
@@ -150,7 +151,8 @@ class SignedExchange:
             for assertion_key, (_, _, review) in group.items():
                 row = next(row for row in review["assertions"]
                            if (row["source_id"], row["technique"], row["role"]) == assertion_key)
-                dispositions.setdefault(assertion_key, set()).add((row["disposition"], row.get("value")))
+                dispositions.setdefault(assertion_key, set()).add(
+                    (row["disposition"], row.get("value"), row.get("occurrence")))
                 if row["disposition"] == "supported" and row.get("value"):
                     approved_sources.add((*assertion_key, row["value"], reviewer))
         if any(len(values) > 1 for values in dispositions.values()):
@@ -161,15 +163,37 @@ class SignedExchange:
         if set(receipt.catalogue.get("review_receipt_sha256", ())) != review_hashes:
             raise ValueError("Catalogue does not bind the active reviewer decisions")
         report = self.catalog.evaluate_package(snapshot, source_sha256, receipt.catalogue)
-        blocked = {technique for (_, technique, _), values in dispositions.items() if any(mark != "supported" for mark, _ in values)}
         kept, held = [], list(report["withheld"])
+        occurrence_counts = Counter((row["technique"], row.get("occurrence"))
+                                    for row in [*report["findings"], *held])
+        technique_counts = Counter(row["technique"] for row in [*report["findings"], *held])
+        occurrences_by_source = defaultdict(set)
+        for finding in report["findings"]:
+            for item in finding["review_bindings"]:
+                occurrences_by_source[finding["technique"], item["record_id"]].add(finding["occurrence"])
+
+        blocked = set()
+        for (source, tid, _), values in dispositions.items():
+            for mark, _, occurrence in values:
+                if mark == "supported":
+                    continue
+                # Scope is signed with the review. An exact, unique verifier binding must corroborate it.
+                if (occurrence is not None and occurrence_counts[tid, occurrence] == 1
+                        and occurrences_by_source[tid, source] == {occurrence}):
+                    blocked.add((tid, occurrence))
+                else:
+                    blocked.add((tid, None))
         for finding in report["findings"]:
             tid = finding["technique"]
+            occurrence = finding["occurrence"]
             # The admission adapter exposes each actual record ID and its reviewed role.
             needed = {(item["record_id"], tid, item["role"], item["value"], item["reviewer"])
                       for item in finding["review_bindings"]}
-            if tid in blocked or not needed or not needed <= approved_sources:
-                held.append({"technique": tid, "reasons": ["independent_review_incomplete_or_adverse"]})
+            if (tid, None) in blocked or (tid, occurrence) in blocked or not needed or not needed <= approved_sources:
+                claim = {"technique": tid, "reasons": ["independent_review_incomplete_or_adverse"]}
+                if technique_counts[tid] > 1:
+                    claim["occurrence"] = occurrence
+                held.append(claim)
             else:
                 kept.append(finding)
         return {**report, "findings": kept, "withheld": held,
