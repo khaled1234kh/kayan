@@ -378,6 +378,23 @@ var (
 	sharedReplacerErr  error
 )
 
+func configuredToolReplacer(cfg *config.Config) (anonymizer.Replacer, error) {
+	// Build the replacer exactly once for the lifetime of the process.
+	// cfg.GetSecretPatterns() reads environment variables that are fixed at
+	// startup, so the first caller's config is representative for all callers.
+	sharedReplacerOnce.Do(func() {
+		allPatterns, err := patterns.LoadPatterns(patterns.PatternListTypeAll)
+		if err != nil {
+			sharedReplacerErr = fmt.Errorf("failed to load all patterns: %v", err)
+			return
+		}
+		allPatterns.Patterns = append(allPatterns.Patterns, cfg.GetSecretPatterns()...)
+		sharedReplacer, sharedReplacerErr = anonymizer.NewReplacer(allPatterns.Regexes(), allPatterns.Names())
+	})
+
+	return sharedReplacer, sharedReplacerErr
+}
+
 func NewFlowToolsExecutor(
 	db database.Querier,
 	cfg *config.Config,
@@ -395,21 +412,9 @@ func NewFlowToolsExecutor(
 	if err != nil {
 		return nil, fmt.Errorf("TrustGate execution binding: %w", err)
 	}
-	// Build the replacer exactly once for the lifetime of the process.
-	// cfg.GetSecretPatterns() reads environment variables that are fixed at
-	// startup, so the first caller's config is representative for all callers.
-	sharedReplacerOnce.Do(func() {
-		allPatterns, err := patterns.LoadPatterns(patterns.PatternListTypeAll)
-		if err != nil {
-			sharedReplacerErr = fmt.Errorf("failed to load all patterns: %v", err)
-			return
-		}
-		allPatterns.Patterns = append(allPatterns.Patterns, cfg.GetSecretPatterns()...)
-		sharedReplacer, sharedReplacerErr = anonymizer.NewReplacer(allPatterns.Regexes(), allPatterns.Names())
-	})
-
-	if sharedReplacerErr != nil {
-		return nil, fmt.Errorf("failed to create replacer: %v", sharedReplacerErr)
+	replacer, err := configuredToolReplacer(cfg)
+	if err != nil {
+		return nil, fmt.Errorf("failed to create replacer: %v", err)
 	}
 
 	return &flowToolsExecutor{
@@ -417,7 +422,7 @@ func NewFlowToolsExecutor(
 		db:          db,
 		docker:      docker,
 		functions:   functions,
-		replacer:    sharedReplacer,
+		replacer:    replacer,
 		cfg:         cfg,
 		flowID:      flowID,
 		userID:      userID,

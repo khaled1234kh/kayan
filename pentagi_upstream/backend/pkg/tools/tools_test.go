@@ -521,10 +521,14 @@ func TestTools_NewFlowToolsExecutor_MasksTheConfiguredSecrets(t *testing.T) {
 	t.Cleanup(func() { sharedReplacerOnce, sharedReplacer, sharedReplacerErr = sync.Once{}, nil, nil })
 
 	const licenseKey = "PLUM-WALRUS-7731-QUIVER"
-	executor, err := NewFlowToolsExecutor(nil, &config.Config{LicenseKey: licenseKey}, nil, nil, 1, 42)
-	require.NoError(t, err)
+	cfg := &config.Config{LicenseKey: licenseKey}
+	executor, err := NewFlowToolsExecutor(nil, cfg, nil, nil, 1, 42)
+	require.ErrorContains(t, err, "signed TrustGate execution binding is required")
+	require.Nil(t, executor)
 
-	masked := executor.(*flowToolsExecutor).replacer.ReplaceString("applied license " + licenseKey + " to the node")
+	replacer, err := configuredToolReplacer(cfg)
+	require.NoError(t, err)
+	masked := replacer.ReplaceString("applied license " + licenseKey + " to the node")
 
 	assert.NotContains(t, masked, licenseKey)
 	assert.True(t, strings.HasPrefix(masked, "applied license "), "only the secret is replaced: %q", masked)

@@ -8,7 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"path/filepath"
+	containerpath "path"
 	"regexp"
 	"strconv"
 	"strings"
@@ -511,10 +511,33 @@ func (t *terminal) WriteFile(ctx context.Context, flowID int64, content string, 
 	return fmt.Sprintf("Successfully wrote %d bytes to %s", len(content), path), nil
 }
 
+func validateContainerWritePath(path string) error {
+	// Treat container paths as POSIX paths even on Windows hosts.
+	if containerpath.Clean(path) == "/" {
+		return fmt.Errorf("container root is a directory, not a file destination")
+	}
+	if strings.ContainsAny(path, "\\\x00") {
+		return fmt.Errorf("container file destination contains a backslash or NUL")
+	}
+	for _, segment := range strings.Split(path, "/") {
+		if segment == ".." {
+			return fmt.Errorf("container file destination contains a parent-directory component")
+		}
+	}
+	if strings.HasSuffix(path, "/") || containerpath.Base(path) == "." {
+		return fmt.Errorf("container file destination must name a file")
+	}
+	return nil
+}
+
 // writeFileToContainer copies content into the flow's container at path,
 // overwriting it. It performs no terminal-log writes; WriteFile and EditFile
 // each log their own, differently-worded, success message.
 func (t *terminal) writeFileToContainer(ctx context.Context, flowID int64, path, content string) error {
+	if err := validateContainerWritePath(path); err != nil {
+		return err
+	}
+
 	containerName := PrimaryTerminalName(t.tenantPrefix, flowID)
 
 	err := t.requireRunningContainer(ctx)
@@ -527,7 +550,7 @@ func (t *terminal) writeFileToContainer(ctx context.Context, flowID int64, path,
 	archiveWriter := tar.NewWriter(tarBuffer)
 	defer archiveWriter.Close()
 
-	filename := filepath.Base(path)
+	filename := containerpath.Base(path)
 	fileDescriptor := &tar.Header{
 		Name: filename,
 		Mode: 0600,
@@ -548,10 +571,8 @@ func (t *terminal) writeFileToContainer(ctx context.Context, flowID int64, path,
 		return fmt.Errorf("failed to close tar writer: %w", err)
 	}
 
-	dir := filepath.Dir(path)
-	err = t.dockerClient.CopyToContainer(ctx, containerName, dir, tarBuffer, client.CopyToContainerOptions{
-		AllowOverwriteDirWithFile: true,
-	})
+	dir := containerpath.Dir(path)
+	err = t.dockerClient.CopyToContainer(ctx, containerName, dir, tarBuffer, client.CopyToContainerOptions{})
 	if err != nil {
 		return fmt.Errorf("container file transfer failed: %w", err)
 	}
@@ -565,6 +586,9 @@ func (t *terminal) writeFileToContainer(ctx context.Context, flowID int64, path,
 // that doesn't fully apply leaves the file untouched.
 func (t *terminal) EditFile(ctx context.Context, flowID int64, path, diffText string) (string, error) {
 	if err := validateFilePath(path); err != nil {
+		return "", err
+	}
+	if err := validateContainerWritePath(path); err != nil {
 		return "", err
 	}
 	if strings.TrimSpace(diffText) == "" {
