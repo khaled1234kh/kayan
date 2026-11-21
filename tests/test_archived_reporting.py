@@ -1,6 +1,7 @@
 import asyncio
 import json
 from concurrent.futures import CancelledError
+from dataclasses import replace
 
 import httpx
 import pytest
@@ -9,6 +10,7 @@ from fastapi.testclient import TestClient
 
 from ai.providers.reporting_sovereign import DESTINATION, MODEL, ReportingSovereignProvider
 from ai.trustgate.client import TrustGateDecision
+from console.backend import reporting_api
 from console.backend.reporting_api import install_reporting_api
 from pentagi.agents.archived_reporting import ARCHIVE, request_for, review_archive
 
@@ -33,8 +35,10 @@ def center(tmp_path, monkeypatch):
         def close(self):
             pass
 
-    def transport(request):
+    async def transport(request):
         requests.append((str(request.url), json.loads(request.content)))
+        for delay in scenario.get("response_delays", ()):
+            await asyncio.sleep(delay)
         if scenario.get("cancelled"):
             raise asyncio.CancelledError
         if scenario.get("offline"):
@@ -158,6 +162,24 @@ def test_legacy_attempt_marker_still_consumes_approval(center, tmp_path):
     assert client.post(PREFIX + "/run", json={"mode": "sovereigneg"}).status_code == 409
     assert marker.read_text(encoding="ascii") == digest
     assert not approvals and not requests
+
+
+def test_reporting_deadline_bounds_a_slow_incremental_response(center, monkeypatch):
+    client, _, requests, scenario = center
+    config = reporting_api.load_config(load_env=False)
+    provider = replace(config.get_provider("sovereigneg"), request_timeout_s=0.2)
+    monkeypatch.setattr(reporting_api, "load_config", lambda **_: replace(
+        config, providers={**config.providers, "sovereigneg": provider}))
+    scenario["response_delays"] = (0.15, 0.15, 0.15)
+
+    response = client.post(PREFIX + "/run", json={"mode": "sovereigneg"})
+    assert response.status_code == 200
+    report = response.json()
+    assert report["status"] == "degraded" and "time limit" in report["notice"]
+    assert "usage" not in report
+    assert client.get(PREFIX + "/result?mode=sovereigneg&download=true").json() == report
+    assert client.post(PREFIX + "/run", json={"mode": "sovereigneg"}).status_code == 409
+    assert len(requests) == 1
 
 
 def test_local_report_does_not_request_inference_and_cannot_supply_evidence(center):

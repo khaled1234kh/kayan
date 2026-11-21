@@ -97,9 +97,9 @@
       "requirement": "Recover a verified local report after interruption of an approved cloud attempt without reissuing the request.",
       "implementation": ["console/backend/reporting_api.py"],
       "verification": ["tests/test_archived_reporting.py"],
-      "metrics": ["one mock transport invocation", "identical recovered API/download JSON", "unchanged findings and audit references", "approval replay rejected"],
+      "metrics": ["one mock transport invocation", "identical recovered API/download JSON", "unchanged findings and audit references", "approval replay rejected", "total request deadline"],
       "status": "verified_automated",
-      "evidence": "The test interrupted the transport call and recreated the application. Before the fix the result returned 404. After it the same evidence revision returns the degraded local report and rejects replay."
+      "evidence": "An interrupted transport call previously returned no saved result (404). The same evidence revision now returns the degraded local report after app recreation and rejects replay. A separate mock exceeded a 0.2-second total deadline across individually shorter waits and also recovered the fallback without retry."
     },
     {
       "id": "reliability.system",

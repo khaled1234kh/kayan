@@ -19,4 +19,6 @@ The verified local report is now saved atomically with the one-shot Archived Rep
 
 New cloud selections persist validated finish reason, input/output/reasoning tokens and measured provider latency. Malformed or out-of-budget token usage yields the existing local fallback. The full console ASGI check recovered and exported the fallback after an injected interruption, with the original Slate request digest and a single mocked attempt. Historical reports retain their original metadata.
 
-The next coding task is to add an end-to-end request deadline to Archived Reporting and test recovery when individual transport operations progress but total runtime exceeds the deadline.
+Archived Reporting now also enforces the configured request time as a total deadline. A mocked response exceeding the deadline across individually short waits produces an exportable local fallback and consumes only one attempt.
+
+The next coding task is to render saved provider usage and completion metadata in the Reporting panel. Cover selected cloud output, older reports with partial metadata and local fallback, then verify the rendered panel using fixtures.

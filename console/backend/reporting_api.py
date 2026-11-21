@@ -189,9 +189,15 @@ def install_reporting_api(app, *, load_archive=review_archive, output=RESULTS,
                         except FileExistsError:
                             raise HTTPException(409, "The approved cloud request has already been attempted") from None
                         try:
-                            reply = await provider.chat(messages, max_tokens=OUTPUT_TOKENS,
-                                                        temperature=0, response_format=schema)
+                            reply = await asyncio.wait_for(
+                                provider.chat(messages, max_tokens=OUTPUT_TOKENS,
+                                              temperature=0, response_format=schema),
+                                timeout=settings.request_timeout_s,
+                            )
                             presented = compose(report, selection=reply.content)
+                        except asyncio.TimeoutError:
+                            presented = None
+                            result["notice"] = "The cloud request reached its time limit. Showing the local evidence report."
                         except (httpx.HTTPError, ValueError, RuntimeError, TypeError, AttributeError, KeyError, OSError):
                             presented = None
                         if presented is not None:
