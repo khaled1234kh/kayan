@@ -6,7 +6,7 @@ import { SEED_ACTORS } from '../src/data/actors';
 import type { TrustGateTranscriptEntry } from '../src/types/trustgate';
 import { agentDecision } from '../src/security/agentDecision';
 import { TrustGatePanel } from '../src/components/ui/Panels';
-import { AdditionalVerifiedActions, AuditCountsView, ReportEvidence, ReportExecutionDetails, ReportSummaryCoverage, readSavedReport } from '../src/components/ui/ArchivedReport';
+import { AdditionalVerifiedActions, AuditCountsView, ReportEvidence, ReportExecutionDetails, ReportSummaryCoverage, RoleObservationCounts, readSavedReport } from '../src/components/ui/ArchivedReport';
 
 const actor = { ...SEED_ACTORS.find((a) => a.id === 'ai-sales')!, modelTier: 'A' as const,
   backendAgentId: 'webapp1', engagementId: 'eng1', currentTask: 'sql_injection_test', state: 'working' as const };
@@ -161,3 +161,11 @@ assert(auditCounts.includes('No matching audit entry · 3'));
 assert(auditCounts.includes('Ledger verification failed · 2') && auditCounts.includes('Audit service unavailable · 1'));
 assert(renderToStaticMarkup(<AuditCountsView counts={{}} />).includes('No captured decisions to check.'));
 console.log('PASS archive audit view distinguishes confirmed, missing, invalid and unavailable audit evidence');
+
+const roleCounts = renderToStaticMarkup(<RoleObservationCounts counts={{
+  completed: 2, projected: 1, denied: 1, transcript_only: 3,
+}} />);
+assert(roleCounts.includes('Completed captures 2') && roleCounts.includes('Projected captures 1'));
+assert(roleCounts.includes('Denied captures 1') && roleCounts.includes('Transcript-only records 3'));
+assert(renderToStaticMarkup(<RoleObservationCounts />).includes('No retained observations'));
+console.log('PASS Archived Reporting separates observed per-role counts from declared coverage');

@@ -64,13 +64,35 @@ def _conflicting_decisions(entries):
     return conflicts
 
 
+def _collect_observation(observations, record):
+    artifact = record.get("artifact_sha256")
+    identity = (artifact is not None, artifact or digest(canonical(record)))
+    observations.setdefault(record["source_id"], {})[identity] = record
+
+
+def _observations_by_role(records):
+    roles = {}
+    for record in records:
+        if "artifact_sha256" not in record:
+            category = "transcript_only"
+        elif record["status"] != "completed":
+            category = record["status"]
+        elif not record["outcome"]:
+            category = "empty"
+        else:
+            category = "projected" if record["truncated"] else "completed"
+        counts = roles.setdefault(record["agent"], {})
+        counts[category] = counts.get(category, 0) + 1
+    return roles
+
+
 def capture(state, source_store=None):
     """Capture recorded outcomes without claiming the operator logs are custody."""
     if not eligible(state):
         raise ValueError("Assessment is outside the completed owned-lab scope")
     eid = state["engagement_id"]
     entries = [row for row in state.get("transcript", []) if row.get("engagement_id") == eid]
-    decisions, records, outcomes = {}, {}, {}
+    decisions, observations, outcomes = {}, {}, {}
     invalid_sources = 0
     # Consider conflicts anywhere in the completed transcript. The chronological
     # pass still requires a decision observed before the captured outcome.
@@ -91,10 +113,9 @@ def capture(state, source_store=None):
                         or source["role"] != role
                         or decision != (source["agent"], source["authorization_decision"], source["audit_entry_id"])
                         or row.get("target") != "127.0.0.1"
-                        or (kind == "tool_denied") != (source["status"] == "denied")
-                        or source["source_id"] in records):
+                        or (kind == "tool_denied") != (source["status"] == "denied")):
                     raise ValueError("Capture does not match the execution event")
-                records[source["source_id"]] = {
+                _collect_observation(observations, {
                     "source_id": source["source_id"], "revision": 1, "sha256": source["output_sha256"],
                     "artifact_sha256": sha, "occurrence": source["task_id"], "agent": role,
                     "tool": source["tool"], "target": source["approved_target"],
@@ -103,7 +124,7 @@ def capture(state, source_store=None):
                     "status": source["status"], "authorization_status": "recorded decision",
                     "decision": source["authorization_decision"], "audit_entry_id": source["audit_entry_id"],
                     "attribution_status": "unreviewed",
-                }
+                })
             except (ValueError, OSError, TypeError, KeyError):
                 invalid_sources += 1
         elif role in ROLES and kind == "tool_result" and isinstance(row.get("id"), str):
@@ -121,24 +142,31 @@ def capture(state, source_store=None):
                 "decision": decision.get("trustgate_decision") or decision.get("decision"),
                 "audit_entry_id": decision.get("audit_entry_id"), "attribution_status": "unreviewed",
             }
-            if source_id in records and records[source_id] != record:
-                raise ValueError("Conflicting execution record ID")
-            records[source_id] = record
+            _collect_observation(observations, record)
         elif role == "planner_agent" and kind == "specialist_outcome":
             outcome = row.get("specialist_outcome", {})
             if outcome.get("role") in ROLES:
                 outcomes[outcome["role"]] = outcome
+    records = []
+    for versions in observations.values():
+        if len(versions) == 1:
+            records.append(next(iter(versions.values())))
+        elif any("artifact_sha256" in row for row in versions.values()):
+            invalid_sources += len(versions)
+        else:
+            raise ValueError("Conflicting execution record ID")
+
     techniques = {finding.get("mitre") or finding.get("mitre_id") or "" for finding in state.get("findings", [])}
     techniques = sorted({value if isinstance(value, str) and TECHNIQUE.fullmatch(value) else "Unmapped"
                          for value in techniques})
-    captured_count = sum("artifact_sha256" in row for row in records.values())
+    captured_count = sum("artifact_sha256" in row for row in records)
     source_status = ("invalid_source" if invalid_sources else
                      "mixed_source" if 0 < captured_count < len(records) else
                      "source_captured" if captured_count else "transcript_only" if records else "no_evidence")
     result = {
         "version": VERSION, "assessment_id": eid, "engagement_id": eid,
         "target": state["target"], "started_at": state.get("start_time"), "completed_at": state.get("end_time"),
-        "record_origin": "completed owned-lab session transcript", "records": list(records.values()),
+        "record_origin": "completed owned-lab session transcript", "records": records,
         "specialist_outcomes": list(outcomes.values()), "unreviewed_hypotheses": techniques,
     }
     if captured_count or invalid_sources:
@@ -280,6 +308,7 @@ class ReportingCatalog:
         classified = {row["technique"] for key in ("findings", "withheld") for row in reviewed[key]}
         return {
             **reviewed, "verification": verification, "coverage": coverage,
+            "observations_by_role": _observations_by_role(snapshot["records"]),
             "review_status": ("verified" if verification == "independent_custody" else "submitted" if submitted else "awaiting"),
             "admission_status": reviewed.get("admission_status", "evaluated" if verification == "independent_custody" else "pending"),
             "source_status": snapshot.get("source_status", "transcript_only" if snapshot["records"] else "no_evidence"),

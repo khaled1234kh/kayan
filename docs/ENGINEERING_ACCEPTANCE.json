@@ -84,6 +84,15 @@
       "evidence": "Existing coordination and reports cover selected synthetic cases. Independent per-role quality scores and a held-out evaluation are unestablished."
     },
     {
+      "id": "evaluation.specialist_saved_observation_attribution",
+      "requirement": "Keep saved observations attributed to their validated roles and distinguish duplicate delivery, contradictory evidence and historical transcripts.",
+      "implementation": ["console/backend/reporting_evidence.py", "console/backend/reporting_api.py", "console/office/src/components/ui/ArchivedReport.tsx"],
+      "verification": ["tests/test_archived_specialist_attribution.py", "docs/REUSABLE_REPORTING.md#specialist-observation-attribution"],
+      "metrics": ["exact role and artifact attribution", "retained and excluded observations", "duplicate and conflict consistency", "export identity"],
+      "status": "verified_automated",
+      "evidence": "Passive replays improved from 7/9 to 9/9. The browser showed declared completion separately from retained output, and the historical owned-lab archive remained transcript-only. Independent finding accuracy remains open."
+    },
+    {
       "id": "cloud.reporting",
       "requirement": "Allow bounded provider selection for defensive Reporting under digest-specific approval, independent egress authorization and deterministic admission.",
       "implementation": ["console/backend/reporting_api.py", "ai/providers/reporting_sovereign.py", "pentagi/agents/archived_reporting.py"],

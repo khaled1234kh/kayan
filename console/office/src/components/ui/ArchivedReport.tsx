@@ -6,6 +6,7 @@ type Mode = 'local' | 'sovereigneg';
 type Assessment = { title: string; assessment_id: string };
 type Archive = Assessment & {
   source_sha256: string;
+  observations_by_role?: Record<string, ObservationCounts>;
   cloud_available: boolean;
   cloud_selection_supported?: boolean;
   source_status?: string;
@@ -41,6 +42,17 @@ const sourceLabel: Record<string, string> = {
 const specialistName: Record<string, string> = {
   recon_agent: 'Recon', webapp_agent: 'Web-App', network_agent: 'Network',
 };
+const observationLabels = {
+  completed: 'Completed captures',
+  projected: 'Projected captures',
+  empty: 'Captures without retained output',
+  failed: 'Failed captures',
+  denied: 'Denied captures',
+  not_dispatched: 'Undispatched captures',
+  authorization_unverified: 'Captures with unverified authorization',
+  transcript_only: 'Transcript-only records',
+} as const;
+type ObservationCounts = Partial<Record<keyof typeof observationLabels, number>>;
 type Source = { id: string; roles: string[]; statements: string[] };
 type SummarySource = Source & {
   technique?: string;
@@ -95,6 +107,14 @@ export function AuditCountsView({ counts }: { counts: AuditCounts }) {
       {rows.map(({ key, label, count }) => <li key={key}>{label} · {count}</li>)}
     </ul> : <p>No captured decisions to check.</p>}
   </div>;
+}
+
+export function RoleObservationCounts({ counts }: { counts?: ObservationCounts }) {
+  const labels = Object.entries(observationLabels).flatMap(([key, label]) => {
+    const count = counts?.[key as keyof ObservationCounts];
+    return count ? [`${label} ${count}`] : [];
+  });
+  return <div className="muted">{labels.length ? labels.join(' · ') : 'No retained observations'}</div>;
 }
 
 function ArchiveAuditCheck({ assessmentId, sourceSha }: { assessmentId: string; sourceSha: string }) {
@@ -361,8 +381,9 @@ function AssessmentReport({ assessmentId, open, onPending }: {
           {archive.coverage.failed_tools !== undefined &&
             <p>{archive.coverage.failed_tools} failed · {archive.coverage.truncated_tools} truncated</p>}
           <ul>{archive.coverage.specialists?.map(item => <li key={item.role}>
-            {specialistName[item.role]} · {item.complete ? 'complete' : item.status === 'unavailable' ? 'coverage not recorded' : 'incomplete'}
+            {specialistName[item.role]} · {item.complete ? 'catalogue reported complete' : item.status === 'unavailable' ? 'coverage not recorded' : 'catalogue reported incomplete'}
             {item.stop_reason && <span> · {item.stop_reason.replace(/_/g, ' ')}</span>}
+            {archive.observations_by_role && <RoleObservationCounts counts={archive.observations_by_role[item.role]} />}
           </li>)}</ul>
           {Boolean(archive.coverage.captured_tools || archive.coverage.invalid_sources) &&
             <ArchiveAuditCheck key={archive.source_sha256} assessmentId={assessmentId} sourceSha={archive.source_sha256} />}

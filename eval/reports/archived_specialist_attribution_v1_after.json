@@ -1,0 +1,202 @@
+{
+  "fixture_sha256": "0dc1e4cddca602157b55676307e94184061702b6b0c4d65042f17328185bd17d",
+  "cases": [
+    {
+      "id": "siloed_roles",
+      "expected": {
+        "recon_agent": {
+          "completed": 1
+        },
+        "webapp_agent": {
+          "completed": 1
+        },
+        "network_agent": {
+          "completed": 1
+        }
+      },
+      "observed": {
+        "recon_agent": {
+          "completed": 1
+        },
+        "webapp_agent": {
+          "completed": 1
+        },
+        "network_agent": {
+          "completed": 1
+        }
+      },
+      "expected_invalid_sources": 0,
+      "observed_invalid_sources": 0,
+      "exact": true
+    },
+    {
+      "id": "partial_and_empty",
+      "expected": {
+        "recon_agent": {
+          "projected": 1
+        },
+        "webapp_agent": {
+          "empty": 1
+        },
+        "network_agent": {
+          "completed": 1
+        }
+      },
+      "observed": {
+        "recon_agent": {
+          "projected": 1
+        },
+        "webapp_agent": {
+          "empty": 1
+        },
+        "network_agent": {
+          "completed": 1
+        }
+      },
+      "expected_invalid_sources": 0,
+      "observed_invalid_sources": 0,
+      "exact": true
+    },
+    {
+      "id": "denied_failed_absent",
+      "expected": {
+        "recon_agent": {
+          "denied": 1
+        },
+        "webapp_agent": {
+          "failed": 1
+        },
+        "network_agent": {
+          "authorization_unverified": 1
+        }
+      },
+      "observed": {
+        "recon_agent": {
+          "denied": 1
+        },
+        "webapp_agent": {
+          "failed": 1
+        },
+        "network_agent": {
+          "authorization_unverified": 1
+        }
+      },
+      "expected_invalid_sources": 0,
+      "observed_invalid_sources": 0,
+      "exact": true
+    },
+    {
+      "id": "legacy_and_foreign",
+      "expected": {
+        "recon_agent": {
+          "transcript_only": 1
+        },
+        "network_agent": {
+          "completed": 1
+        }
+      },
+      "observed": {
+        "recon_agent": {
+          "transcript_only": 1
+        },
+        "network_agent": {
+          "completed": 1
+        }
+      },
+      "expected_invalid_sources": 0,
+      "observed_invalid_sources": 0,
+      "exact": true
+    },
+    {
+      "id": "late_conflict_per_role",
+      "expected": {
+        "webapp_agent": {
+          "completed": 1
+        },
+        "network_agent": {
+          "completed": 1
+        }
+      },
+      "observed": {
+        "webapp_agent": {
+          "completed": 1
+        },
+        "network_agent": {
+          "completed": 1
+        }
+      },
+      "expected_invalid_sources": 1,
+      "observed_invalid_sources": 1,
+      "exact": true
+    },
+    {
+      "id": "misattributed_role",
+      "expected": {
+        "network_agent": {
+          "completed": 1
+        }
+      },
+      "observed": {
+        "network_agent": {
+          "completed": 1
+        }
+      },
+      "expected_invalid_sources": 1,
+      "observed_invalid_sources": 1,
+      "exact": true
+    },
+    {
+      "id": "identical_replayed_result",
+      "expected": {
+        "recon_agent": {
+          "completed": 1
+        },
+        "webapp_agent": {
+          "completed": 1
+        },
+        "network_agent": {
+          "completed": 1
+        }
+      },
+      "observed": {
+        "recon_agent": {
+          "completed": 1
+        },
+        "webapp_agent": {
+          "completed": 1
+        },
+        "network_agent": {
+          "completed": 1
+        }
+      },
+      "expected_invalid_sources": 0,
+      "observed_invalid_sources": 0,
+      "exact": true
+    },
+    {
+      "id": "declared_without_capture",
+      "expected": {},
+      "observed": {},
+      "expected_invalid_sources": 0,
+      "observed_invalid_sources": 0,
+      "exact": true
+    },
+    {
+      "id": "conflicting_capture_revision",
+      "expected": {
+        "network_agent": {
+          "completed": 1
+        }
+      },
+      "observed": {
+        "network_agent": {
+          "completed": 1
+        }
+      },
+      "expected_invalid_sources": 2,
+      "observed_invalid_sources": 2,
+      "exact": true
+    }
+  ],
+  "exact_cases": 9
+}

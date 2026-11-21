@@ -294,7 +294,7 @@ def verify_saved_presentation(report, raw, *, mode, request_sha256, supplement_a
 
     bound_fields = ["assessment_id", "source_sha256", "report_revision", "title", "findings", "withheld", "limitation"]
     bound_fields.extend(key for key in (
-        "verification", "coverage", "source_status", "review_status", "admission_status",
+        "verification", "coverage", "observations_by_role", "source_status", "review_status", "admission_status",
         "custody_test_only", "custody_receipt_sha256",
     ) if key in saved)
     if not fields_match(report, bound_fields):
