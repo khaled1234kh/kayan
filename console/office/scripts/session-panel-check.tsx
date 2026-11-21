@@ -106,6 +106,9 @@ const makeSavedResponse = (tag: string) => Response.json({ status: 'local' }, { 
 assert.deepEqual(await readSavedReport(makeSavedResponse(`"${digest}"`)), { report: { status: 'local' }, digest });
 assert.equal((await readSavedReport(makeSavedResponse(`W/"${digest}"`))).digest, undefined);
 assert.equal((await readSavedReport(Response.json({ status: 'local' }))).digest, undefined);
+await assert.rejects(readSavedReport(Response.json(
+  { detail: 'Saved report failed verification against the current archive.' }, { status: 409 },
+)), /failed verification/);
 console.log('PASS saved Reporting response and exact export identity');
 
 const partialSummary = renderToStaticMarkup(<ReportSummaryCoverage coverage={{

@@ -192,6 +192,15 @@
       "evidence": "A frozen six-case comparison rejected a swap policy because of a case-level preference loss. The rendered mock confirmed one action in the eight-excerpt summary and seven additional occurrence-bound actions. The ninth occurrence stayed withheld, and the download matched the saved bytes."
     },
     {
+      "id": "reliability.reporting_saved_projection",
+      "requirement": "Verify saved findings and excerpts against the current archive before serving or downloading a report, including interrupted fallback.",
+      "implementation": ["pentagi/agents/archived_reporting.py", "console/backend/reporting_api.py", "console/office/src/components/ui/ArchivedReport.tsx"],
+      "verification": ["tests/test_archived_reporting.py", "docs/ARCHIVED_REPORTING_FULL_SUMMARY.md#saved-result-verification"],
+      "metrics": ["corruption rejection", "byte-identical legacy read", "no inference replay after corruption"],
+      "status": "verified_automated",
+      "evidence": "Nine altered saved or fallback fixtures returned HTTP 409. A legacy fixture and the original saved Slate cloud response remained verifiable without rewriting either report."
+    },
+    {
       "id": "reliability.system",
       "requirement": "Exercise restart recovery, concurrency, cancellation, provider outage, egress restrictions and audit integrity across relevant Python, Go, Rust and frontend suites.",
       "implementation": ["console/backend/session_store.py", "console/backend/reporting_api.py", "trustgate/service", "console/office"],

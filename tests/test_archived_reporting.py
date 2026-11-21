@@ -243,6 +243,62 @@ def test_export_checks_exact_bytes_after_same_revision_rerun(center):
     assert not requests
 
 
+@pytest.mark.parametrize("change", [
+    {"assessment_id": "different-archive"},
+    {"findings": []},
+    {"withheld": []},
+    {"verification": "independent_custody"},
+    {"summary": [{"technique": "T1486", "id": "E2.1", "roles": ["mechanic"], "statements": ["Changed excerpt"]}]},
+    {"summary_coverage": {"admitted_occurrences": 1, "covered_occurrences": 1, "action_covered_occurrences": 0}},
+    {"summary_coverage": {"admitted_occurrences": True, "covered_occurrences": 1, "action_covered_occurrences": 1}},
+    None,
+])
+def test_modified_saved_report_is_rejected_when_opened_or_exported_after_restart(center, tmp_path, change):
+    client, _, requests, _ = center
+    before = client.post(PREFIX + "/run", json={"mode": "local"})
+    assert before.status_code == 200
+    saved, = tmp_path.glob("*-local.json")
+    altered = json.dumps({**before.json(), **change}).encode() if change is not None else b"{"
+    saved.write_bytes(altered)
+    app = FastAPI()
+    install_reporting_api(app, output=tmp_path)
+    with TestClient(app, base_url="http://127.0.0.1", client=("127.0.0.1", 50000)) as reopened:
+        assert reopened.get(PREFIX + "/result").status_code == 409
+        assert reopened.get(PREFIX + "/result", params={
+            "download": True, "expected_sha256": sha256(altered).hexdigest(),
+        }).status_code == 409
+    assert saved.read_bytes() == altered and not requests
+
+
+def test_legacy_selected_report_bytes_are_preserved_without_coverage_metadata(center, tmp_path):
+    client, _, requests, _ = center
+    current = client.post(PREFIX + "/run", json={"mode": "sovereigneg"}).json()
+    current.pop("summary_coverage")
+    current.pop("finish_reason")
+    saved, = tmp_path.glob("*-sovereigneg.json")
+    legacy = json.dumps(current).encode()
+    saved.write_bytes(legacy)
+    assert client.get(PREFIX + "/result", params={
+        "mode": "sovereigneg", "download": True, "expected_sha256": sha256(legacy).hexdigest(),
+    }).content == legacy
+    assert len(requests) == 1
+
+
+def test_modified_recovery_report_is_withheld_and_the_attempt_remains_consumed(center, tmp_path):
+    client, _, requests, scenario = center
+    scenario["cancelled"] = True
+    with pytest.raises(CancelledError):
+        client.post(PREFIX + "/run", json={"mode": "sovereigneg"})
+    reservation, = tmp_path.glob("attempt-*.lock")
+    body = json.loads(reservation.read_bytes())
+    body["summary"][0]["statements"] = ["Changed excerpt"]
+    altered = json.dumps(body).encode()
+    reservation.write_bytes(altered)
+    assert client.get(PREFIX + "/result?mode=sovereigneg").status_code == 409
+    assert client.post(PREFIX + "/run", json={"mode": "sovereigneg"}).status_code == 409
+    assert reservation.read_bytes() == altered and len(requests) == 1
+
+
 def test_default_router_requires_exact_approval(center):
     app = FastAPI()
     install_reporting_api(app)

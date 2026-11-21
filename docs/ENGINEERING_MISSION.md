@@ -41,4 +41,6 @@ Archived Reporting now appends verified action excerpts after a valid selection,
 
 The frozen full-summary comparison found that swapping references improved aggregate observed-action coverage from 9/50 to 16/50 and lost two preferred excerpts in one case. The application preserves the selected summary and discloses remaining verified actions separately, with exact occurrence-bound references in the export. The rendered mock check and byte-identical browser download passed. [Capacity results and application](ARCHIVED_REPORTING_FULL_SUMMARY.md)
 
-Next, verify that persisted archived report reads and exports still match the current verified archive and its presentation rules after restart or file corruption.
+Saved Reporting results now recheck their archive identity, finding decisions, citations and presentation before being served. Corrupted stored results and reserved fallback reports return HTTP 409 without rewriting their files. The saved real Slate response still passes the new check. [Reproduction and verification](ARCHIVED_REPORTING_FULL_SUMMARY.md#saved-result-verification)
+
+Next, exercise local report publication when custody changes while the asynchronous write decision is pending. Verify stale findings cannot be emitted in the POST response or published to disk.

@@ -72,6 +72,10 @@ const endpoint = `${apiUrl.replace(/\/$/, '')}/reporting/archive`;
 const metricNumber = new Intl.NumberFormat('en', { maximumFractionDigits: 3 });
 
 export async function readSavedReport(response: Response) {
+  if (!response.ok) {
+    const failure = await response.json().catch(() => undefined);
+    throw new Error(typeof failure?.detail === 'string' ? failure.detail : 'Could not load the saved report.');
+  }
   const digest = /^"([a-f0-9]{64})"$/.exec(response.headers.get('ETag') ?? '')?.[1];
   return { report: await response.json() as Report, digest };
 }
@@ -214,11 +218,13 @@ function AssessmentReport({ assessmentId, open, onPending }: {
     if (!open || busy) return;
     const controller = new AbortController();
     fetch(resultUrl, { signal: controller.signal }).then(async response => {
-      if (!response.ok && response.status !== 404) throw new Error('Could not load the saved report.');
-      const loaded = response.ok ? await readSavedReport(response) : undefined;
+      const loaded = response.status === 404 ? undefined : await readSavedReport(response);
       if (!controller.signal.aborted) setSaved(loaded);
-    }).catch(() => {
-      if (!controller.signal.aborted) setError('Could not load the saved report.');
+    }).catch(failure => {
+      if (!controller.signal.aborted) {
+        setSaved(undefined);
+        setError(failure instanceof Error ? failure.message : 'Could not load the saved report.');
+      }
     });
     return () => controller.abort();
   }, [open, busy, resultUrl, refresh]);

@@ -18,11 +18,12 @@ from pydantic import BaseModel, ConfigDict
 from ai.config import load_config, require_api_key
 from ai.providers.reporting_sovereign import DESTINATION, MODEL, OUTPUT_TOKENS, ReportingSovereignProvider
 from ai.trustgate.client import AITrustGate
-from pentagi.agents.archived_reporting import compose, request_for, review_archive
+from pentagi.agents.archived_reporting import compose, request_for, review_archive, verify_saved_presentation
 
 Mode = Literal["local", "sovereigneg"]
 RESULTS = Path(__file__).resolve().parents[2] / ".build/reporting-archive"
 STALE_REPORT = "Saved report changed. Review the current report before exporting."
+INVALID_REPORT = "Saved report failed verification against the current archive."
 
 
 class ReportRequest(BaseModel):
@@ -159,6 +160,11 @@ def install_reporting_api(app, *, load_archive=review_archive, output=RESULTS,
             if expected_sha256 is not None:
                 raise HTTPException(409, STALE_REPORT)
             raise HTTPException(404, "No saved report in this mode")
+        try:
+            verify_saved_presentation(report, body, mode=mode, request_sha256=prepared[2] if prepared else None,
+                                      supplement_actions=supplement_actions)
+        except (ValueError, TypeError, KeyError, AttributeError, RecursionError):
+            raise HTTPException(409, INVALID_REPORT) from None
         filename = f'{report["assessment_id"]}-{mode}.json' if download else None
         return _report_response(body, expected_sha256=expected_sha256, filename=filename)
 

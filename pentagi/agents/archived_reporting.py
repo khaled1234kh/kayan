@@ -9,7 +9,7 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field
 
 from ai.providers.base import ChatMessage
-from ai.providers.reporting_sovereign import DESTINATION, request_payload
+from ai.providers.reporting_sovereign import DESTINATION, MODEL, request_payload
 from eval.attack_evidence_admission_v2 import AdmissionAuthority, AdmissionSnapshot, evaluate_in_custody
 from eval.attack_evidence_custody_v1 import CustodyHead
 from eval.attack_evidence_guard_v3 import MECHANICS
@@ -278,4 +278,62 @@ def compose(report, selection=None, *, supplement_actions=False):
         "recommendations": [controls[key] for key in actions],
         "emphasis": emphasis,
     }
+
+
+def verify_saved_presentation(report, raw, *, mode, request_sha256, supplement_actions):
+    saved = parse_strict_json(raw)
+    if not isinstance(saved, dict):
+        raise ValueError("Expected a saved report object")
+    def fields_match(expected, fields):
+        # JSON comparison preserves distinctions such as true versus the count 1.
+        actual = {key: saved.get(key) for key in fields}
+        reference = {key: expected.get(key) for key in fields}
+        return json.dumps(actual, sort_keys=True, allow_nan=False) == json.dumps(
+            reference, sort_keys=True, allow_nan=False,
+        )
+
+    bound_fields = ["assessment_id", "source_sha256", "report_revision", "title", "findings", "withheld", "limitation"]
+    bound_fields.extend(key for key in (
+        "verification", "coverage", "source_status", "review_status", "admission_status",
+        "custody_test_only", "custody_receipt_sha256",
+    ) if key in saved)
+    if not fields_match(report, bound_fields):
+        raise ValueError("Saved report does not match the current archive")
+
+    status = saved.get("status")
+    if mode == "local":
+        if status != "local" or saved.get("request_sha256") is not None:
+            raise ValueError("Saved report mode mismatch")
+    elif (status not in ("selected", "degraded") or not request_sha256
+          or saved.get("request_sha256") != request_sha256):
+        raise ValueError("Saved report request mismatch")
+
+    if status == "selected":
+        if saved.get("provider") != "sovereigneg" or saved.get("model") != MODEL:
+            raise ValueError("Saved report provider metadata mismatch")
+        repeats = repeated_techniques(report)
+        excerpts, _ = _selection_options(report, bool(repeats))
+        by_source = {
+            (row["technique"], row["occurrence"] if row["technique"] in repeats else None, source["id"]): key
+            for key, (row, source) in excerpts.items()
+        }
+        selection = json.dumps({
+            "highlights": [by_source[item["technique"], item.get("occurrence"), item["id"]]
+                           for item in saved["summary"] if "selection_origin" not in item],
+            "recommendations": [item["id"] for item in saved["recommendations"]],
+            "emphasis": saved["emphasis"],
+        })
+        # Old reports used raw selections. A newer report can retain optional
+        # presentation metadata without forcing any historical reserialization.
+        projections = [compose(report, selection)]
+        if supplement_actions:
+            projections.append(compose(report, selection, supplement_actions=True))
+    else:
+        if saved.get("provider") is not None or saved.get("model") is not None:
+            raise ValueError("Local report cannot claim a provider result")
+        projections = [compose(report)]
+    fields = ["summary", "recommendations", "emphasis"]
+    fields.extend(key for key in ("summary_coverage", "summary_additional_actions") if key in saved)
+    if not any(fields_match(expected, fields) for expected in projections):
+        raise ValueError("Saved report presentation no longer matches verified sources")
 
