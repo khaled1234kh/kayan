@@ -1,0 +1,87 @@
+{
+  "protocol": "archived-reporting-local-ranking-v1",
+  "oracle": "Authored preferences for reference completeness and ordering on synthetic retrospective records.",
+  "runtime": {
+    "version": "0.40.13",
+    "model": "qwen2.5:7b",
+    "digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+    "quantization": "Q4_K_M",
+    "installation_manifest_sha256": "156bcbf71df68f7a6581fb4ab306ed921b8114d82b6eaeab5c0442785ea9b4c3",
+    "options": {"temperature": 0, "seed": 19, "num_ctx": 4096, "num_predict": 192},
+    "keep_alive": "3m",
+    "timeout_seconds": 120
+  },
+  "cases": [
+    {
+      "id": "library-archive-outage",
+      "events": [
+        {"technique": "T1486", "action": "The archive ledger recorded encryption of the teaching collection.",
+         "outcome": "The library recovery desk confirmed 36 teaching files were unreadable before the morning class."}
+      ],
+      "highlights": [["T1486", null, "E1.3"], ["T1486", null, "E1.1"]],
+      "recommendations": ["T1486-1", "T1486-2"]
+    },
+    {
+      "id": "printing-account-review",
+      "events": [
+        {"technique": "T1098.003", "action": "The role registry recorded an unexpected operator grant on a print service account.",
+         "outcome": "The permissions reviewer confirmed the account became able to approve paid jobs until the grant was revoked."}
+      ],
+      "highlights": [["T1098.003", null, "E1.3"], ["T1098.003", null, "E1.1"]],
+      "recommendations": ["T1098.003-1"]
+    },
+    {
+      "id": "service-desk-mixed-review",
+      "events": [
+        {"technique": "T1114.003", "action": "The mail registry recorded a forwarding rule for the maintenance queue.",
+         "outcome": "The scheduled service-desk migration delivered test messages to the approved shared inbox.", "authorized": true},
+        {"technique": "T1486", "action": "The asset log recorded encryption that interrupted a maintenance archive.",
+         "outcome": "The service owner verified that the overnight maintenance plan was unavailable and restored it from an isolated copy."}
+      ],
+      "highlights": [["T1486", null, "E2.3"], ["T1486", null, "E2.1"]],
+      "recommendations": ["T1486-2", "T1486-1"]
+    },
+    {
+      "id": "exhibit-endpoint-review",
+      "events": [
+        {"technique": "T1113", "action": "A received screen image was linked to an exhibit workstation.",
+         "outcome": "The privacy reviewer confirmed that the image contained a fictional visitor number and no payment information."},
+        {"technique": "T1490", "action": "The recovery ledger recorded that an exhibit recovery point had been disabled.",
+         "outcome": "A supervised restoration check found the exhibit's fallback copy unavailable for four hours."}
+      ],
+      "highlights": [["T1490", null, "E2.3"], ["T1113", null, "E1.3"], ["T1490", null, "E2.1"]],
+      "recommendations": ["T1490-1", "T1113-1"]
+    },
+    {
+      "id": "paired-depot-roles",
+      "events": [
+        {"technique": "T1098.003", "action": "The access ledger showed a new role on a depot stock account.",
+         "outcome": "The confirmed effect was access to restricted stock-adjustment records."},
+        {"technique": "T1098.003", "action": "The access ledger showed a temporary dispatcher role assigned during a drill.",
+         "outcome": "The exercise supervisor verified the role expired before operational work resumed.", "authorized": true}
+      ],
+      "highlights": [["T1098.003", "event-1", "E1.3"], ["T1098.003", "event-1", "E1.1"]],
+      "recommendations": ["T1098.003-1"]
+    },
+    {
+      "id": "paired-design-archives",
+      "events": [
+        {"technique": "T1486", "action": "The archive record showed encryption of a temporary design export.",
+         "outcome": "One replaceable draft became unavailable. The original design remained accessible."},
+        {"technique": "T1486", "action": "A separate archive record showed encryption of the final design collection.",
+         "outcome": "The confirmed interruption affected 42 final design files and halted a timed submission."}
+      ],
+      "highlights": [["T1486", "event-2", "E2.3"], ["T1486", "event-1", "E1.3"], ["T1486", "event-2", "E2.1"]],
+      "recommendations": ["T1486-1", "T1486-2"]
+    },
+    {
+      "id": "approved-mail-transition",
+      "events": [
+        {"technique": "T1114.003", "action": "A temporary forwarding rule was logged for the rehearsal inbox.",
+         "outcome": "The approved mail transition reached the synthetic rehearsal mailbox and was rolled back on schedule.", "authorized": true}
+      ],
+      "highlights": [],
+      "recommendations": []
+    }
+  ]
+}
