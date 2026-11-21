@@ -1,0 +1,87 @@
+{
+  "protocol": "kayan-planning-api-relationship/1",
+  "notes": "Authored fictional cases for Phase 1 and Option A. Labels concern applicability of an authorization review, regardless of whether the actual controls work.",
+  "cases": [
+    {
+      "id": "portal_displays_order_history",
+      "engagement_context": {"customer_touchpoints": "A customer portal displays order histories and accepts refund requests."},
+      "expected_scenarios": ["api_object_access"]
+    },
+    {
+      "id": "records_through_interface",
+      "engagement_context": {"customer_touchpoints": "Subscribers view their customer records through the customer portal."},
+      "expected_scenarios": ["api_object_access"]
+    },
+    {
+      "id": "purpose_bound_to_api",
+      "engagement_context": {"infrastructure_summary": "An internal API for customer account management handles updates for the support desk."},
+      "expected_scenarios": ["api_object_access"]
+    },
+    {
+      "id": "explicit_api_current",
+      "engagement_context": {"customer_touchpoints": "Customers use a REST API for service requests. This API returns their order tracking information."},
+      "expected_scenarios": ["api_object_access"]
+    },
+    {
+      "id": "records_available_via_api",
+      "engagement_context": {"data_storage": "Patient records are available via a REST API to clinic staff."},
+      "expected_scenarios": ["api_object_access"]
+    },
+    {
+      "id": "tenant_records_by_role",
+      "engagement_context": {"customer_touchpoints": "The customer portal lets account administrators manage tenant records."},
+      "expected_scenarios": ["api_object_access"]
+    },
+    {
+      "id": "unrelated_decoy_with_supported_api",
+      "engagement_context": {"customer_touchpoints": "The API publishes parking hours, and customer records stay on paper. The customer portal handles refunds."},
+      "expected_scenarios": ["api_object_access"]
+    },
+    {
+      "id": "present_and_no_gap_assumed",
+      "engagement_context": {"customer_touchpoints": "The customer portal shows personal order histories, and a separate departmental audit reviews authorization."},
+      "expected_scenarios": ["api_object_access"],
+      "expected_gap": {"api_object_access": false}
+    },
+    {
+      "id": "paper_separated_with_conjunction",
+      "engagement_context": {"customer_touchpoints": "An API publishes product colors and customer records are kept on paper."},
+      "expected_scenarios": []
+    },
+    {
+      "id": "storefront_separated_with_comma",
+      "engagement_context": {"customer_touchpoints": "The customer portal shows hours, customer accounts are handled at reception."},
+      "expected_scenarios": []
+    },
+    {
+      "id": "unrelated_tenant_with_explicit_owner",
+      "engagement_context": {"infrastructure_summary": "An API serves the weather display for facility visitors and the tenant system is a different service."},
+      "expected_scenarios": []
+    },
+    {
+      "id": "parallel_bulleted_assets",
+      "engagement_context": {"infrastructure_summary": "Assets include a public API for opening hours and a paper cabinet for patient records."},
+      "expected_scenarios": []
+    },
+    {
+      "id": "records_explicitly_excluded",
+      "engagement_context": {"customer_touchpoints": "The portal API serves catalog data only and never displays customer records."},
+      "expected_scenarios": []
+    },
+    {
+      "id": "never_exposed_to_api",
+      "engagement_context": {"data_storage": "Patient records are never available via the public API."},
+      "expected_scenarios": []
+    },
+    {
+      "id": "question_without_answer",
+      "engagement_context": {"customer_touchpoints": "Does the API return customer records? The response is pending."},
+      "expected_scenarios": []
+    },
+    {
+      "id": "roadmap_without_current_access",
+      "engagement_context": {"customer_touchpoints": "We plan to add a customer portal for order histories. Reception currently handles customer records."},
+      "expected_scenarios": []
+    }
+  ]
+}
