@@ -75,6 +75,15 @@
       "evidence": "The frozen authored set moved from 9/16 to 16/16 exact, with eight supported matches retained and seven false matches removed. Both archived planning sets stayed exact. Phase 1 and Option A were exercised without inference or target access."
     },
     {
+      "id": "correctness.phase_one_api_record_link",
+      "requirement": "Require a stated interface-to-record relationship and preserve exact evidence through offline Option A.",
+      "implementation": ["pentagi/contextual_planning.py", "console/backend/planning_api.py"],
+      "verification": ["tests/test_contextual_planning.py", "eval/fixtures/planning_api_relationship_v1.json", "docs/PLANNING_AND_COORDINATION_2026-11-03.md#api-to-record-relationships-in-phase-1"],
+      "metrics": ["true and false hypotheses", "correct abstentions", "exact evidence to mitigation link"],
+      "status": "verified_automated",
+      "evidence": "The authored fixture improved from 12/16 to 16/16. Eight expected hypotheses were retained and four false positives were removed. A mixed clause tested exact evidence pointers and Option A binding."
+    },
+    {
       "id": "evaluation.planner",
       "requirement": "Measure Planner assignment, dependencies, intent, recovery, loops and unnecessary operations independently from deterministic Phase 1 planning.",
       "implementation": ["pentagi/live_engagement.py", "eval/planner_accuracy.py"],

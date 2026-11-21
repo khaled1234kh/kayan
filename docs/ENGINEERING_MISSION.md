@@ -59,4 +59,6 @@ Signed Reporting now uses one snapshot for coverage and admission and checks the
 
 Signed import now rechecks the active assertions and the current authenticated custodian assignment before receipt insertion. Review publication and receipt insertion share the SQLite writer lock. Four stale imports reproduced and now leave the existing head intact. [Concurrency and scope](REUSABLE_REPORTING.md#current-review-and-enrollment-at-receipt-import)
 
-Next, check whether Phase 1 wrongly links an API to a separately described record or tenant workflow. Freeze positive, unrelated, and absent relationships as fictional cases. Compare exact risk hypotheses and Option A evidence links before changing the offline rule.
+Phase 1 now requires a stated API-to-record relationship and keeps the exact quoted interface and record together in Option A. The 16 fictional cases improved from 12 to 16 exact, retaining all eight positives. Three existing planning sets remained exact. [Evidence and limits](PLANNING_AND_COORDINATION_2026-11-03.md#api-to-record-relationships-in-phase-1)
+
+Next, evaluate an opt-in local Qwen excerpt ranking mode for verified Archived Reporting using the existing independent inference authorization. Start with read-only excerpts and mocked loopback transport. Preserve deterministic report output on denial or inference failure and preserve signed admission decisions.

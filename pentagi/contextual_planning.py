@@ -29,6 +29,24 @@ VENDOR_ACCESS_LINK = (
     rf'{REMOTE_PATH}\s+(?:(?:is|are)\s+)?(?:used\s+by|provided\s+(?:for|to)|'
     rf'lets?|allows?|permits?|for|to)\s+{ACCESS_RECIPIENT}',
 )
+RECORD_INTERFACE = r'\b(?:REST\s+APIs?|APIs?|customer\s+portal)\b'
+INTERFACE_RECORD = (
+    r'\b(?:order\s+(?:tracking|histor(?:y|ies))|customer\s+(?:information|accounts?|records?)|'
+    r'patient[-\s]+records?|tenant\s+(?:records?|accounts?|data)|refunds?(?:\s+requests?)?)\b'
+)
+RECORD_OPERATION = (
+    r'(?:display|show|return|provide|retrieve|read|list|submit|manage|update|process|accept|'
+    r'handle|serve|support|expose|view)(?:s)?'
+)
+RECORD_QUALIFIERS = r'(?:(?:the|their|our|personal|individual|authenticated)\s+){0,4}'
+INTERFACE_USER = r"(?:(?!\b(?:and|or|who|which|where|not|without|never|to)\b)[\w'-]+\s+){1,4}"
+API_RECORD_LINK = (
+    rf'{RECORD_INTERFACE}\s+(?:(?:lets?|allows?|enables?)\s+{INTERFACE_USER}(?:to\s+)?)?'
+    rf'{RECORD_OPERATION}\s+{RECORD_QUALIFIERS}{INTERFACE_RECORD}',
+    rf'{RECORD_INTERFACE}\s+(?:(?:is|are)\s+(?:used|provided)\s+)?for\s+{RECORD_QUALIFIERS}{INTERFACE_RECORD}',
+    rf'{INTERFACE_RECORD}\s+(?:(?:is|are)\s+(?:available|accessible|served)\s+)?'
+    rf'(?:via|through|from)\s+(?:(?:the|an?|public|internal)\s+)*{RECORD_INTERFACE}',
+)
 
 
 RULES = [
@@ -56,10 +74,11 @@ RULES = [
          validation=['Obtain the restore procedure and a dated restore-test record.', 'Confirm that the restored sample is usable; this plan does not establish recovery capability.']),
     dict(id='api_object_access', title='Review authorization on customer and record APIs', reference='A01:2025',
          same_clause=True,
-         groups={'application interfaces': [r'\bREST\s+APIs?\b', r'\bAPIs?\b', r'\bcustomer\s+portal\b'], 'records or accounts': [r'\border\s+(?:tracking|histor\w*)\b', r'\bcustomer\s+(?:information|accounts?|records?)\b', r'\bpatient.records?\b', r'\btenant\w*\b', r'\brefund\w*\b']},
+         groups={'application interfaces': [RECORD_INTERFACE], 'records or accounts': [INTERFACE_RECORD]},
+         relationship=API_RECORD_LINK, scope_evidence_to_relationship='interface-to-record link',
          gaps=[r'(?:authorization|access\s+control)[^.;\n]{0,35}(?:missing|broken|not\s+checked)'],
          consequence='If record ownership and operation-level permissions are not enforced server-side, a user or integration could read or change another account\'s records.',
-         why='Broken Access Control applies to object and operation authorization. Named interfaces and record/account workflows make this a review hypothesis, not proof of an authorization defect.',
+         why='Broken Access Control applies to object and operation authorization. The quoted relationship identifies an interface that handles the named records or accounts.',
          assumptions='Actual ownership checks, tenant isolation and integration permissions are unknown.',
          controls=['Map each described API operation to the record owner, user role and permitted integration identity.',
                    'Enforce server-side object and operation authorization on record lookup and state changes; derive account scope from the authenticated identity.',
@@ -154,7 +173,7 @@ def _technical_clauses(context):
             yield (field, start), text[start:]
 
 
-def _matches(clauses, patterns, signal):
+def _matches(clauses, patterns, signal, *, exact=False):
     matches = {}
     pattern = re.compile('|'.join(f'(?:{part})' for part in patterns), re.I)
     for (field, offset), clause in clauses.items():
@@ -165,8 +184,11 @@ def _matches(clauses, patterns, signal):
                     or ABSENCE_BEFORE.search(clause[:match.start()])
                     or ABSENCE_AFTER.match(clause[match.end():])):
                 continue
-            start = max(0, match.start() - 65, match.end() - 260) if len(clause) > 260 else 0
-            end = min(len(clause), start + 260)
+            if exact:
+                start, end = match.span()
+            else:
+                start = max(0, match.start() - 65, match.end() - 260) if len(clause) > 260 else 0
+                end = min(len(clause), start + 260)
             matches[(field, offset)] = {
                 'field': field, 'signal': signal, 'matched_text': match.group(),
                 'start': offset + start, 'end': offset + end, 'excerpt': clause[start:end],
@@ -185,7 +207,9 @@ def contextual_candidates(context,index):
         if not all(groups) or rule['reference'] not in refs:
             continue
         relationship = rule.get('relationship')
-        linked = _matches(clauses, relationship, 'vendor-to-remote access link') if relationship else None
+        scoped_label = rule.get('scope_evidence_to_relationship')
+        linked = _matches(clauses, relationship, scoped_label or 'vendor-to-remote access link',
+                          exact=bool(scoped_label)) if relationship else None
         if rule.get('same_clause'):
             shared_clauses = set.intersection(*(set(group) for group in groups))
             if linked is not None:
@@ -202,7 +226,12 @@ def contextual_candidates(context,index):
             evidence_scopes = [next(iter(group)) for group in groups]
         evidence = [group[scope] for group, scope in zip(groups, evidence_scopes)]
         if linked is not None:
-            evidence.append(linked[evidence_scopes[0]])
+            link = linked[evidence_scopes[0]]
+            if scoped_label:
+                phrase = {(link['field'], link['start']): link['excerpt']}
+                evidence = [entry for signal, patterns in rule['groups'].items()
+                            for entry in _matches(phrase, patterns, signal).values()]
+            evidence.append(link)
         gaps = _matches(clauses, rule['gaps'], 'stated control gap')
         # A separate vendor-access review sentence can qualify when it names the external party.
         gap = next((item for scope, item in gaps.items() if scope in evidence_scopes
