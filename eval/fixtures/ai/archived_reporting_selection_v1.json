@@ -1,0 +1,46 @@
+{
+  "protocol": "archived-reporting-selection-v1",
+  "oracle": "Authored replay inputs and preferred source and control order. Subjective ranking is fixture-specific.",
+  "archives": {
+    "slate": {
+      "archive_sha256": "37984200e12bad5384bb732ffdde2d626657ab9f2b39f5b961ad3d10ba4eec8d",
+      "request_sha256": "0173f8049d8c4190487ac75f321d976dce58c9b557005dc5a1c2dbfece7d0fb0",
+      "highlights": [["T1486", null, "E2.1"], ["T1486", null, "E1.1"]],
+      "recommendations": ["T1486-1", "T1486-2"]
+    },
+    "repeated-supported": {
+      "archive_sha256": "17edafd8b4076642ea5c89f723ff14044ea444bcc67e8f897d6913cab7257d08",
+      "request_sha256": "294a73c969799fce64ea7be96f0f87cd2edb803782842800c77355d360614b6c",
+      "highlights": [["T1486", "incident-1", "E1.1"], ["T1486", "incident-2", "E2.1"]],
+      "recommendations": ["T1486-1", "T1486-2"]
+    },
+    "repeated-mixed": {
+      "archive_sha256": "54d119e8738ca6a6b7bc4c6dba448d4b32b2c36996f500ee9f9662b0e27c8dd3",
+      "request_sha256": "2c19ea62fcc9d5ec017c584f748d774cf9614770b5b803f43e11c11c2f3e863b",
+      "highlights": [["T1486", "incident-1", "E1.1"]],
+      "recommendations": ["T1486-1", "T1486-2"]
+    },
+    "shared-ambiguous-anchor": {
+      "archive_sha256": "b4acaef011ac9ec894866381676543ba70523ecf1eb8b1308aad2326502a128b",
+      "request_sha256": null,
+      "highlights": [],
+      "recommendations": []
+    }
+  },
+  "replays": [
+    {"id": "slate-ranked", "archive": "slate", "expected": "selected", "highlights": ["T1486/E2.1", "T1486/E1.1"], "recommendations": ["T1486-1", "T1486-2"]},
+    {"id": "slate-controls-reversed", "archive": "slate", "expected": "selected", "highlights": ["T1486/E2.1", "T1486/E1.1"], "recommendations": ["T1486-2", "T1486-1"]},
+    {"id": "repeated-ranked", "archive": "repeated-supported", "expected": "selected", "highlights": ["F1/S1", "F2/S1"], "recommendations": ["T1486-1", "T1486-2"]},
+    {"id": "repeated-reversed", "archive": "repeated-supported", "expected": "selected", "highlights": ["F2/S1", "F1/S1"], "recommendations": ["T1486-1", "T1486-2"]},
+    {"id": "repeated-partial", "archive": "repeated-supported", "expected": "selected", "highlights": ["F1/S1"], "recommendations": ["T1486-2"]},
+    {"id": "repeated-weak-relevance", "archive": "repeated-supported", "expected": "selected", "highlights": ["F1/S2", "F2/S2"], "recommendations": ["T1486-1", "T1486-2"]},
+    {"id": "mixed-ranked", "archive": "repeated-mixed", "expected": "selected", "highlights": ["F1/S1"], "recommendations": ["T1486-1", "T1486-2"]},
+    {"id": "withheld-alias", "archive": "repeated-mixed", "expected": "degraded", "highlights": ["W1/S1"], "recommendations": ["T1486-1"]},
+    {"id": "unknown-control", "archive": "repeated-mixed", "expected": "degraded", "highlights": ["F1/S1"], "recommendations": ["T9999-1"]},
+    {"id": "duplicate-field", "archive": "repeated-mixed", "expected": "degraded", "reply_text": "{\"highlights\":[\"W1/S1\"],\"highlights\":[\"F1/S1\"],\"recommendations\":[\"T1486-1\"],\"emphasis\":\"observed_impact\"}"},
+    {"id": "extra-findings", "archive": "repeated-mixed", "expected": "degraded", "reply_text": "{\"highlights\":[\"F1/S1\"],\"recommendations\":[\"T1486-1\"],\"emphasis\":\"observed_impact\",\"findings\":[]}"},
+    {"id": "partial-json", "archive": "repeated-mixed", "expected": "degraded", "reply_text": "{\"highlights\":["},
+    {"id": "provider-unavailable", "archive": "repeated-mixed", "expected": "degraded", "provider_status": 503},
+    {"id": "no-admitted-occurrence", "archive": "shared-ambiguous-anchor", "expected": "blocked"}
+  ]
+}
