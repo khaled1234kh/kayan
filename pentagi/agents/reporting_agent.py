@@ -108,7 +108,7 @@ class ReportingAgent:
 
     def generate_direct_mitigation(self, risk_plan):
         """Option A: the existing report builder, no agent loop or model/tool call."""
-        plan = RiskPlan.model_validate(risk_plan).model_dump()
+        plan = RiskPlan.model_validate(risk_plan).model_dump(exclude_none=True)
         report = self.generate_report([], 'No target access — Option A', self.engagement_id, plan['context'])
         report.update(option='A', execution_engine='offline_reporting', risk_plan=plan,
             inference_used=False,

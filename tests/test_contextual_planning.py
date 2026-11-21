@@ -63,6 +63,54 @@ def test_long_unicode_multiline_text_is_not_silently_trimmed_or_truncated():
     with pytest.raises(ValidationError):build_risk_plan({'data_storage':'x'*12001})
 
 
+def test_labelled_offline_profiles_agree_in_phase_one_and_option_a():
+    from eval.planning_validity_eval import run
+
+    result = run()
+    assert [case for case in result['cases'] if not case['exact']] == []
+
+
+def test_question_is_not_an_operating_fact_and_untested_restore_is_a_review_gap():
+    plan = build_risk_plan({
+        'data_storage':'The inventory database is backed up daily. We have not checked whether it can be restored.'
+                       ' Should we use cloud object storage for member images next year?',
+    })
+    risk, = plan['risks']
+    assert risk['scenario_id'] == 'recovery_readiness'
+    assert risk['verified'] is False
+
+
+def test_exact_evidence_offsets_with_long_unicode_clause():
+    description = ('وصف ' * 150) + ' contractors use a VPN to reach the warehouse'
+    plan = build_risk_plan({'network_architecture': description})
+    risk, = plan['risks']
+    assert risk['scenario_id'] == 'vendor_remote_access'
+    for evidence in risk['context_evidence']:
+        assert evidence['start'] > 0
+        assert len(evidence['excerpt']) <= 260
+        assert evidence['excerpt'] == description[evidence['start']:evidence['end']]
+        assert evidence['matched_text'] in evidence['excerpt']
+
+
+def test_display_cap_is_visible_and_option_a_never_adds_undisplayed_risks():
+    context = {
+        'infrastructure_summary':'A public web application uses a SQL database. Unsupported servers remain in use.',
+        'network_architecture':'Contractors use a VPN for maintenance. Office devices and PLCs share a flat network.',
+        'data_storage':'Backups exist. Restore tests are undocumented. Customer images use cloud object storage.',
+        'customer_touchpoints':'A customer portal displays order histories.',
+    }
+    plan = build_risk_plan(context)
+    assert plan['supported_scenario_count'] == 7
+    assert len(plan['risks']) == 3
+    assert len(plan['additional_supported_scenarios']) == 4
+    assert all('not a lower-severity' in item['reason'] for item in plan['additional_supported_scenarios'])
+    report = ReportingAgent('fictional').generate_direct_mitigation(plan)
+    assert report['risk_plan']['risks'] == plan['risks']
+    assert [item['risk_ids'] for item in report['mitigation_plan']['recommendations']] == [
+        [risk['id']] for risk in plan['risks']
+    ]
+
+
 def test_saved_verified_findings_get_distinct_controls_without_changing_evidence():
     types=['sql_injection','command_injection','xss','path_traversal']
     findings=[{'id':kind,'type':kind,'target':'http://fictional.invalid',

@@ -1,0 +1,17 @@
+{
+  "description": "Supplemental fictional wording cases labelled after the code was fixed, before running them. This is a diagnostic, unaudited set and remains separate from the development score.",
+  "cases": [
+    {"id":"music_merch_vendor","engagement_context":{"network_architecture":"External event vendors connect to the ticketing admin console via VPN."},"expected_scenarios":["vendor_remote_access"]},
+    {"id":"medical_encrypted_storage","engagement_context":{"data_storage":"Diagnostic images are held in encrypted blob storage. Recovery copies are restored every quarter."},"expected_scenarios":["cloud_object_access"]},
+    {"id":"telecom_old_still_maintained","engagement_context":{"infrastructure_summary":"Several old servers continue to receive vendor patches."},"expected_scenarios":[]},
+    {"id":"port_control_review","engagement_context":{"network_architecture":"Shipping terminal PLCs are not segmented from the office devices."},"expected_scenarios":["industrial_segmentation"]},
+    {"id":"university_shared_login","engagement_context":{"infrastructure_summary":"Tutors share a login for the course scheduling application."},"expected_scenarios":["shared_identity"]},
+    {"id":"bookshop_backup_no_restore_evidence","engagement_context":{"data_storage":"The inventory database is backed up daily. We have not checked that it can be restored."},"expected_scenarios":["recovery_readiness"]},
+    {"id":"arts_submission_form","engagement_context":{"customer_touchpoints":"Submissions arrive through an online gallery web application form."},"expected_scenarios":["web_input_processing"]},
+    {"id":"ordering_api_cross_sentence","engagement_context":{"customer_touchpoints":"Customers use a REST API for self-service. This API returns order histories."},"expected_scenarios":["api_object_access"]},
+    {"id":"disconnected_vendor_service","engagement_context":{"infrastructure_summary":"The business no longer uses its contractor VPN. Office employees use a private application."},"expected_scenarios":[]},
+    {"id":"cloud_planning_question","engagement_context":{"data_storage":"Should we use cloud object storage for member images next year?"},"expected_scenarios":[]},
+    {"id":"sectioned_gap","engagement_context":{"data_storage":"We retain backups of student records.\nRestore testing remains undocumented."},"expected_scenarios":["recovery_readiness"]},
+    {"id":"support_ended","engagement_context":{"infrastructure_summary":"The payment servers are no longer supported."},"expected_scenarios":["legacy_components"]}
+  ]
+}
