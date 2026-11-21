@@ -123,6 +123,7 @@ def install_reporting_api(app, *, load_archive=review_archive, output=RESULTS,
                 "review_status": report.get("review_status"),
                 "admission_status": report.get("admission_status"),
                 "custody_test_only": report.get("custody_test_only", False),
+                "cloud_selection_supported": prepared is not None,
                 "cloud_available": bool(digest and digest == scope() and not attempt_path(digest).exists())}
 
     @app.get("/reporting/archive/result")

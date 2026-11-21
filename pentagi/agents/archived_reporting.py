@@ -45,6 +45,54 @@ def review_archive(path=ARCHIVE, expected_digest=ARCHIVE_SHA256):
     return review_archive_document(json.loads(raw), expected_digest)
 
 
+def _admit_occurrences(snapshot, manifest, records, authority):
+    techniques = {value: key for key, value in MECHANICS.items()}
+    statements = {row.id: row.cite for row in snapshot.statements}
+    references = defaultdict(set)
+    events_by_technique = defaultdict(set)
+    for assertion in snapshot.assertions:
+        event = (assertion.event.id, assertion.event.revision)
+        # The primary address identifies the fact. Admission returns its full support.
+        references[event].add(statements[assertion.statements[0]])
+        if assertion.role == "mechanic" and assertion.value in techniques:
+            events_by_technique[techniques[assertion.value]].add(event)
+
+    singles, batches = {}, []
+    for technique, events in sorted(events_by_technique.items()):
+        if len(events) == 1:
+            singles[technique] = next(iter(events))
+        else:
+            batches.extend({technique: event} for event in sorted(events))
+    if singles or not batches:
+        batches.insert(0, singles)
+
+    admitted, withheld = [], []
+    for batch in batches:
+        proposal = {"mappings": [{"technique": technique, "cite": cite}
+                                 for technique, event in batch.items() for cite in sorted(references[event])]}
+        # Every call verifies the full snapshot, including conflicting facts and shared anchors.
+        verdict = evaluate_in_custody(json.dumps(proposal), manifest, records, authority=authority)
+        if verdict["batch_state"] == "invalid":
+            raise ValueError("Evidence admission could not verify the saved archive")
+        for claim in verdict["claims"]:
+            technique = claim["technique"]
+            event = batch[technique]
+            if claim["disposition"] == "withheld":
+                reasons = claim["reasons"]
+            else:
+                reviewed_events = {(note["reviewed_event"]["id"], note["reviewed_event"]["revision"])
+                                   for notes in claim["provenance"].values() for note in notes}
+                if reviewed_events == {event}:
+                    admitted.append(claim)
+                    continue
+                reasons = ["source_or_event_mismatch"]
+            entry = {"technique": technique, "reasons": reasons}
+            if len(events_by_technique[technique]) > 1:
+                entry.update(occurrence=event[0], event_revision=event[1])
+            withheld.append(entry)
+    return admitted, withheld
+
+
 def review_archive_document(archive, expected_digest, *, include_bindings=False):
     if archive["status"] != "completed":
         raise ValueError("Reporting requires a completed archive")
@@ -62,31 +110,10 @@ def review_archive_document(archive, expected_digest, *, include_bindings=False)
     records = {(entry["id"], entry["revision"]): entry["text"].encode() for entry in archive["records"]}
     if len(records) != len(archive["records"]):
         raise ValueError("Duplicate evidence record")
-    # Propose each reviewed event as a hypothesis. Admission, not this aggregation,
-    # establishes active roles, scope, source independence and adverse evidence.
-    techniques = {value: key for key, value in MECHANICS.items()}
-    statements = {row.id: row.cite for row in snapshot.statements}
-    references = defaultdict(set)
-    mechanics = defaultdict(set)
-    for assertion in snapshot.assertions:
-        event = (assertion.event.id, assertion.event.revision)
-        # The admission adapter addresses each fact by its primary statement.
-        # The verifier returns the rest of its support with the admitted finding.
-        references[event].add(statements[assertion.statements[0]])
-        if assertion.role == "mechanic" and assertion.value in techniques:
-            mechanics[event].add(techniques[assertion.value])
-    proposed = defaultdict(set)
-    for event, candidates in mechanics.items():
-        for technique in candidates:
-            proposed[technique].update(references[event])
-    proposal = {"mappings": [{"technique": tid, "cite": cite} for tid in sorted(proposed)
-                              for cite in sorted(proposed[tid])]}
-    verdict = evaluate_in_custody(json.dumps(proposal), manifest, records, authority=authority)
-    if verdict["batch_state"] == "invalid":
-        raise ValueError("Evidence admission could not verify the saved archive")
+    admitted, withheld = _admit_occurrences(snapshot, manifest, records, authority)
 
     findings = []
-    for item in verdict["review_items"]:
+    for item in admitted:
         tid = item["technique"]
         title, *actions = GUIDANCE.get(tid, (tid, "Review the associated records and document control coverage."))
         sources = {}
@@ -113,8 +140,7 @@ def review_archive_document(archive, expected_digest, *, include_bindings=False)
         })
     return {
         "assessment_id": archive["assessment_id"], "title": archive["title"], "source_sha256": expected_digest,
-        "findings": findings, "withheld": [{"technique": claim["technique"], "reasons": claim["reasons"]}
-                                          for claim in verdict["claims"] if claim["disposition"] == "withheld"],
+        "findings": findings, "withheld": withheld,
         "limitation": LIMITATION,
     }
 
@@ -126,9 +152,21 @@ class ReportSelection(BaseModel):
     emphasis: Literal["observed_impact", "defensive_priorities"]
 
 
+def repeated_techniques(report):
+    counts = defaultdict(int)
+    for finding in report["findings"]:
+        counts[finding["technique"]] += 1
+    return {technique for technique, count in counts.items() if count > 1} | {
+        claim["technique"] for claim in report["withheld"] if "occurrence" in claim
+    }
+
+
 def request_for(report):
     # Use only admitted excerpts and fixed control options. Keep raw receipts,
     # identities, unadmitted record text, and application state local.
+    if repeated_techniques(report):
+        # The cloud selection protocol addresses techniques, not separate occurrences.
+        return None
     evidence = []
     actions = []
     for finding in report["findings"]:
@@ -157,22 +195,28 @@ def request_for(report):
 
 
 def compose(report, selection=None):
-    excerpts = {f'{row["technique"]}/{source["id"]}': (row, source)
-                for row in report["findings"] for source in row["sources"]}
+    repeats = repeated_techniques(report)
+    excerpts = [(row, source) for row in report["findings"] for source in row["sources"]]
     controls = {action["id"]: action for row in report["findings"] for action in row["actions"]}
     if selection is None:
-        ids = [key for key, (_, source) in excerpts.items() if "mechanic" in source["roles"]]
+        highlights = [(row, source) for row, source in excerpts if "mechanic" in source["roles"]]
         actions = list(controls)
         emphasis = "observed_impact"
     else:
+        if repeats:
+            raise ValueError("Cloud selection requires distinct techniques")
+        by_id = {f'{row["technique"]}/{source["id"]}': (row, source) for row, source in excerpts}
         picks = ReportSelection.model_validate_json(selection)
         ids, actions, emphasis = picks.highlights, picks.recommendations, picks.emphasis
-        if (not set(ids) <= excerpts.keys() or not set(actions) <= controls.keys()
+        if (not set(ids) <= by_id.keys() or not set(actions) <= controls.keys()
                 or len(ids) != len(set(ids)) or len(actions) != len(set(actions))):
             raise ValueError("Selection includes unsupported or duplicate references")
+        highlights = [by_id[key] for key in ids]
     return {
         **report,
-        "summary": [{"technique": excerpts[key][0]["technique"], **excerpts[key][1]} for key in ids],
+        "summary": [{"technique": row["technique"], **source,
+                     **({"occurrence": row["occurrence"]} if row["technique"] in repeats else {})}
+                    for row, source in highlights],
         "recommendations": [controls[key] for key in actions],
         "emphasis": emphasis,
     }

@@ -129,6 +129,15 @@
       "evidence": "One reviewed synthetic Windows fixture went from incorrectly withheld to correctly admitted with E1.2 retained as supporting context. Its authorized variant stays withheld, and omitting the supporting record fails verification. The pinned Slate request digest is unchanged."
     },
     {
+      "id": "correctness.report_occurrence_resolution",
+      "requirement": "Keep separate occurrences of one technique distinct and only display each occurrence with admission and provenance for that event.",
+      "implementation": ["pentagi/agents/archived_reporting.py", "console/office/src/components/ui/ArchivedReport.tsx"],
+      "verification": ["tests/test_archived_reporting_projection.py", "docs/ARCHIVED_REPORTING_PROJECTION_BENCHMARK.md"],
+      "metrics": ["supported occurrences recovered", "false admissions", "false withholdings", "exact source addresses", "invalid evidence rejected"],
+      "status": "verified_automated",
+      "evidence": "The frozen synthetic test recovered 4/4 supported occurrences from a baseline of 1/4. Both runs admitted 0/6 withheld occurrences. Ambiguous shared anchors remain withheld. Cloud selection for repeated techniques is unavailable in the current protocol."
+    },
+    {
       "id": "reliability.system",
       "requirement": "Exercise restart recovery, concurrency, cancellation, provider outage, egress restrictions and audit integrity across relevant Python, Go, Rust and frontend suites.",
       "implementation": ["console/backend/session_store.py", "console/backend/reporting_api.py", "trustgate/service", "console/office"],

@@ -6,6 +6,7 @@ type Mode = 'local' | 'sovereigneg';
 type Assessment = { title: string; assessment_id: string };
 type Archive = Assessment & {
   cloud_available: boolean;
+  cloud_selection_supported?: boolean;
   source_status?: string;
   custody_test_only?: boolean;
   admission_status?: 'evaluated' | 'pending';
@@ -48,8 +49,8 @@ type Report = {
   finish_reason?: string;
   usage?: { input?: number; output?: number; reasoning?: number; latency_s?: number };
   findings: { technique: string; title: string; occurrence: string; sources: Source[] }[];
-  withheld: { technique: string; reasons: string[] }[];
-  summary: Source[];
+  withheld: { technique: string; reasons: string[]; occurrence?: string; event_revision?: number }[];
+  summary: (Source & { technique?: string; occurrence?: string })[];
   recommendations: { id: string; text: string }[];
   limitation: string;
 };
@@ -274,7 +275,9 @@ function AssessmentReport({ assessmentId, open, onPending }: {
         </select>
         {mode === 'sovereigneg' && <p className="muted">{archive.cloud_available
           ? 'One approved request. TrustGate checks this archive before sending admitted evidence.'
-          : 'Cloud execution needs an unused approval for this archive. Saved reports remain available.'}</p>}
+          : archive.cloud_selection_supported === false
+            ? 'Cloud selection is unavailable for this archive. A local report is available.'
+            : 'Cloud execution needs an unused approval for this archive. Saved reports remain available.'}</p>}
         <button className="btn" type="button" disabled={busy || (mode === 'sovereigneg' && !archive.cloud_available)} onClick={() => void run()}>
           {pending ? 'Preparing report…' : 'Run Reporting'}
         </button>
@@ -286,9 +289,13 @@ function AssessmentReport({ assessmentId, open, onPending }: {
           {report.notice && <p role="status">{report.notice}</p>}
           <ReportExecutionDetails report={report} />
           <h4>Executive summary</h4>
-          {report.summary.length ? report.summary.map(source => <Evidence key={source.id} source={source} />) : <p>No supported findings.</p>}
+          {report.summary.length ? report.summary.map(source =>
+            <div key={`${source.technique}/${source.occurrence}/${source.id}`}>
+              {source.occurrence && <p className="muted">{source.occurrence}</p>}
+              <Evidence source={source} />
+            </div>) : <p>No supported findings.</p>}
           <h4>Supported findings ({report.findings.length})</h4>
-          {report.findings.map(finding => <details key={finding.technique} className="session-finding">
+          {report.findings.map(finding => <details key={`${finding.technique}/${finding.occurrence}`} className="session-finding">
             <summary>{finding.technique} · {finding.title}</summary>
             <p className="muted">{finding.occurrence}</p>
             {finding.sources.map(source => <Evidence key={source.id} source={source} />)}
@@ -297,7 +304,8 @@ function AssessmentReport({ assessmentId, open, onPending }: {
             <ul>{report.recommendations.map(action => <li key={action.id}>{action.text}</li>)}</ul></>}
           <h4>Withheld claims ({report.withheld.length})</h4>
           {report.withheld.length ? <ul>{report.withheld.map(claim =>
-            <li key={claim.technique}>{claim.technique} · {claim.reasons.map(reason => reason.replace(/_/g, ' ')).join(', ')}</li>)}</ul>
+            <li key={`${claim.technique}/${claim.occurrence}/${claim.event_revision}`}>{claim.technique}
+              {claim.occurrence && ` · ${claim.occurrence}`} · {claim.reasons.map(reason => reason.replace(/_/g, ' ')).join(', ')}</li>)}</ul>
             : <p>No withheld claims in this archive.</p>}
           <p className="muted">{report.limitation}</p>
           {saved?.digest ? <button className="btn" type="button" disabled={busy} onClick={() => void exportReport()}>
