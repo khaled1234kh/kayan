@@ -201,6 +201,15 @@
       "evidence": "Nine altered saved or fallback fixtures returned HTTP 409. A legacy fixture and the original saved Slate cloud response remained verifiable without rewriting either report."
     },
     {
+      "id": "reliability.reporting_publication_and_capture_consistency",
+      "requirement": "Reject stale archive publications and conflicting scoped authorization evidence without broadening authority or reopening a consumed provider attempt.",
+      "implementation": ["console/backend/reporting_api.py", "console/backend/reporting_evidence.py"],
+      "verification": ["tests/test_archived_reporting.py", "tests/test_reusable_reporting.py", "tests/test_tool_evidence.py", "docs/REUSABLE_REPORTING.md#publication-and-capture-consistency"],
+      "metrics": ["HTTP 409 and no stale publication", "provider attempts before and after a change", "capture rejection before and after result ordering"],
+      "status": "verified_automated",
+      "evidence": "Five stale publication cases and six contradictory authorization cases were reproduced and rejected after the corrections. Current local retries and unaffected capture controls passed. A completely independent audit cross-check remains open."
+    },
+    {
       "id": "reliability.system",
       "requirement": "Exercise restart recovery, concurrency, cancellation, provider outage, egress restrictions and audit integrity across relevant Python, Go, Rust and frontend suites.",
       "implementation": ["console/backend/session_store.py", "console/backend/reporting_api.py", "trustgate/service", "console/office"],

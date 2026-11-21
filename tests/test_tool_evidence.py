@@ -8,7 +8,7 @@ from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
 from console.backend.reporting_custody import verify_catalogue
-from console.backend.reporting_evidence import ReportingCatalog, digest
+from console.backend.reporting_evidence import ReportingCatalog, capture, digest
 from console.backend.reporting_review import install_review_api
 from console.backend.session_store import SessionStore
 from integration.trustgate_client import AuthorizationResult
@@ -104,6 +104,51 @@ def test_conflicting_decisions_and_reused_reference_withheld(tmp_path):
     for case in (ID, OTHER):
         assert catalog.load(case)["source_status"] == "invalid_source"
         assert catalog.load(case)["findings"] == []
+
+
+@pytest.mark.parametrize("change", [
+    {"decision": "DENY"},
+    {"audit_entry_id": "different-test-audit"},
+    {"agent_id": "another-test-specialist"},
+    {"decision": None, "trustgate_decision": "DENY"},
+    {"decision": "ALLOW", "trustgate_decision": "DENY"},
+])
+def test_conflicting_late_decision_invalidates_the_captured_outcome(tmp_path, change):
+    source = ToolEvidenceStore(tmp_path)
+    events = execute(source, {"status_code": 200})
+    decision = next(row for row in events if row["kind"] == "authorization_decision")
+    late_decision = {**decision, **change}
+
+    evidence = capture(completed([*events, late_decision]), source)
+    assert evidence["source_status"] == "invalid_source"
+    assert evidence["invalid_sources"] == 1 and evidence["records"] == []
+
+
+def test_duplicate_and_unrelated_decisions_leave_the_capture_intact(tmp_path):
+    source = ToolEvidenceStore(tmp_path)
+    events = execute(source, {"status_code": 200})
+    decision = next(row for row in events if row["kind"] == "authorization_decision")
+    equivalent = {**decision, "decision": None, "trustgate_decision": "allow"}
+    other = {**decision, "task_id": "tool-" + "0" * 32, "decision": "DENY"}
+
+    snapshot = capture(completed(events), source)
+    assert capture(completed([*events, equivalent, other]), source) == snapshot
+    assert snapshot["source_status"] == "source_captured"
+
+
+@pytest.mark.parametrize("replacement", [False, True])
+def test_capture_requires_a_prior_decision_from_the_captured_agent(tmp_path, replacement):
+    source = ToolEvidenceStore(tmp_path)
+    events = execute(source, {"status_code": 200})
+    index = next(i for i, row in enumerate(events) if row["kind"] == "authorization_decision")
+    decision = events.pop(index)
+    if replacement:
+        events.insert(index, {**decision, "agent_id": "another-test-specialist"})
+    else:
+        events.append(decision)
+
+    evidence = capture(completed(events), source)
+    assert evidence["source_status"] == "invalid_source" and evidence["records"] == []
 
 
 def test_review_is_scoped_and_draft_does_not_promote_evidence(tmp_path, monkeypatch):

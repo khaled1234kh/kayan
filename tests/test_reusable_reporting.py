@@ -1,3 +1,4 @@
+import asyncio
 from dataclasses import asdict
 import json
 
@@ -29,10 +30,14 @@ def completed(eid, records=(("source-local", "Observed result"),)):
     }
 
 
-def client_for(catalog, output):
+def client_for(catalog, output, *, before_write_decision=None):
     class Gate:
         async def authorize(self, **kwargs):
             assert kwargs["engagement_id"] == f"archived-{ID}"
+            if before_write_decision:
+                assert kwargs["action"] == "write_report"
+                await asyncio.sleep(0)
+                before_write_decision()
             return TrustGateDecision("reporting_agent", kwargs["action"], True, "ALLOW", "fixture", None, "audit")
 
         def close(self):
@@ -83,7 +88,8 @@ def test_operational_archives_are_bound_and_survive_app_restart(tmp_path, monkey
         assert client.get("/reporting/archive/result", params={"assessment_id": NEIGHBOR}).status_code == 404
 
 
-def test_catalogue_uses_admission_and_rejects_other_case_or_mutated_record(tmp_path, monkeypatch):
+@pytest.fixture
+def reviewed_catalog(tmp_path, monkeypatch):
     fixture = ARCHIVE.read_bytes()
     assert digest(fixture) == ARCHIVE_SHA256
     archive = json.loads(fixture)
@@ -113,6 +119,11 @@ def test_catalogue_uses_admission_and_rejects_other_case_or_mutated_record(tmp_p
 
     pin({ID: package, NEIGHBOR: package})
     catalog = ReportingCatalog(store, tmp_path / "evidence")
+    return catalog, catalogue, package, pin
+
+
+def test_catalogue_uses_admission_and_rejects_other_case_or_mutated_record(tmp_path, reviewed_catalog):
+    catalog, _, package, pin = reviewed_catalog
     reviewed = catalog.load(ID)
     assert reviewed["verification"] == "independent_custody"
     assert [row["technique"] for row in reviewed["findings"]] == ["T1486"]
@@ -154,6 +165,35 @@ def test_catalogue_uses_admission_and_rejects_other_case_or_mutated_record(tmp_p
         fresh = client.get(result_url, params={**download_params, "expected_sha256": digest(current.content)})
         assert fresh.status_code == 200 and fresh.content == current.content
         assert fresh.headers["cache-control"] == "no-store"
+
+
+def test_local_reporting_refuses_custody_change_during_write_decision(tmp_path, reviewed_catalog):
+    catalog, catalogue, _, _ = reviewed_catalog
+    original = catalog.load(ID)
+    assert original["verification"] == "independent_custody"
+    assert [row["technique"] for row in original["findings"]] == ["T1486"]
+    output = tmp_path / "reports"
+
+    def invalidate_catalogue():
+        # The approval digest remains pinned to the prior catalogue bytes.
+        catalogue.write_bytes(b"{}")
+
+    payload = {"mode": "local", "assessment_id": ID}
+    with client_for(catalog, output, before_write_decision=invalidate_catalogue) as client:
+        refused = client.post("/reporting/archive/run", json=payload)
+        assert refused.status_code == 409
+        assert "findings" not in refused.json()
+        assert not list(output.glob("*.json"))
+
+    current = catalog.load(ID)
+    assert current["source_sha256"] == original["source_sha256"]
+    assert current["report_revision"] != original["report_revision"]
+    with client_for(catalog, output) as client:
+        retry = client.post("/reporting/archive/run", json=payload)
+        assert retry.status_code == 200
+        assert retry.json()["verification"] == "invalid_custody"
+        assert retry.json()["findings"] == []
+        assert {row["technique"] for row in retry.json()["withheld"]} == {"T1486", "T1078"}
 
 
 @pytest.mark.parametrize("changes", [{"status": "active"}, {"target": "http://outside.invalid"},

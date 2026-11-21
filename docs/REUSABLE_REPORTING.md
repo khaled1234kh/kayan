@@ -27,3 +27,13 @@ Both exported HTTP payloads matched the saved report bytes. The owned-lab eviden
 
 149 targeted Python tests and 28 Rust tests passed. The frontend production build, session panel and 14 transport checks passed. Go `pkg/trustgate` passed. Go `pkg/tools` failed in unchanged code, including executor tests that lack required TrustGate context and argument tests that expect different decoder diagnostic names. All 71 historical artifact hashes and five admission verifier hashes matched.
 
+
+## Publication and capture consistency
+
+Reporting reloads the current archive after write authorization. Cloud mode also checks the exact approved request and complete archive after inference authorization and again before publishing the result. A changed or removed archive returns HTTP 409. If the change happens after the one permitted provider attempt has started, the attempt stays consumed. The route denies stale output without publishing it. These are checks at asynchronous boundaries. Separate processes that write custody files still need a shared transaction or trusted publication boundary for an atomic guarantee.
+
+Five deterministic tests reproduced stale HTTP 200 results. The local test changed the pinned custody file while the mocked write decision was pending. Three mock cloud tests changed review status without changing the request digest. The fifth removed the archive. All five return HTTP 409 after the fix. Changes before inference made zero requests. A change during the response used one mock request and kept the reservation. An explicit subsequent local run produced the current invalid-custody report and withheld the previously admitted finding.
+
+Reporting also checks the full scoped decision history before accepting a captured outcome. Decisions must agree on the actor, normalized verdict and audit reference. The chronological check still requires a matching earlier decision. Late contradictions, incompatible decision fields and wrong-agent decisions had passed six new tests incorrectly. All are now rejected. An equivalent duplicate and a decision for another task leave the valid capture intact. This corroborates transcript consistency. It leaves independent TrustGate audit-chain reconciliation open.
+
+The candidate checkout passed 96 focused Python tests. The canonical checkout passed 224, including admission, custody and guard regressions. Four Reporting evaluations, the original saved Slate result, its pinned request, 71 historical digests and five verifier digests reproduced. The new cases used synthetic records and mocked authorization or transport.

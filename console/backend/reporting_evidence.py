@@ -38,6 +38,32 @@ def eligible(state):
     )
 
 
+def _decision_scope(row):
+    return row.get("agent_role"), row.get("task_id"), row.get("tool_name"), row.get("target")
+
+
+def _decision_identity(row):
+    values = [row.get("decision"), row.get("trustgate_decision")]
+    if any(value is not None and not isinstance(value, str) for value in values):
+        return None
+    decisions = {value.upper() for value in values if value}
+    if len(decisions) != 1:
+        return None
+    return row.get("agent_id"), decisions.pop(), row.get("audit_entry_id") or None
+
+
+def _conflicting_decisions(entries):
+    seen, conflicts = {}, set()
+    for row in entries:
+        if row.get("agent_role") not in ROLES or row.get("kind") != "authorization_decision" or not row.get("task_id"):
+            continue
+        task = _decision_scope(row)
+        identity = _decision_identity(row)
+        if identity is None or seen.setdefault(task, identity) != identity:
+            conflicts.add(task)
+    return conflicts
+
+
 def capture(state, source_store=None):
     """Capture recorded outcomes without claiming the operator logs are custody."""
     if not eligible(state):
@@ -46,14 +72,13 @@ def capture(state, source_store=None):
     entries = [row for row in state.get("transcript", []) if row.get("engagement_id") == eid]
     decisions, records, outcomes = {}, {}, {}
     invalid_sources = 0
-    conflicting_decisions = set()
+    # Consider conflicts anywhere in the completed transcript. The chronological
+    # pass still requires a decision observed before the captured outcome.
+    conflicting_decisions = _conflicting_decisions(entries)
     for row in entries:
         role, kind = row.get("agent_role"), row.get("kind")
-        task = (role, row.get("task_id"), row.get("tool_name"), row.get("target"))
+        task = _decision_scope(row)
         if role in ROLES and kind == "authorization_decision" and task[1]:
-            previous = decisions.get(task)
-            if previous and any(previous.get(field) != row.get(field) for field in ("decision", "audit_entry_id")):
-                conflicting_decisions.add(task)
             decisions[task] = row
         elif role in ROLES and kind in ("tool_result", "tool_denied") and (
             "source_artifact_sha256" in row or row.get("source_capture_failed")
@@ -61,11 +86,10 @@ def capture(state, source_store=None):
             try:
                 sha = row["source_artifact_sha256"]
                 source = (source_store or ToolEvidenceStore()).load(eid, row["task_id"], sha)
-                decision = decisions[task]
+                decision = _decision_identity(decisions[task])
                 if (task in conflicting_decisions or source["tool"] != row["tool_name"] or source["agent"] != row["agent_id"]
-                        or source["role"] != role or source["audit_entry_id"] != (decision.get("audit_entry_id") or None)
-                        or source["authorization_decision"] != str(decision.get("decision") or
-                                                                decision.get("trustgate_decision", "")).upper()
+                        or source["role"] != role
+                        or decision != (source["agent"], source["authorization_decision"], source["audit_entry_id"])
                         or row.get("target") != "127.0.0.1"
                         or (kind == "tool_denied") != (source["status"] == "denied")
                         or source["source_id"] in records):

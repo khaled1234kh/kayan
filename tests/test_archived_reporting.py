@@ -24,11 +24,20 @@ def center(tmp_path, monkeypatch):
     monkeypatch.setenv("SOVEREIGNEG_API_KEY", "test-only-placeholder")
     approvals, requests = [], []
     scenario = {"content": json.dumps(SELECTION), "finish": "stop", "denied": None}
-    config = {"approved_scope": request_for(review_archive())[2]}
+    report = review_archive()
+    config = {"approved_scope": request_for(report)[2]}
+
+    def load_archive():
+        if scenario.get("archive_missing"):
+            raise LookupError("archive removed from test catalogue")
+        return {**report, **scenario.get("archive_fields", {})}
 
     class Gate:
         async def authorize(self, **args):
             approvals.append(args)
+            if scenario.get("change_at") == args["action"]:
+                await asyncio.sleep(0)
+                scenario.update(scenario["change"])
             allowed = args["action"] != scenario["denied"]
             return TrustGateDecision("reporting_agent", args["action"], allowed,
                                      "ALLOW" if allowed else "DENY", "fixture", None, str(len(approvals)))
@@ -44,6 +53,8 @@ def center(tmp_path, monkeypatch):
             raise asyncio.CancelledError
         if scenario.get("offline"):
             raise httpx.ReadTimeout("mock transport failure")
+        if scenario.get("change_at") == "provider_response":
+            scenario.update(scenario["change"])
         return httpx.Response(200, json={
             "model": scenario.get("model", MODEL),
             "choices": [{"finish_reason": scenario["finish"], "message": {"content": scenario["content"]}}],
@@ -54,7 +65,7 @@ def center(tmp_path, monkeypatch):
 
     app = FastAPI()
     install_reporting_api(
-        app, output=tmp_path, make_gate=lambda _: Gate(), **config,
+        app, output=tmp_path, load_archive=load_archive, make_gate=lambda _: Gate(), **config,
         make_provider=lambda settings, **kwargs: ReportingSovereignProvider(
             settings, transport=httpx.MockTransport(transport), **kwargs),
     )
@@ -116,6 +127,38 @@ def test_archived_reporting_marks_appended_actions_in_saved_report_and_exact_exp
         "mode": "sovereigneg", "download": True, "expected_sha256": sha256(result.content).hexdigest(),
     })
     assert download.status_code == 200 and download.content == result.content
+
+
+@pytest.mark.parametrize(("checkpoint", "attempts"), [
+    ("write_report", 0), ("llm_inference", 0), ("provider_response", 1),
+])
+def test_archive_metadata_change_with_same_digest_blocks_cloud_publication(center, tmp_path, checkpoint, attempts):
+    client, approvals, requests, scenario = center
+    scenario["archive_fields"] = {"review_status": "verified"}
+    initial = client.get(PREFIX).json()
+    digest = initial["request_sha256"]
+    scenario.update(change_at=checkpoint, change={"archive_fields": {"review_status": "submitted"}})
+    reply = client.post(PREFIX + "/run", json={"mode": "sovereigneg"})
+    assert reply.status_code == 409
+    assert "findings" not in reply.json()
+    assert [entry["action"] for entry in approvals] == (
+        ["write_report"] if checkpoint == "write_report" else ["write_report", "llm_inference"]
+    )
+    assert not list(tmp_path.glob("*.json"))
+    assert len(requests) == attempts
+    assert len(list(tmp_path.glob("attempt-*.lock"))) == attempts
+    current = client.get(PREFIX).json()
+    assert current["request_sha256"] == digest and current["review_status"] == "submitted"
+    assert current["cloud_available"] is (attempts == 0)
+    assert client.get(PREFIX + "/result?mode=sovereigneg").status_code == (409 if attempts else 404)
+
+
+def test_archive_removed_during_write_decision_is_reported_as_conflict(center, tmp_path):
+    client, _, requests, scenario = center
+    scenario.update(change_at="write_report", change={"archive_missing": True})
+    response = client.post(PREFIX + "/run", json={"mode": "local"})
+    assert response.status_code == 409
+    assert not list(tmp_path.iterdir()) and not requests
 
 
 @pytest.mark.parametrize("denied", ["write_report", "llm_inference"])

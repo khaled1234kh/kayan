@@ -43,4 +43,6 @@ The frozen full-summary comparison found that swapping references improved aggre
 
 Saved Reporting results now recheck their archive identity, finding decisions, citations and presentation before being served. Corrupted stored results and reserved fallback reports return HTTP 409 without rewriting their files. The saved real Slate response still passes the new check. [Reproduction and verification](ARCHIVED_REPORTING_FULL_SUMMARY.md#saved-result-verification)
 
-Next, exercise local report publication when custody changes while the asynchronous write decision is pending. Verify stale findings cannot be emitted in the POST response or published to disk.
+Reporting now rejects archive changes across awaited write, inference and response boundaries. Passive capture also rejects late or wrong-agent contradictions in authorization history. Five stale publication cases and six capture defects reproduced before the correction. [Verification and scope](REUSABLE_REPORTING.md#publication-and-capture-consistency)
+
+Next, implement a read-only reconciliation of captured decision references with TrustGate's independently verified audit ledger. Match the engagement, agent, role, tool, target and verdict. Report missing or unavailable audit evidence explicitly.

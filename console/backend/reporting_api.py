@@ -24,6 +24,7 @@ Mode = Literal["local", "sovereigneg"]
 RESULTS = Path(__file__).resolve().parents[2] / ".build/reporting-archive"
 STALE_REPORT = "Saved report changed. Review the current report before exporting."
 INVALID_REPORT = "Saved report failed verification against the current archive."
+ARCHIVE_CHANGED = "Archived evidence changed. Review the current archive."
 
 
 class ReportRequest(BaseModel):
@@ -96,12 +97,21 @@ def install_reporting_api(app, *, load_archive=review_archive, output=RESULTS,
         return (os.environ.get("KAYAN_REPORTING_APPROVED_SHA256")
                 if approved_scope is None else approved_scope)
 
+    def confirm_archive(report):
+        try:
+            current, prepared = archive_inputs(report["assessment_id"])
+        except HTTPException as error:
+            if error.status_code not in (404, 409):
+                raise
+            raise HTTPException(409, ARCHIVE_CHANGED) from None
+        if current != report:
+            raise HTTPException(409, ARCHIVE_CHANGED)
+        return prepared
+
     def confirm_cloud_scope(report, digest):
-        current, prepared = archive_inputs(report["assessment_id"])
-        if (not prepared or prepared[2] != digest or scope() != digest
-                or any(current.get(field) != report.get(field)
-                       for field in ("assessment_id", "source_sha256", "report_revision"))):
-            raise HTTPException(409, "Archived evidence or cloud approval changed. Review the current archive.")
+        prepared = confirm_archive(report)
+        if not prepared or prepared[2] != digest or scope() != digest:
+            raise HTTPException(409, "Cloud approval changed. Review the current archive.")
 
     def attempt_path(digest):
         return output / f"attempt-{digest}.lock"
@@ -199,6 +209,10 @@ def install_reporting_api(app, *, load_archive=review_archive, output=RESULTS,
 
             try:
                 write_audit = await authorize("write_report")
+                if payload.mode == "sovereigneg":
+                    confirm_cloud_scope(report, prepared[2])
+                else:
+                    confirm_archive(report)
                 result = compose(report)
                 result.update(status="local", provider=None, model=None, audit={"write_report": write_audit})
                 output.mkdir(parents=True, exist_ok=True)
