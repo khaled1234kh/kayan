@@ -120,13 +120,20 @@ def review_archive_document(archive, expected_digest, *, include_bindings=False)
         tid = item["technique"]
         title, *actions = GUIDANCE.get(tid, (tid, "Review the associated records and document control coverage."))
         sources = {}
+        proof_groups = set()
+        event_revisions = set()
         for cite, notes in item["provenance"].items():
             cites = sources.setdefault(cite, {"statements": set(), "roles": set()})
             for note in notes:
-                cites["roles"].add(note["assertion"]["role"])
-                for source in note["source_statements"]:
+                role = note["assertion"]["role"]
+                access = note["source_statements"]
+                cites["roles"].add(role)
+                event_revisions.add(note["reviewed_event"]["revision"])
+                proof_groups.add((role, tuple(source["statement"]["cite"] for source in access)))
+                for source in access:
                     sid = source["statement"]["cite"]
                     sources.setdefault(sid, {"statements": set(), "roles": set()})["statements"].add(source["exact_value"])
+        event_revision, = event_revisions
         reviewed_bindings = {
             (support["observation"]["id"], note["assertion"]["role"], note["assertion"]["value"],
              note["review_receipt"]["reviewer"])
@@ -139,6 +146,9 @@ def review_archive_document(archive, expected_digest, *, include_bindings=False)
             "technique": tid, "title": title, "occurrence": item["event"]["occurrence"],
             "sources": [{"id": cite, "statements": sorted(info["statements"]), "roles": sorted(info["roles"])}
                         for cite, info in sorted(sources.items()) if info["statements"]],
+            # Keep joint support explicit and separate from the model-facing excerpt roles.
+            "proof": {"event_revision": event_revision,
+                      "assertions": [{"role": role, "source_ids": list(ids)} for role, ids in sorted(proof_groups)]},
             "actions": [{"id": f"{tid}-{index}", "text": action} for index, action in enumerate(actions, 1)],
         })
     return {
@@ -298,7 +308,12 @@ def verify_saved_presentation(report, raw, *, mode, request_sha256, supplement_a
         "verification", "coverage", "observations_by_role", "source_status", "review_status", "admission_status",
         "custody_test_only", "custody_receipt_sha256",
     ) if mode == "ollama" or key in saved)
-    if not fields_match(report, bound_fields):
+    current = report
+    if not any("proof" in finding for finding in saved["findings"]):
+        # Previously saved reports remain readable with their original bytes and level of detail.
+        current = {**report, "findings": [{key: value for key, value in row.items() if key != "proof"}
+                                          for row in report["findings"]]}
+    if not fields_match(current, bound_fields):
         raise ValueError("Saved report does not match the current archive")
 
     status = saved.get("status")

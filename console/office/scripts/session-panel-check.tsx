@@ -6,7 +6,7 @@ import { SEED_ACTORS } from '../src/data/actors';
 import type { TrustGateTranscriptEntry } from '../src/types/trustgate';
 import { agentDecision } from '../src/security/agentDecision';
 import { TrustGatePanel } from '../src/components/ui/Panels';
-import { AdditionalVerifiedActions, AuditCountsView, ReportEvidence, ReportExecutionDetails, ReportSummaryCoverage, RoleObservationCounts, readSavedReport } from '../src/components/ui/ArchivedReport';
+import { AdditionalVerifiedActions, AuditCountsView, ReportEvidence, ReportExecutionDetails, ReportSummaryCoverage, ReviewedFindingProof, RoleObservationCounts, readSavedReport } from '../src/components/ui/ArchivedReport';
 
 const actor = { ...SEED_ACTORS.find((a) => a.id === 'ai-sales')!, modelTier: 'A' as const,
   backendAgentId: 'webapp1', engagementId: 'eng1', currentTask: 'sql_injection_test', state: 'working' as const };
@@ -152,6 +152,16 @@ assert(additionalActions.includes('event-a') && additionalActions.includes('Exac
 assert(!additionalActions.includes('event-b') && !additionalActions.includes('Outcome only'));
 assert.equal(renderToStaticMarkup(<AdditionalVerifiedActions report={{ findings: [archivedFinding] }} />), '');
 console.log('PASS verified action disclosure only resolves same-occurrence mechanic evidence');
+
+const evidenceProof = renderToStaticMarkup(<ReviewedFindingProof proof={{
+  event_revision: 3,
+  assertions: [{ role: 'mechanic', source_ids: ['E1.1', 'E1.2'] }, { role: 'actor', source_ids: ['E2.1'] }],
+}} />);
+assert(evidenceProof.includes('Reviewed proof · event revision 3'));
+assert(evidenceProof.includes('Action · E1.1<span> with E1.2</span>'));
+assert(evidenceProof.includes('Attribution · E2.1'));
+assert.equal(renderToStaticMarkup(<ReviewedFindingProof />), '');
+console.log('PASS Reviewed proof shows exact grouped support and the event revision');
 
 const auditCounts = renderToStaticMarkup(<AuditCountsView counts={{
   verified: 1, missing_entry: 3, ledger_invalid: 2, unavailable: 1,

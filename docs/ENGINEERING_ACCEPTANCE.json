@@ -120,6 +120,15 @@
       "evidence": "One historical authorized Slate request returned a valid excerpt and control selection and the browser export matched. The smoke test does not measure generation of independently grounded findings."
     },
     {
+      "id": "reporting.complete_reviewed_proof",
+      "requirement": "Disclose the exact reviewed evidence group per role and occurrence independently of summary capacity, and verify it before download.",
+      "implementation": ["pentagi/agents/archived_reporting.py", "console/office/src/components/ui/ArchivedReport.tsx"],
+      "verification": ["tests/test_archived_reporting_proof_disclosure.py", "docs/ARCHIVED_REPORTING_FULL_SUMMARY.md#full-reviewed-proof"],
+      "metrics": ["exact role-to-source links", "complete occurrence proof disclosures", "unchanged admission decisions and summary coverage", "exact browser export"],
+      "status": "verified_automated",
+      "evidence": "Nine authored synthetic archives improved from 212/215 to 215/215 exact links and 50/53 to 53/53 full occurrence disclosures. A browser round trip rendered secondary support and exported identical bytes using a test-only write gate."
+    },
+    {
       "id": "reporting.local_model_ranking",
       "requirement": "Offer a pinned local model for ranking admitted Reporting excerpts with separate inference authorization and deterministic fallback.",
       "implementation": ["ai/providers/reporting_ollama.py", "console/backend/reporting_api.py", "console/office/src/components/ui/ArchivedReport.tsx"],

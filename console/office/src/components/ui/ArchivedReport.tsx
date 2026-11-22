@@ -67,6 +67,7 @@ type SummaryCoverage = {
   action_covered_occurrences: number;
 };
 type ActionReference = { technique: string; occurrence: string; source_id: string };
+type FindingProof = { event_revision: number; assertions: { role: string; source_ids: string[] }[] };
 type Report = {
   status: 'local' | 'selected' | 'degraded';
   provider: string | null;
@@ -75,7 +76,7 @@ type Report = {
   notice?: string;
   finish_reason?: string;
   usage?: { input?: number; output?: number; reasoning?: number; latency_s?: number };
-  findings: { technique: string; title: string; occurrence: string; sources: Source[] }[];
+  findings: { technique: string; title: string; occurrence: string; sources: Source[]; proof?: FindingProof }[];
   withheld: { technique: string; reasons: string[]; occurrence?: string; event_revision?: number }[];
   summary: SummarySource[];
   summary_coverage?: SummaryCoverage;
@@ -226,6 +227,25 @@ export function AdditionalVerifiedActions({ report }: {
       <ReportEvidence source={source} />
     </div>)}
   </details>;
+}
+
+const proofRoles: Record<string, string> = {
+  mechanic: 'Action', outcome: 'Outcome', actor: 'Attribution', authorization: 'Authorization',
+  process_session: 'Process and session link',
+};
+
+export function ReviewedFindingProof({ proof }: { proof?: FindingProof }) {
+  if (!proof?.assertions.length) return null;
+  return <section aria-label="Reviewed proof">
+    <p className="muted">Reviewed proof · event revision {proof.event_revision}</p>
+    <ul>
+      {proof.assertions.map(({ role, source_ids: [primary, ...additional] }) =>
+        <li key={JSON.stringify([role, primary, additional])}>
+          {proofRoles[role] ?? role} · {primary}
+          {additional.length > 0 && <span> with {additional.join(', ')}</span>}
+        </li>)}
+    </ul>
+  </section>;
 }
 
 export function ArchivedReport() {
@@ -443,8 +463,9 @@ function AssessmentReport({ assessmentId, open, onPending }: {
             </div>) : <p>No supported findings.</p>}
           <h4>Supported findings ({report.findings.length})</h4>
           {report.findings.map(finding => <details key={`${finding.technique}/${finding.occurrence}`} className="session-finding">
-            <summary>{finding.technique} · {finding.title}</summary>
+            <summary>{finding.technique}{finding.title !== finding.technique && ` · ${finding.title}`}</summary>
             <p className="muted">{finding.occurrence}</p>
+            <ReviewedFindingProof proof={finding.proof} />
             {finding.sources.map(source => <ReportEvidence key={source.id} source={source} />)}
           </details>)}
           {report.recommendations.length > 0 && <><h4>Defensive recommendations</h4>

@@ -87,11 +87,11 @@ def score(report, expected, *, legacy):
     return {
         "occurrences": len(expected),
         "complete_occurrences": len(events & expected.keys() - uncovered),
-        "incorrect_occurrences": sorted(events ^ expected.keys()),
+        "incorrect_occurrences": [list(event) for event in sorted(events ^ expected.keys())],
         "exact_links": len(observed & expected_links),
         "expected_links": len(expected_links),
-        "missing_links": sorted(expected_links - observed),
-        "incorrect_links": sorted(observed - expected_links),
+        "missing_links": [list(link) for link in sorted(expected_links - observed)],
+        "incorrect_links": [list(link) for link in sorted(observed - expected_links)],
         "summary_size": len(report["summary"]),
         "summary_coverage": report["summary_coverage"],
     }

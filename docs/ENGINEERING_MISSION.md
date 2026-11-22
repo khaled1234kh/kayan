@@ -65,4 +65,6 @@ Archived Reporting now offers opt-in local Qwen ranking of verified excerpts. On
 
 Archived Reporting now persists a deterministic fallback before local generation. The first interrupted run survives application recreation and export. An interrupted rerun preserves its prior verified report bytes. [Recovery conditions](ARCHIVED_REPORTING_LOCAL_RANKING.md#interrupted-local-requests)
 
-Next, measure whether the report preserves enough exact proof to explain each admitted occurrence when its summary is capacity-limited. Compare the source-role and occurrence references against a frozen defensive Reporting set, and correct any disclosure gaps without changing admission.
+Archived Reporting discloses full reviewed proof within each supported finding. The nine frozen archives now retain 215/215 exact role-to-source links compared with 212/215 in the older view. The browser verified the grouped Windows proof and an exact export. [Proof disclosure and limits](ARCHIVED_REPORTING_FULL_SUMMARY.md#full-reviewed-proof)
+
+Next, freeze and test whether offline Phase 1 associates stored assets with the correct cloud storage service when a description mentions separate storage paths. Preserve supporting text in Option A and measure missed and extra risk hypotheses on the same cases.
