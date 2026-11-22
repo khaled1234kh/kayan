@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import { apiUrl } from '../../transport';
 import { EvidenceReview } from './EvidenceReview';
 
-type Mode = 'local' | 'sovereigneg';
+type Mode = 'local' | 'ollama' | 'sovereigneg';
 type Assessment = { title: string; assessment_id: string };
 type Archive = Assessment & {
   source_sha256: string;
   observations_by_role?: Record<string, ObservationCounts>;
+  local_ranking_enabled?: boolean;
+  local_ranking_supported?: boolean;
   cloud_available: boolean;
   cloud_selection_supported?: boolean;
   source_status?: string;
@@ -404,6 +406,7 @@ function AssessmentReport({ assessmentId, open, onPending }: {
           setError('');
         }}>
           <option value="local">Local evidence report</option>
+          <option value="ollama">Local Qwen · rank verified excerpts</option>
           <option value="sovereigneg">SovereignEG · Qwen 27B</option>
         </select>
         {mode === 'sovereigneg' && <p className="muted">{archive.cloud_available
@@ -411,14 +414,23 @@ function AssessmentReport({ assessmentId, open, onPending }: {
           : archive.cloud_selection_supported === false
             ? 'Cloud selection is unavailable for this archive. A local report is available.'
             : 'Cloud execution needs an unused approval for this archive. Saved reports remain available.'}</p>}
-        <button className="btn" type="button" disabled={busy || (mode === 'sovereigneg' && !archive.cloud_available)} onClick={() => void run()}>
+        {mode === 'ollama' && <p className="muted">{!archive.local_ranking_enabled
+          ? 'Local model ranking is disabled. The local evidence report is available.'
+          : !archive.local_ranking_supported
+            ? 'This archive has no eligible excerpt selection within the local input limit.'
+            : 'Local Qwen can rank admitted excerpts after TrustGate authorizes inference.'}</p>}
+        <button className="btn" type="button" disabled={busy || (mode === 'sovereigneg' && !archive.cloud_available)
+          || (mode === 'ollama' && (!archive.local_ranking_enabled || !archive.local_ranking_supported))} onClick={() => void run()}>
           {pending ? 'Preparing report…' : 'Run Reporting'}
         </button>
         {error && <p role="alert">{error}</p>}
         {!report && !pending && !error && <p className="muted">No report loaded for this mode.</p>}
         {report && <section aria-label="Saved evidence report">
-          <p className="muted" role="status">{report.status === 'selected' ? `${report.provider === 'sovereigneg' ? 'SovereignEG' : report.provider} · ${report.model}`
-            : report.status === 'degraded' ? `Local fallback · attempted ${report.attempted_model}` : 'Local deterministic evidence report'}</p>
+          <p className="muted" role="status">{report.status === 'selected' ? `${report.provider === 'sovereigneg'
+            ? 'SovereignEG' : report.provider === 'ollama' ? 'Local Ollama' : report.provider} · ${report.model}`
+            : report.status === 'degraded' ? report.attempted_model
+              ? `Local fallback · attempted ${report.attempted_model}` : 'Local evidence fallback'
+              : 'Local deterministic evidence report'}</p>
           {report.notice && <p role="status">{report.notice}</p>}
           <ReportExecutionDetails report={report} />
           <h4>Executive summary</h4>

@@ -61,4 +61,6 @@ Signed import now rechecks the active assertions and the current authenticated c
 
 Phase 1 now requires a stated API-to-record relationship and keeps the exact quoted interface and record together in Option A. The 16 fictional cases improved from 12 to 16 exact, retaining all eight positives. Three existing planning sets remained exact. [Evidence and limits](PLANNING_AND_COORDINATION_2026-11-03.md#api-to-record-relationships-in-phase-1)
 
-Next, evaluate an opt-in local Qwen excerpt ranking mode for verified Archived Reporting using the existing independent inference authorization. Start with read-only excerpts and mocked loopback transport. Preserve deterministic report output on denial or inference failure and preserve signed admission decisions.
+Archived Reporting now offers opt-in local Qwen ranking of verified excerpts. One pinned-model browser smoke selected `E2.1` and two fixed controls in 5.609 s with the preview gate. The export matched the saved result and preserved both dispositions. The default report remains deterministic. [Implementation and measured scope](ARCHIVED_REPORTING_LOCAL_RANKING.md#opt-in-console-mode)
+
+Next, reproduce an interruption during local ranking and make the deterministic result recoverable across backend restart. Use the same pinned synthetic archive and a paused mock response, preserve the authorization checks, and verify that reopening or exporting the saved result never triggers inference.

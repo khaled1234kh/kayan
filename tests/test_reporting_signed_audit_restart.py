@@ -1,6 +1,8 @@
 """Opt-in cross-runtime recovery exercise using a disposable Rust audit journal."""
 
 from contextlib import contextmanager
+from datetime import datetime, timedelta, timezone
+import json
 import os
 import secrets
 import socket
@@ -12,11 +14,15 @@ from fastapi.testclient import TestClient
 import httpx
 import pytest
 
+from ai.providers.base import LLMResponse
+from ai.providers.reporting_ollama import MODEL
 from ai.trustgate.client import TrustGateDecision
 from console.backend.reporting_api import install_reporting_api
 from console.backend.reporting_audit import AUDIT_URL
 from console.backend.reporting_exchange import digest
+from integration.roe_signing import sign_roe
 from integration.trustgate_client import AuthorizationResult
+from pentagi.agents.archived_reporting import review_archive
 from test_signed_reporting_exchange import CUSTODY, ID, review, setup, sign
 
 
@@ -44,6 +50,7 @@ set -eu
 cd "$2"
 test -z "$(ss -Hlt 'sport = :8000')"
 export TRUSTGATE_HMAC_KEY="$(cat fixture-hmac-key)"
+export TRUSTGATE_ROE_KEY="$TRUSTGATE_HMAC_KEY"
 printf '%s\n' "$$" > fixture-process
 exec "$1"
 '''
@@ -185,3 +192,69 @@ def test_signed_reporting_distinguishes_real_ledger_restarts_and_corruption(tmp_
     saved_path, = output.glob("*-local.json")
     assert saved_path.read_bytes() == report_bytes
     print(f"Signed custody and exact export preserved through {audits}")
+
+
+@pytest.mark.skipif(os.name != "nt" or not BINARY, reason="requires an explicitly supplied native Ubuntu fixture binary")
+def test_local_archived_ranking_respects_real_cedar_denial_and_approval(tmp_path, monkeypatch):
+    directory = tmp_path / "isolated-local-ranking-gate"
+    directory.mkdir()
+    key = secrets.token_hex(32)
+    (directory / "fixture-hmac-key").write_text(key, encoding="ascii")
+    monkeypatch.setenv("TRUSTGATE_ROE_KEY", key)
+    monkeypatch.setenv("KAYAN_REPORTING_LOCAL_RANKING", "1")
+    source = review_archive()
+    requests = []
+
+    async def simulated_model(body, *, before_generate):
+        before_generate()
+        requests.append(body)
+        selection = {"highlights": ["T1486/E2.1"], "recommendations": ["T1486-1"], "emphasis": "observed_impact"}
+        return LLMResponse(content=json.dumps(selection), model=MODEL, provider="ollama", finish_reason="stop",
+                           prompt_tokens=100, completion_tokens=25, latency_s=0.01)
+
+    app = FastAPI()
+    install_reporting_api(app, output=tmp_path / "reports", rank_local=simulated_model, approved_scope=False)
+
+    def load_scope(runtime, forbidden):
+        now = datetime.now(timezone.utc)
+        contract = {
+            "engagement_id": source["assessment_id"], "authorized_by": "Isolated Reporting test",
+            "scope": {"targets": ["127.0.0.1"], "allowed_techniques": ["reporting"], "forbidden_actions": forbidden},
+            "time_window": {"start": (now - timedelta(seconds=5)).isoformat(),
+                            "end": (now + timedelta(minutes=2)).isoformat()},
+        }
+        contract["signature"] = sign_roe(contract)
+        response = runtime.post("/roe/load", json=contract)
+        assert response.status_code == 200, response.text
+
+    outcomes = {}
+    with httpx.Client(base_url=AUDIT_URL, timeout=2, trust_env=False) as runtime:
+        with running_gate(directory, runtime), TestClient(
+            app, base_url="http://127.0.0.1", client=("127.0.0.1", 5060),
+        ) as client:
+            assert client.post("/reporting/archive/run", json={"mode": "ollama"}).status_code == 403
+            assert not requests
+            load_scope(runtime, ["llm_inference"])
+            fallback = client.post("/reporting/archive/run", json={"mode": "ollama"})
+            assert fallback.status_code == 200 and fallback.json()["status"] == "degraded"
+            assert not requests
+            outcomes["DENY"] = fallback.json()
+            load_scope(runtime, [])
+            selected = client.post("/reporting/archive/run", json={"mode": "ollama"})
+            assert selected.status_code == 200, selected.text
+            assert selected.json()["status"] == "selected" and len(requests) == 1
+            assert client.get("/reporting/archive/result?mode=ollama&download=true").content == selected.content
+            assert runtime.get("/audit/verify").json()["valid"] is True
+            outcomes["ALLOW"] = selected.json()
+
+    journal = {row["entry_id"]: row for row in map(json.loads, (directory / "audit_log.jsonl").read_text().splitlines())}
+    for verdict, result in outcomes.items():
+        assert result["findings"] == source["findings"] and result["withheld"] == source["withheld"]
+        write = journal[result["audit"]["write_report"]]
+        assert write["decision"] == "ALLOW" and write["tool_name"] == "write_report"
+        audit_field = "llm_inference" if verdict == "ALLOW" else "llm_inference_denied"
+        observed = journal[result["audit"][audit_field]]
+        assert (observed["decision"], observed["tool_name"], observed["engagement_id"]) == (
+            verdict, "llm_inference", source["assessment_id"],
+        )
+        assert observed["tool_args"]["request_sha256"] == result["request_sha256"]

@@ -9,6 +9,7 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict, Field
 
 from ai.providers.base import ChatMessage
+from ai.providers.reporting_ollama import MODEL as LOCAL_MODEL
 from ai.providers.reporting_sovereign import DESTINATION, MODEL, request_payload
 from eval.attack_evidence_admission_v2 import AdmissionAuthority, AdmissionSnapshot, evaluate_in_custody
 from eval.attack_evidence_custody_v1 import CustodyHead
@@ -304,12 +305,17 @@ def verify_saved_presentation(report, raw, *, mode, request_sha256, supplement_a
     if mode == "local":
         if status != "local" or saved.get("request_sha256") is not None:
             raise ValueError("Saved report mode mismatch")
+    elif mode == "ollama":
+        if (status not in ("selected", "degraded") or saved.get("request_sha256") != request_sha256
+                or (status == "selected" and not request_sha256)):
+            raise ValueError("Saved local ranking request mismatch")
     elif (status not in ("selected", "degraded") or not request_sha256
           or saved.get("request_sha256") != request_sha256):
         raise ValueError("Saved report request mismatch")
 
     if status == "selected":
-        if saved.get("provider") != "sovereigneg" or saved.get("model") != MODEL:
+        provider, model = ("ollama", LOCAL_MODEL) if mode == "ollama" else ("sovereigneg", MODEL)
+        if saved.get("provider") != provider or saved.get("model") != model:
             raise ValueError("Saved report provider metadata mismatch")
         repeats = repeated_techniques(report)
         excerpts, _ = _selection_options(report, bool(repeats))

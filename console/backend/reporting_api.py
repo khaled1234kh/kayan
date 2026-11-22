@@ -16,12 +16,20 @@ from fastapi.responses import Response
 from pydantic import BaseModel, ConfigDict
 
 from ai.config import load_config, require_api_key
+from ai.providers.reporting_ollama import (
+    DESTINATION as LOCAL_DESTINATION,
+    MODEL as LOCAL_MODEL,
+    MODEL_DIGEST as LOCAL_MODEL_DIGEST,
+    TIMEOUT_SECONDS as LOCAL_TIMEOUT_SECONDS,
+    rank_verified,
+    selection_request,
+)
 from ai.providers.reporting_sovereign import DESTINATION, MODEL, OUTPUT_TOKENS, ReportingSovereignProvider
 from ai.trustgate.client import AITrustGate
 from console.backend.reporting_audit import reconcile
 from pentagi.agents.archived_reporting import compose, request_for, review_archive, verify_saved_presentation
 
-Mode = Literal["local", "sovereigneg"]
+Mode = Literal["local", "ollama", "sovereigneg"]
 RESULTS = Path(__file__).resolve().parents[2] / ".build/reporting-archive"
 STALE_REPORT = "Saved report changed. Review the current report before exporting."
 INVALID_REPORT = "Saved report failed verification against the current archive."
@@ -71,7 +79,7 @@ def _report_response(body, *, expected_sha256=None, filename=None):
 def install_reporting_api(app, *, load_archive=review_archive, output=RESULTS,
                           make_gate=AITrustGate, make_provider=ReportingSovereignProvider,
                           approved_scope=None, catalog=None, supplement_actions=True,
-                          reconcile_audit=reconcile):
+                          reconcile_audit=reconcile, rank_local=rank_verified):
     lock = asyncio.Lock()
 
     def guard_loopback(request):
@@ -99,6 +107,12 @@ def install_reporting_api(app, *, load_archive=review_archive, output=RESULTS,
         return (os.environ.get("KAYAN_REPORTING_APPROVED_SHA256")
                 if approved_scope is None else approved_scope)
 
+    def local_enabled():
+        return os.environ.get("KAYAN_REPORTING_LOCAL_RANKING") == "1"
+
+    def local_request(prepared):
+        return selection_request(*prepared[:2]) if prepared else None
+
     def confirm_archive(report):
         try:
             current, prepared = archive_inputs(report["assessment_id"])
@@ -114,6 +128,48 @@ def install_reporting_api(app, *, load_archive=review_archive, output=RESULTS,
         prepared = confirm_archive(report)
         if not prepared or prepared[2] != digest or scope() != digest:
             raise HTTPException(409, "Cloud approval changed. Review the current archive.")
+
+    async def apply_local_ranking(report, prepared, result, authorize):
+        candidate = local_request(prepared)
+        request_sha = candidate[1] if candidate else None
+        result.update(status="degraded", request_sha256=request_sha,
+                      notice="Local ranking is unavailable for this archive. Showing the evidence report.")
+        if not candidate or not local_enabled():
+            return
+        decision = await authorize("llm_inference", required=False, inference={
+            "provider": "ollama", "model": LOCAL_MODEL, "model_sha256": LOCAL_MODEL_DIGEST,
+            "destination": LOCAL_DESTINATION, "request_sha256": request_sha,
+        })
+
+        def confirm_local_request():
+            confirm_archive(report)
+            if not local_enabled():
+                raise HTTPException(409, "Local ranking scope changed. Review the current archive.")
+
+        confirm_local_request()
+        if not decision.allowed:
+            result["audit"]["llm_inference_denied"] = decision.audit_entry_id
+            result["notice"] = "TrustGate declined local inference. Showing the evidence report."
+            return
+        result["audit"]["llm_inference"] = decision.audit_entry_id
+        try:
+            reply = await asyncio.wait_for(rank_local(candidate[0], before_generate=confirm_local_request),
+                                           timeout=LOCAL_TIMEOUT_SECONDS)
+            presented = compose(report, selection=reply.content, supplement_actions=supplement_actions)
+            if reply.provider != "ollama" or reply.model != LOCAL_MODEL:
+                raise ValueError("Unexpected local Reporting provider")
+        except TimeoutError:
+            result["notice"] = "Local ranking reached its time limit. Showing the evidence report."
+        except (httpx.HTTPError, ValueError, RuntimeError, TypeError, AttributeError, KeyError, OSError):
+            result["notice"] = "No verified local model selection is available. Showing the evidence report."
+        else:
+            result.update(presented, status="selected", provider=reply.provider, model=reply.model,
+                          finish_reason=reply.finish_reason, usage={
+                              "input": reply.prompt_tokens, "output": reply.completion_tokens,
+                              "latency_s": reply.latency_s,
+                          })
+            result.pop("notice")
+        confirm_local_request()
 
     def attempt_path(digest):
         return output / f"attempt-{digest}.lock"
@@ -138,6 +194,8 @@ def install_reporting_api(app, *, load_archive=review_archive, output=RESULTS,
         return {"assessment_id": report["assessment_id"], "title": report["title"],
                 "source_sha256": report["source_sha256"],
                 "request_sha256": digest, "cloud_model": MODEL,
+                "local_ranking_enabled": local_enabled(),
+                "local_ranking_supported": local_request(prepared) is not None,
                 "verification": report.get("verification", "fixture_custody"),
                 "coverage": report.get("coverage", {}),
                 "observations_by_role": report.get("observations_by_role", {}),
@@ -175,7 +233,9 @@ def install_reporting_api(app, *, load_archive=review_archive, output=RESULTS,
                 raise HTTPException(409, STALE_REPORT)
             raise HTTPException(404, "No saved report in this mode")
         try:
-            verify_saved_presentation(report, body, mode=mode, request_sha256=prepared[2] if prepared else None,
+            prepared_result = local_request(prepared) if mode == "ollama" else prepared
+            verify_saved_presentation(report, body, mode=mode,
+                                      request_sha256=prepared_result[-1] if prepared_result else None,
                                       supplement_actions=supplement_actions)
         except (ValueError, TypeError, KeyError, AttributeError, RecursionError):
             raise HTTPException(409, INVALID_REPORT) from None
@@ -210,22 +270,21 @@ def install_reporting_api(app, *, load_archive=review_archive, output=RESULTS,
             except (KeyError, ValueError, OSError):
                 raise HTTPException(503, "Reporting governance configuration is unavailable") from None
 
-            async def authorize(action, *, egress=False):
+            async def authorize(action, *, inference=None, required=True):
                 args = {"purpose": "synthetic_archived_reporting", "archive_sha256": report["source_sha256"]}
-                if egress:
-                    args.update(provider="sovereigneg", model=MODEL, destination=DESTINATION,
-                                request_sha256=prepared[2])
+                if inference is not None:
+                    args.update(inference)
                 decision = await gate.authorize(
                     engagement_id=report.get("authorization_id", report["assessment_id"]), agent_id="reporting_agent",
                     agent_role="reporting_agent", action=action, technique="reporting",
                     target="127.0.0.1", tool_args=args,
                 )
-                if not decision.allowed:
+                if required and not decision.allowed:
                     raise HTTPException(403, f"TrustGate denied {action}")
-                return decision.audit_entry_id
+                return decision
 
             try:
-                write_audit = await authorize("write_report")
+                write_audit = (await authorize("write_report")).audit_entry_id
                 if payload.mode == "sovereigneg":
                     confirm_cloud_scope(report, prepared[2])
                 else:
@@ -233,11 +292,16 @@ def install_reporting_api(app, *, load_archive=review_archive, output=RESULTS,
                 result = compose(report)
                 result.update(status="local", provider=None, model=None, audit={"write_report": write_audit})
                 output.mkdir(parents=True, exist_ok=True)
-                if payload.mode == "sovereigneg":
+                if payload.mode == "ollama":
+                    await apply_local_ranking(report, prepared, result, authorize)
+                elif payload.mode == "sovereigneg":
                     messages, schema, digest = prepared
-                    audit_id = await authorize("llm_inference", egress=True)
+                    decision = await authorize("llm_inference", inference={
+                        "provider": "sovereigneg", "model": MODEL, "destination": DESTINATION,
+                        "request_sha256": digest,
+                    })
                     confirm_cloud_scope(report, digest)
-                    result["audit"]["llm_inference"] = audit_id
+                    result["audit"]["llm_inference"] = decision.audit_entry_id
                     configured = config.get_provider("sovereigneg")
                     settings = replace(configured, max_retries=1, max_concurrency=1,
                                        max_tokens=OUTPUT_TOKENS, request_timeout_s=min(60, configured.request_timeout_s))
