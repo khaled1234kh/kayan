@@ -63,4 +63,6 @@ Phase 1 now requires a stated API-to-record relationship and keeps the exact quo
 
 Archived Reporting now offers opt-in local Qwen ranking of verified excerpts. One pinned-model browser smoke selected `E2.1` and two fixed controls in 5.609 s with the preview gate. The export matched the saved result and preserved both dispositions. The default report remains deterministic. [Implementation and measured scope](ARCHIVED_REPORTING_LOCAL_RANKING.md#opt-in-console-mode)
 
-Next, reproduce an interruption during local ranking and make the deterministic result recoverable across backend restart. Use the same pinned synthetic archive and a paused mock response, preserve the authorization checks, and verify that reopening or exporting the saved result never triggers inference.
+Archived Reporting now persists a deterministic fallback before local generation. The first interrupted run survives application recreation and export. An interrupted rerun preserves its prior verified report bytes. [Recovery conditions](ARCHIVED_REPORTING_LOCAL_RANKING.md#interrupted-local-requests)
+
+Next, measure whether the report preserves enough exact proof to explain each admitted occurrence when its summary is capacity-limited. Compare the source-role and occurrence references against a frozen defensive Reporting set, and correct any disclosure gaps without changing admission.

@@ -152,8 +152,18 @@ def install_reporting_api(app, *, load_archive=review_archive, output=RESULTS,
             result["notice"] = "TrustGate declined local inference. Showing the evidence report."
             return
         result["audit"]["llm_inference"] = decision.audit_entry_id
+
+        def before_generate():
+            confirm_local_request()
+            fallback = {**result, "notice": "A verified local selection is unavailable. Showing the evidence report."}
+            try:
+                _publish(result_path(report, "ollama"), fallback, exclusive=True)
+            except FileExistsError:
+                # Keep the existing result until a new run has an outcome.
+                pass
+
         try:
-            reply = await asyncio.wait_for(rank_local(candidate[0], before_generate=confirm_local_request),
+            reply = await asyncio.wait_for(rank_local(candidate[0], before_generate=before_generate),
                                            timeout=LOCAL_TIMEOUT_SECONDS)
             presented = compose(report, selection=reply.content, supplement_actions=supplement_actions)
             if reply.provider != "ollama" or reply.model != LOCAL_MODEL:

@@ -297,7 +297,7 @@ def verify_saved_presentation(report, raw, *, mode, request_sha256, supplement_a
     bound_fields.extend(key for key in (
         "verification", "coverage", "observations_by_role", "source_status", "review_status", "admission_status",
         "custody_test_only", "custody_receipt_sha256",
-    ) if key in saved)
+    ) if mode == "ollama" or key in saved)
     if not fields_match(report, bound_fields):
         raise ValueError("Saved report does not match the current archive")
 

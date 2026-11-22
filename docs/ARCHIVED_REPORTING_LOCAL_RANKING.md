@@ -29,4 +29,10 @@ On 21 November, one actual browser-triggered local request through a synthetic p
 
 On 22 November, an isolated Rust/Cedar instance verified the signed test-only Reporting scopes. With no scope, report writing returned 403. With a write-only scope, inference was denied and the deterministic report remained exportable. With both actions permitted, one mocked selection was saved and exported. The valid Rust ledger contained the exact request digest in both inference decisions. The focused Reporting set passed 61 tests and the combined set passed 321, including this Rust check and signed-archive restart. The frontend session check and build passed. Eight saved evaluations, 76 pinned digests, the historical Slate cloud request and the saved cloud result verified offline.
 
+## Interrupted local requests
+
+A first run cancelled after local preflight previously left the result endpoint at HTTP 404. The backend now saves the deterministic fallback atomically immediately before the generation request. An existing report for the same revision stays readable if a later request is interrupted. A reopened app reads the saved bytes and verifies the current evidence before making them available for display or export. Reopening and exporting make zero inference attempts. An archive that changed during the interrupted request returns HTTP 409 when its earlier bytes no longer match.
+
+Reproduce both first-run and prior-report cases with `python -B -m pytest -q -p no:cacheprovider tests/test_archived_reporting_ollama.py -k interrupted_local_ranking`. The fixture cancels a mocked response and recreates the backend over the original output directory. After the correction, the focused set passed 63 tests and the canonical set passed 323. Eight saved evaluations, 76 pins and the previously saved Slate cloud result verified again.
+
 The small set supports a within-fixture comparison only. It cannot establish live provider quality, general ranking superiority or operational readiness. The action supplement needs a separate held-out evaluation before an application decision.

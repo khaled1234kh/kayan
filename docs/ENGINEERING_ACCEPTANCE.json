@@ -123,10 +123,10 @@
       "id": "reporting.local_model_ranking",
       "requirement": "Offer a pinned local model for ranking admitted Reporting excerpts with separate inference authorization and deterministic fallback.",
       "implementation": ["ai/providers/reporting_ollama.py", "console/backend/reporting_api.py", "console/office/src/components/ui/ArchivedReport.tsx"],
-      "verification": ["tests/test_archived_reporting_ollama.py", "tests/test_reporting_signed_audit_restart.py", "docs/ARCHIVED_REPORTING_LOCAL_RANKING.md#opt-in-console-mode"],
+      "verification": ["tests/test_archived_reporting_ollama.py", "tests/test_reporting_signed_audit_restart.py", "docs/ARCHIVED_REPORTING_LOCAL_RANKING.md#opt-in-console-mode", "docs/ARCHIVED_REPORTING_LOCAL_RANKING.md#interrupted-local-requests"],
       "metrics": ["fallback with no generation on denial", "exact verified citation selection", "preserved dispositions", "tokens and latency", "exact browser download"],
       "status": "verified_automated",
-      "evidence": "One real pinned Ollama call through a synthetic gate rendered the T1486 excerpt and withheld T1490. Browser export matched the saved bytes. A separate isolated Rust/Cedar run denied unscoped writes and write-only inference, then allowed one mocked selection. The verified journal bound its inference decisions to the exact request digest."
+      "evidence": "One real pinned Ollama call through a synthetic gate rendered the T1486 excerpt and withheld T1490. Browser export matched the saved bytes. A separate isolated Rust/Cedar run denied unscoped writes and write-only inference, then allowed one mocked selection. The verified journal bound its inference decisions to the exact request digest. An application restart fixture recovers the first-run fallback and preserves a valid prior selection after interruption."
     },
     {
       "id": "cloud.role_selection",

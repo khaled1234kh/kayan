@@ -8,6 +8,7 @@ import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
+from ai.providers.base import LLMResponse
 from ai.providers.reporting_ollama import DESTINATION, MODEL, MODEL_DIGEST, REQUEST_BYTES, rank_verified
 from ai.trustgate.client import TrustGateDecision
 from console.backend import reporting_api
@@ -158,7 +159,7 @@ def test_stale_archive_cannot_publish_local_ranking(center, stage, methods):
     scenario["change_at"] = stage
     assert client.post(PREFIX + "/run", json={"mode": "ollama"}).status_code == 409
     assert [request.method for request in requests] == methods
-    assert client.get(RESULT).status_code == 404
+    assert client.get(RESULT).status_code == (404 if stage == "GET" else 409)
 
 
 @pytest.mark.parametrize("condition", ["disabled", "no_findings", "oversized_input", "test_only"])
@@ -183,3 +184,67 @@ def test_denied_write_avoids_local_inference_and_persistence(center):
     assert client.post(PREFIX + "/run", json={"mode": "ollama"}).status_code == 403
     assert [entry["action"] for entry in decisions] == ["write_report"] and not requests
     assert client.get(RESULT).status_code == 404
+
+
+@pytest.mark.parametrize("existing_result", [False, True], ids=["first_run", "prior_selection"])
+def test_interrupted_local_ranking_recovers_exact_report_without_inference(tmp_path, monkeypatch, existing_result):
+    monkeypatch.setenv("KAYAN_REPORTING_LOCAL_RANKING", "1")
+    calls = []
+    source = review_archive()
+
+    class Gate:
+        async def authorize(self, **args):
+            calls.append(args["action"])
+            return TrustGateDecision("reporting_agent", args["action"], True, "ALLOW", "fixture", None, "test-audit")
+
+        def close(self):
+            pass
+
+    async def interrupted(body, *, before_generate):
+        before_generate()
+        calls.append("model_started")
+        raise asyncio.CancelledError()
+
+    def app_with_ranker(rank):
+        app = FastAPI()
+        install_reporting_api(app, output=tmp_path, make_gate=lambda _: Gate(), rank_local=rank)
+        return app
+
+    prior_bytes = None
+    if existing_result:
+        async def complete(body, *, before_generate):
+            before_generate()
+            return LLMResponse(content=json.dumps(SELECTION), model=MODEL, provider="ollama", finish_reason="stop",
+                               prompt_tokens=400, completion_tokens=31, latency_s=0.01)
+
+        with TestClient(app_with_ranker(complete), base_url="http://127.0.0.1", client=("127.0.0.1", 5080)) as client:
+            selected = client.post(PREFIX + "/run", json={"mode": "ollama"})
+            assert selected.json()["status"] == "selected"
+            prior_bytes = selected.content
+        calls.clear()
+
+    with TestClient(app_with_ranker(interrupted), base_url="http://127.0.0.1", client=("127.0.0.1", 5080),
+                    raise_server_exceptions=False) as client:
+        result = client.post(PREFIX + "/run", json={"mode": "ollama"})
+        assert result.status_code != 200
+    assert calls == ["write_report", "llm_inference", "model_started"]
+
+    def no_gate(_):
+        pytest.fail("Recovery should not request another grant")
+
+    restarted = FastAPI()
+    install_reporting_api(restarted, output=tmp_path, make_gate=no_gate)
+    with TestClient(restarted, base_url="http://127.0.0.1", client=("127.0.0.1", 5080)) as client:
+        restored = client.get(RESULT)
+        assert restored.status_code == 200, restored.text
+        result = restored.json()
+        if prior_bytes:
+            assert restored.content == prior_bytes
+        else:
+            assert result["status"] == "degraded" and result["provider"] is None
+        assert result["findings"] == source["findings"] and result["withheld"] == source["withheld"]
+        expected = sha256(restored.content).hexdigest()
+        download = client.get(RESULT + f"&download=true&expected_sha256={expected}")
+        assert download.status_code == 200 and download.content == restored.content
+        persisted, = tmp_path.glob("*-ollama.json")
+        assert persisted.read_bytes() == restored.content
