@@ -1,0 +1,22 @@
+{
+  "protocol": "kayan-planning-cloud-storage-relationship/1",
+  "notes": "Fictional storage relationships and access descriptions. A positive label means the stated asset is linked to object storage for defensive review.",
+  "cases": [
+    {"id":"s3_holds_backups","engagement_context":{"data_storage":"S3 holds weekly backups and maintenance documents."},"expected_scenarios":["cloud_object_access"]},
+    {"id":"api_store_separate","engagement_context":{"data_storage":"The digital receipts are stored in encrypted blob storage."},"expected_scenarios":["cloud_object_access"]},
+    {"id":"supported_storage_among_decoys","engagement_context":{"data_storage":"A storage bucket holds binaries and paper records stay at reception. Cloud object storage retains diagnostic images."},"expected_scenarios":["cloud_object_access"]},
+    {"id":"uploaded_current","engagement_context":{"data_storage":"Customer documents are uploaded to the storage buckets."},"expected_scenarios":["cloud_object_access"]},
+    {"id":"backend_keeps_records","engagement_context":{"data_storage":"We keep customer records in cloud object storage."},"expected_scenarios":["cloud_object_access"]},
+    {"id":"purpose_link","engagement_context":{"infrastructure_summary":"The review team uses cloud object storage for product images."},"expected_scenarios":["cloud_object_access"]},
+    {"id":"explicit_public_storage","engagement_context":{"data_storage":"A public storage bucket holds product images."},"expected_scenarios":["cloud_object_access"],"expected_gap":{"cloud_object_access":true}},
+    {"id":"unrelated_public_storage","engagement_context":{"data_storage":"Customer records are stored in private blob storage, and a different project has public buckets."},"expected_scenarios":["cloud_object_access"],"expected_gap":{"cloud_object_access":false}},
+    {"id":"separate_paper_records","engagement_context":{"data_storage":"A storage bucket holds binaries and paper records stay at reception."},"expected_scenarios":[]},
+    {"id":"separate_workstation_images","engagement_context":{"data_storage":"Blob storage is reserved for release markers and diagnostic images remain on a workstation."},"expected_scenarios":[]},
+    {"id":"unrelated_inventory","engagement_context":{"infrastructure_summary":"The inventory lists S3 and local tapes for backups as distinct services."},"expected_scenarios":[]},
+    {"id":"only_training","engagement_context":{"infrastructure_summary":"S3 appears in a training checklist, and our customer records are physical."},"expected_scenarios":[]},
+    {"id":"explicitly_excluded","engagement_context":{"data_storage":"We never place customer documents in cloud object storage."},"expected_scenarios":[]},
+    {"id":"retired_storage","engagement_context":{"data_storage":"Blob storage was retired. Backups are held on tape."},"expected_scenarios":[]},
+    {"id":"unanswered_question","engagement_context":{"data_storage":"Will product images use cloud object storage? The decision is open."},"expected_scenarios":[]},
+    {"id":"planned_location","engagement_context":{"data_storage":"We plan to use S3 for product images. The current archives are stored locally."},"expected_scenarios":[]}
+  ]
+}
