@@ -1,0 +1,200 @@
+{
+  "protocol": "archived-reporting-proof-disclosure-v1",
+  "fixture_sha256": "beebb96cbaaf544d391f43f3ac57d33982cb99fc81b2df7e3274c8fd815c1751",
+  "cases": [
+    {
+      "id": "orchard-sorting-review",
+      "archive_sha256": "7bb9c6f1c913bacce72271ec1857fb57e08e73757784710033155f765d5307a3",
+      "baseline": {
+        "occurrences": 8,
+        "complete_occurrences": 8,
+        "incorrect_occurrences": [],
+        "exact_links": 32,
+        "expected_links": 32,
+        "missing_links": [],
+        "incorrect_links": [],
+        "summary_size": 8,
+        "summary_coverage": {
+          "admitted_occurrences": 8,
+          "covered_occurrences": 8,
+          "action_covered_occurrences": 0
+        }
+      }
+    },
+    {
+      "id": "printworks-recovery-review",
+      "archive_sha256": "4523f133e36bb8e8f4ed150b60bb00caa9df78b0fe26987a221c3b5e2dcec76d",
+      "baseline": {
+        "occurrences": 9,
+        "complete_occurrences": 9,
+        "incorrect_occurrences": [],
+        "exact_links": 36,
+        "expected_links": 36,
+        "missing_links": [],
+        "incorrect_links": [],
+        "summary_size": 8,
+        "summary_coverage": {
+          "admitted_occurrences": 9,
+          "covered_occurrences": 6,
+          "action_covered_occurrences": 0
+        }
+      }
+    },
+    {
+      "id": "maker-space-access-review",
+      "archive_sha256": "899407d9a874d9bf3d2dd365882361b3769ddbb426c72bbaa6f9839d64b32df3",
+      "baseline": {
+        "occurrences": 8,
+        "complete_occurrences": 8,
+        "incorrect_occurrences": [],
+        "exact_links": 32,
+        "expected_links": 32,
+        "missing_links": [],
+        "incorrect_links": [],
+        "summary_size": 8,
+        "summary_coverage": {
+          "admitted_occurrences": 8,
+          "covered_occurrences": 7,
+          "action_covered_occurrences": 1
+        }
+      }
+    },
+    {
+      "id": "fishery-impact-records",
+      "archive_sha256": "cf0ccab637f60e0dfd3fc978052e917b13f40dd700ec72d5b3e0947bee0f63fb",
+      "baseline": {
+        "occurrences": 8,
+        "complete_occurrences": 8,
+        "incorrect_occurrences": [],
+        "exact_links": 32,
+        "expected_links": 32,
+        "missing_links": [],
+        "incorrect_links": [],
+        "summary_size": 8,
+        "summary_coverage": {
+          "admitted_occurrences": 8,
+          "covered_occurrences": 8,
+          "action_covered_occurrences": 0
+        }
+      }
+    },
+    {
+      "id": "transit-action-records",
+      "archive_sha256": "12982e3251f676dd650e54b8b08be4da093f6dcdd2676c21fdac4798535636b5",
+      "baseline": {
+        "occurrences": 9,
+        "complete_occurrences": 9,
+        "incorrect_occurrences": [],
+        "exact_links": 36,
+        "expected_links": 36,
+        "missing_links": [],
+        "incorrect_links": [],
+        "summary_size": 8,
+        "summary_coverage": {
+          "admitted_occurrences": 9,
+          "covered_occurrences": 8,
+          "action_covered_occurrences": 8
+        }
+      }
+    },
+    {
+      "id": "harvest-review-priority-tradeoff",
+      "archive_sha256": "da0199f80fa470ee8983bf5ee0e1e47440e565707d38fddeef89a0e6347bec85",
+      "baseline": {
+        "occurrences": 8,
+        "complete_occurrences": 8,
+        "incorrect_occurrences": [],
+        "exact_links": 32,
+        "expected_links": 32,
+        "missing_links": [],
+        "incorrect_links": [],
+        "summary_size": 8,
+        "summary_coverage": {
+          "admitted_occurrences": 8,
+          "covered_occurrences": 8,
+          "action_covered_occurrences": 0
+        }
+      }
+    },
+    {
+      "id": "windows-secondary-support",
+      "archive_sha256": "c62691324811191d3c78666a6ac68b008a3d229e2af025989eb20d4bf5fc6e8c",
+      "baseline": {
+        "occurrences": 1,
+        "complete_occurrences": 0,
+        "incorrect_occurrences": [],
+        "exact_links": 4,
+        "expected_links": 5,
+        "missing_links": [
+          [
+            "T1685.005",
+            "clear-event",
+            "mechanic",
+            "E1.2",
+            false
+          ]
+        ],
+        "incorrect_links": [],
+        "summary_size": 1,
+        "summary_coverage": {
+          "admitted_occurrences": 1,
+          "covered_occurrences": 1,
+          "action_covered_occurrences": 1
+        }
+      }
+    },
+    {
+      "id": "shared-secondary-support",
+      "archive_sha256": "8ddb74a9ff4986091e3fee264a3a0c0801060884c712c22e7e298c7ccb733b64",
+      "baseline": {
+        "occurrences": 2,
+        "complete_occurrences": 0,
+        "incorrect_occurrences": [],
+        "exact_links": 8,
+        "expected_links": 10,
+        "missing_links": [
+          [
+            "T1486",
+            "incident-1",
+            "mechanic",
+            "E9.1",
+            false
+          ],
+          [
+            "T1486",
+            "incident-2",
+            "mechanic",
+            "E9.1",
+            false
+          ]
+        ],
+        "incorrect_links": [],
+        "summary_size": 2,
+        "summary_coverage": {
+          "admitted_occurrences": 2,
+          "covered_occurrences": 2,
+          "action_covered_occurrences": 2
+        }
+      }
+    },
+    {
+      "id": "no-admitted-finding",
+      "archive_sha256": "8351654c868439bc1d014af3f1e2bd288212417721716936c0de7e92eb2deb8a",
+      "baseline": {
+        "occurrences": 0,
+        "complete_occurrences": 0,
+        "incorrect_occurrences": [],
+        "exact_links": 0,
+        "expected_links": 0,
+        "missing_links": [],
+        "incorrect_links": [],
+        "summary_size": 0,
+        "summary_coverage": {
+          "admitted_occurrences": 0,
+          "covered_occurrences": 0,
+          "action_covered_occurrences": 0
+        }
+      }
+    }
+  ]
+}
