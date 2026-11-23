@@ -61,7 +61,7 @@ class RiskPlan(BaseModel):
     index_built_at: str
     risks: list[HypotheticalRisk]
     context_integrity: dict = Field(default_factory=dict)
-    selection_method: str = 'Version-2 authored scenario requirements with local pinned framework references; no LLM.'
+    selection_method: str = 'Authored scenario requirements with clause-scoped evidence and pinned local framework references; no LLM.'
     filtered_text_matches: list[dict] = Field(default_factory=list)
     limitations: list[str] = Field(default_factory=list)
     supported_scenario_count: int = 0
@@ -92,6 +92,7 @@ def build_risk_plan(context=None):
                 'Text similarity alone does not establish applicability; the required technical details for a supported scenario are absent.'}
             for m in diagnostics if m['id'] not in selected],
         limitations=['Authored rules cover a bounded set of scenarios, not a comprehensive company risk assessment.',
+            'Review scenarios may be omitted when cues appear in separate clauses or use unfamiliar wording.',
             'Descriptions and stated control gaps are unverified. Missing details do not establish missing controls.',
             'Fewer than three supported scenarios is a valid result; no weak matches are added to fill slots.']
         +(['No supported technical scenario: describe the relevant assets, interfaces, trust boundaries or specific control concerns.'] if not risks else [])).model_dump(exclude_none=True)

@@ -1,0 +1,984 @@
+{
+  "protocol": "archived-reporting-full-summary-v1",
+  "fixture_sha256": "889f6e19f0a12bebe875b0b0f3454f4277e652da8768b8d9dc10878742d8f062",
+  "decision": {
+    "decision_and_control_integrity": true,
+    "capacity": true,
+    "original_reference_order_and_occurrences_retained": true,
+    "unchanged_controls": true,
+    "action_coverage_improves": true,
+    "no_case_exceeds_preference_loss_budget": false
+  },
+  "candidate_qualifies": false,
+  "cases": [
+    {
+      "id": "orchard-sorting-review",
+      "group": "change",
+      "archive_sha256": "7bb9c6f1c913bacce72271ec1857fb57e08e73757784710033155f765d5307a3",
+      "selection_sha256": "5d9ddff2b428195466d7f2304296eb92c6c20034853a629102d1fb7d907de279",
+      "baseline": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "event-1",
+              "E1.3"
+            ],
+            [
+              "T1486",
+              "event-2",
+              "E2.3"
+            ],
+            [
+              "T1486",
+              "event-3",
+              "E3.3"
+            ],
+            [
+              "T1486",
+              "event-4",
+              "E4.3"
+            ],
+            [
+              "T1486",
+              "event-5",
+              "E5.2"
+            ],
+            [
+              "T1486",
+              "event-6",
+              "E6.4"
+            ],
+            [
+              "T1486",
+              "event-7",
+              "E7.3"
+            ],
+            [
+              "T1486",
+              "event-8",
+              "E8.3"
+            ]
+          ],
+          "matching": 6,
+          "returned": 8,
+          "desired": 8,
+          "exact": false,
+          "ordered_pairs": 15,
+          "comparable_pairs": 15
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 8,
+        "admitted_occurrences": 8,
+        "published_coverage": {
+          "admitted_occurrences": 8,
+          "covered_occurrences": 8,
+          "action_covered_occurrences": 0
+        }
+      },
+      "candidate": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "event-1",
+              "E1.3"
+            ],
+            [
+              "T1486",
+              "event-2",
+              "E2.3"
+            ],
+            [
+              "T1486",
+              "event-3",
+              "E3.3"
+            ],
+            [
+              "T1486",
+              "event-4",
+              "E4.3"
+            ],
+            [
+              "T1486",
+              "event-5",
+              "E5.1"
+            ],
+            [
+              "T1486",
+              "event-6",
+              "E6.1"
+            ],
+            [
+              "T1486",
+              "event-7",
+              "E7.3"
+            ],
+            [
+              "T1486",
+              "event-8",
+              "E8.3"
+            ]
+          ],
+          "matching": 8,
+          "returned": 8,
+          "desired": 8,
+          "exact": true,
+          "ordered_pairs": 28,
+          "comparable_pairs": 28
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 8,
+        "admitted_occurrences": 8,
+        "published_coverage": {
+          "admitted_occurrences": 8,
+          "covered_occurrences": 8,
+          "action_covered_occurrences": 2
+        }
+      },
+      "changes": [
+        {
+          "index": 4,
+          "removed": "F5/S2",
+          "added": "F5/S1"
+        },
+        {
+          "index": 5,
+          "removed": "F6/S4",
+          "added": "F6/S1"
+        }
+      ],
+      "retained_refs": 6,
+      "retained_order": true,
+      "original_occurrences_retained": true,
+      "verified_decisions_and_controls_unchanged": true,
+      "action_gain": 2,
+      "preference_loss": -2
+    },
+    {
+      "id": "printworks-recovery-review",
+      "group": "change",
+      "archive_sha256": "4523f133e36bb8e8f4ed150b60bb00caa9df78b0fe26987a221c3b5e2dcec76d",
+      "selection_sha256": "51ce1cb89d6a1206adb74d5b7fc7a45e6ac7d0bee0d22c11106a8ab393555ca0",
+      "baseline": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "event-1",
+              "E1.3"
+            ],
+            [
+              "T1486",
+              "event-2",
+              "E2.3"
+            ],
+            [
+              "T1486",
+              "event-3",
+              "E3.3"
+            ],
+            [
+              "T1486",
+              "event-4",
+              "E4.3"
+            ],
+            [
+              "T1486",
+              "event-5",
+              "E5.3"
+            ],
+            [
+              "T1486",
+              "event-5",
+              "E5.2"
+            ],
+            [
+              "T1486",
+              "event-6",
+              "E6.3"
+            ],
+            [
+              "T1486",
+              "event-6",
+              "E6.4"
+            ]
+          ],
+          "matching": 6,
+          "returned": 8,
+          "desired": 8,
+          "exact": false,
+          "ordered_pairs": 15,
+          "comparable_pairs": 15
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 6,
+        "admitted_occurrences": 9,
+        "published_coverage": {
+          "admitted_occurrences": 9,
+          "covered_occurrences": 6,
+          "action_covered_occurrences": 0
+        }
+      },
+      "candidate": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "event-1",
+              "E1.3"
+            ],
+            [
+              "T1486",
+              "event-2",
+              "E2.3"
+            ],
+            [
+              "T1486",
+              "event-3",
+              "E3.3"
+            ],
+            [
+              "T1486",
+              "event-4",
+              "E4.3"
+            ],
+            [
+              "T1486",
+              "event-5",
+              "E5.3"
+            ],
+            [
+              "T1486",
+              "event-8",
+              "E8.1"
+            ],
+            [
+              "T1486",
+              "event-6",
+              "E6.3"
+            ],
+            [
+              "T1486",
+              "event-7",
+              "E7.1"
+            ]
+          ],
+          "matching": 8,
+          "returned": 8,
+          "desired": 8,
+          "exact": false,
+          "ordered_pairs": 26,
+          "comparable_pairs": 28
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 8,
+        "admitted_occurrences": 9,
+        "published_coverage": {
+          "admitted_occurrences": 9,
+          "covered_occurrences": 8,
+          "action_covered_occurrences": 2
+        }
+      },
+      "changes": [
+        {
+          "index": 7,
+          "removed": "F6/S4",
+          "added": "F7/S1"
+        },
+        {
+          "index": 5,
+          "removed": "F5/S2",
+          "added": "F8/S1"
+        }
+      ],
+      "retained_refs": 6,
+      "retained_order": true,
+      "original_occurrences_retained": true,
+      "verified_decisions_and_controls_unchanged": true,
+      "action_gain": 2,
+      "preference_loss": -2
+    },
+    {
+      "id": "maker-space-access-review",
+      "group": "change",
+      "archive_sha256": "899407d9a874d9bf3d2dd365882361b3769ddbb426c72bbaa6f9839d64b32df3",
+      "selection_sha256": "8c4d0b1c256c9fbf3fe00d59b4894704c9979e618ab4571c1ea9e23c747b6a6b",
+      "baseline": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "event-1",
+              "E1.1"
+            ],
+            [
+              "T1486",
+              "event-2",
+              "E2.3"
+            ],
+            [
+              "T1486",
+              "event-3",
+              "E3.3"
+            ],
+            [
+              "T1486",
+              "event-4",
+              "E4.3"
+            ],
+            [
+              "T1486",
+              "event-5",
+              "E5.3"
+            ],
+            [
+              "T1486",
+              "event-6",
+              "E6.3"
+            ],
+            [
+              "T1486",
+              "event-7",
+              "E7.3"
+            ],
+            [
+              "T1486",
+              "event-1",
+              "E1.4"
+            ]
+          ],
+          "matching": 7,
+          "returned": 8,
+          "desired": 8,
+          "exact": false,
+          "ordered_pairs": 21,
+          "comparable_pairs": 21
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 7,
+        "admitted_occurrences": 8,
+        "published_coverage": {
+          "admitted_occurrences": 8,
+          "covered_occurrences": 7,
+          "action_covered_occurrences": 1
+        }
+      },
+      "candidate": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "event-1",
+              "E1.1"
+            ],
+            [
+              "T1486",
+              "event-2",
+              "E2.3"
+            ],
+            [
+              "T1486",
+              "event-3",
+              "E3.3"
+            ],
+            [
+              "T1486",
+              "event-4",
+              "E4.3"
+            ],
+            [
+              "T1486",
+              "event-5",
+              "E5.3"
+            ],
+            [
+              "T1486",
+              "event-6",
+              "E6.3"
+            ],
+            [
+              "T1486",
+              "event-7",
+              "E7.3"
+            ],
+            [
+              "T1486",
+              "event-8",
+              "E8.1"
+            ]
+          ],
+          "matching": 8,
+          "returned": 8,
+          "desired": 8,
+          "exact": true,
+          "ordered_pairs": 28,
+          "comparable_pairs": 28
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 8,
+        "admitted_occurrences": 8,
+        "published_coverage": {
+          "admitted_occurrences": 8,
+          "covered_occurrences": 8,
+          "action_covered_occurrences": 2
+        }
+      },
+      "changes": [
+        {
+          "index": 7,
+          "removed": "F1/S4",
+          "added": "F8/S1"
+        }
+      ],
+      "retained_refs": 7,
+      "retained_order": true,
+      "original_occurrences_retained": true,
+      "verified_decisions_and_controls_unchanged": true,
+      "action_gain": 1,
+      "preference_loss": -1
+    },
+    {
+      "id": "fishery-impact-records",
+      "group": "retain",
+      "archive_sha256": "cf0ccab637f60e0dfd3fc978052e917b13f40dd700ec72d5b3e0947bee0f63fb",
+      "selection_sha256": "6daeb7ba8adab65dfadc1135948115b832a5d47cbe4328b4d65ba9c4f006b8a6",
+      "baseline": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "event-1",
+              "E1.3"
+            ],
+            [
+              "T1486",
+              "event-2",
+              "E2.3"
+            ],
+            [
+              "T1486",
+              "event-3",
+              "E3.3"
+            ],
+            [
+              "T1486",
+              "event-4",
+              "E4.3"
+            ],
+            [
+              "T1486",
+              "event-5",
+              "E5.3"
+            ],
+            [
+              "T1486",
+              "event-6",
+              "E6.3"
+            ],
+            [
+              "T1486",
+              "event-7",
+              "E7.3"
+            ],
+            [
+              "T1486",
+              "event-8",
+              "E8.3"
+            ]
+          ],
+          "matching": 8,
+          "returned": 8,
+          "desired": 8,
+          "exact": true,
+          "ordered_pairs": 28,
+          "comparable_pairs": 28
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 8,
+        "admitted_occurrences": 8,
+        "published_coverage": {
+          "admitted_occurrences": 8,
+          "covered_occurrences": 8,
+          "action_covered_occurrences": 0
+        }
+      },
+      "candidate": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "event-1",
+              "E1.3"
+            ],
+            [
+              "T1486",
+              "event-2",
+              "E2.3"
+            ],
+            [
+              "T1486",
+              "event-3",
+              "E3.3"
+            ],
+            [
+              "T1486",
+              "event-4",
+              "E4.3"
+            ],
+            [
+              "T1486",
+              "event-5",
+              "E5.3"
+            ],
+            [
+              "T1486",
+              "event-6",
+              "E6.3"
+            ],
+            [
+              "T1486",
+              "event-7",
+              "E7.3"
+            ],
+            [
+              "T1486",
+              "event-8",
+              "E8.3"
+            ]
+          ],
+          "matching": 8,
+          "returned": 8,
+          "desired": 8,
+          "exact": true,
+          "ordered_pairs": 28,
+          "comparable_pairs": 28
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 8,
+        "admitted_occurrences": 8,
+        "published_coverage": {
+          "admitted_occurrences": 8,
+          "covered_occurrences": 8,
+          "action_covered_occurrences": 0
+        }
+      },
+      "changes": [],
+      "retained_refs": 8,
+      "retained_order": true,
+      "original_occurrences_retained": true,
+      "verified_decisions_and_controls_unchanged": true,
+      "action_gain": 0,
+      "preference_loss": 0
+    },
+    {
+      "id": "transit-action-records",
+      "group": "retain",
+      "archive_sha256": "12982e3251f676dd650e54b8b08be4da093f6dcdd2676c21fdac4798535636b5",
+      "selection_sha256": "9d5cee6020c481dbfe090e2988e926987e039dd40432829453b2b3224374f7ee",
+      "baseline": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "event-2",
+              "E2.1"
+            ],
+            [
+              "T1486",
+              "event-4",
+              "E4.1"
+            ],
+            [
+              "T1486",
+              "event-6",
+              "E6.1"
+            ],
+            [
+              "T1486",
+              "event-8",
+              "E8.1"
+            ],
+            [
+              "T1486",
+              "event-1",
+              "E1.1"
+            ],
+            [
+              "T1486",
+              "event-3",
+              "E3.1"
+            ],
+            [
+              "T1486",
+              "event-5",
+              "E5.1"
+            ],
+            [
+              "T1486",
+              "event-7",
+              "E7.1"
+            ]
+          ],
+          "matching": 8,
+          "returned": 8,
+          "desired": 8,
+          "exact": true,
+          "ordered_pairs": 28,
+          "comparable_pairs": 28
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 8,
+        "admitted_occurrences": 9,
+        "published_coverage": {
+          "admitted_occurrences": 9,
+          "covered_occurrences": 8,
+          "action_covered_occurrences": 8
+        }
+      },
+      "candidate": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "event-2",
+              "E2.1"
+            ],
+            [
+              "T1486",
+              "event-4",
+              "E4.1"
+            ],
+            [
+              "T1486",
+              "event-6",
+              "E6.1"
+            ],
+            [
+              "T1486",
+              "event-8",
+              "E8.1"
+            ],
+            [
+              "T1486",
+              "event-1",
+              "E1.1"
+            ],
+            [
+              "T1486",
+              "event-3",
+              "E3.1"
+            ],
+            [
+              "T1486",
+              "event-5",
+              "E5.1"
+            ],
+            [
+              "T1486",
+              "event-7",
+              "E7.1"
+            ]
+          ],
+          "matching": 8,
+          "returned": 8,
+          "desired": 8,
+          "exact": true,
+          "ordered_pairs": 28,
+          "comparable_pairs": 28
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 8,
+        "admitted_occurrences": 9,
+        "published_coverage": {
+          "admitted_occurrences": 9,
+          "covered_occurrences": 8,
+          "action_covered_occurrences": 8
+        }
+      },
+      "changes": [],
+      "retained_refs": 8,
+      "retained_order": true,
+      "original_occurrences_retained": true,
+      "verified_decisions_and_controls_unchanged": true,
+      "action_gain": 0,
+      "preference_loss": 0
+    },
+    {
+      "id": "harvest-review-priority-tradeoff",
+      "group": "tradeoff",
+      "archive_sha256": "da0199f80fa470ee8983bf5ee0e1e47440e565707d38fddeef89a0e6347bec85",
+      "selection_sha256": "d6aacce5900280331ad13daf2406c39629f6e973b253c9e316ce0dbef32af9c4",
+      "baseline": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "event-1",
+              "E1.3"
+            ],
+            [
+              "T1486",
+              "event-2",
+              "E2.3"
+            ],
+            [
+              "T1486",
+              "event-3",
+              "E3.3"
+            ],
+            [
+              "T1486",
+              "event-4",
+              "E4.3"
+            ],
+            [
+              "T1486",
+              "event-5",
+              "E5.3"
+            ],
+            [
+              "T1486",
+              "event-6",
+              "E6.3"
+            ],
+            [
+              "T1486",
+              "event-7",
+              "E7.2"
+            ],
+            [
+              "T1486",
+              "event-8",
+              "E8.4"
+            ]
+          ],
+          "matching": 8,
+          "returned": 8,
+          "desired": 8,
+          "exact": true,
+          "ordered_pairs": 28,
+          "comparable_pairs": 28
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 8,
+        "admitted_occurrences": 8,
+        "published_coverage": {
+          "admitted_occurrences": 8,
+          "covered_occurrences": 8,
+          "action_covered_occurrences": 0
+        }
+      },
+      "candidate": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "event-1",
+              "E1.3"
+            ],
+            [
+              "T1486",
+              "event-2",
+              "E2.3"
+            ],
+            [
+              "T1486",
+              "event-3",
+              "E3.3"
+            ],
+            [
+              "T1486",
+              "event-4",
+              "E4.3"
+            ],
+            [
+              "T1486",
+              "event-5",
+              "E5.3"
+            ],
+            [
+              "T1486",
+              "event-6",
+              "E6.3"
+            ],
+            [
+              "T1486",
+              "event-7",
+              "E7.1"
+            ],
+            [
+              "T1486",
+              "event-8",
+              "E8.1"
+            ]
+          ],
+          "matching": 6,
+          "returned": 8,
+          "desired": 8,
+          "exact": false,
+          "ordered_pairs": 15,
+          "comparable_pairs": 15
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 8,
+        "admitted_occurrences": 8,
+        "published_coverage": {
+          "admitted_occurrences": 8,
+          "covered_occurrences": 8,
+          "action_covered_occurrences": 2
+        }
+      },
+      "changes": [
+        {
+          "index": 6,
+          "removed": "F7/S2",
+          "added": "F7/S1"
+        },
+        {
+          "index": 7,
+          "removed": "F8/S4",
+          "added": "F8/S1"
+        }
+      ],
+      "retained_refs": 6,
+      "retained_order": true,
+      "original_occurrences_retained": true,
+      "verified_decisions_and_controls_unchanged": true,
+      "action_gain": 2,
+      "preference_loss": 2
+    }
+  ]
+}

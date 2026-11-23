@@ -1,0 +1,109 @@
+{
+  "protocol": "archived-reporting-action-holdout-v1",
+  "oracle": "Authored preferences on new synthetic case families. Record outcomes separately from observed actions.",
+  "runtime": {
+    "version": "0.40.13",
+    "model": "qwen2.5:7b",
+    "digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+    "quantization": "Q4_K_M",
+    "installation_manifest_sha256": "156bcbf71df68f7a6581fb4ab306ed921b8114d82b6eaeab5c0442785ea9b4c3",
+    "options": {"temperature": 0, "seed": 19, "num_ctx": 4096, "num_predict": 192},
+    "keep_alive": "3m",
+    "timeout_seconds": 120
+  },
+  "decision": {
+    "minimum_selected_primary_cases": 5,
+    "minimum_action_coverage_percent": 90,
+    "minimum_comparable_pairs_per_arm": 2,
+    "maximum_precision_loss_points": 10,
+    "maximum_order_loss_points": 10
+  },
+  "cases": [
+    {
+      "id": "observatory-recovery-window", "group": "primary",
+      "events": [
+        {"technique": "T1490", "action": "The recovery catalogue recorded removal of a rollback image from an observatory instrument queue.",
+         "outcome": "A restore drill failed for three observation batches. An independent weekly copy remained usable."}
+      ],
+      "highlights": [["T1490", null, "E1.3"], ["T1490", null, "E1.1"]],
+      "recommendations": ["T1490-1"]
+    },
+    {
+      "id": "clinic-display-review", "group": "primary",
+      "events": [
+        {"technique": "T1113", "action": "The audit intake received a screen image from a synthetic clinic display.",
+         "outcome": "The privacy review confirmed that one fictional appointment label appeared in the image and no contact information was visible."}
+      ],
+      "highlights": [["T1113", null, "E1.3"], ["T1113", null, "E1.1"]],
+      "recommendations": ["T1113-1"]
+    },
+    {
+      "id": "marina-access-reconciliation", "group": "primary",
+      "events": [
+        {"technique": "T1098.003", "action": "A marina exercise recorded a temporary berthing dispatcher role.",
+         "outcome": "The drill supervisor confirmed that the dispatcher role expired on schedule.", "authorized": true},
+        {"technique": "T1098.003", "action": "A separate reconciliation recorded a standing role added to the harbour records account.",
+         "outcome": "The access reviewer confirmed that the account could change the restricted reservation ledger until the grant was removed."}
+      ],
+      "highlights": [["T1098.003", "event-2", "E2.3"], ["T1098.003", "event-2", "E2.1"]],
+      "recommendations": ["T1098.003-1"]
+    },
+    {
+      "id": "museum-collection-continuity", "group": "primary",
+      "events": [
+        {"technique": "T1486", "action": "The collection registry recorded encryption of the condition-assessment archive.",
+         "outcome": "The registrar confirmed 12 objects were held back from scheduled transport until the condition reports were restored."},
+        {"technique": "T1486", "action": "A separate work order recorded encryption of a thumbnail workspace.",
+         "outcome": "The image team regenerated two thumbnails from available originals during the same shift."}
+      ],
+      "highlights": [["T1486", "event-1", "E1.3"], ["T1486", "event-1", "E1.1"], ["T1486", "event-2", "E2.3"], ["T1486", "event-2", "E2.1"]],
+      "recommendations": ["T1486-1", "T1486-2"]
+    },
+    {
+      "id": "union-correspondence-review", "group": "primary",
+      "events": [
+        {"technique": "T1114.003", "action": "The mail review recorded a forwarding rule on a synthetic correspondence queue.",
+         "outcome": "A message audit confirmed two meeting updates went to an unapproved rehearsal destination and none contained attachments."}
+      ],
+      "highlights": [["T1114.003", null, "E1.3"], ["T1114.003", null, "E1.1"]],
+      "recommendations": ["T1114.003-1"]
+    },
+    {
+      "id": "municipal-custody-reconciliation", "group": "primary",
+      "events": [
+        {"technique": "T1685.005", "action": "A separate compliance review recorded that an event log on the permits archive host had been cleared.",
+         "outcome": "The compliance reviewer confirmed a gap in the host journal while centrally retained records remained available."},
+        {"technique": "T1490", "action": "A recovery operator recorded an unavailable restoration point for the synthetic public-service kiosk.",
+         "outcome": "The recovery review confirmed a missed restoration window and a four-hour interruption."}
+      ],
+      "highlights": [["T1490", null, "E2.3"], ["T1685.005", null, "E1.3"], ["T1490", null, "E2.1"], ["T1685.005", null, "E1.1"]],
+      "recommendations": ["T1490-1", "T1685.005-1"]
+    },
+    {
+      "id": "storm-collection-cap", "group": "capacity",
+      "events": [
+        {"technique": "T1486", "action": "A ledger recorded encryption of the storm alert contact archive.", "outcome": "A recovery exercise confirmed a forty-minute delay to the alert distribution schedule."},
+        {"technique": "T1486", "action": "A ledger recorded encryption of the rain-tank inspection archive.", "outcome": "The inspection team recovered three records from paper copies."},
+        {"technique": "T1486", "action": "A ledger recorded encryption of the breakwater condition archive.", "outcome": "A daily review was postponed for four hours."},
+        {"technique": "T1486", "action": "A ledger recorded encryption of the floodplain boundary maps.", "outcome": "The synthetic operations room could not retrieve six map sheets during the exercise."},
+        {"technique": "T1486", "action": "A ledger recorded encryption of the volunteer shift archive.", "outcome": "Two shift records required manual confirmation."},
+        {"technique": "T1486", "action": "A ledger recorded encryption of the drain inventory archive.", "outcome": "The paper drain inventory remained available."},
+        {"technique": "T1486", "action": "A ledger recorded encryption of the levee maintenance archive.", "outcome": "Six maintenance tasks paused until the archive was restored."},
+        {"technique": "T1486", "action": "A ledger recorded encryption of the missing-person exercise register.", "outcome": "The exercise coordinator switched to the pre-arranged manual register for twenty minutes."},
+        {"technique": "T1486", "action": "A ledger recorded encryption of the exercise debrief archive.", "outcome": "The coordinator recovered one draft from an earlier copy."}
+      ],
+      "highlights": [["T1486", "event-1", "E1.3"], ["T1486", "event-4", "E4.3"], ["T1486", "event-7", "E7.3"], ["T1486", "event-3", "E3.3"], ["T1486", "event-8", "E8.3"], ["T1486", "event-2", "E2.3"], ["T1486", "event-5", "E5.3"], ["T1486", "event-9", "E9.3"]],
+      "recommendations": ["T1486-1", "T1486-2"],
+      "full_cap_selection": {"highlights": ["F1/S3", "F2/S3", "F3/S3", "F4/S3", "F5/S3", "F6/S3", "F7/S3", "F8/S3"], "recommendations": ["T1486-1", "T1486-2"], "emphasis": "observed_impact"}
+    },
+    {
+      "id": "weather-notice-rehearsal", "group": "benign",
+      "events": [
+        {"technique": "T1114.003", "action": "The approved weather notice rehearsal logged a temporary forwarding rule for the exercise mailbox.",
+         "outcome": "The signed rehearsal log recorded delivery to the approved responder inbox and the scheduled rollback.", "authorized": true}
+      ],
+      "highlights": [],
+      "recommendations": []
+    }
+  ]
+}

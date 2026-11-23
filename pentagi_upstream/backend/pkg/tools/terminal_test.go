@@ -291,7 +291,7 @@ func TestTerminal_ReadFile_RefusesWhatItCannotReadWhole(t *testing.T) {
 	}
 }
 
-// validateFilePath lets both through, so the archive refuses them before anything is copied.
+// Invalid destinations must be refused before contacting Docker.
 func TestTerminal_WriteFile_RefusesANameTheArchiveCannotCarry(t *testing.T) {
 	tests := []struct {
 		name string
@@ -301,13 +301,33 @@ func TestTerminal_WriteFile_RefusesANameTheArchiveCannotCarry(t *testing.T) {
 		{
 			name: "a name holding a NUL byte",
 			path: "/work/a\x00b.txt",
-			want: "tar archive header generation failed: archive/tar: cannot encode header",
+			want: "container file destination contains a backslash or NUL",
 		},
 		{
 			// The entry for "/" is a directory, which holds no content.
 			name: "the root directory",
 			path: "/",
-			want: "tar archive content serialization failed: archive/tar: write too long",
+			want: "container root is a directory, not a file destination",
+		},
+		{
+			name: "an equivalent spelling of the root directory",
+			path: "/tmp/..",
+			want: "container root is a directory, not a file destination",
+		},
+		{
+			name: "parent-directory component",
+			path: "/work/../notes.txt",
+			want: "container file destination contains a parent-directory component",
+		},
+		{
+			name: "Windows-style separator",
+			path: `work\notes.txt`,
+			want: "container file destination contains a backslash or NUL",
+		},
+		{
+			name: "directory with trailing slash",
+			path: "/work/",
+			want: "container file destination must name a file",
 		},
 	}
 
@@ -320,9 +340,19 @@ func TestTerminal_WriteFile_RefusesANameTheArchiveCannotCarry(t *testing.T) {
 
 			require.NoError(t, err, "a tool failure is a soft (nil-error) response")
 			assert.Contains(t, result, "terminal tool 'file' handled with error: "+tt.want)
+			assert.Empty(t, mock.probed, "Docker must not be queried for an invalid destination")
 			assert.Zero(t, mock.copies, "nothing may be copied into the sandbox")
 		})
 	}
+}
+
+func TestTerminal_WriteFile_UsesLiteralContainerDestination(t *testing.T) {
+	mock := &fakeDockerClient{isRunning: true}
+	result, err := terminalFor(mock, &recordingTermLog{}).WriteFile(t.Context(), 1, "synthetic note", "/work/notes.txt")
+	require.NoError(t, err)
+	assert.Contains(t, result, "Successfully wrote")
+	assert.Equal(t, "/work", mock.copiedTo)
+	assert.Equal(t, map[string]string{"notes.txt": "synthetic note"}, mock.copied)
 }
 
 func TestTerminal_EditFile_AppliesTheDiff(t *testing.T) {

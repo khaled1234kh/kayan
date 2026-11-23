@@ -1,0 +1,198 @@
+{
+  "1-bm25_k5": {
+    "cases": 18,
+    "counts": {
+      "contract": 18,
+      "abstain": 3,
+      "exact": 3,
+      "tech_tp": 5,
+      "tech_fp": 39,
+      "tech_fn": 5,
+      "groups_complete": 0,
+      "targets": 10,
+      "unsupported": 44,
+      "missed": 10,
+      "citations": 51,
+      "keyed": 5,
+      "corroborating": 0,
+      "bad_cites": 46,
+      "pair_tp": 5,
+      "pair_fp": 44,
+      "pair_fn": 20,
+      "cost": 144
+    },
+    "citation_classes": {
+      "unkeyed": 44,
+      "keyed_support": 5,
+      "unlinked": 1,
+      "topic_only": 1
+    },
+    "technique_f1": 0.18518518518518517,
+    "record_pair_f1": 0.13513513513513514,
+    "complete_group_recall": 0.0,
+    "citation_relevance": 0.09803921568627451,
+    "known_negative_specificity": 0.5,
+    "inconclusive_abstention": 0.0,
+    "abstention_rate": 0.16666666666666666,
+    "mean_cost": 8.0,
+    "structural_screen_retained": {
+      "flint": [
+        "T1685.006"
+      ],
+      "ash": [
+        "T1564.004",
+        "T1564.014",
+        "T1578.001"
+      ]
+    },
+    "structural_screen_blocked": 40
+  },
+  "1-hybrid192_k5": {
+    "cases": 18,
+    "counts": {
+      "contract": 18,
+      "abstain": 1,
+      "exact": 1,
+      "tech_tp": 4,
+      "tech_fp": 48,
+      "tech_fn": 6,
+      "groups_complete": 0,
+      "targets": 10,
+      "unsupported": 52,
+      "missed": 10,
+      "citations": 59,
+      "keyed": 5,
+      "corroborating": 0,
+      "bad_cites": 54,
+      "pair_tp": 5,
+      "pair_fp": 51,
+      "pair_fn": 20,
+      "cost": 168
+    },
+    "citation_classes": {
+      "unkeyed": 47,
+      "keyed_support": 5,
+      "unresolved": 1,
+      "topic_only": 3,
+      "contradicts": 2,
+      "action_only": 1
+    },
+    "technique_f1": 0.12903225806451613,
+    "record_pair_f1": 0.12345679012345678,
+    "complete_group_recall": 0.0,
+    "citation_relevance": 0.0847457627118644,
+    "known_negative_specificity": 0.16666666666666666,
+    "inconclusive_abstention": 0.0,
+    "abstention_rate": 0.05555555555555555,
+    "mean_cost": 9.333333333333334,
+    "structural_screen_retained": {
+      "flint": [
+        "T1685.001"
+      ],
+      "ash": [
+        "T1070",
+        "T1490",
+        "T1680"
+      ]
+    },
+    "structural_screen_blocked": 48
+  },
+  "2-bm25_k5": {
+    "cases": 18,
+    "counts": {
+      "contract": 18,
+      "abstain": 3,
+      "exact": 3,
+      "tech_tp": 5,
+      "tech_fp": 39,
+      "tech_fn": 5,
+      "groups_complete": 0,
+      "targets": 10,
+      "unsupported": 44,
+      "missed": 10,
+      "citations": 51,
+      "keyed": 5,
+      "corroborating": 0,
+      "bad_cites": 46,
+      "pair_tp": 5,
+      "pair_fp": 44,
+      "pair_fn": 20,
+      "cost": 144
+    },
+    "citation_classes": {
+      "unkeyed": 44,
+      "keyed_support": 5,
+      "unlinked": 1,
+      "topic_only": 1
+    },
+    "technique_f1": 0.18518518518518517,
+    "record_pair_f1": 0.13513513513513514,
+    "complete_group_recall": 0.0,
+    "citation_relevance": 0.09803921568627451,
+    "known_negative_specificity": 0.5,
+    "inconclusive_abstention": 0.0,
+    "abstention_rate": 0.16666666666666666,
+    "mean_cost": 8.0,
+    "structural_screen_retained": {
+      "flint": [
+        "T1685.006"
+      ],
+      "ash": [
+        "T1564.004",
+        "T1564.014",
+        "T1578.001"
+      ]
+    },
+    "structural_screen_blocked": 40
+  },
+  "2-hybrid192_k5": {
+    "cases": 18,
+    "counts": {
+      "contract": 18,
+      "abstain": 1,
+      "exact": 1,
+      "tech_tp": 4,
+      "tech_fp": 49,
+      "tech_fn": 6,
+      "groups_complete": 0,
+      "targets": 10,
+      "unsupported": 53,
+      "missed": 10,
+      "citations": 58,
+      "keyed": 5,
+      "corroborating": 0,
+      "bad_cites": 53,
+      "pair_tp": 5,
+      "pair_fp": 52,
+      "pair_fn": 20,
+      "cost": 169
+    },
+    "citation_classes": {
+      "unkeyed": 47,
+      "keyed_support": 5,
+      "unresolved": 1,
+      "contradicts": 2,
+      "action_only": 1,
+      "topic_only": 2
+    },
+    "technique_f1": 0.12698412698412698,
+    "record_pair_f1": 0.12195121951219512,
+    "complete_group_recall": 0.0,
+    "citation_relevance": 0.08620689655172414,
+    "known_negative_specificity": 0.16666666666666666,
+    "inconclusive_abstention": 0.0,
+    "abstention_rate": 0.05555555555555555,
+    "mean_cost": 9.38888888888889,
+    "structural_screen_retained": {
+      "flint": [
+        "T1685.001"
+      ],
+      "ash": [
+        "T1070",
+        "T1490",
+        "T1680"
+      ]
+    },
+    "structural_screen_blocked": 49
+  }
+}

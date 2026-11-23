@@ -21,9 +21,9 @@ class AuthorizationResult:
 class TrustGateClient:
     """HTTP client for the TrustGate policy enforcement service."""
 
-    def __init__(self, base_url: str = "http://127.0.0.1:8000"):
+    def __init__(self, base_url: str = "http://127.0.0.1:8000", *, trust_env: bool = True):
         self.base_url = base_url.rstrip("/")
-        self._client = httpx.Client(timeout=10.0)
+        self._client = httpx.Client(timeout=10.0, trust_env=trust_env)
 
     def authorize(
         self,

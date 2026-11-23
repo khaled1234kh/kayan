@@ -1,0 +1,749 @@
+{
+  "schema": "kayan.engineering-acceptance/1",
+  "verified_on": "2026-11-23",
+  "reference_root": "Canonical KAYAN development checkout. Narrow feature branches may omit historical research files.",
+  "status_values": [
+    "not_started",
+    "in_progress",
+    "implemented_unverified",
+    "verified_automated",
+    "verified_operational",
+    "independently_validated"
+  ],
+  "criteria": [
+    {
+      "id": "operational.five_roles",
+      "requirement": "Planner, Recon, Web-App, Network and Reporting have distinct capabilities and auditable assignment, outcome and recovery states.",
+      "implementation": [
+        "pentagi/live_engagement.py",
+        "console/backend/session_store.py"
+      ],
+      "verification": [
+        "tests/test_planner_coordination.py",
+        "docs/PLANNER_ACCURACY_2026-11-04.md"
+      ],
+      "metrics": [
+        "role completion",
+        "assignment order",
+        "recovery decisions",
+        "unnecessary operations",
+        "user-visible state accuracy"
+      ],
+      "status": "in_progress",
+      "evidence": "The five-role implementation is present and historical owned-lab examples exist. Current full-workflow failure and recovery cases were not rerun."
+    },
+    {
+      "id": "security.authorization",
+      "requirement": "Verify signed ROE and independently authorize each operation with action-specific Rust/Cedar decisions and auditable outcomes. Missing or invalid authorization must fail closed.",
+      "implementation": [
+        "trustgate/service",
+        "integration/trustgate_client.py",
+        "pentagi_upstream/backend/pkg/tools/executor.go"
+      ],
+      "verification": [
+        "pentagi_upstream/backend/pkg/tools/governance_test.go",
+        "https://github.com/khaled1234kh/kayan/actions/runs/44919189760"
+      ],
+      "metrics": [
+        "unauthorized side effects",
+        "false denials",
+        "audit coverage"
+      ],
+      "status": "verified_automated",
+      "evidence": "Ubuntu CI passed 180 tools and 10 Go TrustGate tests, with the live Cedar test skipped. Executor bookkeeping tests do not measure live authorization."
+    },
+    {
+      "id": "security.evidence_isolation",
+      "requirement": "Bind source captures, approved review, custody and admission to the same case and revision. Reject tampering, forged approvals and cross-case reuse.",
+      "implementation": [
+        "pentagi/execution_evidence.py",
+        "console/backend/reporting_evidence.py",
+        "console/backend/reporting_exchange.py"
+      ],
+      "verification": [
+        "tests/test_tool_evidence.py",
+        "tests/test_signed_reporting_exchange.py"
+      ],
+      "metrics": [
+        "tampered or misbound records rejected",
+        "source capture completeness",
+        "review and custody state recovery"
+      ],
+      "status": "verified_automated",
+      "evidence": "Synthetic and saved loopback fixtures cover capture, receipt replay and restoration. Signed import rechecks current evidence, reviews and signer before insertion. Two app instances share a writer lock for review publication and receipt insertion. External authority and independent reviewer enrollment are pending."
+    },
+    {
+      "id": "correctness.admission",
+      "requirement": "Admit a finding only with the complete reviewed provenance required by admission v2. Withhold unsupported, ambiguous and contradicted claims per occurrence.",
+      "implementation": [
+        "eval/attack_evidence_admission_v2.py",
+        "eval/attack_evidence_guard_v4.py",
+        "pentagi/agents/archived_reporting.py"
+      ],
+      "verification": [
+        "tests/test_attack_evidence_admission_v2.py",
+        "docs/ATTACK_PROVENANCE_ADMISSION_V2_FINAL_SIGNOFF_2026-11-20.md"
+      ],
+      "metrics": [
+        "false eligible findings",
+        "eligible supported findings",
+        "complete evidence groups",
+        "exact occurrence and citation attribution"
+      ],
+      "status": "independently_validated",
+      "evidence": "Documented independent engineering sign-off covers the bounded offline verifier using synthetic inputs. Real-telemetry intake remains NO-GO."
+    },
+    {
+      "id": "correctness.signed_occurrence_attribution",
+      "requirement": "Only explicitly scoped adverse reviews with a unique verifier source binding may narrow the veto. Preserve exact per-occurrence decisions and reviewed source roles.",
+      "implementation": [
+        "console/backend/reporting_review.py",
+        "console/backend/reporting_exchange.py"
+      ],
+      "verification": [
+        "tests/test_archived_signed_attribution.py",
+        "docs/REUSABLE_REPORTING.md#signed-finding-and-occurrence-attribution"
+      ],
+      "metrics": [
+        "exact admitted and withheld occurrence IDs",
+        "exact reviewed source-role bindings",
+        "false withholdings",
+        "false admissions"
+      ],
+      "status": "verified_automated",
+      "evidence": "Seven frozen synthetic cases passed versus two at baseline. Eight additional scope and intake controls passed. Signed test-only import, local Reporting and exact export were exercised after app recreation. No real reviewer or custody enrollment."
+    },
+    {
+      "id": "correctness.mapping_generation",
+      "requirement": "Compare grounded ATT&CK generation against separate retrieval, occurrence, source, role and complete evidence oracles.",
+      "implementation": [
+        "eval/attack_evidence_guard_v4.py",
+        "ai/mitre/ranking.py"
+      ],
+      "verification": [
+        "docs/ATTACK_MAPPING_ABLATION_2026-11-20.md",
+        "docs/ATTACK_DIAGNOSTIC_D_RESULTS_V3_2026-11-20.md",
+        "docs/CLOUD_PIVOT_EXTRACTION_V2_RESULTS.md"
+      ],
+      "metrics": [
+        "technique precision/recall/F1",
+        "role and citation precision/recall",
+        "complete proof recall",
+        "unsupported outputs",
+        "semantic abstention"
+      ],
+      "status": "in_progress",
+      "evidence": "Diagnostic top-5 runs scored 22/32 exact for field BM25 and 26/32 for hybrid. Experiment D yielded 0/3 complete groups in both mapping arms. Better technique selection has not established better proof assembly."
+    },
+    {
+      "id": "correctness.phase_one_vendor_access",
+      "requirement": "Distinguish a stated external-access relationship from co-occurring vendor and VPN words in offline planning and preserve exact evidence and Option A links.",
+      "implementation": [
+        "pentagi/contextual_planning.py",
+        "pentagi/risk_plan.py",
+        "console/backend/planning_api.py"
+      ],
+      "verification": [
+        "tests/test_contextual_planning.py",
+        "eval/fixtures/planning_vendor_relationship_v1.json",
+        "docs/PLANNING_AND_COORDINATION_2026-11-03.md#vendor-remote-access-validity--2026-11-21"
+      ],
+      "metrics": [
+        "true and false vendor hypotheses",
+        "correct abstentions",
+        "unchanged exact context and mitigation evidence links"
+      ],
+      "status": "verified_automated",
+      "evidence": "The frozen authored set moved from 9/16 to 16/16 exact, with eight supported matches retained and seven false matches removed. Both archived planning sets stayed exact. Phase 1 and Option A were exercised without inference or target access."
+    },
+    {
+      "id": "correctness.phase_one_api_record_link",
+      "requirement": "Require a stated interface-to-record relationship and preserve exact evidence through offline Option A.",
+      "implementation": [
+        "pentagi/contextual_planning.py",
+        "console/backend/planning_api.py"
+      ],
+      "verification": [
+        "tests/test_contextual_planning.py",
+        "eval/fixtures/planning_api_relationship_v1.json",
+        "docs/PLANNING_AND_COORDINATION_2026-11-03.md#api-to-record-relationships-in-phase-1"
+      ],
+      "metrics": [
+        "true and false hypotheses",
+        "correct abstentions",
+        "exact evidence to mitigation link"
+      ],
+      "status": "verified_automated",
+      "evidence": "The authored fixture improved from 12/16 to 16/16. Eight expected hypotheses were retained and four false positives were removed. A mixed clause tested exact evidence pointers and Option A binding."
+    },
+    {
+      "id": "evaluation.planner",
+      "requirement": "Measure Planner assignment, dependencies, intent, recovery, loops and unnecessary operations independently from deterministic Phase 1 planning.",
+      "implementation": [
+        "pentagi/live_engagement.py",
+        "eval/planner_accuracy.py"
+      ],
+      "verification": [
+        "tests/test_planner_accuracy_eval.py",
+        "docs/PLANNER_ACCURACY_2026-11-04.md"
+      ],
+      "metrics": [
+        "first-pass and post-correction exactness",
+        "scope fidelity",
+        "recovery accuracy",
+        "duplicate operations"
+      ],
+      "status": "in_progress",
+      "evidence": "The historical closed-world inference benchmark reported 24/30 first pass and 26/30 after correction. Cases were authored and supplied runtime constraints; the score does not establish held-out accuracy."
+    },
+    {
+      "id": "evaluation.specialists",
+      "requirement": "Measure Recon attribution and coverage, Web-App finding and remediation fidelity, and Network observation accuracy and scope fidelity with distinct oracles.",
+      "implementation": [
+        "pentagi/live_engagement.py"
+      ],
+      "verification": [
+        "tests/test_planner_coordination.py",
+        "docs/RESEARCH_UPDATE.md"
+      ],
+      "metrics": [
+        "grounded discovery coverage",
+        "false positives and false negatives by role",
+        "reproducible findings",
+        "duplicate observations",
+        "remediation fidelity"
+      ],
+      "status": "in_progress",
+      "evidence": "Existing coordination and reports cover selected synthetic cases. Independent per-role quality scores and a held-out evaluation are unestablished."
+    },
+    {
+      "id": "evaluation.specialist_saved_observation_attribution",
+      "requirement": "Keep saved observations attributed to their validated roles and distinguish duplicate delivery, contradictory evidence and historical transcripts.",
+      "implementation": [
+        "console/backend/reporting_evidence.py",
+        "console/backend/reporting_api.py",
+        "console/office/src/components/ui/ArchivedReport.tsx"
+      ],
+      "verification": [
+        "tests/test_archived_specialist_attribution.py",
+        "docs/REUSABLE_REPORTING.md#specialist-observation-attribution"
+      ],
+      "metrics": [
+        "exact role and artifact attribution",
+        "retained and excluded observations",
+        "duplicate and conflict consistency",
+        "export identity"
+      ],
+      "status": "verified_automated",
+      "evidence": "Passive replays improved from 7/9 to 9/9. The browser showed declared completion separately from retained output, and the historical owned-lab archive remained transcript-only. Independent finding accuracy remains open."
+    },
+    {
+      "id": "cloud.reporting",
+      "requirement": "Allow bounded provider selection for defensive Reporting under digest-specific approval, independent egress authorization and deterministic admission.",
+      "implementation": [
+        "console/backend/reporting_api.py",
+        "ai/providers/reporting_sovereign.py",
+        "pentagi/agents/archived_reporting.py"
+      ],
+      "verification": [
+        "tests/test_archived_reporting.py",
+        "docs/ARCHIVED_REPORTING.md"
+      ],
+      "metrics": [
+        "egress attempts per approval",
+        "provider/model attribution",
+        "verified selection",
+        "unchanged supported and withheld findings",
+        "latency and tokens"
+      ],
+      "status": "verified_operational",
+      "evidence": "One historical authorized Slate request returned a valid excerpt and control selection and the browser export matched. The smoke test does not measure generation of independently grounded findings."
+    },
+    {
+      "id": "reporting.complete_reviewed_proof",
+      "requirement": "Disclose the exact reviewed evidence group per role and occurrence independently of summary capacity, and verify it before download.",
+      "implementation": [
+        "pentagi/agents/archived_reporting.py",
+        "console/office/src/components/ui/ArchivedReport.tsx"
+      ],
+      "verification": [
+        "tests/test_archived_reporting_proof_disclosure.py",
+        "docs/ARCHIVED_REPORTING_FULL_SUMMARY.md#full-reviewed-proof"
+      ],
+      "metrics": [
+        "exact role-to-source links",
+        "complete occurrence proof disclosures",
+        "unchanged admission decisions and summary coverage",
+        "exact browser export"
+      ],
+      "status": "verified_automated",
+      "evidence": "Nine authored synthetic archives improved from 212/215 to 215/215 exact links and 50/53 to 53/53 full occurrence disclosures. A browser round trip rendered secondary support and exported identical bytes using a test-only write gate."
+    },
+    {
+      "id": "reporting.local_model_ranking",
+      "requirement": "Offer a pinned local model for ranking admitted Reporting excerpts with separate inference authorization and deterministic fallback.",
+      "implementation": [
+        "ai/providers/reporting_ollama.py",
+        "console/backend/reporting_api.py",
+        "console/office/src/components/ui/ArchivedReport.tsx"
+      ],
+      "verification": [
+        "tests/test_archived_reporting_ollama.py",
+        "tests/test_reporting_signed_audit_restart.py",
+        "docs/ARCHIVED_REPORTING_LOCAL_RANKING.md#opt-in-console-mode",
+        "docs/ARCHIVED_REPORTING_LOCAL_RANKING.md#interrupted-local-requests"
+      ],
+      "metrics": [
+        "fallback with no generation on denial",
+        "exact verified citation selection",
+        "preserved dispositions",
+        "tokens and latency",
+        "exact browser download"
+      ],
+      "status": "verified_automated",
+      "evidence": "One real pinned Ollama call through a synthetic gate rendered the T1486 excerpt and withheld T1490. Browser export matched the saved bytes. A separate isolated Rust/Cedar run denied unscoped writes and write-only inference, then allowed one mocked selection. The verified journal bound its inference decisions to the exact request digest. An application restart fixture recovers the first-run fallback and preserves a valid prior selection after interruption."
+    },
+    {
+      "id": "cloud.role_selection",
+      "requirement": "Measure local, cloud and role-specific configurations with safe provider substitution, structured outputs, independent authorization and attributable results.",
+      "implementation": [
+        "pentagi/ollama_client.py",
+        "ai/providers/registry.py",
+        "console/backend/reporting_api.py"
+      ],
+      "verification": [
+        "tests/test_ai_layer.py",
+        "docs/CLOUD_PIVOT_REAL_EXECUTION_RESULTS_2026-11-21.md"
+      ],
+      "metrics": [
+        "accuracy, latency, token use and spend by role",
+        "failure and fallback rates",
+        "effective provider and model"
+      ],
+      "status": "in_progress",
+      "evidence": "The actual sequential assessment uses local Ollama. Experimental cloud dispatch is paused. Archived Reporting is the only demonstrated real cloud workflow. There is no active approval for a new cloud request."
+    },
+    {
+      "id": "reliability.reporting_recovery",
+      "requirement": "Recover a verified local report after interruption of an approved cloud attempt without reissuing the request.",
+      "implementation": [
+        "console/backend/reporting_api.py"
+      ],
+      "verification": [
+        "tests/test_archived_reporting.py"
+      ],
+      "metrics": [
+        "one mock transport invocation",
+        "identical recovered API/download JSON",
+        "unchanged findings and audit references",
+        "approval replay rejected",
+        "total request deadline"
+      ],
+      "status": "verified_automated",
+      "evidence": "An interrupted transport call previously returned no saved result (404). The same evidence revision now returns the degraded local report after app recreation and rejects replay. A separate mock exceeded a 0.2-second total deadline across individually shorter waits and also recovered the fallback without retry."
+    },
+    {
+      "id": "operational.saved_report_metrics",
+      "requirement": "Display verified provider metadata from a saved report, including genuine zero reasoning tokens. Omit cloud metrics for local output and degraded fallback.",
+      "implementation": [
+        "console/office/src/components/ui/ArchivedReport.tsx",
+        "console/backend/reporting_api.py"
+      ],
+      "verification": [
+        "console/office/scripts/session-panel-check.tsx",
+        "tests/test_archived_reporting.py"
+      ],
+      "metrics": [
+        "saved and exported usage",
+        "partial legacy metadata",
+        "zero and invalid values",
+        "fallback attribution"
+      ],
+      "status": "verified_automated",
+      "evidence": "Rendered-HTML assertions and the production build passed. The browser visual check remains pending."
+    },
+    {
+      "id": "correctness.report_export_identity",
+      "requirement": "Export the exact report bytes loaded by the console, or reject the export and prompt review after custody or saved output changes.",
+      "implementation": [
+        "console/backend/reporting_api.py",
+        "console/office/src/components/ui/ArchivedReport.tsx"
+      ],
+      "verification": [
+        "tests/test_reusable_reporting.py",
+        "tests/test_archived_reporting.py",
+        "console/office/scripts/session-panel-check.tsx"
+      ],
+      "metrics": [
+        "view and download byte equality",
+        "custody changes rejected",
+        "same-revision replacements rejected",
+        "restart fallback identity"
+      ],
+      "status": "verified_automated",
+      "evidence": "A stale export previously returned the next custody decision's report with HTTP 200. A digest-bound export now returns HTTP 409 until the operator loads the current report. Runs, views and matching exports have identical bytes and hashes."
+    },
+    {
+      "id": "correctness.report_citation_projection",
+      "requirement": "Send primary verifier addresses in retrospective proposals and preserve the verifier's attached supporting statements in the admitted report.",
+      "implementation": [
+        "pentagi/agents/archived_reporting.py",
+        "eval/attack_fact_guard_adapter_v1.py"
+      ],
+      "verification": [
+        "tests/test_archived_reporting.py"
+      ],
+      "metrics": [
+        "supported finding recovered",
+        "exact occurrence and statement addresses",
+        "missing support rejected",
+        "authorized activity withheld"
+      ],
+      "status": "verified_automated",
+      "evidence": "One reviewed synthetic Windows fixture went from incorrectly withheld to correctly admitted with E1.2 retained as supporting context. Its authorized variant stays withheld, and omitting the supporting record fails verification. The pinned Slate request digest is unchanged."
+    },
+    {
+      "id": "correctness.report_occurrence_resolution",
+      "requirement": "Keep separate occurrences of one technique distinct and only display each occurrence with admission and provenance for that event.",
+      "implementation": [
+        "pentagi/agents/archived_reporting.py",
+        "console/office/src/components/ui/ArchivedReport.tsx"
+      ],
+      "verification": [
+        "tests/test_archived_reporting_projection.py",
+        "docs/ARCHIVED_REPORTING_PROJECTION_BENCHMARK.md"
+      ],
+      "metrics": [
+        "supported occurrences recovered",
+        "false admissions",
+        "false withholdings",
+        "exact source addresses",
+        "invalid evidence rejected"
+      ],
+      "status": "verified_automated",
+      "evidence": "The frozen synthetic test recovered 4/4 supported occurrences from a baseline of 1/4. Both runs admitted 0/6 withheld occurrences. Ambiguous shared anchors remain withheld."
+    },
+    {
+      "id": "cloud.occurrence_selection",
+      "requirement": "Resolve cloud selections to exact admitted occurrences, preserve existing approved requests, and reject stale, ambiguous or repeated use.",
+      "implementation": [
+        "pentagi/agents/archived_reporting.py",
+        "console/backend/reporting_api.py"
+      ],
+      "verification": [
+        "tests/test_archived_reporting_projection.py",
+        "tests/test_archived_reporting.py",
+        "docs/ARCHIVED_REPORTING.md"
+      ],
+      "metrics": [
+        "distinct source bindings",
+        "withheld or ambiguous aliases rejected",
+        "legacy digest equality",
+        "stale scope refusal",
+        "attempts across competing app instances"
+      ],
+      "status": "verified_automated",
+      "evidence": "Mocked selections matched the indicated occurrence even with shared addresses. Duplicate JSON keys and invalid aliases failed. Custody or grant changes were refused before provider setup or before publication. Two app instances sharing the directory made one mock request. Real provider behavior remains unverified for the occurrence-aware format."
+    },
+    {
+      "id": "evaluation.reporting_selection_replay",
+      "requirement": "Measure authored Reporting selection relevance, ordering, fallback, coverage and finding integrity as distinct outcomes.",
+      "implementation": [
+        "eval/archived_reporting_selection.py",
+        "pentagi/agents/archived_reporting.py",
+        "console/office/src/components/ui/ArchivedReport.tsx"
+      ],
+      "verification": [
+        "tests/test_archived_reporting_selection.py",
+        "console/office/scripts/session-panel-check.tsx",
+        "docs/ARCHIVED_REPORTING_SELECTION_REPLAY.md"
+      ],
+      "metrics": [
+        "desired reference precision and recall",
+        "exact ordering and comparable pairs",
+        "occurrence and action coverage",
+        "fallback and exact export",
+        "immutable findings"
+      ],
+      "status": "verified_automated",
+      "evidence": "All 14 synthetic replays matched the expected outcomes, with 7 selected, 6 local fallbacks and 1 blocked before any request. Admitted and withheld findings were identical in every case. New coverage fields explain partial and weakly relevant results. Browser visual verification and live model quality remain open."
+    },
+    {
+      "id": "evaluation.reporting_local_ranking",
+      "requirement": "Compare pinned local model selection and deterministic composition on frozen synthetic archives, preserving clear scope and the raw responses.",
+      "implementation": [
+        "eval/archived_reporting_local_ranking.py",
+        "eval/archived_reporting_action_coverage_ablation.py"
+      ],
+      "verification": [
+        "tests/test_archived_reporting_local_ranking.py",
+        "docs/ARCHIVED_REPORTING_LOCAL_RANKING.md"
+      ],
+      "metrics": [
+        "preferred-reference precision and recall",
+        "ordered pairs",
+        "admitted action coverage",
+        "immutable findings",
+        "local latency and tokens"
+      ],
+      "status": "verified_automated",
+      "evidence": "Six actual loopback Qwen replies were valid. Preferred excerpt recall was 10/14 versus 6/14 for the deterministic composer. Action coverage was 2/8 versus 8/8. A bounded offline replay of the saved selections recovered 8/8 action coverage at 14/17 preference precision. These are authored development cases, with no cloud requests."
+    },
+    {
+      "id": "evaluation.reporting_action_holdout",
+      "requirement": "Measure action coverage, preferred-reference precision and ordering on distinct synthetic archive families frozen before local inference.",
+      "implementation": [
+        "eval/archived_reporting_action_holdout.py",
+        "eval/fixtures/ai/archived_reporting_action_holdout_v1.lock.json"
+      ],
+      "verification": [
+        "tests/test_archived_reporting_action_holdout.py",
+        "docs/ARCHIVED_REPORTING_ACTION_HOLDOUT.md"
+      ],
+      "metrics": [
+        "observed-action coverage",
+        "preferred-reference precision and recall",
+        "comparable pair order",
+        "eight-excerpt cap",
+        "immutable findings and controls"
+      ],
+      "status": "verified_automated",
+      "evidence": "Seven local replies were valid. The offline supplement changed primary action coverage from 1/8 to 8/8 and preferred-reference precision from 9/12 to 16/19 without changing findings or controls. The full-cap report stayed at 0/9 action coverage. The authorized-only case made zero requests."
+    },
+    {
+      "id": "reporting.verified_action_presentation",
+      "requirement": "Show action excerpts from findings verified by admission v2 in remaining summary space, identify deterministic additions, and export exactly the saved report without changing claim decisions.",
+      "implementation": [
+        "pentagi/agents/archived_reporting.py",
+        "console/backend/reporting_api.py",
+        "console/office/src/components/ui/ArchivedReport.tsx"
+      ],
+      "verification": [
+        "tests/test_archived_reporting_action_holdout.py",
+        "tests/test_archived_reporting.py",
+        "tests/test_archived_reporting_selection.py",
+        "docs/ARCHIVED_REPORTING_ACTION_HOLDOUT.md#application-verification"
+      ],
+      "metrics": [
+        "observed-action coverage",
+        "stable selection order",
+        "verified origin marker",
+        "exact download bytes",
+        "immutable findings"
+      ],
+      "status": "verified_automated",
+      "evidence": "The new presentation recovered both occurrences in the partial and weak-relevance mocked cases. A rendered desktop fixture showed the label and correct supported and withheld claims. The browser export matched the saved file. Summaries at capacity still cannot append an action."
+    },
+    {
+      "id": "reporting.capacity_and_preservation",
+      "requirement": "Preserve selected summaries at capacity while keeping remaining admitted actions accessible with exact occurrence and source references.",
+      "implementation": [
+        "pentagi/agents/archived_reporting.py",
+        "console/office/src/components/ui/ArchivedReport.tsx"
+      ],
+      "verification": [
+        "tests/test_archived_reporting_full_summary.py",
+        "docs/ARCHIVED_REPORTING_FULL_SUMMARY.md"
+      ],
+      "metrics": [
+        "selected references and original order",
+        "overflow action coverage",
+        "withheld reference isolation",
+        "exact download bytes"
+      ],
+      "status": "verified_automated",
+      "evidence": "A frozen six-case comparison rejected a swap policy because of a case-level preference loss. The rendered mock confirmed one action in the eight-excerpt summary and seven additional occurrence-bound actions. The ninth occurrence stayed withheld, and the download matched the saved bytes."
+    },
+    {
+      "id": "reliability.reporting_saved_projection",
+      "requirement": "Verify saved findings and excerpts against the current archive before serving or downloading a report, including interrupted fallback.",
+      "implementation": [
+        "pentagi/agents/archived_reporting.py",
+        "console/backend/reporting_api.py",
+        "console/office/src/components/ui/ArchivedReport.tsx"
+      ],
+      "verification": [
+        "tests/test_archived_reporting.py",
+        "docs/ARCHIVED_REPORTING_FULL_SUMMARY.md#saved-result-verification"
+      ],
+      "metrics": [
+        "corruption rejection",
+        "byte-identical legacy read",
+        "no inference replay after corruption"
+      ],
+      "status": "verified_automated",
+      "evidence": "Nine altered saved or fallback fixtures returned HTTP 409. A legacy fixture and the original saved Slate cloud response remained verifiable without rewriting either report."
+    },
+    {
+      "id": "reliability.reporting_publication_and_capture_consistency",
+      "requirement": "Reject stale archive publications and conflicting scoped authorization evidence without broadening authority or reopening a consumed provider attempt.",
+      "implementation": [
+        "console/backend/reporting_api.py",
+        "console/backend/reporting_evidence.py"
+      ],
+      "verification": [
+        "tests/test_archived_reporting.py",
+        "tests/test_reusable_reporting.py",
+        "tests/test_tool_evidence.py",
+        "docs/REUSABLE_REPORTING.md#publication-and-capture-consistency"
+      ],
+      "metrics": [
+        "HTTP 409 and no stale publication",
+        "provider attempts before and after a change",
+        "capture rejection before and after result ordering"
+      ],
+      "status": "verified_automated",
+      "evidence": "Five stale publication cases and six contradictory authorization cases were reproduced and rejected after the corrections. Current local retries and unaffected capture controls passed. A completely independent audit cross-check remains open."
+    },
+    {
+      "id": "security.reporting_audit_reconciliation",
+      "requirement": "Corroborate captured authorization decisions against TrustGate's verified ledger without changing case admission or releasing raw audit arguments.",
+      "implementation": [
+        "trustgate/service/src/main.rs",
+        "trustgate/service/src/audit.rs",
+        "console/backend/reporting_audit.py",
+        "console/backend/reporting_api.py",
+        "console/office/src/components/ui/ArchivedReport.tsx"
+      ],
+      "verification": [
+        "tests/test_reporting_audit.py",
+        "docs/REUSABLE_REPORTING.md#trustgate-audit-reconciliation"
+      ],
+      "metrics": [
+        "exact scoped decision matches",
+        "missing and unavailable references",
+        "invalid journal rejection",
+        "audit journal entry count"
+      ],
+      "status": "verified_operational",
+      "evidence": "Actual cross-runtime loopback smoke found one matching denial and one missing reference with one journal entry before and after. The rendered mock kept audit outcomes separate from custody. No data left the loopback check."
+    },
+    {
+      "id": "reliability.signed_archive_audit_restart",
+      "requirement": "Keep the persisted signed archive and report available while exposing TrustGate journal restart, outage and integrity states separately.",
+      "implementation": [
+        "console/backend/reporting_audit.py",
+        "console/backend/reporting_exchange.py",
+        "console/backend/reporting_api.py"
+      ],
+      "verification": [
+        "tests/test_reporting_signed_audit_restart.py",
+        "docs/REUSABLE_REPORTING.md#signed-custody-and-audit-restart"
+      ],
+      "metrics": [
+        "audit status through service restart",
+        "byte-identical export",
+        "stable receipt head",
+        "unchanged withheld findings"
+      ],
+      "status": "verified_operational",
+      "evidence": "The cross-runtime test uses real Rust over localhost, a test-only local write decision and independently checked test signatures. All five lifecycle checkpoints preserved the receipt and report, with one inert denial in the journal."
+    },
+    {
+      "id": "reliability.system",
+      "requirement": "Exercise restart recovery, concurrency, cancellation, provider outage, egress restrictions and audit integrity across relevant Python, Go, Rust and frontend suites.",
+      "implementation": [
+        "console/backend/session_store.py",
+        "console/backend/reporting_api.py",
+        "trustgate/service",
+        "console/office"
+      ],
+      "verification": [
+        "tests/test_archived_reporting.py",
+        "docs/REUSABLE_REPORTING.md",
+        "https://github.com/khaled1234kh/kayan/actions/runs/44919189760"
+      ],
+      "metrics": [
+        "restart completeness",
+        "terminal and duplicate operations",
+        "timeout and recovery rate",
+        "pass/fail/skip totals per suite"
+      ],
+      "status": "in_progress",
+      "evidence": "Focused recovery, Go CI and saved console operational evidence exist. No matched current cross-component reliability run was performed."
+    },
+    {
+      "id": "evaluation.held_out",
+      "requirement": "Freeze matched local, cloud and hybrid comparisons with held-out case families, independent ground truth, uncertainty analysis and negative controls.",
+      "implementation": [
+        "eval/planner_accuracy.py",
+        "eval/attack_evidence_v2.py"
+      ],
+      "verification": [
+        "docs/ATTACK_RESEARCH_VALIDITY_2026-11-20.md",
+        "docs/ATTACK_ADMISSION_FEASIBILITY_PREREGISTRATION.md"
+      ],
+      "metrics": [
+        "paired uncertainty intervals",
+        "model and fallback costs",
+        "reviewer agreement",
+        "unsupported and missed events"
+      ],
+      "status": "in_progress",
+      "evidence": "Exposed diagnostics and authored oracles exist. No independently labelled and adjudicated fresh confirmation or frozen stakeholder thresholds have been verified."
+    },
+    {
+      "id": "academic.reproducibility",
+      "requirement": "Retain frozen inputs, model parameters, raw outcomes, scoring commands and historical failures. Report findings at the scope supported by the evidence.",
+      "implementation": [
+        "eval",
+        "docs/RESEARCH_UPDATE.md"
+      ],
+      "verification": [
+        "docs/ATTACK_EXPLORATORY_V2_RESULTS_2026-11-20.md",
+        "docs/ATTACK_DIAGNOSTIC_D_RESULTS_V3_2026-11-20.md"
+      ],
+      "metrics": [
+        "hash verification",
+        "score replay",
+        "missing or invalid responses",
+        "inter-run variation"
+      ],
+      "status": "in_progress",
+      "evidence": "The historical v2 and D reports record reproducible checks and negative outcomes. Several supporting sources and artifacts are unpublished in the local checkout."
+    },
+    {
+      "id": "production.readiness",
+      "requirement": "Validate operator/reviewer identity, protected keys, service isolation, secure storage, monitoring, bounded concurrency, deployment, incident recovery and real custody independently.",
+      "implementation": [
+        "console/backend/reporting_identity.py",
+        "console/backend/reporting_exchange.py"
+      ],
+      "verification": [
+        "docs/ATTACK_ADMISSION_FEASIBILITY_READINESS.md",
+        "docs/SIGNED_REPORTING_REVIEW.md"
+      ],
+      "metrics": [
+        "operational control sign-offs",
+        "data-owner and ethics approvals",
+        "source and time attestations",
+        "recovery and revocation evidence"
+      ],
+      "status": "in_progress",
+      "evidence": "Only bounded offline engineering and test-only review exchange are established. Data intake, external custody, reviewer independence and production readiness remain open."
+    },
+    {
+      "id": "evaluation.matched_sovereign_80",
+      "requirement": "Re-score the recovered frozen 80-case role contract benchmark with a matched cloud arm using the original harness, scorer and saved outputs, without new live requests or weakening controls.",
+      "implementation": [
+        "eval/sovereign-80-matched/frozen_protocol.py",
+        "eval/sovereign-80-matched/score_matched.py",
+        "eval/sovereign-80-matched/reference/analyze_models.py"
+      ],
+      "verification": [
+        "eval/sovereign-80-matched/BENCHMARK_RESULT_2026-11-23.md",
+        "eval/sovereign-80-matched/SHA256SUMS.txt",
+        "eval/sovereign-80-matched/CONSOLIDATED_FINDINGS_2026-11-23.md"
+      ],
+      "metrics": [
+        "exact role-contract passes of 80",
+        "affirmative/evidence/abstention F1",
+        "unsupported affirmatives",
+        "manifest hash",
+        "offline score replay"
+      ],
+      "status": "verified_automated",
+      "evidence": "Offline replay of saved outputs with the untouched scorer reproduced summary.json and summary.csv byte-for-byte: cloud 72/80 = 90.00% exact, local arms 18/28/27/23/5, evidence F1 0.945 and zero unsupported affirmatives; frozen manifest SHA-256 09b3639b388019655fbde0805a9abfbfa9c2136d58e96c94e789220ff93f8eb0. Retrospective matched benchmark on authored synthetic cases, not a fresh blinded human-adjudicated holdout or real-world detection accuracy; raw ledgers and responses remain private. No new live call and no security-control change."
+    }
+  ]
+}

@@ -371,7 +371,7 @@ func TestArgs_SubtaskInfos_AcceptsADoubleEncodedList(t *testing.T) {
 func TestArgs_SubtaskInfos_RefusesWhatItCannotRecover(t *testing.T) {
 	t.Parallel()
 
-	for _, tt := range argsListRefusals("subtasks", `[{"title": 5}]`, "SubtaskInfo", "title") {
+	for _, tt := range argsListRefusals("subtasks", `[{"title": 5}]`, "title") {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
@@ -436,7 +436,7 @@ func TestArgs_SubtaskOperations_RefusesWhatItCannotRecover(t *testing.T) {
 	t.Parallel()
 
 	tests := append(
-		argsListRefusals("operations", `[{"op":"modify","id":"7"}]`, "SubtaskOperation", "id"),
+		argsListRefusals("operations", `[{"op":"modify","id":"7"}]`, "id"),
 		argsListRefusal{
 			name: "a scalar",
 			args: `42`,
@@ -457,14 +457,15 @@ func TestArgs_SubtaskOperations_RefusesWhatItCannotRecover(t *testing.T) {
 
 // argsListRefusal is a payload a lenient subtask list must refuse, and the words its refusal must carry.
 type argsListRefusal struct {
-	name    string
-	args    string
-	wrapper string // the field a DoubleEncodedListError must name; empty when none may be returned
-	want    []string
+	name      string
+	args      string
+	wrapper   string // the field a DoubleEncodedListError must name; empty when none may be returned
+	want      []string
+	typeField string // stable JSON field from UnmarshalTypeError
 }
 
 // Shared by SubtaskInfos and SubtaskOperations; badElement's one element has a mistyped elementField.
-func argsListRefusals(field, badElement, elementType, elementField string) []argsListRefusal {
+func argsListRefusals(field, badElement, elementField string) []argsListRefusal {
 	return []argsListRefusal{
 		{
 			name:    "a wrapper whose contents do not parse",
@@ -474,9 +475,9 @@ func argsListRefusals(field, badElement, elementType, elementField string) []arg
 		},
 		{
 			// A real array keeps the ordinary decode error; the wrapper is only a fallback.
-			name: "an array with a badly typed element",
-			args: badElement,
-			want: []string{elementType, elementField},
+			name:      "an array with a badly typed element",
+			args:      badElement,
+			typeField: elementField,
 		},
 		{
 			// The escape repair must not reach for this: a spurious quote after an
@@ -527,6 +528,14 @@ func (r argsListRefusal) check(t *testing.T, err error) {
 		}
 		if wrapped.Unwrap() == nil {
 			t.Error("the parse failure must stay reachable for the log")
+		}
+	}
+
+	if r.typeField != "" {
+		var mismatch *json.UnmarshalTypeError
+		if !errors.As(err, &mismatch) ||
+			(mismatch.Field != r.typeField && !strings.HasSuffix(mismatch.Field, "."+r.typeField)) {
+			t.Errorf("refusal %q does not identify the mistyped field %q", err, r.typeField)
 		}
 	}
 

@@ -1,0 +1,41 @@
+{
+  "protocol": "archived-reporting-local-ranking-v1",
+  "fixture_sha256": "5849fa1de2e7804b5fce6bc8561c727e4290e432661a88df2b7d4a265d85ca97",
+  "cases": [
+    {
+      "id": "library-archive-outage",
+      "archive_sha256": "b4e4fd490c414fd09f4925b10caaadf247fc7dac3da8ada6eb71cce38b56ddd0",
+      "request_sha256": "fa1bdaf701f8cece95eecff4465a9ce78ba205348341bb6be58edd851435e792"
+    },
+    {
+      "id": "printing-account-review",
+      "archive_sha256": "192d0ebe2ccb4cd6b80d27a32693da424cf32db73ffd139fa3c521aff076a81f",
+      "request_sha256": "0ae142dfb22e640fa93b0e6add649f8a8f20d95529b017e75564fa56a11a2c54"
+    },
+    {
+      "id": "service-desk-mixed-review",
+      "archive_sha256": "63aeb03fe227fc7f6e705caf53d236a5784c13b28d158159b02da1836fbc2713",
+      "request_sha256": "70151035f4bc5f48750b0109af1c6f9b4048277fc7fbfe004428d7904cceea82"
+    },
+    {
+      "id": "exhibit-endpoint-review",
+      "archive_sha256": "24dacd096113f8c289b80576c8db95ffc1196f914af82cd82404dbcc63729507",
+      "request_sha256": "8797ee4d22a7822a3ebbc51b069c2f2405c092afbf5e421c7ea9bd9e079ae0dc"
+    },
+    {
+      "id": "paired-depot-roles",
+      "archive_sha256": "69ba1529c440dc3a693cd0715cd57e198d9d344fbd833d8989ee669cd875e319",
+      "request_sha256": "bf0a6c2d04a730ecbb138199eefb76c186667705c7bd70983b39497a7f6951aa"
+    },
+    {
+      "id": "paired-design-archives",
+      "archive_sha256": "63a4c6ea79e559e5196238c86df25886d754a77fc04246266efa1e7efd7870ae",
+      "request_sha256": "d1aae1707b183641b331a32c68097821b12bc57aea176fcb8d7ee22fc9a7abc2"
+    },
+    {
+      "id": "approved-mail-transition",
+      "archive_sha256": "82adefbd66ec8e6a7aafa8590fafc92503b39ec1058d17cd724ad9f831cdc32a",
+      "request_sha256": null
+    }
+  ]
+}

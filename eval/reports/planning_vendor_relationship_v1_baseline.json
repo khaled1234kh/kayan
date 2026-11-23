@@ -1,0 +1,251 @@
+{
+  "dataset_sha256": "3c05e24e52cb480fc59d7d72f5b38ac5cd6a654fb44eb57de6a04f77b6f4ab2a",
+  "case_count": 16,
+  "exact_cases": 9,
+  "correct_abstentions": 1,
+  "negative_cases": 8,
+  "cases_with_gap_mismatches": 0,
+  "cases_with_integrity_errors": 0,
+  "true_positives": 8,
+  "false_positives": 7,
+  "false_negatives": 0,
+  "micro_f1": 0.6956521739130435,
+  "cases": [
+    {
+      "id": "repair_supplier_unrelated",
+      "expected": [],
+      "observed": [
+        "vendor_remote_access"
+      ],
+      "true_positives": 0,
+      "false_positives": [
+        "vendor_remote_access"
+      ],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": false
+    },
+    {
+      "id": "onsite_support_only",
+      "expected": [],
+      "observed": [
+        "vendor_remote_access"
+      ],
+      "true_positives": 0,
+      "false_positives": [
+        "vendor_remote_access"
+      ],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": false
+    },
+    {
+      "id": "vendor_supplied_appliance",
+      "expected": [],
+      "observed": [
+        "vendor_remote_access"
+      ],
+      "true_positives": 0,
+      "false_positives": [
+        "vendor_remote_access"
+      ],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": false
+    },
+    {
+      "id": "vendor_advice_only",
+      "expected": [],
+      "observed": [
+        "vendor_remote_access"
+      ],
+      "true_positives": 0,
+      "false_positives": [
+        "vendor_remote_access"
+      ],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": false
+    },
+    {
+      "id": "current_staff_retired_vendor",
+      "expected": [],
+      "observed": [
+        "vendor_remote_access"
+      ],
+      "true_positives": 0,
+      "false_positives": [
+        "vendor_remote_access"
+      ],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": false
+    },
+    {
+      "id": "unrelated_policy_mentions",
+      "expected": [],
+      "observed": [
+        "vendor_remote_access"
+      ],
+      "true_positives": 0,
+      "false_positives": [
+        "vendor_remote_access"
+      ],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": false
+    },
+    {
+      "id": "review_concept_only",
+      "expected": [],
+      "observed": [
+        "vendor_remote_access"
+      ],
+      "true_positives": 0,
+      "false_positives": [
+        "vendor_remote_access"
+      ],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": false
+    },
+    {
+      "id": "internal_user_without_vendor_access",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "active_access_subject",
+      "expected": [
+        "vendor_remote_access"
+      ],
+      "observed": [
+        "vendor_remote_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "active_qualified_device",
+      "expected": [
+        "vendor_remote_access"
+      ],
+      "observed": [
+        "vendor_remote_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "active_reverse_direction",
+      "expected": [
+        "vendor_remote_access"
+      ],
+      "observed": [
+        "vendor_remote_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "active_provision",
+      "expected": [
+        "vendor_remote_access"
+      ],
+      "observed": [
+        "vendor_remote_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "active_shared_subject",
+      "expected": [
+        "vendor_remote_access"
+      ],
+      "observed": [
+        "vendor_remote_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "active_qualifier_following",
+      "expected": [
+        "vendor_remote_access"
+      ],
+      "observed": [
+        "vendor_remote_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "active_with_denial_elsewhere",
+      "expected": [
+        "vendor_remote_access"
+      ],
+      "observed": [
+        "vendor_remote_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "active_with_explicit_gap",
+      "expected": [
+        "vendor_remote_access"
+      ],
+      "observed": [
+        "vendor_remote_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    }
+  ]
+}

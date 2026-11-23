@@ -1,0 +1,104 @@
+{
+  "version": "cloud-reasoning-budget/2",
+  "destination": "https://backend.sovereigneg.com/v1/chat/completions",
+  "parent_manifest_sha256": "c3713861ca304a9ed7c84c3629684865eba517f650860087d2c0d700d7b7c840",
+  "parent_bundle_sha256": "7701b717960ec8806ce7eaaea1d4417825fb748d009cd6cd2d042da8b7338e53",
+  "preparer_sha256": "ea94b2a6ec407727230b4a73c4d466224e52f08be65eebb767d29c5e86317813",
+  "bundle_sha256": "18a6c76752ed8a95cd235c4a7c1383e6585396dce27f7b62b119008265715dbf",
+  "authorization_status": "awaiting_stage_a_owner_approval",
+  "probe_request_sha256": "5052fcf7de5e45d51acc70e73d38704a898f5b074f9b2a2990fa175f6fd31113",
+  "diagnostic_request_sha256": [
+    {
+      "case": "windows",
+      "arm": "B",
+      "sha256": "c9521e63b012948d587dafcedc53e14e7a135d4c5e7d3529997e5a35ece84c8a"
+    },
+    {
+      "case": "windows",
+      "arm": "C",
+      "sha256": "e327921bde2e2a79f2c6ae45bcf762428d41b3d6faea1b1172826aec2c133a1b"
+    },
+    {
+      "case": "windows",
+      "arm": "D",
+      "sha256": "c04f9aff913861608a1889868b6c2e7db72bac3e6ee6c918389723e791c6c8e5"
+    },
+    {
+      "case": "slate",
+      "arm": "B",
+      "sha256": "c364a6cf1895b8f994dd3ca6473e46f437da23aac87ea56bd0c97ce30d1d18de"
+    },
+    {
+      "case": "slate",
+      "arm": "C",
+      "sha256": "f1bfc39217dd6f844e24ad0805e4c9b0f43723c5430b7b936d74f2ec2d0fde29"
+    },
+    {
+      "case": "slate",
+      "arm": "D",
+      "sha256": "71a71dfbf790046f2b64bd4bfef58583ade632abab9d1c34b386ce2358d09f48"
+    },
+    {
+      "case": "windows_incomplete",
+      "arm": "B",
+      "sha256": "0e7704db66559570ca79c16647560fb3083b1bd8e6282f2346580063cd362071"
+    },
+    {
+      "case": "windows_incomplete",
+      "arm": "C",
+      "sha256": "9da745af2bdf3fc4a821fa755934f2a3faf7bb1c97da1eb7f01762dceb1f5b5a"
+    },
+    {
+      "case": "windows_incomplete",
+      "arm": "D",
+      "sha256": "9bd3e84fd8fcdd43d7e703681f1ad81d5be4d1e0a4ee227785b9a23665179401"
+    },
+    {
+      "case": "windows_authorized",
+      "arm": "B",
+      "sha256": "3785e731a30efcb90b39c1f415992e7a8e84337a96ee20254a9563f8dfa7d46b"
+    },
+    {
+      "case": "windows_authorized",
+      "arm": "C",
+      "sha256": "9eb6874de8e871c3d17abb56469759fb5e9c80657b23fc40cdd25d4bed19082c"
+    },
+    {
+      "case": "windows_authorized",
+      "arm": "D",
+      "sha256": "6023de190bec5ce68a8d44a18e33e1cc7173d0644f82ab42e91e7255daa3c065"
+    }
+  ],
+  "output_capacity": {
+    "tokenizer": "Local Qwen2.5-7B proxy; SovereignEG tokenizer unverified",
+    "tokenizer_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+    "witnesses": [
+      {
+        "case": "windows",
+        "atoms": 4,
+        "compact_tokens": 150,
+        "indented_tokens": 231
+      },
+      {
+        "case": "slate",
+        "atoms": 8,
+        "compact_tokens": 264,
+        "indented_tokens": 421
+      },
+      {
+        "case": "windows_incomplete",
+        "atoms": 3,
+        "compact_tokens": 113,
+        "indented_tokens": 175
+      },
+      {
+        "case": "windows_authorized",
+        "atoms": 4,
+        "compact_tokens": 149,
+        "indented_tokens": 230
+      }
+    ],
+    "optional_quote_schema_only_stress_tokens": 2502
+  },
+  "scoring": "unchanged extraction v2 scorer and admission; compare visibility, length and schema first"
+}

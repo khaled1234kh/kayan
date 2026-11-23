@@ -1,0 +1,54 @@
+{
+  "date_cairo": "2026-11-04",
+  "scope": "30 authored synthetic Planner-only coordination scenarios, actual shared local Qwen2.5:7b and real TrustGate inference authorization",
+  "first_attempt": {
+    "passed": 24,
+    "total": 30,
+    "percent": 80.0
+  },
+  "after_deployed_validation": {
+    "passed": 26,
+    "total": 30,
+    "percent": 86.67
+  },
+  "production_validator_accepted": 29,
+  "inference_requests": 32,
+  "specialist_tool_dispatches": 0,
+  "dataset_sha256": "46692264b5eb9ef301c67c3c38f5c52e9e35fa6b27695df746070a7bc6d646e9",
+  "engagement_id": "5d7308f0-f768-45eb-b86c-0d7ae4a984da",
+  "general_semantic_accuracy": "not established",
+  "result_reexecuted_after_tuning": false,
+  "source_changes_during_evaluation": false,
+  "groups": {
+    "fresh_assignments": {
+      "first": 3,
+      "after_validation": 4,
+      "total": 5
+    },
+    "conflicting_untrusted_input": {
+      "first": 4,
+      "after_validation": 4,
+      "total": 5
+    },
+    "completed_task_preservation": {
+      "first": 4,
+      "after_validation": 5,
+      "total": 5
+    },
+    "priorities_and_reuse": {
+      "first": 5,
+      "after_validation": 5,
+      "total": 5
+    },
+    "failure_and_partial_coverage": {
+      "first": 3,
+      "after_validation": 3,
+      "total": 5
+    },
+    "untrusted_outcomes_and_evidence": {
+      "first": 5,
+      "after_validation": 5,
+      "total": 5
+    }
+  }
+}

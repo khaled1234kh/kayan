@@ -6,6 +6,7 @@ import { SEED_ACTORS } from '../src/data/actors';
 import type { TrustGateTranscriptEntry } from '../src/types/trustgate';
 import { agentDecision } from '../src/security/agentDecision';
 import { TrustGatePanel } from '../src/components/ui/Panels';
+import { AdditionalVerifiedActions, AuditCountsView, ReportEvidence, ReportExecutionDetails, ReportSummaryCoverage, ReviewedFindingProof, RoleObservationCounts, readSavedReport } from '../src/components/ui/ArchivedReport';
 
 const actor = { ...SEED_ACTORS.find((a) => a.id === 'ai-sales')!, modelTier: 'A' as const,
   backendAgentId: 'webapp1', engagementId: 'eng1', currentTask: 'sql_injection_test', state: 'working' as const };
@@ -74,3 +75,107 @@ console.log('PASS Reporting shows assessment findings while preserving specialis
 
 assert.equal(findingLabel('command_injection'),'Command injection');assert.equal(findingLabel('xss'),'XSS');
 assert(html.includes('tabindex="0"')&&html.includes('tabindex="-1"'));
+
+const execution = {
+  finish_reason: 'stop',
+  usage: { input: 1250, output: 241, reasoning: 0, latency_s: 1.234 },
+};
+const selectedCloud = renderToStaticMarkup(<ReportExecutionDetails report={{ status: 'selected', ...execution }} />);
+assert(selectedCloud.includes('<dt>Input tokens</dt><dd>1,250</dd>'));
+assert(selectedCloud.includes('<dt>Output tokens</dt><dd>241</dd>'));
+assert(selectedCloud.includes('<dt>Reasoning tokens</dt><dd>0</dd>'));
+assert(selectedCloud.includes('<dt>Provider latency</dt><dd>1.234 s</dd>'));
+assert(selectedCloud.includes('<dt>Finish reason</dt><dd>stop</dd>'));
+
+const legacyCloud = renderToStaticMarkup(<ReportExecutionDetails report={{ status: 'selected', usage: { input: 32 } }} />);
+assert(legacyCloud.includes('<dt>Input tokens</dt><dd>32</dd>'));
+assert(!legacyCloud.includes('Reasoning tokens') && !legacyCloud.includes('Finish reason'));
+const emptyCloud = renderToStaticMarkup(<ReportExecutionDetails report={{ status: 'selected' }} />);
+assert(emptyCloud.includes('Provider metrics unavailable'));
+const invalidCloud = renderToStaticMarkup(<ReportExecutionDetails report={{
+  status: 'selected', usage: { input: -1, output: 1.5, reasoning: Number.NaN, latency_s: Infinity },
+}} />);
+assert(!invalidCloud.includes('<dt>') && invalidCloud.includes('Provider metrics unavailable'));
+for (const status of ['local', 'degraded'] as const) {
+  assert.equal(renderToStaticMarkup(<ReportExecutionDetails report={{ status, ...execution }} />), '');
+}
+console.log('PASS saved Reporting usage, genuine zero, partial legacy metadata and local fallback');
+
+const digest = 'a'.repeat(64);
+const makeSavedResponse = (tag: string) => Response.json({ status: 'local' }, { headers: { ETag: tag } });
+assert.deepEqual(await readSavedReport(makeSavedResponse(`"${digest}"`)), { report: { status: 'local' }, digest });
+assert.equal((await readSavedReport(makeSavedResponse(`W/"${digest}"`))).digest, undefined);
+assert.equal((await readSavedReport(Response.json({ status: 'local' }))).digest, undefined);
+await assert.rejects(readSavedReport(Response.json(
+  { detail: 'Saved report failed verification against the current archive.' }, { status: 409 },
+)), /failed verification/);
+console.log('PASS saved Reporting response and exact export identity');
+
+const partialSummary = renderToStaticMarkup(<ReportSummaryCoverage coverage={{
+  admitted_occurrences: 2, covered_occurrences: 1, action_covered_occurrences: 1,
+}} />);
+assert(partialSummary.includes('Summary cites 1 of 2 admitted occurrences.'));
+assert(partialSummary.includes('Observed-action excerpts cover 1 of 2.'));
+const weakSummary = renderToStaticMarkup(<ReportSummaryCoverage coverage={{
+  admitted_occurrences: 2, covered_occurrences: 2, action_covered_occurrences: 0,
+}} />);
+assert(weakSummary.includes('Summary cites 2 of 2 admitted occurrences.'));
+assert(weakSummary.includes('Observed-action excerpts cover 0 of 2.'));
+assert.equal(renderToStaticMarkup(<ReportSummaryCoverage />), '');
+assert.equal(renderToStaticMarkup(<ReportSummaryCoverage coverage={{
+  admitted_occurrences: 0, covered_occurrences: 0, action_covered_occurrences: 0,
+}} />), '');
+console.log('PASS Archived Reporting distinguishes occurrence coverage and observed-action coverage');
+
+const observedAction = { id: 'E2.1', roles: ['mechanic'], statements: ['Exact source statement'] };
+const supplementedEvidence = renderToStaticMarkup(<ReportEvidence source={{
+  ...observedAction, selection_origin: 'verified_action_supplement',
+}} />);
+assert(supplementedEvidence.includes('Observed action added by KAYAN'));
+assert(supplementedEvidence.includes('E2.1') && supplementedEvidence.includes('Exact source statement'));
+assert(!renderToStaticMarkup(<ReportEvidence source={observedAction} />).includes('added by KAYAN'));
+console.log('PASS Archived Reporting identifies deterministically appended action excerpts');
+
+const archivedFinding = { technique: 'T1486', title: 'Test finding', occurrence: 'event-a', sources: [
+  observedAction, { id: 'E2.2', roles: ['outcome'], statements: ['Outcome only'] },
+] };
+const additionalActions = renderToStaticMarkup(<AdditionalVerifiedActions report={{
+  findings: [archivedFinding],
+  summary_additional_actions: [
+    { technique: 'T1486', occurrence: 'event-a', source_id: 'E2.1' },
+    { technique: 'T1486', occurrence: 'event-b', source_id: 'E2.1' },
+    { technique: 'T1486', occurrence: 'event-a', source_id: 'E2.2' },
+  ],
+}} />);
+assert(additionalActions.includes('<summary>Other verified actions (1)</summary>'));
+assert(additionalActions.includes('event-a') && additionalActions.includes('Exact source statement'));
+assert(!additionalActions.includes('event-b') && !additionalActions.includes('Outcome only'));
+assert.equal(renderToStaticMarkup(<AdditionalVerifiedActions report={{ findings: [archivedFinding] }} />), '');
+console.log('PASS verified action disclosure only resolves same-occurrence mechanic evidence');
+
+const evidenceProof = renderToStaticMarkup(<ReviewedFindingProof proof={{
+  event_revision: 3,
+  assertions: [{ role: 'mechanic', source_ids: ['E1.1', 'E1.2'] }, { role: 'actor', source_ids: ['E2.1'] }],
+}} />);
+assert(evidenceProof.includes('Reviewed proof · event revision 3'));
+assert(evidenceProof.includes('Action · E1.1<span> with E1.2</span>'));
+assert(evidenceProof.includes('Attribution · E2.1'));
+assert.equal(renderToStaticMarkup(<ReviewedFindingProof />), '');
+console.log('PASS Reviewed proof shows exact grouped support and the event revision');
+
+const auditCounts = renderToStaticMarkup(<AuditCountsView counts={{
+  verified: 1, missing_entry: 3, ledger_invalid: 2, unavailable: 1,
+}} />);
+assert(auditCounts.includes('Match in verified ledger · 1'));
+assert(auditCounts.includes('No matching audit entry · 3'));
+assert(auditCounts.includes('Ledger verification failed · 2') && auditCounts.includes('Audit service unavailable · 1'));
+assert(renderToStaticMarkup(<AuditCountsView counts={{}} />).includes('No captured decisions to check.'));
+console.log('PASS archive audit view distinguishes confirmed, missing, invalid and unavailable audit evidence');
+
+const roleCounts = renderToStaticMarkup(<RoleObservationCounts counts={{
+  completed: 2, projected: 1, denied: 1, transcript_only: 3,
+}} />);
+assert(roleCounts.includes('Completed captures 2') && roleCounts.includes('Projected captures 1'));
+assert(roleCounts.includes('Denied captures 1') && roleCounts.includes('Transcript-only records 3'));
+assert(renderToStaticMarkup(<RoleObservationCounts />).includes('No retained observations'));
+console.log('PASS Archived Reporting separates observed per-role counts from declared coverage');

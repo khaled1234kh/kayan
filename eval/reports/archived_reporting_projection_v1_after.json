@@ -1,0 +1,188 @@
+{
+  "protocol": "reporting-projection-v1",
+  "counts": {
+    "eligible": 4,
+    "withheld": 6,
+    "invalid": 1,
+    "empty": 1,
+    "false_admissions": 0,
+    "false_withholdings": 0,
+    "false_rejections": 0,
+    "invalid_accepted": 0,
+    "citation_errors": 0,
+    "verifier_disagreements": 0
+  },
+  "cases": [
+    {
+      "case": "windows-secondary-support",
+      "archive_sha256": "c62691324811191d3c78666a6ac68b008a3d229e2af025989eb20d4bf5fc6e8c",
+      "verifier": {
+        "clear-event": "eligible"
+      },
+      "projected": [
+        [
+          "T1685.005",
+          "clear-event"
+        ]
+      ],
+      "withheld": [],
+      "citation_errors": [],
+      "error": null
+    },
+    {
+      "case": "missing-record",
+      "archive_sha256": "841cc44c692a65665714f219a7f263b5977b674f3676f224bdf142a452f34166",
+      "verifier": {
+        "clear-event": "invalid"
+      },
+      "projected": [],
+      "withheld": [],
+      "citation_errors": [],
+      "error": "Evidence admission could not verify the saved archive"
+    },
+    {
+      "case": "empty",
+      "archive_sha256": "43b1cad9afd2a09f5fb8336d050b2982c69dc7b8d35a0fc71bcf802a829eebb4",
+      "verifier": {},
+      "projected": [],
+      "withheld": [],
+      "citation_errors": [],
+      "error": null
+    },
+    {
+      "case": "disputed",
+      "archive_sha256": "67be899406c817ab9c34b0e8d3779be3c49055e4fc242411677c40247781444d",
+      "verifier": {
+        "incident-1": "withheld"
+      },
+      "projected": [],
+      "withheld": [
+        {
+          "technique": "T1486",
+          "reasons": [
+            "conflicting_or_superseded_evidence",
+            "extraneous_citation"
+          ]
+        }
+      ],
+      "citation_errors": [],
+      "error": null
+    },
+    {
+      "case": "authorized",
+      "archive_sha256": "8351654c868439bc1d014af3f1e2bd288212417721716936c0de7e92eb2deb8a",
+      "verifier": {
+        "incident-1": "withheld"
+      },
+      "projected": [],
+      "withheld": [
+        {
+          "technique": "T1486",
+          "reasons": [
+            "authorization_unverified",
+            "conflicting_or_superseded_evidence",
+            "extraneous_citation"
+          ]
+        }
+      ],
+      "citation_errors": [],
+      "error": null
+    },
+    {
+      "case": "missing-attribution",
+      "archive_sha256": "ec1912510538ec4eb8f8b00b183103f3c31cdf0634f4f5afc328c4455155a615",
+      "verifier": {
+        "incident-1": "withheld"
+      },
+      "projected": [],
+      "withheld": [
+        {
+          "technique": "T1486",
+          "reasons": [
+            "independent_attribution_missing"
+          ]
+        }
+      ],
+      "citation_errors": [],
+      "error": null
+    },
+    {
+      "case": "repeated-supported",
+      "archive_sha256": "17edafd8b4076642ea5c89f723ff14044ea444bcc67e8f897d6913cab7257d08",
+      "verifier": {
+        "incident-1": "eligible",
+        "incident-2": "eligible"
+      },
+      "projected": [
+        [
+          "T1486",
+          "incident-1"
+        ],
+        [
+          "T1486",
+          "incident-2"
+        ]
+      ],
+      "withheld": [],
+      "citation_errors": [],
+      "error": null
+    },
+    {
+      "case": "repeated-mixed",
+      "archive_sha256": "54d119e8738ca6a6b7bc4c6dba448d4b32b2c36996f500ee9f9662b0e27c8dd3",
+      "verifier": {
+        "incident-1": "eligible",
+        "incident-2": "withheld"
+      },
+      "projected": [
+        [
+          "T1486",
+          "incident-1"
+        ]
+      ],
+      "withheld": [
+        {
+          "technique": "T1486",
+          "reasons": [
+            "authorization_unverified",
+            "conflicting_or_superseded_evidence",
+            "extraneous_citation"
+          ],
+          "occurrence": "incident-2",
+          "event_revision": 1
+        }
+      ],
+      "citation_errors": [],
+      "error": null
+    },
+    {
+      "case": "shared-ambiguous-anchor",
+      "archive_sha256": "b4acaef011ac9ec894866381676543ba70523ecf1eb8b1308aad2326502a128b",
+      "verifier": {
+        "incident-1": "withheld",
+        "incident-2": "withheld"
+      },
+      "projected": [],
+      "withheld": [
+        {
+          "technique": "T1486",
+          "reasons": [
+            "ambiguous_or_missing_action"
+          ],
+          "occurrence": "incident-1",
+          "event_revision": 1
+        },
+        {
+          "technique": "T1486",
+          "reasons": [
+            "ambiguous_or_missing_action"
+          ],
+          "occurrence": "incident-2",
+          "event_revision": 1
+        }
+      ],
+      "citation_errors": [],
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "assessment_id": "synthetic-slate-reporting",
+  "custody": {
+    "approved_receipts": {
+      "synthetic-reviewer": [
+        "35525c0dedbe44295e6da0435624753ce3ac6c4e077f1edca3a1c45d2a412c0d",
+        "42f4d2f6497ba4e06e434ad9cd0fc56f22ea60e9ce4a3c2f4f0fb213c1cd5cc9",
+        "4323076e7649b1cb6240a1071d2d1df220aa733a076547e6d7d07776bd90a869",
+        "508a56b0aae792e651e97c5068b97bb66c12b111cb6b6775df769852418ac0d6",
+        "70d077a819fe1d110c766950192c8cccfb25c1cc64ad4190ee9eef4dde4c4ebf",
+        "85515fc6bf6ebedcde7118ff1abc8e2d849667bec01673723b5b84e33082080c",
+        "a173fb3b6d97272ea9e6934669da6520ee0afbb26916891a3772c8b66e4748a9"
+      ]
+    },
+    "assigned_case_id": "slate",
+    "attested_sources": [
+      "0b17cae2c9992f3212e7bc4084e01519e23e7d2d79e1878943f281e7a4b71476",
+      "222cb45d305ab5242325a2c88ea17402b01ed8ce6e9f7e584e48e481bc973721",
+      "4e02ceb4e855834f921ece0b4566293c24ffde64577b9204bf53d4073097b5b7",
+      "b3e0594441b9b4201d8972e00fb031111b58e9723ec7c58e14654c9e6687cb34"
+    ],
+    "current": {
+      "assertion_history": [
+        "0307ccdbbddda79adfffa0fba06c91fbbe8574aea2793e20f9b515571e9d3d70",
+        "34f4db88d5a13af303f36c1fc6138c2c49e495feea09a8bbe356b91af4e348f7",
+        "67d55bf34e6d22e9cd94dbbe16bc7bd7798e8dd6cfc2f7749112a306dcb02973",
+        "b2fb72bf396a2604cb0cac6ba64eb9ef060c5ef191e36d6006f376897eba2812",
+        "c711053c17a36f925d92a515ca185d85b751a3a48ea7d1e12555d00fe5e2748c",
+        "e6029c39438e446368ef6ab06f76b5f79c27970666a54a8b009a0a1fd64f7aff",
+        "f8ca4dbe8d4f8f8ec3b3d5cd0472ee301d70a395a9918796e001cfe7c47b69f1"
+      ],
+      "assertion_roster": [
+        "0307ccdbbddda79adfffa0fba06c91fbbe8574aea2793e20f9b515571e9d3d70",
+        "34f4db88d5a13af303f36c1fc6138c2c49e495feea09a8bbe356b91af4e348f7",
+        "67d55bf34e6d22e9cd94dbbe16bc7bd7798e8dd6cfc2f7749112a306dcb02973",
+        "b2fb72bf396a2604cb0cac6ba64eb9ef060c5ef191e36d6006f376897eba2812",
+        "c711053c17a36f925d92a515ca185d85b751a3a48ea7d1e12555d00fe5e2748c",
+        "e6029c39438e446368ef6ab06f76b5f79c27970666a54a8b009a0a1fd64f7aff",
+        "f8ca4dbe8d4f8f8ec3b3d5cd0472ee301d70a395a9918796e001cfe7c47b69f1"
+      ],
+      "case_id": "slate",
+      "previous_snapshot_sha256": null,
+      "receipt_history": [
+        "35525c0dedbe44295e6da0435624753ce3ac6c4e077f1edca3a1c45d2a412c0d",
+        "42f4d2f6497ba4e06e434ad9cd0fc56f22ea60e9ce4a3c2f4f0fb213c1cd5cc9",
+        "4323076e7649b1cb6240a1071d2d1df220aa733a076547e6d7d07776bd90a869",
+        "508a56b0aae792e651e97c5068b97bb66c12b111cb6b6775df769852418ac0d6",
+        "70d077a819fe1d110c766950192c8cccfb25c1cc64ad4190ee9eef4dde4c4ebf",
+        "85515fc6bf6ebedcde7118ff1abc8e2d849667bec01673723b5b84e33082080c",
+        "a173fb3b6d97272ea9e6934669da6520ee0afbb26916891a3772c8b66e4748a9"
+      ],
+      "sequence": 1,
+      "snapshot_sha256": "94d5d94a964bb7519a5c3fbed8b9fc988e70f2fb4c00f45bc6b34b09aefad82e"
+    },
+    "previous": null,
+    "verification_time": "2026-11-20T10:00:00Z"
+  },
+  "records": [
+    {
+      "id": "E1.1",
+      "revision": 1,
+      "text": "IR recorded session B19 as the unauthorized extortionist on archive node SE-2; B91 belongs to its storage administrator."
+    },
+    {
+      "id": "E2.1",
+      "revision": 1,
+      "text": "File-system ledger on SE-2: B19 encrypted 41 project archives, leaving the drawings unavailable."
+    },
+    {
+      "id": "E3.1",
+      "revision": 1,
+      "text": "Backup inventory after batch Z: SE-2 lost its last restorable snapshots."
+    },
+    {
+      "id": "E4.1",
+      "revision": 1,
+      "text": "Backup service recorded B19 completing the purge of batch Z on SE-2."
+    }
+  ],
+  "snapshot": "{\"assertions\":[{\"event\":{\"id\":\"archive-encryption\",\"revision\":1},\"id\":\"archive-encryption-mechanic\",\"receipt\":{\"id\":\"archive-encryption-mechanic\",\"revision\":1},\"revision\":1,\"role\":\"mechanic\",\"scope\":{\"asset\":\"se-2\",\"authority\":\"blue-domain\",\"principal\":\"S-1-5-21-100-200-300-1104\",\"session\":\"B19\",\"session_generation\":\"boot-fixture-1\",\"tenant\":\"blue\"},\"state\":\"asserted\",\"statements\":[\"E2.1\"],\"value\":\"availability_impact_encryption\"},{\"event\":{\"id\":\"archive-encryption\",\"revision\":1},\"id\":\"archive-encryption-outcome\",\"receipt\":{\"id\":\"archive-encryption-outcome\",\"revision\":1},\"revision\":1,\"role\":\"outcome\",\"scope\":{\"asset\":\"se-2\",\"authority\":\"blue-domain\",\"principal\":\"S-1-5-21-100-200-300-1104\",\"session\":\"B19\",\"session_generation\":\"boot-fixture-1\",\"tenant\":\"blue\"},\"state\":\"asserted\",\"statements\":[\"E2.1\"],\"value\":\"completed\"},{\"event\":{\"id\":\"archive-encryption\",\"revision\":1},\"id\":\"archive-encryption-actor\",\"receipt\":{\"id\":\"archive-encryption-actor\",\"revision\":1},\"revision\":1,\"role\":\"actor\",\"scope\":{\"asset\":\"se-2\",\"authority\":\"blue-domain\",\"principal\":\"S-1-5-21-100-200-300-1104\",\"session\":\"B19\",\"session_generation\":\"boot-fixture-1\",\"tenant\":\"blue\"},\"state\":\"asserted\",\"statements\":[\"E1.1\"],\"value\":\"adversary\"},{\"authorization\":{\"action\":\"availability_impact_encryption\",\"end\":\"2026-11-20T09:15:00Z\",\"start\":\"2026-11-20T09:05:00Z\"},\"event\":{\"id\":\"archive-encryption\",\"revision\":1},\"id\":\"archive-encryption-authorization\",\"receipt\":{\"id\":\"archive-encryption-authorization\",\"revision\":1},\"revision\":1,\"role\":\"authorization\",\"scope\":{\"asset\":\"se-2\",\"authority\":\"blue-domain\",\"principal\":\"S-1-5-21-100-200-300-1104\",\"session\":\"B19\",\"session_generation\":\"boot-fixture-1\",\"tenant\":\"blue\"},\"state\":\"asserted\",\"statements\":[\"E1.1\"],\"value\":\"unauthorized\"},{\"event\":{\"id\":\"snapshot-purge-Z\",\"revision\":1},\"id\":\"snapshot-purge-Z-mechanic\",\"receipt\":{\"id\":\"snapshot-purge-Z-mechanic\",\"revision\":1},\"revision\":1,\"role\":\"mechanic\",\"scope\":{\"asset\":\"se-2\",\"authority\":\"blue-domain\",\"principal\":\"S-1-5-21-100-200-300-1104\",\"session\":\"B19\",\"session_generation\":\"boot-fixture-1\",\"tenant\":\"blue\"},\"state\":\"asserted\",\"statements\":[\"E4.1\"],\"value\":\"recovery_inhibition\"},{\"event\":{\"id\":\"snapshot-purge-Z\",\"revision\":1},\"id\":\"snapshot-purge-Z-outcome\",\"receipt\":{\"id\":\"snapshot-purge-Z-outcome\",\"revision\":1},\"revision\":1,\"role\":\"outcome\",\"scope\":{\"asset\":\"se-2\",\"authority\":\"blue-domain\",\"principal\":\"S-1-5-21-100-200-300-1104\",\"session\":\"B19\",\"session_generation\":\"boot-fixture-1\",\"tenant\":\"blue\"},\"state\":\"asserted\",\"statements\":[\"E3.1\"],\"value\":\"completed\"},{\"authorization\":{\"action\":\"recovery_inhibition\",\"end\":\"2026-11-20T09:15:00Z\",\"start\":\"2026-11-20T09:05:00Z\"},\"event\":{\"id\":\"snapshot-purge-Z\",\"revision\":1},\"id\":\"snapshot-purge-Z-authorization\",\"receipt\":{\"id\":\"snapshot-purge-Z-authorization\",\"revision\":1},\"revision\":1,\"role\":\"authorization\",\"scope\":{\"asset\":\"se-2\",\"authority\":\"blue-domain\",\"principal\":\"S-1-5-21-100-200-300-1104\",\"session\":\"B19\",\"session_generation\":\"boot-fixture-1\",\"tenant\":\"blue\"},\"state\":\"asserted\",\"statements\":[\"E1.1\"],\"value\":\"unauthorized\"}],\"case_id\":\"slate\",\"events\":[{\"asset\":\"se-2\",\"authority\":\"blue-domain\",\"id\":\"archive-encryption\",\"principal\":\"S-1-5-21-100-200-300-1104\",\"revision\":1,\"session\":\"B19\",\"session_generation\":\"boot-fixture-1\",\"tenant\":\"blue\",\"time\":{\"basis\":\"UTC\",\"bounds_provenance\":\"synthetic-reviewed-clock-bounds\",\"clock_error_ns\":0,\"precision_ns\":1000000000,\"source_time\":\"2026-11-20T09:10:00Z\"}},{\"asset\":\"se-2\",\"authority\":\"blue-domain\",\"id\":\"snapshot-purge-Z\",\"principal\":\"S-1-5-21-100-200-300-1104\",\"revision\":1,\"session\":\"B19\",\"session_generation\":\"boot-fixture-1\",\"tenant\":\"blue\",\"time\":{\"basis\":\"UTC\",\"bounds_provenance\":\"synthetic-reviewed-clock-bounds\",\"clock_error_ns\":0,\"precision_ns\":1000000000,\"source_time\":\"2026-11-20T09:10:00Z\"}}],\"receipts\":[{\"assertion_sha256\":\"9a1c946aa31169dc4a7ad78063c67253123e638c33e65cc077e14a6da7b016a8\",\"decision\":\"approved\",\"expires_at\":\"2026-11-21T00:00:00Z\",\"id\":\"archive-encryption-mechanic\",\"rationale\":\"Fixture-only review of the authored evidence and association\",\"reviewed_at\":\"2026-11-20T09:59:00Z\",\"reviewer\":\"synthetic-reviewer\",\"revision\":1,\"snapshot_sha256\":\"f85ab8162b17a0d76d29388baa7d272fb7316137e851662e87f46ed6f5afecde\"},{\"assertion_sha256\":\"02dcb65e5dd7625a64e677e80ceb68a74851105fdf7108287c2d4ac86216929c\",\"decision\":\"approved\",\"expires_at\":\"2026-11-21T00:00:00Z\",\"id\":\"archive-encryption-outcome\",\"rationale\":\"Fixture-only review of the authored evidence and association\",\"reviewed_at\":\"2026-11-20T09:59:00Z\",\"reviewer\":\"synthetic-reviewer\",\"revision\":1,\"snapshot_sha256\":\"f85ab8162b17a0d76d29388baa7d272fb7316137e851662e87f46ed6f5afecde\"},{\"assertion_sha256\":\"3347e186f7dcfdd01995fcf9d1843c99eaca7acc8e19a6f147aa68eeb074f108\",\"decision\":\"approved\",\"expires_at\":\"2026-11-21T00:00:00Z\",\"id\":\"archive-encryption-actor\",\"rationale\":\"Fixture-only review of the authored evidence and association\",\"reviewed_at\":\"2026-11-20T09:59:00Z\",\"reviewer\":\"synthetic-reviewer\",\"revision\":1,\"snapshot_sha256\":\"f85ab8162b17a0d76d29388baa7d272fb7316137e851662e87f46ed6f5afecde\"},{\"assertion_sha256\":\"6a7fd5294ff20bf40b94a44e689fb51feae8d250fed4b347246105add2276cc6\",\"decision\":\"approved\",\"expires_at\":\"2026-11-21T00:00:00Z\",\"id\":\"archive-encryption-authorization\",\"rationale\":\"Fixture-only review of the authored evidence and association\",\"reviewed_at\":\"2026-11-20T09:59:00Z\",\"reviewer\":\"synthetic-reviewer\",\"revision\":1,\"snapshot_sha256\":\"f85ab8162b17a0d76d29388baa7d272fb7316137e851662e87f46ed6f5afecde\"},{\"assertion_sha256\":\"5903814688e47651c46547b3c0ed0719012f20222156b60c2a0a89f082c5d767\",\"decision\":\"approved\",\"expires_at\":\"2026-11-21T00:00:00Z\",\"id\":\"snapshot-purge-Z-mechanic\",\"rationale\":\"Fixture-only review of the authored evidence and association\",\"reviewed_at\":\"2026-11-20T09:59:00Z\",\"reviewer\":\"synthetic-reviewer\",\"revision\":1,\"snapshot_sha256\":\"f85ab8162b17a0d76d29388baa7d272fb7316137e851662e87f46ed6f5afecde\"},{\"assertion_sha256\":\"735b784d31d0cbd44acc510565046fe0c279d9a49b29e7d58d044e155beca3a4\",\"decision\":\"approved\",\"expires_at\":\"2026-11-21T00:00:00Z\",\"id\":\"snapshot-purge-Z-outcome\",\"rationale\":\"Fixture-only review of the authored evidence and association\",\"reviewed_at\":\"2026-11-20T09:59:00Z\",\"reviewer\":\"synthetic-reviewer\",\"revision\":1,\"snapshot_sha256\":\"f85ab8162b17a0d76d29388baa7d272fb7316137e851662e87f46ed6f5afecde\"},{\"assertion_sha256\":\"fa40fc918f8a095299155b319a3472b4f026d064ac33cb11f1d9fcd4dfc737c2\",\"decision\":\"approved\",\"expires_at\":\"2026-11-21T00:00:00Z\",\"id\":\"snapshot-purge-Z-authorization\",\"rationale\":\"Fixture-only review of the authored evidence and association\",\"reviewed_at\":\"2026-11-20T09:59:00Z\",\"reviewer\":\"synthetic-reviewer\",\"revision\":1,\"snapshot_sha256\":\"f85ab8162b17a0d76d29388baa7d272fb7316137e851662e87f46ed6f5afecde\"}],\"records\":[{\"byte_length\":96,\"collected_at\":\"2026-11-20T10:00:00Z\",\"id\":\"E2.1\",\"media_type\":\"text/plain\",\"native_ref\":\"synthetic-export/E2.1\",\"revision\":1,\"sha256\":\"5e93cd669cf68457144813260cf9f883a8367ef8a8670cd324cbc3a3280a359d\",\"source\":\"filesystem-ledger\"},{\"byte_length\":120,\"collected_at\":\"2026-11-20T10:00:00Z\",\"id\":\"E1.1\",\"media_type\":\"text/plain\",\"native_ref\":\"synthetic-export/E1.1\",\"revision\":1,\"sha256\":\"2f123f6ffd61ccac60ade08a70c4b631353746251500821a8eab8b595e12ce1f\",\"source\":\"incident-response\"},{\"byte_length\":68,\"collected_at\":\"2026-11-20T10:00:00Z\",\"id\":\"E4.1\",\"media_type\":\"text/plain\",\"native_ref\":\"synthetic-export/E4.1\",\"revision\":1,\"sha256\":\"9b64be58a25cf6827273748be1483d8ad4514446e2e2909ada1ac75c5d0e70d2\",\"source\":\"backup-service\"},{\"byte_length\":72,\"collected_at\":\"2026-11-20T10:00:00Z\",\"id\":\"E3.1\",\"media_type\":\"text/plain\",\"native_ref\":\"synthetic-export/E3.1\",\"revision\":1,\"sha256\":\"ffec5e5151eda9c9987a53e6390be056827b8968a62d00cb186bcf6e2db6e63d\",\"source\":\"backup-inventory\"}],\"schema_version\":\"kayan.offline-evidence/2\",\"sources\":[{\"alias\":\"filesystem-ledger\",\"attestation_ref\":\"synthetic-source-catalogue\",\"collector\":\"filesystem-ledger\",\"family\":\"filesystem-ledger\",\"id\":\"filesystem-ledger\",\"upstream\":[]},{\"alias\":\"incident-response\",\"attestation_ref\":\"synthetic-source-catalogue\",\"collector\":\"incident-response\",\"family\":\"incident-response\",\"id\":\"incident-response\",\"upstream\":[]},{\"alias\":\"backup-service\",\"attestation_ref\":\"synthetic-source-catalogue\",\"collector\":\"backup-service\",\"family\":\"backup-service\",\"id\":\"backup-service\",\"upstream\":[]},{\"alias\":\"backup-inventory\",\"attestation_ref\":\"synthetic-source-catalogue\",\"collector\":\"backup-inventory\",\"family\":\"backup-inventory\",\"id\":\"backup-inventory\",\"upstream\":[]}],\"statements\":[{\"cite\":\"E2.1\",\"id\":\"E2.1\",\"record\":{\"id\":\"E2.1\",\"revision\":1},\"sha256\":\"5e93cd669cf68457144813260cf9f883a8367ef8a8670cd324cbc3a3280a359d\",\"span\":[0,96]},{\"cite\":\"E1.1\",\"id\":\"E1.1\",\"record\":{\"id\":\"E1.1\",\"revision\":1},\"sha256\":\"2f123f6ffd61ccac60ade08a70c4b631353746251500821a8eab8b595e12ce1f\",\"span\":[0,120]},{\"cite\":\"E4.1\",\"id\":\"E4.1\",\"record\":{\"id\":\"E4.1\",\"revision\":1},\"sha256\":\"9b64be58a25cf6827273748be1483d8ad4514446e2e2909ada1ac75c5d0e70d2\",\"span\":[0,68]},{\"cite\":\"E3.1\",\"id\":\"E3.1\",\"record\":{\"id\":\"E3.1\",\"revision\":1},\"sha256\":\"ffec5e5151eda9c9987a53e6390be056827b8968a62d00cb186bcf6e2db6e63d\",\"span\":[0,72]}]}\n",
+  "status": "completed",
+  "title": "Slate archive and recovery review"
+}

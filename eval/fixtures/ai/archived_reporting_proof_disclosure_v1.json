@@ -1,0 +1,29 @@
+{
+  "protocol": "archived-reporting-proof-disclosure-v1",
+  "notes": "Authored expectations for exact reviewed proof links. Capacity cases reuse the frozen eight-excerpt selections. Shared context supports two separate fictional occurrences.",
+  "capacity_fixture_sha256": "889f6e19f0a12bebe875b0b0f3454f4277e652da8768b8d9dc10878742d8f062",
+  "capacity_source_roles": {"mechanic": 1, "actor": 2, "outcome": 3, "authorization": 4},
+  "windows": {
+    "technique": "T1685.005",
+    "occurrence": "clear-event",
+    "assertions": {
+      "mechanic": ["E1.1", "E1.2"],
+      "outcome": ["E1.1"],
+      "actor": ["E2.1"],
+      "authorization": ["E3.1"]
+    }
+  },
+  "shared_context": {
+    "id": "shared-review-context",
+    "text": "The reviewed ledger described the shared archive storage schedule.",
+    "cite": "E9.1",
+    "occurrences": [1, 2],
+    "withheld": [3],
+    "assertions": {
+      "mechanic": [1, "E9.1"],
+      "outcome": [1],
+      "actor": [2],
+      "authorization": [3]
+    }
+  }
+}

@@ -1,0 +1,431 @@
+{
+  "dataset_sha256": "df18c091e416c85df93d5a428ab5158ecc14e9490307824c25500227e64b1db1",
+  "case_count": 32,
+  "exact_cases": 32,
+  "correct_abstentions": 17,
+  "negative_cases": 17,
+  "cases_with_gap_mismatches": 0,
+  "cases_with_integrity_errors": 0,
+  "true_positives": 17,
+  "false_positives": 0,
+  "false_negatives": 0,
+  "micro_f1": 1.0,
+  "cases": [
+    {
+      "id": "vendor_current",
+      "expected": [
+        "vendor_remote_access"
+      ],
+      "observed": [
+        "vendor_remote_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "vendor_staff_only",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "vendor_retired",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "vendor_planned",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "vendor_absence",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "vendor_access_control",
+      "expected": [
+        "vendor_remote_access"
+      ],
+      "observed": [
+        "vendor_remote_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "vendor_and_internal_shared",
+      "expected": [
+        "shared_identity",
+        "vendor_remote_access"
+      ],
+      "observed": [
+        "shared_identity",
+        "vendor_remote_access"
+      ],
+      "true_positives": 2,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "vendor_stated_gap",
+      "expected": [
+        "vendor_remote_access"
+      ],
+      "observed": [
+        "vendor_remote_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "shared_accounts_individual",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "shared_accounts_no_longer",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "shared_accounts_yes",
+      "expected": [
+        "shared_identity"
+      ],
+      "observed": [
+        "shared_identity"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "backup_gap",
+      "expected": [
+        "recovery_readiness"
+      ],
+      "observed": [
+        "recovery_readiness"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "backup_gap_absent",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "backup_after_boundary",
+      "expected": [
+        "recovery_readiness"
+      ],
+      "observed": [
+        "recovery_readiness"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "backup_gap_negated",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "customer_api_positive",
+      "expected": [
+        "api_object_access"
+      ],
+      "observed": [
+        "api_object_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "customer_api_roadmap",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "backend_api_no_records",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "web_form_positive",
+      "expected": [
+        "web_input_processing"
+      ],
+      "observed": [
+        "web_input_processing"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "paper_forms_unrelated",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "object_storage_positive",
+      "expected": [
+        "cloud_object_access"
+      ],
+      "observed": [
+        "cloud_object_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "object_storage_future",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "object_storage_word_collision",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "industrial_positive",
+      "expected": [
+        "industrial_segmentation"
+      ],
+      "observed": [
+        "industrial_segmentation"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "industrial_segmented_different_zone",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "industrial_negated_segmentation",
+      "expected": [
+        "industrial_segmentation"
+      ],
+      "observed": [
+        "industrial_segmentation"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "legacy_supported",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "legacy_unsupported",
+      "expected": [
+        "legacy_components"
+      ],
+      "observed": [
+        "legacy_components"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "legacy_elsewhere",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "nontechnical_labels",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "adversative_current",
+      "expected": [
+        "vendor_remote_access"
+      ],
+      "observed": [
+        "vendor_remote_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "unrelated_gap",
+      "expected": [
+        "api_object_access",
+        "web_input_processing"
+      ],
+      "observed": [
+        "api_object_access",
+        "web_input_processing"
+      ],
+      "true_positives": 2,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    }
+  ]
+}

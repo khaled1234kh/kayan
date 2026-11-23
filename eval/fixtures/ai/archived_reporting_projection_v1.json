@@ -1,0 +1,185 @@
+{
+  "protocol": "reporting-projection-v1",
+  "oracle": "Authored synthetic occurrence dispositions and exact statement addresses",
+  "cases": {
+    "windows-secondary-support": {
+      "archive_sha256": "c62691324811191d3c78666a6ac68b008a3d229e2af025989eb20d4bf5fc6e8c",
+      "invalid": false,
+      "claims": {
+        "clear-event": {
+          "technique": "T1685.005",
+          "proposal": [
+            "E1.1",
+            "E2.1",
+            "E3.1"
+          ],
+          "expected": "eligible",
+          "sources": [
+            "E1.1",
+            "E1.2",
+            "E2.1",
+            "E3.1"
+          ]
+        }
+      }
+    },
+    "missing-record": {
+      "archive_sha256": "841cc44c692a65665714f219a7f263b5977b674f3676f224bdf142a452f34166",
+      "invalid": true,
+      "claims": {
+        "clear-event": {
+          "technique": "T1685.005",
+          "proposal": [
+            "E1.1",
+            "E2.1",
+            "E3.1"
+          ],
+          "expected": "invalid",
+          "sources": []
+        }
+      }
+    },
+    "empty": {
+      "archive_sha256": "43b1cad9afd2a09f5fb8336d050b2982c69dc7b8d35a0fc71bcf802a829eebb4",
+      "invalid": false,
+      "claims": {}
+    },
+    "disputed": {
+      "archive_sha256": "67be899406c817ab9c34b0e8d3779be3c49055e4fc242411677c40247781444d",
+      "invalid": false,
+      "claims": {
+        "incident-1": {
+          "technique": "T1486",
+          "proposal": [
+            "E1.1",
+            "E1.2",
+            "E1.3"
+          ],
+          "expected": "withheld",
+          "sources": []
+        }
+      }
+    },
+    "authorized": {
+      "archive_sha256": "8351654c868439bc1d014af3f1e2bd288212417721716936c0de7e92eb2deb8a",
+      "invalid": false,
+      "claims": {
+        "incident-1": {
+          "technique": "T1486",
+          "proposal": [
+            "E1.1",
+            "E1.2",
+            "E1.3"
+          ],
+          "expected": "withheld",
+          "sources": []
+        }
+      }
+    },
+    "missing-attribution": {
+      "archive_sha256": "ec1912510538ec4eb8f8b00b183103f3c31cdf0634f4f5afc328c4455155a615",
+      "invalid": false,
+      "claims": {
+        "incident-1": {
+          "technique": "T1486",
+          "proposal": [
+            "E1.1",
+            "E1.3"
+          ],
+          "expected": "withheld",
+          "sources": []
+        }
+      }
+    },
+    "repeated-supported": {
+      "archive_sha256": "17edafd8b4076642ea5c89f723ff14044ea444bcc67e8f897d6913cab7257d08",
+      "invalid": false,
+      "claims": {
+        "incident-1": {
+          "technique": "T1486",
+          "proposal": [
+            "E1.1",
+            "E1.2",
+            "E1.3"
+          ],
+          "expected": "eligible",
+          "sources": [
+            "E1.1",
+            "E1.2",
+            "E1.3"
+          ]
+        },
+        "incident-2": {
+          "technique": "T1486",
+          "proposal": [
+            "E2.1",
+            "E2.2",
+            "E2.3"
+          ],
+          "expected": "eligible",
+          "sources": [
+            "E2.1",
+            "E2.2",
+            "E2.3"
+          ]
+        }
+      }
+    },
+    "repeated-mixed": {
+      "archive_sha256": "54d119e8738ca6a6b7bc4c6dba448d4b32b2c36996f500ee9f9662b0e27c8dd3",
+      "invalid": false,
+      "claims": {
+        "incident-1": {
+          "technique": "T1486",
+          "proposal": [
+            "E1.1",
+            "E1.2",
+            "E1.3"
+          ],
+          "expected": "eligible",
+          "sources": [
+            "E1.1",
+            "E1.2",
+            "E1.3"
+          ]
+        },
+        "incident-2": {
+          "technique": "T1486",
+          "proposal": [
+            "E2.1",
+            "E2.2",
+            "E2.3"
+          ],
+          "expected": "withheld",
+          "sources": []
+        }
+      }
+    },
+    "shared-ambiguous-anchor": {
+      "archive_sha256": "b4acaef011ac9ec894866381676543ba70523ecf1eb8b1308aad2326502a128b",
+      "invalid": false,
+      "claims": {
+        "incident-1": {
+          "technique": "T1486",
+          "proposal": [
+            "E1.1",
+            "E1.2",
+            "E1.3"
+          ],
+          "expected": "withheld",
+          "sources": []
+        },
+        "incident-2": {
+          "technique": "T1486",
+          "proposal": [
+            "E1.1",
+            "E2.2",
+            "E2.3"
+          ],
+          "expected": "withheld",
+          "sources": []
+        }
+      }
+    }
+  }
+}

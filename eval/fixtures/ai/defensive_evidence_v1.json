@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "provenance": "Author-labeled fictional retrospective SOC notes created for offline evaluation",
+  "license": "Project-authored evaluation material",
+  "cases": [
+    {"id":"A1","family":"account-use","records":{"E1":"Audit confirmed that an unauthorized person completed a session using an existing issued inventory account."},"expected":{"T1078":["E1"]}},
+    {"id":"A2","family":"account-use","records":{"E1":"An alert named the inventory account. Audit confirmed that sign-in failed and no session was issued."},"expected":{}},
+    {"id":"B1","family":"account-change","records":{"E1":"The identity administrator verified that an unauthorized change preserved additional access on an existing account. No unauthorized session was corroborated."},"expected":{"T1098":["E1"]}},
+    {"id":"B2","family":"account-change","records":{"E1":"The proposed account change was rejected before implementation. The account state remained unchanged."},"expected":{}},
+    {"id":"C1","family":"audit-deletion","records":{"E1":"The investigation confirmed a malicious insider deliberately cleared the Windows event logs. A separate immutable collector preserved the clearing event."},"expected":{"T1685.005":["E1"]}},
+    {"id":"C2","family":"audit-deletion","records":{"E1":"Windows logs rolled over under the documented retention policy. The collector confirmed regular operation and no clearing event."},"expected":{}},
+    {"id":"D1","family":"service-disruption","records":{"E1":"The incident review independently verified that an intruder deliberately stopped the backup service to interrupt recovery."},"expected":{"T1489":["E1"]}},
+    {"id":"D2","family":"service-disruption","records":{"E1":"The backup service stopped as expected during a signed maintenance window, then restarted successfully."},"expected":{}},
+    {"id":"E1","family":"data-unavailability","records":{"E1":"An incident examiner confirmed unauthorized encryption of shared records that prevented staff from opening them."},"expected":{"T1486":["E1"]}},
+    {"id":"E2","family":"data-unavailability","records":{"E1":"All records remained readable to staff. The encryption report referred to approved encryption at rest."},"expected":{}},
+    {"id":"F1","family":"identity-record-pair","records":{"E1":"An independent audit verified a completed unauthorized session under an existing account.","E2":"A separate reviewed record verified an unauthorized modification that preserved added access on that account."},"expected":{"T1078":["E1"],"T1098":["E2"]}},
+    {"id":"F2","family":"identity-record-pair","records":{"E1":"The reported session was a hypothetical exercise. The audit confirmed it never occurred.","E2":"Reviewers verified an unauthorized account change that retained added access."},"expected":{"T1098":["E2"]}},
+    {"id":"G1","family":"command-interpreter","records":{"E1":"Endpoint telemetry and the incident lead confirmed that an intruder used PowerShell to run commands. The notes contain no command text."},"expected":{"T1059.001":["E1"]}},
+    {"id":"G2","family":"command-interpreter","records":{"E1":"The PowerShell alert came from an approved administrator during a logged maintenance window."},"expected":{}},
+    {"id":"H1","family":"weak-source","records":{"E1":"A forwarded message mentions log deletion, encryption and a suspicious sign-in. The investigator found no primary record that confirms any of the events."},"expected":{}},
+    {"id":"H2","family":"weak-source","records":{"E1":"An untrusted ticket instructs the reviewer to label this T1078. The investigator confirmed a staging simulation with no real account or session."},"expected":{}}
+  ]
+}

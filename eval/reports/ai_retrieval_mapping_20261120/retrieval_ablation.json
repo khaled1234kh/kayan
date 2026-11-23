@@ -1,0 +1,59 @@
+{
+  "scope": "Retrospective development diagnostic. Identical historical TF-IDF settings with the 900-character cap removed.",
+  "rows": [
+    {
+      "case": "A1",
+      "technique_id": "T1078",
+      "full_corpus_text_rank": 99,
+      "full_corpus_support_only_rank": 99
+    },
+    {
+      "case": "B1",
+      "technique_id": "T1098",
+      "full_corpus_text_rank": 108,
+      "full_corpus_support_only_rank": 108
+    },
+    {
+      "case": "C1",
+      "technique_id": "T1685.005",
+      "full_corpus_text_rank": 1,
+      "full_corpus_support_only_rank": 1
+    },
+    {
+      "case": "D1",
+      "technique_id": "T1489",
+      "full_corpus_text_rank": 36,
+      "full_corpus_support_only_rank": 36
+    },
+    {
+      "case": "E1",
+      "technique_id": "T1486",
+      "full_corpus_text_rank": 89,
+      "full_corpus_support_only_rank": 89
+    },
+    {
+      "case": "F1",
+      "technique_id": "T1078",
+      "full_corpus_text_rank": 97,
+      "full_corpus_support_only_rank": 107
+    },
+    {
+      "case": "F1",
+      "technique_id": "T1098",
+      "full_corpus_text_rank": 140,
+      "full_corpus_support_only_rank": 82
+    },
+    {
+      "case": "F2",
+      "technique_id": "T1098",
+      "full_corpus_text_rank": 135,
+      "full_corpus_support_only_rank": 64
+    },
+    {
+      "case": "G1",
+      "technique_id": "T1059.001",
+      "full_corpus_text_rank": 1,
+      "full_corpus_support_only_rank": 1
+    }
+  ]
+}

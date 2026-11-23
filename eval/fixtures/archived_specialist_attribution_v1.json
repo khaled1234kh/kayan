@@ -1,0 +1,268 @@
+{
+  "version": "kayan-saved-specialist-attribution/1",
+  "scope": "Authored inert observations. No tool executed and no finding proof supplied.",
+  "cases": [
+    {
+      "id": "siloed_roles",
+      "events": [
+        {
+          "role": "recon_agent",
+          "outcome": {
+            "status_code": 200
+          }
+        },
+        {
+          "role": "webapp_agent",
+          "outcome": {
+            "supported": false
+          }
+        },
+        {
+          "role": "network_agent",
+          "outcome": {
+            "open_ports": []
+          }
+        }
+      ],
+      "expected": {
+        "recon_agent": {
+          "completed": 1
+        },
+        "webapp_agent": {
+          "completed": 1
+        },
+        "network_agent": {
+          "completed": 1
+        }
+      },
+      "invalid_sources": 0
+    },
+    {
+      "id": "partial_and_empty",
+      "events": [
+        {
+          "role": "recon_agent",
+          "outcome": {
+            "status_code": 200,
+            "private_detail": "fixture only"
+          }
+        },
+        {
+          "role": "webapp_agent",
+          "outcome": {
+            "private_detail": "fixture only"
+          }
+        },
+        {
+          "role": "network_agent",
+          "outcome": {
+            "verification": false
+          }
+        }
+      ],
+      "expected": {
+        "recon_agent": {
+          "projected": 1
+        },
+        "webapp_agent": {
+          "empty": 1
+        },
+        "network_agent": {
+          "completed": 1
+        }
+      },
+      "invalid_sources": 0
+    },
+    {
+      "id": "denied_failed_absent",
+      "events": [
+        {
+          "role": "recon_agent",
+          "status": "denied"
+        },
+        {
+          "role": "webapp_agent",
+          "status": "failed"
+        },
+        {
+          "role": "network_agent",
+          "status": "authorization_unverified"
+        }
+      ],
+      "expected": {
+        "recon_agent": {
+          "denied": 1
+        },
+        "webapp_agent": {
+          "failed": 1
+        },
+        "network_agent": {
+          "authorization_unverified": 1
+        }
+      },
+      "invalid_sources": 0
+    },
+    {
+      "id": "legacy_and_foreign",
+      "events": [
+        {
+          "role": "recon_agent",
+          "status": "transcript_only",
+          "outcome": {
+            "status_code": 200
+          }
+        },
+        {
+          "role": "network_agent",
+          "outcome": {
+            "open_ports": []
+          }
+        },
+        {
+          "role": "webapp_agent",
+          "status": "foreign",
+          "outcome": {
+            "supported": true
+          }
+        }
+      ],
+      "expected": {
+        "recon_agent": {
+          "transcript_only": 1
+        },
+        "network_agent": {
+          "completed": 1
+        }
+      },
+      "invalid_sources": 0
+    },
+    {
+      "id": "late_conflict_per_role",
+      "events": [
+        {
+          "role": "recon_agent",
+          "outcome": {
+            "status_code": 200
+          },
+          "alteration": "late_conflict"
+        },
+        {
+          "role": "webapp_agent",
+          "outcome": {
+            "supported": false
+          }
+        },
+        {
+          "role": "network_agent",
+          "outcome": {
+            "open_ports": []
+          }
+        }
+      ],
+      "expected": {
+        "webapp_agent": {
+          "completed": 1
+        },
+        "network_agent": {
+          "completed": 1
+        }
+      },
+      "invalid_sources": 1
+    },
+    {
+      "id": "misattributed_role",
+      "events": [
+        {
+          "role": "webapp_agent",
+          "outcome": {
+            "supported": false
+          },
+          "alteration": "other_role"
+        },
+        {
+          "role": "network_agent",
+          "outcome": {
+            "verification": false
+          }
+        }
+      ],
+      "expected": {
+        "network_agent": {
+          "completed": 1
+        }
+      },
+      "invalid_sources": 1
+    },
+    {
+      "id": "identical_replayed_result",
+      "events": [
+        {
+          "role": "recon_agent",
+          "outcome": {
+            "status_code": 200
+          },
+          "alteration": "duplicate"
+        },
+        {
+          "role": "webapp_agent",
+          "outcome": {
+            "supported": false
+          }
+        },
+        {
+          "role": "network_agent",
+          "outcome": {
+            "verification": false
+          }
+        }
+      ],
+      "expected": {
+        "recon_agent": {
+          "completed": 1
+        },
+        "webapp_agent": {
+          "completed": 1
+        },
+        "network_agent": {
+          "completed": 1
+        }
+      },
+      "invalid_sources": 0
+    },
+    {
+      "id": "declared_without_capture",
+      "declared_complete": [
+        "recon_agent",
+        "webapp_agent",
+        "network_agent"
+      ],
+      "events": [],
+      "expected": {},
+      "invalid_sources": 0
+    },
+    {
+      "id": "conflicting_capture_revision",
+      "events": [
+        {
+          "role": "recon_agent",
+          "outcome": {
+            "status_code": 200
+          },
+          "alteration": "two_hashes"
+        },
+        {
+          "role": "network_agent",
+          "outcome": {
+            "verification": false
+          }
+        }
+      ],
+      "expected": {
+        "network_agent": {
+          "completed": 1
+        }
+      },
+      "invalid_sources": 2
+    }
+  ]
+}

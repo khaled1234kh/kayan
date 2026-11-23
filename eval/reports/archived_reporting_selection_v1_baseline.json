@@ -1,0 +1,874 @@
+{
+  "protocol": "archived-reporting-selection-v1",
+  "fixture_sha256": "9bece3488479994e07d219d21a4e87c7b1b01a1a387751ea2dfd68b5e9464c37",
+  "cases": [
+    {
+      "id": "slate-ranked",
+      "archive": "slate",
+      "expected_status": "selected",
+      "status": "selected",
+      "attempts": 1,
+      "findings_unchanged": true,
+      "withheld_unchanged": true,
+      "fallback_matches_local": null,
+      "export_matches": true,
+      "local": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              null,
+              "E2.1"
+            ]
+          ],
+          "matching": 1,
+          "returned": 1,
+          "desired": 2,
+          "exact": false,
+          "ordered_pairs": 0,
+          "comparable_pairs": 0
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 1,
+        "admitted_occurrences": 1,
+        "published_coverage": null
+      },
+      "selected": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              null,
+              "E2.1"
+            ],
+            [
+              "T1486",
+              null,
+              "E1.1"
+            ]
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 1,
+        "admitted_occurrences": 1,
+        "published_coverage": null
+      }
+    },
+    {
+      "id": "slate-controls-reversed",
+      "archive": "slate",
+      "expected_status": "selected",
+      "status": "selected",
+      "attempts": 1,
+      "findings_unchanged": true,
+      "withheld_unchanged": true,
+      "fallback_matches_local": null,
+      "export_matches": true,
+      "local": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              null,
+              "E2.1"
+            ]
+          ],
+          "matching": 1,
+          "returned": 1,
+          "desired": 2,
+          "exact": false,
+          "ordered_pairs": 0,
+          "comparable_pairs": 0
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 1,
+        "admitted_occurrences": 1,
+        "published_coverage": null
+      },
+      "selected": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              null,
+              "E2.1"
+            ],
+            [
+              "T1486",
+              null,
+              "E1.1"
+            ]
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "recommendations": {
+          "references": [
+            "T1486-2",
+            "T1486-1"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": false,
+          "ordered_pairs": 0,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 1,
+        "admitted_occurrences": 1,
+        "published_coverage": null
+      }
+    },
+    {
+      "id": "repeated-ranked",
+      "archive": "repeated-supported",
+      "expected_status": "selected",
+      "status": "selected",
+      "attempts": 1,
+      "findings_unchanged": true,
+      "withheld_unchanged": true,
+      "fallback_matches_local": null,
+      "export_matches": true,
+      "local": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "incident-1",
+              "E1.1"
+            ],
+            [
+              "T1486",
+              "incident-2",
+              "E2.1"
+            ]
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 2,
+        "admitted_occurrences": 2,
+        "published_coverage": null
+      },
+      "selected": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "incident-1",
+              "E1.1"
+            ],
+            [
+              "T1486",
+              "incident-2",
+              "E2.1"
+            ]
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 2,
+        "admitted_occurrences": 2,
+        "published_coverage": null
+      }
+    },
+    {
+      "id": "repeated-reversed",
+      "archive": "repeated-supported",
+      "expected_status": "selected",
+      "status": "selected",
+      "attempts": 1,
+      "findings_unchanged": true,
+      "withheld_unchanged": true,
+      "fallback_matches_local": null,
+      "export_matches": true,
+      "local": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "incident-1",
+              "E1.1"
+            ],
+            [
+              "T1486",
+              "incident-2",
+              "E2.1"
+            ]
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 2,
+        "admitted_occurrences": 2,
+        "published_coverage": null
+      },
+      "selected": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "incident-2",
+              "E2.1"
+            ],
+            [
+              "T1486",
+              "incident-1",
+              "E1.1"
+            ]
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": false,
+          "ordered_pairs": 0,
+          "comparable_pairs": 1
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 2,
+        "admitted_occurrences": 2,
+        "published_coverage": null
+      }
+    },
+    {
+      "id": "repeated-partial",
+      "archive": "repeated-supported",
+      "expected_status": "selected",
+      "status": "selected",
+      "attempts": 1,
+      "findings_unchanged": true,
+      "withheld_unchanged": true,
+      "fallback_matches_local": null,
+      "export_matches": true,
+      "local": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "incident-1",
+              "E1.1"
+            ],
+            [
+              "T1486",
+              "incident-2",
+              "E2.1"
+            ]
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 2,
+        "admitted_occurrences": 2,
+        "published_coverage": null
+      },
+      "selected": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "incident-1",
+              "E1.1"
+            ]
+          ],
+          "matching": 1,
+          "returned": 1,
+          "desired": 2,
+          "exact": false,
+          "ordered_pairs": 0,
+          "comparable_pairs": 0
+        },
+        "recommendations": {
+          "references": [
+            "T1486-2"
+          ],
+          "matching": 1,
+          "returned": 1,
+          "desired": 2,
+          "exact": false,
+          "ordered_pairs": 0,
+          "comparable_pairs": 0
+        },
+        "covered_occurrences": 1,
+        "admitted_occurrences": 2,
+        "published_coverage": null
+      }
+    },
+    {
+      "id": "repeated-weak-relevance",
+      "archive": "repeated-supported",
+      "expected_status": "selected",
+      "status": "selected",
+      "attempts": 1,
+      "findings_unchanged": true,
+      "withheld_unchanged": true,
+      "fallback_matches_local": null,
+      "export_matches": true,
+      "local": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "incident-1",
+              "E1.1"
+            ],
+            [
+              "T1486",
+              "incident-2",
+              "E2.1"
+            ]
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 2,
+        "admitted_occurrences": 2,
+        "published_coverage": null
+      },
+      "selected": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "incident-1",
+              "E1.2"
+            ],
+            [
+              "T1486",
+              "incident-2",
+              "E2.2"
+            ]
+          ],
+          "matching": 0,
+          "returned": 2,
+          "desired": 2,
+          "exact": false,
+          "ordered_pairs": 0,
+          "comparable_pairs": 0
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 2,
+        "admitted_occurrences": 2,
+        "published_coverage": null
+      }
+    },
+    {
+      "id": "mixed-ranked",
+      "archive": "repeated-mixed",
+      "expected_status": "selected",
+      "status": "selected",
+      "attempts": 1,
+      "findings_unchanged": true,
+      "withheld_unchanged": true,
+      "fallback_matches_local": null,
+      "export_matches": true,
+      "local": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "incident-1",
+              "E1.1"
+            ]
+          ],
+          "matching": 1,
+          "returned": 1,
+          "desired": 1,
+          "exact": true,
+          "ordered_pairs": 0,
+          "comparable_pairs": 0
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 1,
+        "admitted_occurrences": 1,
+        "published_coverage": null
+      },
+      "selected": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "incident-1",
+              "E1.1"
+            ]
+          ],
+          "matching": 1,
+          "returned": 1,
+          "desired": 1,
+          "exact": true,
+          "ordered_pairs": 0,
+          "comparable_pairs": 0
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 1,
+        "admitted_occurrences": 1,
+        "published_coverage": null
+      }
+    },
+    {
+      "id": "withheld-alias",
+      "archive": "repeated-mixed",
+      "expected_status": "degraded",
+      "status": "degraded",
+      "attempts": 1,
+      "findings_unchanged": true,
+      "withheld_unchanged": true,
+      "fallback_matches_local": true,
+      "export_matches": true,
+      "local": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "incident-1",
+              "E1.1"
+            ]
+          ],
+          "matching": 1,
+          "returned": 1,
+          "desired": 1,
+          "exact": true,
+          "ordered_pairs": 0,
+          "comparable_pairs": 0
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 1,
+        "admitted_occurrences": 1,
+        "published_coverage": null
+      },
+      "selected": null
+    },
+    {
+      "id": "unknown-control",
+      "archive": "repeated-mixed",
+      "expected_status": "degraded",
+      "status": "degraded",
+      "attempts": 1,
+      "findings_unchanged": true,
+      "withheld_unchanged": true,
+      "fallback_matches_local": true,
+      "export_matches": true,
+      "local": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "incident-1",
+              "E1.1"
+            ]
+          ],
+          "matching": 1,
+          "returned": 1,
+          "desired": 1,
+          "exact": true,
+          "ordered_pairs": 0,
+          "comparable_pairs": 0
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 1,
+        "admitted_occurrences": 1,
+        "published_coverage": null
+      },
+      "selected": null
+    },
+    {
+      "id": "duplicate-field",
+      "archive": "repeated-mixed",
+      "expected_status": "degraded",
+      "status": "degraded",
+      "attempts": 1,
+      "findings_unchanged": true,
+      "withheld_unchanged": true,
+      "fallback_matches_local": true,
+      "export_matches": true,
+      "local": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "incident-1",
+              "E1.1"
+            ]
+          ],
+          "matching": 1,
+          "returned": 1,
+          "desired": 1,
+          "exact": true,
+          "ordered_pairs": 0,
+          "comparable_pairs": 0
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 1,
+        "admitted_occurrences": 1,
+        "published_coverage": null
+      },
+      "selected": null
+    },
+    {
+      "id": "extra-findings",
+      "archive": "repeated-mixed",
+      "expected_status": "degraded",
+      "status": "degraded",
+      "attempts": 1,
+      "findings_unchanged": true,
+      "withheld_unchanged": true,
+      "fallback_matches_local": true,
+      "export_matches": true,
+      "local": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "incident-1",
+              "E1.1"
+            ]
+          ],
+          "matching": 1,
+          "returned": 1,
+          "desired": 1,
+          "exact": true,
+          "ordered_pairs": 0,
+          "comparable_pairs": 0
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 1,
+        "admitted_occurrences": 1,
+        "published_coverage": null
+      },
+      "selected": null
+    },
+    {
+      "id": "partial-json",
+      "archive": "repeated-mixed",
+      "expected_status": "degraded",
+      "status": "degraded",
+      "attempts": 1,
+      "findings_unchanged": true,
+      "withheld_unchanged": true,
+      "fallback_matches_local": true,
+      "export_matches": true,
+      "local": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "incident-1",
+              "E1.1"
+            ]
+          ],
+          "matching": 1,
+          "returned": 1,
+          "desired": 1,
+          "exact": true,
+          "ordered_pairs": 0,
+          "comparable_pairs": 0
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 1,
+        "admitted_occurrences": 1,
+        "published_coverage": null
+      },
+      "selected": null
+    },
+    {
+      "id": "provider-unavailable",
+      "archive": "repeated-mixed",
+      "expected_status": "degraded",
+      "status": "degraded",
+      "attempts": 1,
+      "findings_unchanged": true,
+      "withheld_unchanged": true,
+      "fallback_matches_local": true,
+      "export_matches": true,
+      "local": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "incident-1",
+              "E1.1"
+            ]
+          ],
+          "matching": 1,
+          "returned": 1,
+          "desired": 1,
+          "exact": true,
+          "ordered_pairs": 0,
+          "comparable_pairs": 0
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 1,
+        "admitted_occurrences": 1,
+        "published_coverage": null
+      },
+      "selected": null
+    },
+    {
+      "id": "no-admitted-occurrence",
+      "archive": "shared-ambiguous-anchor",
+      "expected_status": "blocked",
+      "status": "blocked",
+      "attempts": 0,
+      "findings_unchanged": true,
+      "withheld_unchanged": true,
+      "fallback_matches_local": null,
+      "export_matches": null,
+      "local": {
+        "highlights": {
+          "references": [],
+          "matching": 0,
+          "returned": 0,
+          "desired": 0,
+          "exact": true,
+          "ordered_pairs": 0,
+          "comparable_pairs": 0
+        },
+        "recommendations": {
+          "references": [],
+          "matching": 0,
+          "returned": 0,
+          "desired": 0,
+          "exact": true,
+          "ordered_pairs": 0,
+          "comparable_pairs": 0
+        },
+        "covered_occurrences": 0,
+        "admitted_occurrences": 0,
+        "published_coverage": null
+      },
+      "selected": null
+    }
+  ]
+}

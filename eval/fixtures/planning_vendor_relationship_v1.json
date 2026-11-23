@@ -1,0 +1,137 @@
+{
+  "version": "kayan-phase1-vendor-relationship/1",
+  "purpose": "Authored current access and collision controls frozen before evaluation.",
+  "cases": [
+    {
+      "id": "repair_supplier_unrelated",
+      "engagement_context": {
+        "network_architecture": "The equipment vendor delivers spare parts and internal staff use a VPN for after-hours work."
+      },
+      "expected_scenarios": []
+    },
+    {
+      "id": "onsite_support_only",
+      "engagement_context": {
+        "network_architecture": "Contractors repair office printers onsite, and employees use a VPN to reach the document server."
+      },
+      "expected_scenarios": []
+    },
+    {
+      "id": "vendor_supplied_appliance",
+      "engagement_context": {
+        "network_architecture": "Staff connect through the VPN appliance supplied by a third-party vendor."
+      },
+      "expected_scenarios": []
+    },
+    {
+      "id": "vendor_advice_only",
+      "engagement_context": {
+        "network_architecture": "The payroll vendor recommends a VPN for home workers."
+      },
+      "expected_scenarios": []
+    },
+    {
+      "id": "current_staff_retired_vendor",
+      "engagement_context": {
+        "network_architecture": "A contractor VPN was retired last autumn and staff use a VPN for after-hours work."
+      },
+      "expected_scenarios": []
+    },
+    {
+      "id": "unrelated_policy_mentions",
+      "engagement_context": {
+        "network_architecture": "Remote access is limited to employees and vendors submit shipping notices on paper."
+      },
+      "expected_scenarios": []
+    },
+    {
+      "id": "review_concept_only",
+      "engagement_context": {
+        "network_architecture": "The security review lists vendor access as a topic and describes an employee VPN."
+      },
+      "expected_scenarios": []
+    },
+    {
+      "id": "internal_user_without_vendor_access",
+      "engagement_context": {
+        "network_architecture": "The VPN is used by employees, with no access for contractors."
+      },
+      "expected_scenarios": []
+    },
+    {
+      "id": "active_access_subject",
+      "engagement_context": {
+        "network_architecture": "Maintenance vendors connect to the inventory console via VPN."
+      },
+      "expected_scenarios": [
+        "vendor_remote_access"
+      ]
+    },
+    {
+      "id": "active_qualified_device",
+      "engagement_context": {
+        "network_architecture": "The company operates a contractor VPN for inventory maintenance."
+      },
+      "expected_scenarios": [
+        "vendor_remote_access"
+      ]
+    },
+    {
+      "id": "active_reverse_direction",
+      "engagement_context": {
+        "network_architecture": "The warehouse VPN is used by contractors for scheduled repairs."
+      },
+      "expected_scenarios": [
+        "vendor_remote_access"
+      ]
+    },
+    {
+      "id": "active_provision",
+      "engagement_context": {
+        "network_architecture": "The gateway provides remote access to external vendors for scheduled review."
+      },
+      "expected_scenarios": [
+        "vendor_remote_access"
+      ]
+    },
+    {
+      "id": "active_shared_subject",
+      "engagement_context": {
+        "network_architecture": "Vendors and internal staff use the VPN to reach the appointment system."
+      },
+      "expected_scenarios": [
+        "vendor_remote_access"
+      ]
+    },
+    {
+      "id": "active_qualifier_following",
+      "engagement_context": {
+        "network_architecture": "The finance team operates a VPN for contractors who manage invoice archives."
+      },
+      "expected_scenarios": [
+        "vendor_remote_access"
+      ]
+    },
+    {
+      "id": "active_with_denial_elsewhere",
+      "engagement_context": {
+        "network_architecture": "Staff cannot use the supplier portal, but contractors connect through a VPN to the archive system."
+      },
+      "expected_scenarios": [
+        "vendor_remote_access"
+      ]
+    },
+    {
+      "id": "active_with_explicit_gap",
+      "engagement_context": {
+        "network_architecture": "Contractors use a VPN with shared accounts for scheduled maintenance."
+      },
+      "expected_scenarios": [
+        "vendor_remote_access"
+      ],
+      "expected_gap": {
+        "vendor_remote_access": true
+      }
+    }
+  ]
+}

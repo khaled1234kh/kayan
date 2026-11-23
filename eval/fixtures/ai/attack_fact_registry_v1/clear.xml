@@ -1,0 +1,19 @@
+<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+  <System>
+    <Provider Name="Microsoft-Windows-Eventlog" Guid="{fc65ddd8-d6ef-4962-83d5-6e5cfe9ce148}"/>
+    <EventID>1102</EventID>
+    <Version>0</Version>
+    <TimeCreated SystemTime="2026-11-20T09:10:00.000000001Z"/>
+    <EventRecordID>22</EventRecordID>
+    <Channel>Security</Channel>
+    <Computer>JUN-4.example.invalid</Computer>
+  </System>
+  <UserData>
+    <LogFileCleared xmlns="http://manifests.microsoft.com/win/2004/08/windows/eventlog">
+      <SubjectUserSid>S-1-5-21-100-200-300-1104</SubjectUserSid>
+      <SubjectUserName>operator</SubjectUserName>
+      <SubjectDomainName>BLUE</SubjectDomainName>
+      <SubjectLogonId>0x55cd1d</SubjectLogonId>
+    </LogFileCleared>
+  </UserData>
+</Event>

@@ -1,0 +1,554 @@
+{
+  "protocol": "archived-reporting-action-coverage-ablation-v1",
+  "trace_sha256": "1bad77075837d12c0434602ddf34834f9a27da90414f058ac2b58dacfe7f6b59",
+  "cases": [
+    {
+      "id": "library-archive-outage",
+      "added_highlights": [
+        "T1486/E1.1"
+      ],
+      "findings_and_controls_unchanged": true,
+      "raw": {
+        "admitted_occurrences": 1,
+        "covered_occurrences": 1,
+        "highlights": {
+          "comparable_pairs": 0,
+          "desired": 2,
+          "exact": false,
+          "matching": 1,
+          "ordered_pairs": 0,
+          "references": [
+            [
+              "T1486",
+              null,
+              "E1.3"
+            ]
+          ],
+          "returned": 1
+        },
+        "published_coverage": {
+          "action_covered_occurrences": 0,
+          "admitted_occurrences": 1,
+          "covered_occurrences": 1
+        },
+        "recommendations": {
+          "comparable_pairs": 1,
+          "desired": 2,
+          "exact": true,
+          "matching": 2,
+          "ordered_pairs": 1,
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "returned": 2
+        }
+      },
+      "augmented": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              null,
+              "E1.3"
+            ],
+            [
+              "T1486",
+              null,
+              "E1.1"
+            ]
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 1,
+        "admitted_occurrences": 1,
+        "published_coverage": {
+          "admitted_occurrences": 1,
+          "covered_occurrences": 1,
+          "action_covered_occurrences": 1
+        }
+      }
+    },
+    {
+      "id": "printing-account-review",
+      "added_highlights": [],
+      "findings_and_controls_unchanged": true,
+      "raw": {
+        "admitted_occurrences": 1,
+        "covered_occurrences": 1,
+        "highlights": {
+          "comparable_pairs": 1,
+          "desired": 2,
+          "exact": false,
+          "matching": 2,
+          "ordered_pairs": 0,
+          "references": [
+            [
+              "T1098.003",
+              null,
+              "E1.1"
+            ],
+            [
+              "T1098.003",
+              null,
+              "E1.3"
+            ]
+          ],
+          "returned": 2
+        },
+        "published_coverage": {
+          "action_covered_occurrences": 1,
+          "admitted_occurrences": 1,
+          "covered_occurrences": 1
+        },
+        "recommendations": {
+          "comparable_pairs": 0,
+          "desired": 1,
+          "exact": true,
+          "matching": 1,
+          "ordered_pairs": 0,
+          "references": [
+            "T1098.003-1"
+          ],
+          "returned": 1
+        }
+      },
+      "augmented": {
+        "highlights": {
+          "references": [
+            [
+              "T1098.003",
+              null,
+              "E1.1"
+            ],
+            [
+              "T1098.003",
+              null,
+              "E1.3"
+            ]
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": false,
+          "ordered_pairs": 0,
+          "comparable_pairs": 1
+        },
+        "recommendations": {
+          "references": [
+            "T1098.003-1"
+          ],
+          "matching": 1,
+          "returned": 1,
+          "desired": 1,
+          "exact": true,
+          "ordered_pairs": 0,
+          "comparable_pairs": 0
+        },
+        "covered_occurrences": 1,
+        "admitted_occurrences": 1,
+        "published_coverage": {
+          "admitted_occurrences": 1,
+          "covered_occurrences": 1,
+          "action_covered_occurrences": 1
+        }
+      }
+    },
+    {
+      "id": "service-desk-mixed-review",
+      "added_highlights": [],
+      "findings_and_controls_unchanged": true,
+      "raw": {
+        "admitted_occurrences": 1,
+        "covered_occurrences": 1,
+        "highlights": {
+          "comparable_pairs": 1,
+          "desired": 2,
+          "exact": false,
+          "matching": 2,
+          "ordered_pairs": 0,
+          "references": [
+            [
+              "T1486",
+              null,
+              "E2.1"
+            ],
+            [
+              "T1486",
+              null,
+              "E2.3"
+            ]
+          ],
+          "returned": 2
+        },
+        "published_coverage": {
+          "action_covered_occurrences": 1,
+          "admitted_occurrences": 1,
+          "covered_occurrences": 1
+        },
+        "recommendations": {
+          "comparable_pairs": 1,
+          "desired": 2,
+          "exact": false,
+          "matching": 2,
+          "ordered_pairs": 0,
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "returned": 2
+        }
+      },
+      "augmented": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              null,
+              "E2.1"
+            ],
+            [
+              "T1486",
+              null,
+              "E2.3"
+            ]
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": false,
+          "ordered_pairs": 0,
+          "comparable_pairs": 1
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": false,
+          "ordered_pairs": 0,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 1,
+        "admitted_occurrences": 1,
+        "published_coverage": {
+          "admitted_occurrences": 1,
+          "covered_occurrences": 1,
+          "action_covered_occurrences": 1
+        }
+      }
+    },
+    {
+      "id": "exhibit-endpoint-review",
+      "added_highlights": [
+        "T1113/E1.1",
+        "T1490/E2.1"
+      ],
+      "findings_and_controls_unchanged": true,
+      "raw": {
+        "admitted_occurrences": 2,
+        "covered_occurrences": 2,
+        "highlights": {
+          "comparable_pairs": 1,
+          "desired": 3,
+          "exact": false,
+          "matching": 2,
+          "ordered_pairs": 0,
+          "references": [
+            [
+              "T1113",
+              null,
+              "E1.3"
+            ],
+            [
+              "T1113",
+              null,
+              "E1.4"
+            ],
+            [
+              "T1490",
+              null,
+              "E2.3"
+            ]
+          ],
+          "returned": 3
+        },
+        "published_coverage": {
+          "action_covered_occurrences": 0,
+          "admitted_occurrences": 2,
+          "covered_occurrences": 2
+        },
+        "recommendations": {
+          "comparable_pairs": 1,
+          "desired": 2,
+          "exact": false,
+          "matching": 2,
+          "ordered_pairs": 0,
+          "references": [
+            "T1113-1",
+            "T1490-1"
+          ],
+          "returned": 2
+        }
+      },
+      "augmented": {
+        "highlights": {
+          "references": [
+            [
+              "T1113",
+              null,
+              "E1.3"
+            ],
+            [
+              "T1113",
+              null,
+              "E1.4"
+            ],
+            [
+              "T1490",
+              null,
+              "E2.3"
+            ],
+            [
+              "T1113",
+              null,
+              "E1.1"
+            ],
+            [
+              "T1490",
+              null,
+              "E2.1"
+            ]
+          ],
+          "matching": 3,
+          "returned": 5,
+          "desired": 3,
+          "exact": false,
+          "ordered_pairs": 2,
+          "comparable_pairs": 3
+        },
+        "recommendations": {
+          "references": [
+            "T1113-1",
+            "T1490-1"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": false,
+          "ordered_pairs": 0,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 2,
+        "admitted_occurrences": 2,
+        "published_coverage": {
+          "admitted_occurrences": 2,
+          "covered_occurrences": 2,
+          "action_covered_occurrences": 2
+        }
+      }
+    },
+    {
+      "id": "paired-depot-roles",
+      "added_highlights": [
+        "F1/S1"
+      ],
+      "findings_and_controls_unchanged": true,
+      "raw": {
+        "admitted_occurrences": 1,
+        "covered_occurrences": 1,
+        "highlights": {
+          "comparable_pairs": 0,
+          "desired": 2,
+          "exact": false,
+          "matching": 1,
+          "ordered_pairs": 0,
+          "references": [
+            [
+              "T1098.003",
+              "event-1",
+              "E1.3"
+            ]
+          ],
+          "returned": 1
+        },
+        "published_coverage": {
+          "action_covered_occurrences": 0,
+          "admitted_occurrences": 1,
+          "covered_occurrences": 1
+        },
+        "recommendations": {
+          "comparable_pairs": 0,
+          "desired": 1,
+          "exact": true,
+          "matching": 1,
+          "ordered_pairs": 0,
+          "references": [
+            "T1098.003-1"
+          ],
+          "returned": 1
+        }
+      },
+      "augmented": {
+        "highlights": {
+          "references": [
+            [
+              "T1098.003",
+              "event-1",
+              "E1.3"
+            ],
+            [
+              "T1098.003",
+              "event-1",
+              "E1.1"
+            ]
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "recommendations": {
+          "references": [
+            "T1098.003-1"
+          ],
+          "matching": 1,
+          "returned": 1,
+          "desired": 1,
+          "exact": true,
+          "ordered_pairs": 0,
+          "comparable_pairs": 0
+        },
+        "covered_occurrences": 1,
+        "admitted_occurrences": 1,
+        "published_coverage": {
+          "admitted_occurrences": 1,
+          "covered_occurrences": 1,
+          "action_covered_occurrences": 1
+        }
+      }
+    },
+    {
+      "id": "paired-design-archives",
+      "added_highlights": [
+        "F1/S1",
+        "F2/S1"
+      ],
+      "findings_and_controls_unchanged": true,
+      "raw": {
+        "admitted_occurrences": 2,
+        "covered_occurrences": 2,
+        "highlights": {
+          "comparable_pairs": 1,
+          "desired": 3,
+          "exact": false,
+          "matching": 2,
+          "ordered_pairs": 0,
+          "references": [
+            [
+              "T1486",
+              "event-1",
+              "E1.3"
+            ],
+            [
+              "T1486",
+              "event-2",
+              "E2.3"
+            ]
+          ],
+          "returned": 2
+        },
+        "published_coverage": {
+          "action_covered_occurrences": 0,
+          "admitted_occurrences": 2,
+          "covered_occurrences": 2
+        },
+        "recommendations": {
+          "comparable_pairs": 1,
+          "desired": 2,
+          "exact": true,
+          "matching": 2,
+          "ordered_pairs": 1,
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "returned": 2
+        }
+      },
+      "augmented": {
+        "highlights": {
+          "references": [
+            [
+              "T1486",
+              "event-1",
+              "E1.3"
+            ],
+            [
+              "T1486",
+              "event-2",
+              "E2.3"
+            ],
+            [
+              "T1486",
+              "event-1",
+              "E1.1"
+            ],
+            [
+              "T1486",
+              "event-2",
+              "E2.1"
+            ]
+          ],
+          "matching": 3,
+          "returned": 4,
+          "desired": 3,
+          "exact": false,
+          "ordered_pairs": 2,
+          "comparable_pairs": 3
+        },
+        "recommendations": {
+          "references": [
+            "T1486-1",
+            "T1486-2"
+          ],
+          "matching": 2,
+          "returned": 2,
+          "desired": 2,
+          "exact": true,
+          "ordered_pairs": 1,
+          "comparable_pairs": 1
+        },
+        "covered_occurrences": 2,
+        "admitted_occurrences": 2,
+        "published_coverage": {
+          "admitted_occurrences": 2,
+          "covered_occurrences": 2,
+          "action_covered_occurrences": 2
+        }
+      }
+    }
+  ]
+}

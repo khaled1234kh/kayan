@@ -1,0 +1,223 @@
+{
+  "dataset_sha256": "be0c753fc3022887a640d0a6295578c5b51f6db18c8a3d946410c421de286220",
+  "case_count": 16,
+  "exact_cases": 16,
+  "correct_abstentions": 8,
+  "negative_cases": 8,
+  "cases_with_gap_mismatches": 0,
+  "cases_with_integrity_errors": 0,
+  "true_positives": 8,
+  "false_positives": 0,
+  "false_negatives": 0,
+  "micro_f1": 1.0,
+  "cases": [
+    {
+      "id": "portal_displays_order_history",
+      "expected": [
+        "api_object_access"
+      ],
+      "observed": [
+        "api_object_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "records_through_interface",
+      "expected": [
+        "api_object_access"
+      ],
+      "observed": [
+        "api_object_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "purpose_bound_to_api",
+      "expected": [
+        "api_object_access"
+      ],
+      "observed": [
+        "api_object_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "explicit_api_current",
+      "expected": [
+        "api_object_access"
+      ],
+      "observed": [
+        "api_object_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "records_available_via_api",
+      "expected": [
+        "api_object_access"
+      ],
+      "observed": [
+        "api_object_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "tenant_records_by_role",
+      "expected": [
+        "api_object_access"
+      ],
+      "observed": [
+        "api_object_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "unrelated_decoy_with_supported_api",
+      "expected": [
+        "api_object_access"
+      ],
+      "observed": [
+        "api_object_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "present_and_no_gap_assumed",
+      "expected": [
+        "api_object_access"
+      ],
+      "observed": [
+        "api_object_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "paper_separated_with_conjunction",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "storefront_separated_with_comma",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "unrelated_tenant_with_explicit_owner",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "parallel_bulleted_assets",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "records_explicitly_excluded",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "never_exposed_to_api",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "question_without_answer",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "roadmap_without_current_access",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    }
+  ]
+}

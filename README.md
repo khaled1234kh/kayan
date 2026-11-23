@@ -106,15 +106,46 @@ Backend restart now automatically restores the selected session's **records only
 
 Five earlier fictional offline before/after cases preserve organization-specific controls and honest insufficient/explicit-absence results. This pass rechecked exact six-field A export, sample undo, saved B, filters and production empty/clinic views. These are deterministic authored-rule checks, not general model accuracy or a grounding benefit. Historical proposal/video and failure evidence remain unchanged.
 
+## Matched cloud benchmark — 23 November 2026
+
+The recovered, byte-identical frozen 80-case role benchmark was re-scored with the original
+harness and scorer for a bounded, owner-authorized SovereignEG arm. **SovereignEG/Qwen3.8-27B-FP8
+scored 72/80 = 90.00% exact role-contract accuracy** (Affirmative F1 0.935, Evidence F1 0.945,
+Abstention F1 0.984, 0 unsupported affirmatives, 0 invalid outputs, 0 inference errors). The five
+local arms on the same cases scored 18/28/27/23/5 of 80, re-scored exactly from the historical
+saved outputs. By role the cloud arm scored Planner 11/16, Recon 16/16, Web-App 16/16,
+Network 15/16 and Reporting 14/16; paired 95% intervals against every local arm exclude zero.
+
+- [Exact result, integrity record and caveats](eval/sovereign-80-matched/BENCHMARK_RESULT_2026-11-23.md)
+- [Consolidated findings across all benchmarks](eval/sovereign-80-matched/CONSOLIDATED_FINDINGS_2026-11-23.md)
+- [Frozen harness, harness protocol, scorer and frozen inputs](eval/sovereign-80-matched/)
+- [Frozen manifest SHA-256](eval/sovereign-80-matched/SHA256SUMS.txt):
+  `09b3639b388019655fbde0805a9abfbfa9c2136d58e96c94e789220ff93f8eb0`
+
+**What 90.00% means and does not mean.** It is exact contract accuracy on **80 authored synthetic
+cases** in a **retrospective matched benchmark** using the project's own frozen instrument. It is
+**not** a fresh blinded human-adjudicated holdout, **not** real-world vulnerability-detection
+accuracy, and **not** a production-readiness or security-effectiveness result. It is a separate
+instrument from the 30-case Planner test, the 32-case ATT&CK mapping studies, the 18/19-case
+extraction diagnostics and `eval/ai_benchmark.py` (a different 19-case evidence-mapping task);
+these results must not be merged into one ranking. Raw request ledgers and model responses stay
+private; the offline re-score reproduced the saved summary byte-for-byte. Cloud access remains
+optional and disabled by default, and the historical 12/12 truncated cloud run, the failed exact
+citation probe and the 0/3 complete-evidence-group finding remain valid negative results. The
+SovereignEG key used in the earlier run must be rotated before any shared use.
+
 ## Scope and honest limits
 
 **No grounding improvement was demonstrated in the live lab.** The original regression and the later tie remain in the evidence. The separate offline study measured ATT&CK mapping on authored records. Fine-tuning and a separate helper inference model were outside these experiments.
+
+SovereignEG 27B remains a research candidate. The experimental cloud endpoints are paused while offline evaluation continues. The current evidence benchmark uses pinned Enterprise ATT&CK 20.1 and local Qwen models. [Cloud security and benchmark evidence](docs/CLOUD_PIVOT_SECURITY_AND_EVAL.md)
 
 Python is the primary demo engine. The vendored Go/PentAGI work is a scoped enforcement evaluation, not a completed autonomous runtime replacement. Production identity/isolation, immutable audit storage, development-key hardening and completion-triggered ROE revocation remain disclosed limits. Earlier Windows execution failures are preserved; the final normal build/start succeeded without weakening protections. No universal visual, security or performance guarantee is claimed.
 
 ## Project guide
 
 - [Research update, benchmark results and proposed cloud architecture](docs/RESEARCH_UPDATE.md)
+- [Cloud/parallel AI layer: SovereignEG, MITRE RAG and TrustGate](docs/AI_ARCHITECTURE.md)
 - [Architecture and Red/Blue allocation](docs/ARCHITECTURE.md)
 - [TA deliverables mapping](docs/TA_DELIVERABLES_ALIGNMENT.md)
 - [Current UI/office acceptance](docs/UI_OFFICE_ACCEPTANCE_2026-11-03.md)

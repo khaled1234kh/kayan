@@ -63,6 +63,131 @@ def test_long_unicode_multiline_text_is_not_silently_trimmed_or_truncated():
     with pytest.raises(ValidationError):build_risk_plan({'data_storage':'x'*12001})
 
 
+def test_labelled_offline_profiles_agree_in_phase_one_and_option_a():
+    from eval.planning_validity_eval import run
+
+    result = run()
+    assert [case for case in result['cases'] if not case['exact']] == []
+
+
+def test_vendor_relationship_fixture_requires_a_current_link_and_preserves_option_a():
+    from eval.planning_validity_eval import FIXTURE, run
+
+    result = run(FIXTURE.with_name('planning_vendor_relationship_v1.json'))
+    assert result['exact_cases'] == result['case_count'] == 16, [
+        case for case in result['cases'] if not case['exact']
+    ]
+    assert result['correct_abstentions'] == 8
+
+
+def test_vendor_access_result_points_to_the_linking_phrase():
+    context = {'network_architecture': 'The equipment vendor ships parts, and maintenance contractors use a VPN.'}
+    plan = build_risk_plan(context)
+    risk, = plan['risks']
+    link, = [entry for entry in risk['context_evidence'] if entry['signal'] == 'vendor-to-remote access link']
+    assert link['matched_text'] == 'contractors use a VPN'
+    assert context[link['field']][link['start']:link['end']] == link['excerpt']
+
+
+def test_api_record_relationship_fixture_requires_a_stated_link():
+    from eval.planning_validity_eval import FIXTURE, run
+
+    result = run(FIXTURE.with_name('planning_api_relationship_v1.json'))
+    assert result['exact_cases'] == result['case_count'] == 16, [
+        case for case in result['cases'] if not case['exact']
+    ]
+    assert result['correct_abstentions'] == 8
+
+
+def test_api_record_evidence_excludes_same_clause_decoys():
+    context = {
+        'customer_touchpoints': 'An API lists hours and patient records stay on paper while the '
+                                'customer portal returns customer records.',
+    }
+    plan = build_risk_plan(context)
+    risk, = plan['risks']
+    assert risk['scenario_id'] == 'api_object_access'
+    by_signal = {entry['signal']: entry for entry in risk['context_evidence']}
+    assert by_signal['application interfaces']['matched_text'] == 'customer portal'
+    assert by_signal['records or accounts']['matched_text'] == 'customer records'
+    link = by_signal['interface-to-record link']
+    assert link['excerpt'] == 'customer portal returns customer records'
+    assert context[link['field']][link['start']:link['end']] == link['excerpt']
+    report = ReportingAgent('fictional').generate_direct_mitigation(plan)
+    recommendation, = report['mitigation_plan']['recommendations']
+    assert recommendation['context_evidence'] == risk['context_evidence']
+
+
+def test_cloud_storage_validity_requires_stated_asset_relationship():
+    from eval.planning_validity_eval import FIXTURE, run
+
+    result = run(FIXTURE.with_name('planning_cloud_storage_relationship_v1.json'))
+    assert result['exact_cases'] == result['case_count'] == 16, [
+        case for case in result['cases'] if not case['exact']
+    ]
+    assert result['correct_abstentions'] == 8
+
+
+def test_cloud_storage_proof_pins_stored_asset_and_excludes_another_services_gap():
+    context = {
+        'data_storage': 'A team lists public buckets in inventory and separate customer records are stored in private blob storage.',
+    }
+    plan = build_risk_plan(context)
+    risk, = plan['risks']
+    assert risk['scenario_id'] == 'cloud_object_access'
+    by_signal = {entry['signal']: entry for entry in risk['context_evidence']}
+    assert by_signal['cloud objects']['matched_text'] == 'private blob storage'
+    assert by_signal['stored assets']['matched_text'] == 'records'
+    assert 'stated control gap' not in by_signal
+    link = by_signal['cloud-storage-to-asset link']
+    assert link['excerpt'] == 'customer records are stored in private blob storage'
+    assert context[link['field']][link['start']:link['end']] == link['excerpt']
+    report = ReportingAgent('fictional').generate_direct_mitigation(plan)
+    recommendation, = report['mitigation_plan']['recommendations']
+    assert recommendation['context_evidence'] == risk['context_evidence']
+
+
+def test_question_is_not_an_operating_fact_and_untested_restore_is_a_review_gap():
+    plan = build_risk_plan({
+        'data_storage':'The inventory database is backed up daily. We have not checked whether it can be restored.'
+                       ' Should we use cloud object storage for member images next year?',
+    })
+    risk, = plan['risks']
+    assert risk['scenario_id'] == 'recovery_readiness'
+    assert risk['verified'] is False
+
+
+def test_exact_evidence_offsets_with_long_unicode_clause():
+    description = ('وصف ' * 150) + ' contractors use a VPN to reach the warehouse'
+    plan = build_risk_plan({'network_architecture': description})
+    risk, = plan['risks']
+    assert risk['scenario_id'] == 'vendor_remote_access'
+    for evidence in risk['context_evidence']:
+        assert evidence['start'] > 0
+        assert len(evidence['excerpt']) <= 260
+        assert evidence['excerpt'] == description[evidence['start']:evidence['end']]
+        assert evidence['matched_text'] in evidence['excerpt']
+
+
+def test_display_cap_is_visible_and_option_a_never_adds_undisplayed_risks():
+    context = {
+        'infrastructure_summary':'A public web application uses a SQL database. Unsupported servers remain in use.',
+        'network_architecture':'Contractors use a VPN for maintenance. Office devices and PLCs share a flat network.',
+        'data_storage':'Backups exist. Restore tests are undocumented. Customer images use cloud object storage.',
+        'customer_touchpoints':'A customer portal displays order histories.',
+    }
+    plan = build_risk_plan(context)
+    assert plan['supported_scenario_count'] == 7
+    assert len(plan['risks']) == 3
+    assert len(plan['additional_supported_scenarios']) == 4
+    assert all('not a lower-severity' in item['reason'] for item in plan['additional_supported_scenarios'])
+    report = ReportingAgent('fictional').generate_direct_mitigation(plan)
+    assert report['risk_plan']['risks'] == plan['risks']
+    assert [item['risk_ids'] for item in report['mitigation_plan']['recommendations']] == [
+        [risk['id']] for risk in plan['risks']
+    ]
+
+
 def test_saved_verified_findings_get_distinct_controls_without_changing_evidence():
     types=['sql_injection','command_injection','xss','path_traversal']
     findings=[{'id':kind,'type':kind,'target':'http://fictional.invalid',

@@ -1,0 +1,1347 @@
+{
+  "retrieval": {
+    "positive_cases": 8,
+    "hits": 2,
+    "gold": 9,
+    "mrr_at_k": 0.25,
+    "ndcg_at_k": 0.25,
+    "rows": [
+      {
+        "id": "A1",
+        "gold_count": 1,
+        "hits": 0,
+        "reciprocal_rank": 0,
+        "ndcg": 0.0,
+        "candidates": [
+          {
+            "technique_id": "T1563",
+            "name": "Remote Service Session Hijacking",
+            "score": 0.09411220362702341,
+            "excerpt": "T1563 Remote Service Session Hijacking lateral-movement Adversaries may take control of preexisting sessions with remote services to move laterally in an environment. Users may use valid credentials to log into a service specifically designed to accept remote connections, such as telnet, SSH, and RDP. When a user logs into a service, a session will be established that will allow them to maintain a continuous interact",
+            "url": "https://attack.mitre.org/techniques/T1563",
+            "tactics": [
+              "lateral-movement"
+            ],
+            "stix_id": "attack-pattern--5b0ad6f8-6a16-4966-a4ef-d09ea6e2a9f5",
+            "object_version": "1.1",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1134.003",
+            "name": "Make and Impersonate Token",
+            "score": 0.06277926817030613,
+            "excerpt": "T1134.003 Make and Impersonate Token privilege-escalation stealth Adversaries may make new tokens and impersonate users to escalate privileges and bypass access controls. For example, if an adversary has a username and password but the user is not logged onto the system the adversary can then create a logon session for the user using the `LogonUser` function.(Citation: LogonUserW function) The function will return a ",
+            "url": "https://attack.mitre.org/techniques/T1134/003",
+            "tactics": [
+              "privilege-escalation",
+              "stealth"
+            ],
+            "stix_id": "attack-pattern--8cdeb020-e31e-4f88-a582-f53dcfbda819",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1542.005",
+            "name": "TFTP Boot",
+            "score": 0.05786100196242283,
+            "excerpt": "T1542.005 TFTP Boot persistence stealth Adversaries may abuse netbooting to load an unauthorized network device operating system from a Trivial File Transfer Protocol (TFTP) server. TFTP boot (netbooting) is commonly used by network administrators to load configuration-controlled network device images from a centralized management server. Netbooting is one option in the boot sequence and can be used to centralize, ma",
+            "url": "https://attack.mitre.org/techniques/T1542/005",
+            "tactics": [
+              "persistence",
+              "stealth"
+            ],
+            "stix_id": "attack-pattern--28abec6c-4443-4b03-8206-07f2e264a6b4",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1542.004",
+            "name": "ROMMONkit",
+            "score": 0.05469488890941017,
+            "excerpt": "T1542.004 ROMMONkit persistence stealth Adversaries may abuse the ROM Monitor (ROMMON) by loading an unauthorized firmware with adversary code to provide persistent access and manipulate device behavior that is difficult to detect.(Citation: Cisco Synful Knock Evolution)(Citation: Cisco Blog Legacy Device Attacks) ROMMON is a Cisco network device firmware that functions as a boot loader, boot image, or boot helper to",
+            "url": "https://attack.mitre.org/techniques/T1542/004",
+            "tactics": [
+              "persistence",
+              "stealth"
+            ],
+            "stix_id": "attack-pattern--a6557c75-798f-42e4-be70-ab4502e0a3bc",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1698",
+            "name": "Indirect Prompt Injection",
+            "score": 0.052246375645033524,
+            "excerpt": "T1698 Indirect Prompt Injection execution Adversaries may deliver malicious prompts to an LLM indirectly by embedding the prompts in content that the adversary expects may be processed by an LLM.(Citation: NIST indirect prompt injection) These prompts can be included in web pages,(Citation: Palo Alto Indirect Prompt Injection ITW) documents, emails, tickets,(Citation: Snyk Indirect Prompt Injection) code, or other so",
+            "url": "https://attack.mitre.org/techniques/T1698",
+            "tactics": [
+              "execution"
+            ],
+            "stix_id": "attack-pattern--2e45d340-f00b-4bd6-b5c9-c2ef54b8894c",
+            "object_version": "1.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          }
+        ]
+      },
+      {
+        "id": "A2",
+        "gold_count": 0,
+        "hits": 0,
+        "reciprocal_rank": 0,
+        "ndcg": null,
+        "candidates": [
+          {
+            "technique_id": "T1110.001",
+            "name": "Password Guessing",
+            "score": 0.07008348947874324,
+            "excerpt": "T1110.001 Password Guessing credential-access Adversaries with no prior knowledge of legitimate credentials within the system or environment may guess passwords to attempt access to accounts. Without knowledge of the password for an account, an adversary may opt to systematically guess the password using a repetitive or iterative mechanism. An adversary may guess login credentials without prior knowledge of system or",
+            "url": "https://attack.mitre.org/techniques/T1110/001",
+            "tactics": [
+              "credential-access"
+            ],
+            "stix_id": "attack-pattern--09c4c11e-4fa1-4f8c-8dad-3cf8e69ad119",
+            "object_version": "1.7",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1027.005",
+            "name": "Indicator Removal from Tools",
+            "score": 0.05572837695261003,
+            "excerpt": "T1027.005 Indicator Removal from Tools stealth Adversaries may remove indicators from tools if they believe their malicious tool was detected, quarantined, or otherwise curtailed. They can modify the tool by removing the indicator and using the updated version that is no longer detected by the target's defensive systems or subsequent targets that may use similar systems. A good example of this is when malware is dete",
+            "url": "https://attack.mitre.org/techniques/T1027/005",
+            "tactics": [
+              "stealth"
+            ],
+            "stix_id": "attack-pattern--b0533c6e-8fea-4788-874f-b799cacc4b92",
+            "object_version": "2.1",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1563.002",
+            "name": "RDP Hijacking",
+            "score": 0.04963657685708807,
+            "excerpt": "T1563.002 RDP Hijacking lateral-movement Adversaries may hijack a legitimate user\u2019s remote desktop session to move laterally within an environment. Remote desktop is a common feature in operating systems. It allows a user to log into an interactive session with a system desktop graphical user interface on a remote system. Microsoft refers to its implementation of the Remote Desktop Protocol (RDP) as Remote Desktop Se",
+            "url": "https://attack.mitre.org/techniques/T1563/002",
+            "tactics": [
+              "lateral-movement"
+            ],
+            "stix_id": "attack-pattern--e0033c16-a07e-48aa-8204-7c3ca669998c",
+            "object_version": "1.1",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1574.007",
+            "name": "Path Interception by PATH Environment Variable",
+            "score": 0.04884160918372473,
+            "excerpt": "T1574.007 Path Interception by PATH Environment Variable execution stealth Adversaries may execute their own malicious payloads by hijacking environment variables used to load libraries. The PATH environment variable contains a list of directories (User and System) that the OS searches sequentially through in search of the binary that was called from a script or the command line. Adversaries can place a malicious pro",
+            "url": "https://attack.mitre.org/techniques/T1574/007",
+            "tactics": [
+              "execution",
+              "stealth"
+            ],
+            "stix_id": "attack-pattern--0c2d00da-7742-49e7-9928-4514e5075d32",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1134.003",
+            "name": "Make and Impersonate Token",
+            "score": 0.048651713586845086,
+            "excerpt": "T1134.003 Make and Impersonate Token privilege-escalation stealth Adversaries may make new tokens and impersonate users to escalate privileges and bypass access controls. For example, if an adversary has a username and password but the user is not logged onto the system the adversary can then create a logon session for the user using the `LogonUser` function.(Citation: LogonUserW function) The function will return a ",
+            "url": "https://attack.mitre.org/techniques/T1134/003",
+            "tactics": [
+              "privilege-escalation",
+              "stealth"
+            ],
+            "stix_id": "attack-pattern--8cdeb020-e31e-4f88-a582-f53dcfbda819",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          }
+        ]
+      },
+      {
+        "id": "B1",
+        "gold_count": 1,
+        "hits": 0,
+        "reciprocal_rank": 0,
+        "ndcg": 0.0,
+        "candidates": [
+          {
+            "technique_id": "T1542.005",
+            "name": "TFTP Boot",
+            "score": 0.06941951534114045,
+            "excerpt": "T1542.005 TFTP Boot persistence stealth Adversaries may abuse netbooting to load an unauthorized network device operating system from a Trivial File Transfer Protocol (TFTP) server. TFTP boot (netbooting) is commonly used by network administrators to load configuration-controlled network device images from a centralized management server. Netbooting is one option in the boot sequence and can be used to centralize, ma",
+            "url": "https://attack.mitre.org/techniques/T1542/005",
+            "tactics": [
+              "persistence",
+              "stealth"
+            ],
+            "stix_id": "attack-pattern--28abec6c-4443-4b03-8206-07f2e264a6b4",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1550",
+            "name": "Use Alternate Authentication Material",
+            "score": 0.061506529909086366,
+            "excerpt": "T1550 Use Alternate Authentication Material lateral-movement Adversaries may use alternate authentication material, such as password hashes, Kerberos tickets, and application access tokens, in order to move laterally within an environment and bypass normal system access controls. Authentication processes generally require a valid identity (e.g., username) along with one or more authentication factors (e.g., password,",
+            "url": "https://attack.mitre.org/techniques/T1550",
+            "tactics": [
+              "lateral-movement"
+            ],
+            "stix_id": "attack-pattern--51a14c76-dd3b-440b-9c20-2bf91d25a814",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1542.004",
+            "name": "ROMMONkit",
+            "score": 0.06116561927072955,
+            "excerpt": "T1542.004 ROMMONkit persistence stealth Adversaries may abuse the ROM Monitor (ROMMON) by loading an unauthorized firmware with adversary code to provide persistent access and manipulate device behavior that is difficult to detect.(Citation: Cisco Synful Knock Evolution)(Citation: Cisco Blog Legacy Device Attacks) ROMMON is a Cisco network device firmware that functions as a boot loader, boot image, or boot helper to",
+            "url": "https://attack.mitre.org/techniques/T1542/004",
+            "tactics": [
+              "persistence",
+              "stealth"
+            ],
+            "stix_id": "attack-pattern--a6557c75-798f-42e4-be70-ab4502e0a3bc",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1563.001",
+            "name": "SSH Hijacking",
+            "score": 0.05801070957560804,
+            "excerpt": "T1563.001 SSH Hijacking lateral-movement Adversaries may hijack a legitimate user's SSH session to move laterally within an environment. Secure Shell (SSH) is a standard means of remote access on Linux and macOS systems. It allows a user to connect to another system via an encrypted tunnel, commonly authenticating through a password, certificate or the use of an asymmetric encryption key pair. In order to move latera",
+            "url": "https://attack.mitre.org/techniques/T1563/001",
+            "tactics": [
+              "lateral-movement"
+            ],
+            "stix_id": "attack-pattern--4d2a5b3e-340d-4600-9123-309dd63c9bf8",
+            "object_version": "1.1",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1134.003",
+            "name": "Make and Impersonate Token",
+            "score": 0.05511691918340238,
+            "excerpt": "T1134.003 Make and Impersonate Token privilege-escalation stealth Adversaries may make new tokens and impersonate users to escalate privileges and bypass access controls. For example, if an adversary has a username and password but the user is not logged onto the system the adversary can then create a logon session for the user using the `LogonUser` function.(Citation: LogonUserW function) The function will return a ",
+            "url": "https://attack.mitre.org/techniques/T1134/003",
+            "tactics": [
+              "privilege-escalation",
+              "stealth"
+            ],
+            "stix_id": "attack-pattern--8cdeb020-e31e-4f88-a582-f53dcfbda819",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          }
+        ]
+      },
+      {
+        "id": "B2",
+        "gold_count": 0,
+        "hits": 0,
+        "reciprocal_rank": 0,
+        "ndcg": null,
+        "candidates": [
+          {
+            "technique_id": "T1534",
+            "name": "Internal Spearphishing",
+            "score": 0.06921811590276267,
+            "excerpt": "T1534 Internal Spearphishing lateral-movement After they already have access to accounts or systems within the environment, adversaries may use internal spearphishing to gain access to additional information or compromise other users within the same organization. Internal spearphishing is multi-staged campaign where a legitimate account is initially compromised either by controlling the user's device or by compromisi",
+            "url": "https://attack.mitre.org/techniques/T1534",
+            "tactics": [
+              "lateral-movement"
+            ],
+            "stix_id": "attack-pattern--9e7452df-5144-4b6e-b04a-b66dd4016747",
+            "object_version": "1.4",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1098.005",
+            "name": "Device Registration",
+            "score": 0.06047091214957798,
+            "excerpt": "T1098.005 Device Registration persistence privilege-escalation Adversaries may register a device to an adversary-controlled account. Devices may be registered in a multifactor authentication (MFA) system, which handles authentication to the network, or in a device management system, which handles device access and compliance. MFA systems, such as Duo or Okta, allow users to associate devices with their accounts in or",
+            "url": "https://attack.mitre.org/techniques/T1098/005",
+            "tactics": [
+              "persistence",
+              "privilege-escalation"
+            ],
+            "stix_id": "attack-pattern--7decb26c-715c-40cf-b7e0-026f7d7cc215",
+            "object_version": "1.4",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1601",
+            "name": "Modify System Image",
+            "score": 0.05383971689223313,
+            "excerpt": "T1601 Modify System Image defense-impairment Adversaries may make changes to the operating system of embedded network devices to weaken defenses and provide new capabilities for themselves. On such devices, the operating systems are typically monolithic and most of the device functionality and capabilities are contained within a single file.(Citation: Cisco Networking Software Product Lines)(Citation: Network Device ",
+            "url": "https://attack.mitre.org/techniques/T1601",
+            "tactics": [
+              "defense-impairment"
+            ],
+            "stix_id": "attack-pattern--ae7f3575-0a5e-427e-991b-fe03ad44c754",
+            "object_version": "2.1",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1036.010",
+            "name": "Masquerade Account Name",
+            "score": 0.04841160409793051,
+            "excerpt": "T1036.010 Masquerade Account Name stealth Adversaries may match or approximate the names of legitimate accounts to make newly created ones appear benign. This will typically occur during [Create Account](https://attack.mitre.org/techniques/T1136), although accounts may also be renamed at a later date. This may also coincide with [Account Access Removal](https://attack.mitre.org/techniques/T1531) if the actor first de",
+            "url": "https://attack.mitre.org/techniques/T1036/010",
+            "tactics": [
+              "stealth"
+            ],
+            "stix_id": "attack-pattern--d349c66e-18e1-4d8b-a2d7-65af7cbd2ba0",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1547.001",
+            "name": "Registry Run Keys / Startup Folder",
+            "score": 0.04811537109813823,
+            "excerpt": "T1547.001 Registry Run Keys / Startup Folder persistence privilege-escalation Adversaries may achieve persistence by adding a program to a startup folder or referencing it with a Registry run key. Adding an entry to the \"run keys\" in the Registry or startup folder will cause the program referenced to be executed when a user logs in.(Citation: Microsoft Run Key) These programs will be executed under the context of the",
+            "url": "https://attack.mitre.org/techniques/T1547/001",
+            "tactics": [
+              "persistence",
+              "privilege-escalation"
+            ],
+            "stix_id": "attack-pattern--9efb1ea7-c37b-4595-9640-b7680cd84279",
+            "object_version": "2.1",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          }
+        ]
+      },
+      {
+        "id": "C1",
+        "gold_count": 1,
+        "hits": 1,
+        "reciprocal_rank": 1.0,
+        "ndcg": 1.0,
+        "candidates": [
+          {
+            "technique_id": "T1685.005",
+            "name": "Clear Windows Event Logs",
+            "score": 0.26384169932113155,
+            "excerpt": "T1685.005 Clear Windows Event Logs defense-impairment Adversaries may clear Windows Event Logs to hide the activity of an intrusion. Windows Event Logs are a record of a computer's alerts and notifications. There are three system-defined sources of events: System, Application, and Security, with five event types: Error, Warning, Information, Success Audit, and Failure Audit. With administrator privileges, the event l",
+            "url": "https://attack.mitre.org/techniques/T1685/005",
+            "tactics": [
+              "defense-impairment"
+            ],
+            "stix_id": "attack-pattern--75b9a4d2-d4e2-4ca1-9aab-1badd9e05fd0",
+            "object_version": "1.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1685.001",
+            "name": "Disable or Modify Windows Event Log",
+            "score": 0.1714079069220169,
+            "excerpt": "T1685.001 Disable or Modify Windows Event Log defense-impairment Adversaries may disable or modify the Windows Event Log to limit data that can be leveraged for detections and audits. Windows Event Log records user and system activity such as login attempts and process creation.(Citation: EventLog_Core_Technologies) This data is used by security tools and analysts to generate detections. The EventLog service maintain",
+            "url": "https://attack.mitre.org/techniques/T1685/001",
+            "tactics": [
+              "defense-impairment"
+            ],
+            "stix_id": "attack-pattern--1411e6b8-80a6-4465-9909-54eaa9c67ce0",
+            "object_version": "1.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1546.003",
+            "name": "Windows Management Instrumentation Event Subscription",
+            "score": 0.0870856993221692,
+            "excerpt": "T1546.003 Windows Management Instrumentation Event Subscription persistence privilege-escalation Adversaries may establish persistence and elevate privileges by executing malicious content triggered by a Windows Management Instrumentation (WMI) event subscription. WMI can be used to install event filters, providers, consumers, and bindings that execute code when a defined event occurs. Examples of events that may be ",
+            "url": "https://attack.mitre.org/techniques/T1546/003",
+            "tactics": [
+              "persistence",
+              "privilege-escalation"
+            ],
+            "stix_id": "attack-pattern--910906dd-8c0a-475a-9cc1-5e029e2fad58",
+            "object_version": "1.5",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1027.011",
+            "name": "Fileless Storage",
+            "score": 0.07634235211058978,
+            "excerpt": "T1027.011 Fileless Storage stealth Adversaries may store data in \"fileless\" formats to conceal malicious activity from defenses. Fileless storage can be broadly defined as any format other than a file. Common examples of non-volatile fileless storage in Windows systems include the Windows Registry, event logs, or WMI repository.(Citation: Microsoft Fileless)(Citation: SecureList Fileless) Shared memory directories on",
+            "url": "https://attack.mitre.org/techniques/T1027/011",
+            "tactics": [
+              "stealth"
+            ],
+            "stix_id": "attack-pattern--02c5abff-30bf-4703-ab92-1f6072fae939",
+            "object_version": "3.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1070.003",
+            "name": "Clear Command History",
+            "score": 0.0715457643908703,
+            "excerpt": "T1070.003 Clear Command History stealth In addition to clearing system logs, an adversary may clear the command history of a compromised account to conceal the actions undertaken during an intrusion. Various command interpreters keep track of the commands users type in their terminal so that users can retrace what they've done. On Linux and macOS, these command histories can be accessed in a few different ways. While",
+            "url": "https://attack.mitre.org/techniques/T1070/003",
+            "tactics": [
+              "stealth"
+            ],
+            "stix_id": "attack-pattern--3aef9463-9a7a-43ba-8957-a867e07c1e6a",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          }
+        ]
+      },
+      {
+        "id": "C2",
+        "gold_count": 0,
+        "hits": 0,
+        "reciprocal_rank": 0,
+        "ndcg": null,
+        "candidates": [
+          {
+            "technique_id": "T1685.001",
+            "name": "Disable or Modify Windows Event Log",
+            "score": 0.11110418913519332,
+            "excerpt": "T1685.001 Disable or Modify Windows Event Log defense-impairment Adversaries may disable or modify the Windows Event Log to limit data that can be leveraged for detections and audits. Windows Event Log records user and system activity such as login attempts and process creation.(Citation: EventLog_Core_Technologies) This data is used by security tools and analysts to generate detections. The EventLog service maintain",
+            "url": "https://attack.mitre.org/techniques/T1685/001",
+            "tactics": [
+              "defense-impairment"
+            ],
+            "stix_id": "attack-pattern--1411e6b8-80a6-4465-9909-54eaa9c67ce0",
+            "object_version": "1.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1685.005",
+            "name": "Clear Windows Event Logs",
+            "score": 0.09408742617589622,
+            "excerpt": "T1685.005 Clear Windows Event Logs defense-impairment Adversaries may clear Windows Event Logs to hide the activity of an intrusion. Windows Event Logs are a record of a computer's alerts and notifications. There are three system-defined sources of events: System, Application, and Security, with five event types: Error, Warning, Information, Success Audit, and Failure Audit. With administrator privileges, the event l",
+            "url": "https://attack.mitre.org/techniques/T1685/005",
+            "tactics": [
+              "defense-impairment"
+            ],
+            "stix_id": "attack-pattern--75b9a4d2-d4e2-4ca1-9aab-1badd9e05fd0",
+            "object_version": "1.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1070.003",
+            "name": "Clear Command History",
+            "score": 0.0819741492833933,
+            "excerpt": "T1070.003 Clear Command History stealth In addition to clearing system logs, an adversary may clear the command history of a compromised account to conceal the actions undertaken during an intrusion. Various command interpreters keep track of the commands users type in their terminal so that users can retrace what they've done. On Linux and macOS, these command histories can be accessed in a few different ways. While",
+            "url": "https://attack.mitre.org/techniques/T1070/003",
+            "tactics": [
+              "stealth"
+            ],
+            "stix_id": "attack-pattern--3aef9463-9a7a-43ba-8957-a867e07c1e6a",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1547.014",
+            "name": "Active Setup",
+            "score": 0.08059495966400798,
+            "excerpt": "T1547.014 Active Setup persistence privilege-escalation Adversaries may achieve persistence by adding a Registry key to the Active Setup of the local machine. Active Setup is a Windows mechanism that is used to execute programs when a user logs in. The value stored in the Registry key will be executed after a user logs into the computer.(Citation: Klein Active Setup 2010) These programs will be executed under the con",
+            "url": "https://attack.mitre.org/techniques/T1547/014",
+            "tactics": [
+              "persistence",
+              "privilege-escalation"
+            ],
+            "stix_id": "attack-pattern--22522668-ddf6-470b-a027-9d6866679f67",
+            "object_version": "1.1",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1685.006",
+            "name": "Clear Linux or Mac System Logs",
+            "score": 0.07859402476560005,
+            "excerpt": "T1685.006 Clear Linux or Mac System Logs defense-impairment Adversaries may clear system logs to hide evidence of an intrusion. macOS and Linux both keep track of system or user-initiated actions via system logs. The majority of native system logging is stored under the `/var/log/` directory. Subfolders in this directory categorize logs by their related functions, such as:(Citation: Linux Logs) * `/var/log/messages:`",
+            "url": "https://attack.mitre.org/techniques/T1685/006",
+            "tactics": [
+              "defense-impairment"
+            ],
+            "stix_id": "attack-pattern--5e29d64d-2b14-4f92-875e-4c9c498e213c",
+            "object_version": "1.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          }
+        ]
+      },
+      {
+        "id": "D1",
+        "gold_count": 1,
+        "hits": 0,
+        "reciprocal_rank": 0,
+        "ndcg": 0.0,
+        "candidates": [
+          {
+            "technique_id": "T1529",
+            "name": "System Shutdown/Reboot",
+            "score": 0.08530061019277402,
+            "excerpt": "T1529 System Shutdown/Reboot impact Adversaries may shut down/reboot systems to interrupt access to, or aid in the destruction of, those systems. Operating systems may contain commands to initiate a shutdown/reboot of a machine or network device. In some cases, these commands may also be used to initiate a shutdown/reboot of a remote computer or network device via [Network Device CLI](https://attack.mitre.org/techniq",
+            "url": "https://attack.mitre.org/techniques/T1529",
+            "tactics": [
+              "impact"
+            ],
+            "stix_id": "attack-pattern--ff73aa03-0090-4464-83ac-f89e233c02bc",
+            "object_version": "1.5",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1490",
+            "name": "Inhibit System Recovery",
+            "score": 0.08487203333011177,
+            "excerpt": "T1490 Inhibit System Recovery impact Adversaries may delete or remove built-in data and turn off services designed to aid in the recovery of a corrupted system to prevent recovery.(Citation: Talos Olympic Destroyer 2018)(Citation: FireEye WannaCry 2017) This may deny access to available backups and recovery options. Operating systems may contain features that can help fix corrupted systems, such as a backup catalog, ",
+            "url": "https://attack.mitre.org/techniques/T1490",
+            "tactics": [
+              "impact"
+            ],
+            "stix_id": "attack-pattern--f5d8eed6-48a9-4cdf-a3d7-d1ffa99c3d2a",
+            "object_version": "1.6",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1518.002",
+            "name": "Backup Software Discovery",
+            "score": 0.06914888865211741,
+            "excerpt": "T1518.002 Backup Software Discovery discovery Adversaries may attempt to get a listing of backup software or configurations that are installed on a system. Adversaries may use this information to shape follow-on behaviors, such as [Data Destruction](https://attack.mitre.org/techniques/T1485), [Inhibit System Recovery](https://attack.mitre.org/techniques/T1490), or [Data Encrypted for Impact](https://attack.mitre.org/",
+            "url": "https://attack.mitre.org/techniques/T1518/002",
+            "tactics": [
+              "discovery"
+            ],
+            "stix_id": "attack-pattern--4a6cfdae-1417-40c7-a84e-f59d21c58266",
+            "object_version": "1.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1543.003",
+            "name": "Windows Service",
+            "score": 0.06778933957043747,
+            "excerpt": "T1543.003 Windows Service persistence privilege-escalation Adversaries may create or modify Windows services to repeatedly execute malicious payloads as part of persistence. When Windows boots up, it starts programs or applications called services that perform background system functions.(Citation: TechNet Services) Windows service configuration information, including the file path to the service's executable or reco",
+            "url": "https://attack.mitre.org/techniques/T1543/003",
+            "tactics": [
+              "persistence",
+              "privilege-escalation"
+            ],
+            "stix_id": "attack-pattern--2959d63f-73fd-46a1-abd2-109d7dcede32",
+            "object_version": "1.6",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1538",
+            "name": "Cloud Service Dashboard",
+            "score": 0.05108220781029735,
+            "excerpt": "T1538 Cloud Service Dashboard discovery An adversary may use a cloud service dashboard GUI with stolen credentials to gain useful information from an operational cloud environment, such as specific services, resources, and features. For example, the GCP Command Center can be used to view all assets, review findings of potential security risks, and run additional queries, such as finding public IP addresses and open p",
+            "url": "https://attack.mitre.org/techniques/T1538",
+            "tactics": [
+              "discovery"
+            ],
+            "stix_id": "attack-pattern--e49920b0-6c54-40c1-9571-73723653205f",
+            "object_version": "1.5",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          }
+        ]
+      },
+      {
+        "id": "D2",
+        "gold_count": 0,
+        "hits": 0,
+        "reciprocal_rank": 0,
+        "ndcg": null,
+        "candidates": [
+          {
+            "technique_id": "T1055.011",
+            "name": "Extra Window Memory Injection",
+            "score": 0.06519276651950007,
+            "excerpt": "T1055.011 Extra Window Memory Injection privilege-escalation stealth Adversaries may inject malicious code into a process via Extra Window Memory (EWM) in order to evade process-based defenses as well as possibly elevate privileges. EWM injection is a method of executing arbitrary code in the address space of a separate live process. Before creating a window, graphical Windows-based processes must register a windows ",
+            "url": "https://attack.mitre.org/techniques/T1055/011",
+            "tactics": [
+              "privilege-escalation",
+              "stealth"
+            ],
+            "stix_id": "attack-pattern--0042a9f5-f053-4769-b3ef-9ad018dfa298",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1010",
+            "name": "Application Window Discovery",
+            "score": 0.054084779665334023,
+            "excerpt": "T1010 Application Window Discovery discovery Adversaries may attempt to get a listing of open application windows. Window listings could convey information about how the system is used.(Citation: Prevailion DarkWatchman 2021) For example, information about application windows could be used to identify potential data to collect as well as identifying security tooling ([Security Software Discovery](https://attack.mitre",
+            "url": "https://attack.mitre.org/techniques/T1010",
+            "tactics": [
+              "discovery"
+            ],
+            "stix_id": "attack-pattern--4ae4f953-fe58-4cc8-a327-33257e30a830",
+            "object_version": "1.3",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1583.006",
+            "name": "Web Services",
+            "score": 0.051385693410167556,
+            "excerpt": "T1583.006 Web Services resource-development Adversaries may register for web services that can be used during targeting. A variety of popular websites exist for adversaries to register for a web-based service that can be abused during later stages of the adversary lifecycle, such as during Command and Control ([Web Service](https://attack.mitre.org/techniques/T1102)), [Exfiltration Over Web Service](https://attack.mi",
+            "url": "https://attack.mitre.org/techniques/T1583/006",
+            "tactics": [
+              "resource-development"
+            ],
+            "stix_id": "attack-pattern--88d31120-5bc7-4ce3-a9c0-7cf147be8e54",
+            "object_version": "1.3",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1518.002",
+            "name": "Backup Software Discovery",
+            "score": 0.04975412514900746,
+            "excerpt": "T1518.002 Backup Software Discovery discovery Adversaries may attempt to get a listing of backup software or configurations that are installed on a system. Adversaries may use this information to shape follow-on behaviors, such as [Data Destruction](https://attack.mitre.org/techniques/T1485), [Inhibit System Recovery](https://attack.mitre.org/techniques/T1490), or [Data Encrypted for Impact](https://attack.mitre.org/",
+            "url": "https://attack.mitre.org/techniques/T1518/002",
+            "tactics": [
+              "discovery"
+            ],
+            "stix_id": "attack-pattern--4a6cfdae-1417-40c7-a84e-f59d21c58266",
+            "object_version": "1.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1558.004",
+            "name": "AS-REP Roasting",
+            "score": 0.046994376656897284,
+            "excerpt": "T1558.004 AS-REP Roasting credential-access Adversaries may reveal credentials of accounts that have disabled Kerberos preauthentication by [Password Cracking](https://attack.mitre.org/techniques/T1110/002) Kerberos messages.(Citation: Harmj0y Roasting AS-REPs Jan 2017) Preauthentication offers protection against offline [Password Cracking](https://attack.mitre.org/techniques/T1110/002). When enabled, a user requesti",
+            "url": "https://attack.mitre.org/techniques/T1558/004",
+            "tactics": [
+              "credential-access"
+            ],
+            "stix_id": "attack-pattern--3986e7fd-a8e9-4ecb-bfc6-55920855912b",
+            "object_version": "1.2",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          }
+        ]
+      },
+      {
+        "id": "E1",
+        "gold_count": 1,
+        "hits": 0,
+        "reciprocal_rank": 0,
+        "ndcg": 0.0,
+        "candidates": [
+          {
+            "technique_id": "T1600",
+            "name": "Weaken Encryption",
+            "score": 0.09231642357918327,
+            "excerpt": "T1600 Weaken Encryption defense-impairment Adversaries may compromise a network device\u2019s encryption capability in order to bypass encryption that would otherwise protect data communications.(Citation: Cisco Synful Knock Evolution) Encryption can be used to protect transmitted network traffic to maintain its confidentiality (protect against unauthorized disclosure) and integrity (protect against unauthorized changes).",
+            "url": "https://attack.mitre.org/techniques/T1600",
+            "tactics": [
+              "defense-impairment"
+            ],
+            "stix_id": "attack-pattern--1f9012ef-1e10-4e48-915e-e03563435fe8",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1590.002",
+            "name": "DNS",
+            "score": 0.07179531936973943,
+            "excerpt": "T1590.002 DNS reconnaissance Adversaries may gather information about the victim's DNS that can be used during targeting. DNS information may include a variety of details, including registered name servers as well as records that outline addressing for a target\u2019s subdomains, mail servers, and other hosts. DNS MX, TXT, and SPF records may also reveal the use of third party cloud and SaaS providers, such as Office 365,",
+            "url": "https://attack.mitre.org/techniques/T1590/002",
+            "tactics": [
+              "reconnaissance"
+            ],
+            "stix_id": "attack-pattern--0ff59227-8aa8-4c09-bf1f-925605bd07ea",
+            "object_version": "1.2",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1574.006",
+            "name": "Dynamic Linker Hijacking",
+            "score": 0.05682699632902093,
+            "excerpt": "T1574.006 Dynamic Linker Hijacking execution stealth Adversaries may execute their own malicious payloads by hijacking environment variables the dynamic linker uses to load shared libraries. During the execution preparation phase of a program, the dynamic linker loads specified absolute paths of shared libraries from various environment variables and files, such as <code>LD_PRELOAD</code> on Linux or <code>DYLD_INSER",
+            "url": "https://attack.mitre.org/techniques/T1574/006",
+            "tactics": [
+              "execution",
+              "stealth"
+            ],
+            "stix_id": "attack-pattern--633a100c-b2c9-41bf-9be5-905c1b16c825",
+            "object_version": "3.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1596.001",
+            "name": "DNS/Passive DNS",
+            "score": 0.05433441370387976,
+            "excerpt": "T1596.001 DNS/Passive DNS reconnaissance Adversaries may search DNS data for information about victims that can be used during targeting. DNS information may include a variety of details, including registered name servers as well as records that outline addressing for a target\u2019s subdomains, mail servers, and other hosts. Adversaries may search DNS data to gather actionable information. Threat actors can query nameser",
+            "url": "https://attack.mitre.org/techniques/T1596/001",
+            "tactics": [
+              "reconnaissance"
+            ],
+            "stix_id": "attack-pattern--17fd695c-b88c-455a-a3d1-43b6cb728532",
+            "object_version": "1.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1489",
+            "name": "Service Stop",
+            "score": 0.051120871268536205,
+            "excerpt": "T1489 Service Stop impact Adversaries may stop or disable services on a system to render those services unavailable to legitimate users. Stopping critical services or processes can inhibit or stop response to an incident or aid in the adversary's overall objectives to cause damage to the environment.(Citation: Talos Olympic Destroyer 2018)(Citation: Novetta Blockbuster) Adversaries may accomplish this by disabling in",
+            "url": "https://attack.mitre.org/techniques/T1489",
+            "tactics": [
+              "impact"
+            ],
+            "stix_id": "attack-pattern--20fb2507-d71c-455d-9b6d-6104461cf26b",
+            "object_version": "1.4",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          }
+        ]
+      },
+      {
+        "id": "E2",
+        "gold_count": 0,
+        "hits": 0,
+        "reciprocal_rank": 0,
+        "ndcg": null,
+        "candidates": [
+          {
+            "technique_id": "T1600.002",
+            "name": "Disable Crypto Hardware",
+            "score": 0.0835012110789337,
+            "excerpt": "T1600.002 Disable Crypto Hardware defense-impairment Adversaries disable a network device\u2019s dedicated hardware encryption, which may enable them to leverage weaknesses in software encryption in order to reduce the effort involved in collecting, manipulating, and exfiltrating transmitted data. Many network devices such as routers, switches, and firewalls, perform encryption on network traffic to secure transmission ac",
+            "url": "https://attack.mitre.org/techniques/T1600/002",
+            "tactics": [
+              "defense-impairment"
+            ],
+            "stix_id": "attack-pattern--7efba77e-3bc4-4ca5-8292-d8201dcd64b5",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1600",
+            "name": "Weaken Encryption",
+            "score": 0.06518009422434061,
+            "excerpt": "T1600 Weaken Encryption defense-impairment Adversaries may compromise a network device\u2019s encryption capability in order to bypass encryption that would otherwise protect data communications.(Citation: Cisco Synful Knock Evolution) Encryption can be used to protect transmitted network traffic to maintain its confidentiality (protect against unauthorized disclosure) and integrity (protect against unauthorized changes).",
+            "url": "https://attack.mitre.org/techniques/T1600",
+            "tactics": [
+              "defense-impairment"
+            ],
+            "stix_id": "attack-pattern--1f9012ef-1e10-4e48-915e-e03563435fe8",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1565.001",
+            "name": "Stored Data Manipulation",
+            "score": 0.06270094761278847,
+            "excerpt": "T1565.001 Stored Data Manipulation impact Adversaries may insert, delete, or manipulate data at rest in order to influence external outcomes or hide activity, thus threatening the integrity of the data.(Citation: FireEye APT38 Oct 2018)(Citation: DOJ Lazarus Sony 2018) By manipulating stored data, adversaries may attempt to affect a business process, organizational understanding, and decision making. Stored data coul",
+            "url": "https://attack.mitre.org/techniques/T1565/001",
+            "tactics": [
+              "impact"
+            ],
+            "stix_id": "attack-pattern--1cfcb312-b8d7-47a4-b560-4b16cc677292",
+            "object_version": "1.1",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1600.001",
+            "name": "Reduce Key Space",
+            "score": 0.061546540140258746,
+            "excerpt": "T1600.001 Reduce Key Space defense-impairment Adversaries may reduce the level of effort required to decrypt data transmitted over the network by reducing the cipher strength of encrypted communications.(Citation: Cisco Synful Knock Evolution) Adversaries can weaken the encryption software on a compromised network device by reducing the key size used by the software to convert plaintext to ciphertext (e.g., from hund",
+            "url": "https://attack.mitre.org/techniques/T1600/001",
+            "tactics": [
+              "defense-impairment"
+            ],
+            "stix_id": "attack-pattern--3a40f208-a9c1-4efa-a598-4003c3681fb8",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1573.001",
+            "name": "Symmetric Cryptography",
+            "score": 0.061050364689255544,
+            "excerpt": "T1573.001 Symmetric Cryptography command-and-control Adversaries may employ a known symmetric encryption algorithm to conceal command and control traffic rather than relying on any inherent protections provided by a communication protocol. Symmetric encryption algorithms use the same key for plaintext encryption and ciphertext decryption. Common symmetric encryption algorithms include AES, DES, 3DES, Blowfish, and RC",
+            "url": "https://attack.mitre.org/techniques/T1573/001",
+            "tactics": [
+              "command-and-control"
+            ],
+            "stix_id": "attack-pattern--24bfaeba-cb0d-4525-b3dc-507c77ecec41",
+            "object_version": "1.3",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          }
+        ]
+      },
+      {
+        "id": "F1",
+        "gold_count": 2,
+        "hits": 0,
+        "reciprocal_rank": 0,
+        "ndcg": 0.0,
+        "candidates": [
+          {
+            "technique_id": "T1578",
+            "name": "Modify Cloud Compute Infrastructure",
+            "score": 0.07199128074913487,
+            "excerpt": "T1578 Modify Cloud Compute Infrastructure defense-impairment An adversary may attempt to modify a cloud account's compute service infrastructure to evade defenses. A modification to the compute service infrastructure can include the creation, deletion, or modification of one or more components such as compute instances, virtual machines, and snapshots. Permissions gained from the modification of infrastructure compon",
+            "url": "https://attack.mitre.org/techniques/T1578",
+            "tactics": [
+              "defense-impairment"
+            ],
+            "stix_id": "attack-pattern--144e007b-e638-431d-a894-45d90c54ab90",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1542.005",
+            "name": "TFTP Boot",
+            "score": 0.06790491137135382,
+            "excerpt": "T1542.005 TFTP Boot persistence stealth Adversaries may abuse netbooting to load an unauthorized network device operating system from a Trivial File Transfer Protocol (TFTP) server. TFTP boot (netbooting) is commonly used by network administrators to load configuration-controlled network device images from a centralized management server. Netbooting is one option in the boot sequence and can be used to centralize, ma",
+            "url": "https://attack.mitre.org/techniques/T1542/005",
+            "tactics": [
+              "persistence",
+              "stealth"
+            ],
+            "stix_id": "attack-pattern--28abec6c-4443-4b03-8206-07f2e264a6b4",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1542.004",
+            "name": "ROMMONkit",
+            "score": 0.06159065603127879,
+            "excerpt": "T1542.004 ROMMONkit persistence stealth Adversaries may abuse the ROM Monitor (ROMMON) by loading an unauthorized firmware with adversary code to provide persistent access and manipulate device behavior that is difficult to detect.(Citation: Cisco Synful Knock Evolution)(Citation: Cisco Blog Legacy Device Attacks) ROMMON is a Cisco network device firmware that functions as a boot loader, boot image, or boot helper to",
+            "url": "https://attack.mitre.org/techniques/T1542/004",
+            "tactics": [
+              "persistence",
+              "stealth"
+            ],
+            "stix_id": "attack-pattern--a6557c75-798f-42e4-be70-ab4502e0a3bc",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1134.003",
+            "name": "Make and Impersonate Token",
+            "score": 0.05984969230407419,
+            "excerpt": "T1134.003 Make and Impersonate Token privilege-escalation stealth Adversaries may make new tokens and impersonate users to escalate privileges and bypass access controls. For example, if an adversary has a username and password but the user is not logged onto the system the adversary can then create a logon session for the user using the `LogonUser` function.(Citation: LogonUserW function) The function will return a ",
+            "url": "https://attack.mitre.org/techniques/T1134/003",
+            "tactics": [
+              "privilege-escalation",
+              "stealth"
+            ],
+            "stix_id": "attack-pattern--8cdeb020-e31e-4f88-a582-f53dcfbda819",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1563.001",
+            "name": "SSH Hijacking",
+            "score": 0.05792228891210032,
+            "excerpt": "T1563.001 SSH Hijacking lateral-movement Adversaries may hijack a legitimate user's SSH session to move laterally within an environment. Secure Shell (SSH) is a standard means of remote access on Linux and macOS systems. It allows a user to connect to another system via an encrypted tunnel, commonly authenticating through a password, certificate or the use of an asymmetric encryption key pair. In order to move latera",
+            "url": "https://attack.mitre.org/techniques/T1563/001",
+            "tactics": [
+              "lateral-movement"
+            ],
+            "stix_id": "attack-pattern--4d2a5b3e-340d-4600-9123-309dd63c9bf8",
+            "object_version": "1.1",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          }
+        ]
+      },
+      {
+        "id": "F2",
+        "gold_count": 1,
+        "hits": 0,
+        "reciprocal_rank": 0,
+        "ndcg": 0.0,
+        "candidates": [
+          {
+            "technique_id": "T1685.004",
+            "name": "Disable or Modify Linux Audit System Log",
+            "score": 0.06576575273614658,
+            "excerpt": "T1685.004 Disable or Modify Linux Audit System Log defense-impairment Adversaries may disable or modify the Linux Audit system to hide malicious activity and avoid detection. Linux admins use the Linux Audit system to track security-relevant information on a system. The Linux Audit system operates at the kernel-level and maintains event logs on application and system activity such as process, network, file, and login",
+            "url": "https://attack.mitre.org/techniques/T1685/004",
+            "tactics": [
+              "defense-impairment"
+            ],
+            "stix_id": "attack-pattern--23d69d00-80c4-42ff-9dac-dbd0459dad75",
+            "object_version": "1.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1542.005",
+            "name": "TFTP Boot",
+            "score": 0.06091660486797402,
+            "excerpt": "T1542.005 TFTP Boot persistence stealth Adversaries may abuse netbooting to load an unauthorized network device operating system from a Trivial File Transfer Protocol (TFTP) server. TFTP boot (netbooting) is commonly used by network administrators to load configuration-controlled network device images from a centralized management server. Netbooting is one option in the boot sequence and can be used to centralize, ma",
+            "url": "https://attack.mitre.org/techniques/T1542/005",
+            "tactics": [
+              "persistence",
+              "stealth"
+            ],
+            "stix_id": "attack-pattern--28abec6c-4443-4b03-8206-07f2e264a6b4",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1542.004",
+            "name": "ROMMONkit",
+            "score": 0.052439482763759496,
+            "excerpt": "T1542.004 ROMMONkit persistence stealth Adversaries may abuse the ROM Monitor (ROMMON) by loading an unauthorized firmware with adversary code to provide persistent access and manipulate device behavior that is difficult to detect.(Citation: Cisco Synful Knock Evolution)(Citation: Cisco Blog Legacy Device Attacks) ROMMON is a Cisco network device firmware that functions as a boot loader, boot image, or boot helper to",
+            "url": "https://attack.mitre.org/techniques/T1542/004",
+            "tactics": [
+              "persistence",
+              "stealth"
+            ],
+            "stix_id": "attack-pattern--a6557c75-798f-42e4-be70-ab4502e0a3bc",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1597.001",
+            "name": "Threat Intel Vendors",
+            "score": 0.05173477730559136,
+            "excerpt": "T1597.001 Threat Intel Vendors reconnaissance Adversaries may search private data from threat intelligence vendors for information that can be used during targeting. Threat intelligence vendors may offer paid feeds or portals that offer more data than what is publicly reported. Although sensitive details (such as customer names and other identifiers) may be redacted, this information may contain trends regarding brea",
+            "url": "https://attack.mitre.org/techniques/T1597/001",
+            "tactics": [
+              "reconnaissance"
+            ],
+            "stix_id": "attack-pattern--51e54974-a541-4fb6-a61b-0518e4c6de41",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1563.002",
+            "name": "RDP Hijacking",
+            "score": 0.04767758013180316,
+            "excerpt": "T1563.002 RDP Hijacking lateral-movement Adversaries may hijack a legitimate user\u2019s remote desktop session to move laterally within an environment. Remote desktop is a common feature in operating systems. It allows a user to log into an interactive session with a system desktop graphical user interface on a remote system. Microsoft refers to its implementation of the Remote Desktop Protocol (RDP) as Remote Desktop Se",
+            "url": "https://attack.mitre.org/techniques/T1563/002",
+            "tactics": [
+              "lateral-movement"
+            ],
+            "stix_id": "attack-pattern--e0033c16-a07e-48aa-8204-7c3ca669998c",
+            "object_version": "1.1",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          }
+        ]
+      },
+      {
+        "id": "G1",
+        "gold_count": 1,
+        "hits": 1,
+        "reciprocal_rank": 1.0,
+        "ndcg": 1.0,
+        "candidates": [
+          {
+            "technique_id": "T1059.001",
+            "name": "PowerShell",
+            "score": 0.13065316673975935,
+            "excerpt": "T1059.001 PowerShell execution Adversaries may abuse PowerShell commands and scripts for execution. PowerShell is a powerful interactive command-line interface and scripting environment included in the Windows operating system.(Citation: TechNet PowerShell) PowerShell can also be installed on Linux and macOS.(Citation: Powershell installation) Adversaries can use PowerShell to perform a number of actions, including d",
+            "url": "https://attack.mitre.org/techniques/T1059/001",
+            "tactics": [
+              "execution"
+            ],
+            "stix_id": "attack-pattern--970a3432-3237-47ad-bcca-7d8cbb217736",
+            "object_version": "1.6",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1059.003",
+            "name": "Windows Command Shell",
+            "score": 0.0853967039528293,
+            "excerpt": "T1059.003 Windows Command Shell execution Adversaries may abuse the Windows command shell for execution. The Windows command shell ([cmd](https://attack.mitre.org/software/S0106)) is the primary command prompt on Windows systems. The Windows command prompt can be used to control almost any aspect of a system, with various permission levels required for different subsets of commands. The command prompt can be invoked ",
+            "url": "https://attack.mitre.org/techniques/T1059/003",
+            "tactics": [
+              "execution"
+            ],
+            "stix_id": "attack-pattern--d1fcf083-a721-4223-aedf-bf8960798d62",
+            "object_version": "1.5",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1059.013",
+            "name": "Container CLI/API",
+            "score": 0.0637490155995806,
+            "excerpt": "T1059.013 Container CLI/API execution Adversaries may abuse built-in CLI tools or API calls to execute malicious commands in containerized environments. The Docker CLI is used for managing containers via an exposed API point from the `dockerd` daemon. Some common examples of Docker CLI include Docker Desktop CLI and Docker Compose, but users are also able to use SDKs to interact with the API. For example, Docker SDK ",
+            "url": "https://attack.mitre.org/techniques/T1059/013",
+            "tactics": [
+              "execution"
+            ],
+            "stix_id": "attack-pattern--c283d88f-8c23-4318-9da5-3d50cecad756",
+            "object_version": "1.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1092",
+            "name": "Communication Through Removable Media",
+            "score": 0.06092528368246386,
+            "excerpt": "T1092 Communication Through Removable Media command-and-control Adversaries can perform command and control between compromised hosts on potentially disconnected networks using removable media to transfer commands from system to system.(Citation: ESET Sednit USBStealer 2014) Both systems would need to be compromised, with the likelihood that an Internet-connected system was compromised first and the second through la",
+            "url": "https://attack.mitre.org/techniques/T1092",
+            "tactics": [
+              "command-and-control"
+            ],
+            "stix_id": "attack-pattern--64196062-5210-42c3-9a02-563a0d1797ef",
+            "object_version": "1.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1611",
+            "name": "Escape to Host",
+            "score": 0.054278335956902804,
+            "excerpt": "T1611 Escape to Host privilege-escalation Adversaries may break out of a container or virtualized environment to gain access to the underlying host. This can allow an adversary access to other containerized or virtualized resources from the host level or to the host itself. In principle, containerized / virtualized resources should provide a clear separation of application functionality and be isolated from the host ",
+            "url": "https://attack.mitre.org/techniques/T1611",
+            "tactics": [
+              "privilege-escalation"
+            ],
+            "stix_id": "attack-pattern--4a5b7ade-8bb5-4853-84ed-23f262002665",
+            "object_version": "1.6",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          }
+        ]
+      },
+      {
+        "id": "G2",
+        "gold_count": 0,
+        "hits": 0,
+        "reciprocal_rank": 0,
+        "ndcg": null,
+        "candidates": [
+          {
+            "technique_id": "T1546.013",
+            "name": "PowerShell Profile",
+            "score": 0.08870574056843582,
+            "excerpt": "T1546.013 PowerShell Profile persistence privilege-escalation Adversaries may gain persistence and elevate privileges by executing malicious content triggered by PowerShell profiles. A PowerShell profile (<code>profile.ps1</code>) is a script that runs when [PowerShell](https://attack.mitre.org/techniques/T1059/001) starts and can be used as a logon script to customize user environments. [PowerShell](https://attack.m",
+            "url": "https://attack.mitre.org/techniques/T1546/013",
+            "tactics": [
+              "persistence",
+              "privilege-escalation"
+            ],
+            "stix_id": "attack-pattern--0f2c410d-d740-4ed9-abb1-b8f4a7faf6c3",
+            "object_version": "1.2",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1105",
+            "name": "Ingress Tool Transfer",
+            "score": 0.07862284609273287,
+            "excerpt": "T1105 Ingress Tool Transfer command-and-control Adversaries may transfer tools or other files from an external system into a compromised environment. Tools or files may be copied from an external adversary-controlled system to the victim network through the command and control channel or through alternate protocols such as [ftp](https://attack.mitre.org/software/S0095). Once present, adversaries may also transfer/spr",
+            "url": "https://attack.mitre.org/techniques/T1105",
+            "tactics": [
+              "command-and-control"
+            ],
+            "stix_id": "attack-pattern--e6919abc-99f9-4c6c-95a5-14761e7b2add",
+            "object_version": "2.6",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1059.001",
+            "name": "PowerShell",
+            "score": 0.068350325740502,
+            "excerpt": "T1059.001 PowerShell execution Adversaries may abuse PowerShell commands and scripts for execution. PowerShell is a powerful interactive command-line interface and scripting environment included in the Windows operating system.(Citation: TechNet PowerShell) PowerShell can also be installed on Linux and macOS.(Citation: Powershell installation) Adversaries can use PowerShell to perform a number of actions, including d",
+            "url": "https://attack.mitre.org/techniques/T1059/001",
+            "tactics": [
+              "execution"
+            ],
+            "stix_id": "attack-pattern--970a3432-3237-47ad-bcca-7d8cbb217736",
+            "object_version": "1.6",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1564.003",
+            "name": "Hidden Window",
+            "score": 0.06586017966030361,
+            "excerpt": "T1564.003 Hidden Window stealth Adversaries may use hidden windows to conceal malicious activity from the plain sight of users. In some cases, windows that would typically be displayed when an application carries out an operation can be hidden. This may be utilized by system administrators to avoid disrupting user work environments when carrying out administrative tasks. Adversaries may abuse these functionalities to",
+            "url": "https://attack.mitre.org/techniques/T1564/003",
+            "tactics": [
+              "stealth"
+            ],
+            "stix_id": "attack-pattern--cbb66055-0325-4111-aca0-40547b6ad5b0",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1685.005",
+            "name": "Clear Windows Event Logs",
+            "score": 0.06221755430212038,
+            "excerpt": "T1685.005 Clear Windows Event Logs defense-impairment Adversaries may clear Windows Event Logs to hide the activity of an intrusion. Windows Event Logs are a record of a computer's alerts and notifications. There are three system-defined sources of events: System, Application, and Security, with five event types: Error, Warning, Information, Success Audit, and Failure Audit. With administrator privileges, the event l",
+            "url": "https://attack.mitre.org/techniques/T1685/005",
+            "tactics": [
+              "defense-impairment"
+            ],
+            "stix_id": "attack-pattern--75b9a4d2-d4e2-4ca1-9aab-1badd9e05fd0",
+            "object_version": "1.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          }
+        ]
+      },
+      {
+        "id": "H1",
+        "gold_count": 0,
+        "hits": 0,
+        "reciprocal_rank": 0,
+        "ndcg": null,
+        "candidates": [
+          {
+            "technique_id": "T1573.001",
+            "name": "Symmetric Cryptography",
+            "score": 0.07815562514161035,
+            "excerpt": "T1573.001 Symmetric Cryptography command-and-control Adversaries may employ a known symmetric encryption algorithm to conceal command and control traffic rather than relying on any inherent protections provided by a communication protocol. Symmetric encryption algorithms use the same key for plaintext encryption and ciphertext decryption. Common symmetric encryption algorithms include AES, DES, 3DES, Blowfish, and RC",
+            "url": "https://attack.mitre.org/techniques/T1573/001",
+            "tactics": [
+              "command-and-control"
+            ],
+            "stix_id": "attack-pattern--24bfaeba-cb0d-4525-b3dc-507c77ecec41",
+            "object_version": "1.3",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1685.004",
+            "name": "Disable or Modify Linux Audit System Log",
+            "score": 0.06464348275132065,
+            "excerpt": "T1685.004 Disable or Modify Linux Audit System Log defense-impairment Adversaries may disable or modify the Linux Audit system to hide malicious activity and avoid detection. Linux admins use the Linux Audit system to track security-relevant information on a system. The Linux Audit system operates at the kernel-level and maintains event logs on application and system activity such as process, network, file, and login",
+            "url": "https://attack.mitre.org/techniques/T1685/004",
+            "tactics": [
+              "defense-impairment"
+            ],
+            "stix_id": "attack-pattern--23d69d00-80c4-42ff-9dac-dbd0459dad75",
+            "object_version": "1.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1600",
+            "name": "Weaken Encryption",
+            "score": 0.05315414626660965,
+            "excerpt": "T1600 Weaken Encryption defense-impairment Adversaries may compromise a network device\u2019s encryption capability in order to bypass encryption that would otherwise protect data communications.(Citation: Cisco Synful Knock Evolution) Encryption can be used to protect transmitted network traffic to maintain its confidentiality (protect against unauthorized disclosure) and integrity (protect against unauthorized changes).",
+            "url": "https://attack.mitre.org/techniques/T1600",
+            "tactics": [
+              "defense-impairment"
+            ],
+            "stix_id": "attack-pattern--1f9012ef-1e10-4e48-915e-e03563435fe8",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1546.014",
+            "name": "Emond",
+            "score": 0.047180922546664936,
+            "excerpt": "T1546.014 Emond persistence privilege-escalation Adversaries may gain persistence and elevate privileges by executing malicious content triggered by the Event Monitor Daemon (emond). Emond is a [Launch Daemon](https://attack.mitre.org/techniques/T1543/004) that accepts events from various services, runs them through a simple rules engine, and takes action. The emond binary at <code>/sbin/emond</code> will load any ru",
+            "url": "https://attack.mitre.org/techniques/T1546/014",
+            "tactics": [
+              "persistence",
+              "privilege-escalation"
+            ],
+            "stix_id": "attack-pattern--9c45eaa3-8604-4780-8988-b5074dbb9ecd",
+            "object_version": "1.1",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1499.002",
+            "name": "Service Exhaustion Flood",
+            "score": 0.04482577123760852,
+            "excerpt": "T1499.002 Service Exhaustion Flood impact Adversaries may target the different network services provided by systems to conduct a denial of service (DoS). Adversaries often target the availability of DNS and web services; however, others have been targeted as well.(Citation: Arbor AnnualDoSreport Jan 2018) Web server software can be attacked through a variety of means, some of which apply generally while others are sp",
+            "url": "https://attack.mitre.org/techniques/T1499/002",
+            "tactics": [
+              "impact"
+            ],
+            "stix_id": "attack-pattern--38eb0c22-6caf-46ce-8869-5964bd735858",
+            "object_version": "1.4",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          }
+        ]
+      },
+      {
+        "id": "H2",
+        "gold_count": 0,
+        "hits": 0,
+        "reciprocal_rank": 0,
+        "ndcg": null,
+        "candidates": [
+          {
+            "technique_id": "T1553",
+            "name": "Subvert Trust Controls",
+            "score": 0.08774536736956444,
+            "excerpt": "T1553 Subvert Trust Controls defense-impairment Adversaries may undermine security controls that will either warn users of untrusted activity or prevent execution of untrusted programs. Operating systems and security products may contain mechanisms to identify programs or websites as possessing some level of trust. Examples of such features would include a program being allowed to run because it is signed by a valid ",
+            "url": "https://attack.mitre.org/techniques/T1553",
+            "tactics": [
+              "defense-impairment"
+            ],
+            "stix_id": "attack-pattern--b83e166d-13d7-4b52-8677-dff90c548fd7",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1550.003",
+            "name": "Pass the Ticket",
+            "score": 0.07534308113211204,
+            "excerpt": "T1550.003 Pass the Ticket lateral-movement Adversaries may \u201cpass the ticket\u201d using stolen Kerberos tickets to move laterally within an environment, bypassing normal system access controls. Pass the ticket (PtT) is a method of authenticating to a system using Kerberos tickets without having access to an account's password. Kerberos authentication can be used as the first step to lateral movement to a remote system. Wh",
+            "url": "https://attack.mitre.org/techniques/T1550/003",
+            "tactics": [
+              "lateral-movement"
+            ],
+            "stix_id": "attack-pattern--7b211ac6-c815-4189-93a9-ab415deca926",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1599",
+            "name": "Network Boundary Bridging",
+            "score": 0.06387384511989744,
+            "excerpt": "T1599 Network Boundary Bridging defense-impairment Adversaries may bridge network boundaries by compromising perimeter network devices or internal devices responsible for network segmentation. Breaching these devices may enable an adversary to bypass restrictions on traffic routing that otherwise separate trusted and untrusted networks. Devices such as routers and firewalls can be used to create boundaries between tr",
+            "url": "https://attack.mitre.org/techniques/T1599",
+            "tactics": [
+              "defense-impairment"
+            ],
+            "stix_id": "attack-pattern--b8017880-4b1e-42de-ad10-ae7ac6705166",
+            "object_version": "2.0",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1558.003",
+            "name": "Kerberoasting",
+            "score": 0.061607197157652456,
+            "excerpt": "T1558.003 Kerberoasting credential-access Adversaries may abuse a valid Kerberos ticket-granting ticket (TGT) or sniff network traffic to obtain a ticket-granting service (TGS) ticket that may be vulnerable to [Brute Force](https://attack.mitre.org/techniques/T1110).(Citation: Empire InvokeKerberoast Oct 2016)(Citation: AdSecurity Cracking Kerberos Dec 2015) Service principal names (SPNs) are used to uniquely identif",
+            "url": "https://attack.mitre.org/techniques/T1558/003",
+            "tactics": [
+              "credential-access"
+            ],
+            "stix_id": "attack-pattern--f2877f7f-9a4c-4251-879f-1224e3006bee",
+            "object_version": "1.3",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          },
+          {
+            "technique_id": "T1558.001",
+            "name": "Golden Ticket",
+            "score": 0.0608087327985868,
+            "excerpt": "T1558.001 Golden Ticket credential-access Adversaries who have the KRBTGT account password hash may forge Kerberos ticket-granting tickets (TGT), also known as a golden ticket.(Citation: AdSecurity Kerberos GT Aug 2015) Golden tickets enable adversaries to generate authentication material for any account in Active Directory.(Citation: CERT-EU Golden Ticket Protection) Using a golden ticket, adversaries are then able ",
+            "url": "https://attack.mitre.org/techniques/T1558/001",
+            "tactics": [
+              "credential-access"
+            ],
+            "stix_id": "attack-pattern--768dce68-8d0d-477a-b01d-0eea98b963a1",
+            "object_version": "1.2",
+            "bundle_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+            "bundle_version": "20.1"
+          }
+        ]
+      }
+    ]
+  },
+  "arms": {
+    "no_rag": {
+      "cases": 16,
+      "contract": 16,
+      "exact": 8,
+      "labels_exact": 8,
+      "tp": 0,
+      "fp": 3,
+      "fn": 9,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "invalid_id_count": 0,
+      "unknown_reference_count": 0,
+      "errors": 0,
+      "latency_p50_s": 0.078,
+      "latency_p95_s": 2.344,
+      "prompt_tokens": 2371,
+      "completion_tokens": 219,
+      "egp_charged": null
+    },
+    "lexical_rag": {
+      "cases": 16,
+      "contract": 16,
+      "exact": 3,
+      "labels_exact": 3,
+      "tp": 0,
+      "fp": 13,
+      "fn": 9,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "invalid_id_count": 12,
+      "unknown_reference_count": 0,
+      "errors": 0,
+      "latency_p50_s": 0.2345,
+      "latency_p95_s": 0.281,
+      "prompt_tokens": 10565,
+      "completion_tokens": 309,
+      "egp_charged": null
+    }
+  },
+  "paired": {
+    "exact_delta": -0.3125,
+    "family_bootstrap_95": [
+      -0.5625,
+      -0.125
+    ],
+    "families": 8
+  }
+}

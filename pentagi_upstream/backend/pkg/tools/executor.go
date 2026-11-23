@@ -306,134 +306,146 @@ func (ce *customExecutor) Execute(
 	}
 
 	args = effectiveArgs // Executable arguments come only from the signed template; workflow bodies stay data.
-
-	handler, ok := ce.handlers[name]
-	if !ok {
-		return ce.unknownToolResponse(ctx, id, name), nil
+	if correction := ce.callCorrection(ctx, id, name, args); correction != "" {
+		return correction, nil
 	}
 
-	var raw any
-	if err := json.Unmarshal(args, &raw); err != nil {
-		return fmt.Sprintf("failed to unmarshal '%s' tool call arguments: %v: fix it", name, err), nil
-	}
-
-	toolType := GetToolType(name)
-	var obsWrapper observationWrapper
-
-	switch toolType {
-	case EnvironmentToolType, SearchNetworkToolType, StoreAgentResultToolType, StoreVectorDbToolType:
-		obsWrapper = ce.createToolObservation(ctx, obsName, args)
-	case AgentToolType:
-		obsWrapper = ce.createAgentObservation(ctx, obsName, args)
-	case BarrierToolType:
-		obsWrapper = ce.createSpanObservation(ctx, obsName, args)
-	case SearchVectorDbToolType:
-		// Skip - handlers create RETRIEVER internally
-		obsWrapper = &noopObservationWrapper{context: ctx}
-	default:
-		obsWrapper = &noopObservationWrapper{context: ctx}
-	}
-
-	ctx = obsWrapper.ctx()
-
-	var err error
-	msgID, msg := int64(0), ce.getMessage(args)
-	if strings.Trim(msg, " \t\n\r") != "" {
-		msgType := getMessageType(name)
-		msgID, err = ce.mlp.PutMsg(ctx, msgType, ce.taskID, ce.subtaskID, streamID, thinking, msg)
-		if err != nil {
-			return "", err
-		}
-	}
-
-	tcID, err := ce.tclp.PutLog(ctx, id, name, args, ce.taskID, ce.subtaskID)
+	observation := ce.observeToolCall(ctx, name, obsName, args)
+	ctx = observation.ctx()
+	call, err := ce.beginToolCall(ctx, streamID, id, name, thinking, args)
 	if err != nil {
-		obsWrapper.end("", err, time.Since(startTime).Seconds())
-		return "", fmt.Errorf("failed to create toolcall: %w", err)
-	}
-
-	logger := logrus.WithContext(ctx).WithFields(enrichLogrusFields(ce.flowID, ce.taskID, ce.subtaskID, logrus.Fields{
-		"tool":         name,
-		"tool_call_id": id,
-	}))
-
-	wrapHandler := func(ctx context.Context, name string, args json.RawMessage) (string, database.MsglogResultFormat, error) {
-		resultFormat := getMessageResultFormat(name)
-
-		if name == TerminalToolName {
-			ce.governance.MarkTargetInvocation(id)
+		if call.toolLogAttempted {
+			observation.end("", err, time.Since(startTime).Seconds())
 		}
-		result, err := handler(ctx, name, args)
-		persistCtx := context.WithoutCancel(ctx)
-
-		if err != nil {
-			durationDelta := time.Since(startTime).Seconds()
-			failureResult := fmt.Sprintf("failed to execute handler: %s", err.Error())
-			_ = ce.tclp.UpdateLogFailed(persistCtx, tcID, failureResult, durationDelta)
-			return "", resultFormat, fmt.Errorf("failed to execute handler: %w", err)
-		}
-
-		result = database.SanitizeUTF8(result)
-		allowSummarize := slices.Contains(allowedSummarizingToolsResult, name)
-		switch {
-		case ce.summarizer != nil && allowSummarize && len(result) > DefaultResultSizeLimit:
-			summary, err := ce.summarizeResult(ctx, name, args, result)
-			if err == nil {
-				result, resultFormat = summary, database.MsglogResultFormatMarkdown
-				break
-			}
-			if ctx.Err() != nil {
-				durationDelta := time.Since(startTime).Seconds()
-				failureResult := fmt.Sprintf("failed to summarize result: %s", err.Error())
-				_ = ce.tclp.UpdateLogFailed(persistCtx, tcID, failureResult, durationDelta)
-				return "", resultFormat, fmt.Errorf("failed to summarize result: %w", err)
-			}
-			logger.WithError(err).Warn("failed to summarize tool result, truncating it instead")
-			result = truncateResult(result)
-		case allowSummarize:
-			result = truncateResult(result)
-		}
-
-		durationDelta := time.Since(startTime).Seconds()
-		if err := ce.tclp.UpdateLogSuccess(persistCtx, tcID, result, durationDelta); err != nil {
-			obs.LogErrorOrCancel(logger, err, "failed to update toolcall result")
-		}
-
-		return result, resultFormat, nil
-	}
-
-	if msg == "" { // no arg message to log and execute handler immediately
-		result, _, err := wrapHandler(ctx, name, args)
-		obsWrapper.end(result, err, time.Since(startTime).Seconds())
-		return result, err
-	}
-
-	result, resultFormat, err := wrapHandler(ctx, name, args)
-	if err != nil {
-		obsWrapper.end(result, err, time.Since(startTime).Seconds())
 		return "", err
 	}
 
-	if err := ce.storeToolResult(ctx, name, result, args); err != nil {
-		obs.LogErrorOrCancel(logger, err, "failed to store tool result in long-term memory")
+	if name == TerminalToolName {
+		ce.governance.MarkTargetInvocation(id)
 	}
+	output, handlerErr := ce.handlers[name](ctx, name, args)
+	result, format, err := ce.finishToolCall(ctx, startTime, id, name, args, call.logID, output, handlerErr)
+	if err == nil {
+		ce.publishToolResult(ctx, streamID, id, name, args, call, result, format)
+	}
+	observation.end(result, err, time.Since(startTime).Seconds())
+	return result, err
+}
 
-	if msgID != 0 {
-		// The toolcall row is already written on a detached context. The message
-		// log is the operator-visible half of the same record, so a cancellation
-		// between the two leaves them disagreeing: the tool call finished with a
-		// result, the message it belongs to empty.
-		msgCtx, cancel := context.WithTimeout(context.WithoutCancel(ctx), closingWriteTimeout)
-		defer cancel()
+// callCorrection formats a reply for an input the executor cannot use. Only
+// Execute can authorize a request or invoke a handler.
+func (ce *customExecutor) callCorrection(ctx context.Context, id, name string, args json.RawMessage) string {
+	if _, ok := ce.handlers[name]; !ok {
+		return ce.unknownToolResponse(ctx, id, name)
+	}
+	var raw any
+	if err := json.Unmarshal(args, &raw); err != nil {
+		return fmt.Sprintf("failed to unmarshal '%s' tool call arguments: %v: fix it", name, err)
+	}
+	return ""
+}
 
-		if err := ce.mlp.UpdateMsgResult(msgCtx, msgID, streamID, result, resultFormat); err != nil {
-			obs.LogErrorOrCancel(logger, err, "failed to update tool call message result")
+func (ce *customExecutor) observeToolCall(ctx context.Context, name, obsName string, args json.RawMessage) observationWrapper {
+	switch GetToolType(name) {
+	case EnvironmentToolType, SearchNetworkToolType, StoreAgentResultToolType, StoreVectorDbToolType:
+		return ce.createToolObservation(ctx, obsName, args)
+	case AgentToolType:
+		return ce.createAgentObservation(ctx, obsName, args)
+	case BarrierToolType:
+		return ce.createSpanObservation(ctx, obsName, args)
+	default:
+		// Vector-store search handlers create their own RETRIEVER observations.
+		return &noopObservationWrapper{context: ctx}
+	}
+}
+
+type toolCallRecord struct {
+	message          string
+	messageID        int64
+	logID            int64
+	toolLogAttempted bool
+}
+
+// beginToolCall writes the required logs without invoking any tool.
+func (ce *customExecutor) beginToolCall(ctx context.Context, streamID int64, id, name, thinking string, args json.RawMessage) (toolCallRecord, error) {
+	call := toolCallRecord{message: ce.getMessage(args)}
+	var err error
+	if strings.Trim(call.message, " \t\n\r") != "" {
+		call.messageID, err = ce.mlp.PutMsg(ctx, getMessageType(name), ce.taskID, ce.subtaskID, streamID, thinking, call.message)
+		if err != nil {
+			return call, err
 		}
 	}
+	call.toolLogAttempted = true
+	call.logID, err = ce.tclp.PutLog(ctx, id, name, args, ce.taskID, ce.subtaskID)
+	if err != nil {
+		return call, fmt.Errorf("failed to create toolcall: %w", err)
+	}
+	return call, nil
+}
 
-	obsWrapper.end(result, nil, time.Since(startTime).Seconds())
+func (ce *customExecutor) toolCallLogger(ctx context.Context, id, name string) *logrus.Entry {
+	return logrus.WithContext(ctx).WithFields(enrichLogrusFields(ce.flowID, ce.taskID, ce.subtaskID, logrus.Fields{
+		"tool":         name,
+		"tool_call_id": id,
+	}))
+}
 
-	return result, nil
+// finishToolCall formats and logs an already-observed result, including after cancellation.
+func (ce *customExecutor) finishToolCall(ctx context.Context, started time.Time, id, name string, args json.RawMessage,
+	logID int64, output string, handlerErr error,
+) (string, database.MsglogResultFormat, error) {
+	resultFormat := getMessageResultFormat(name)
+	persistCtx := context.WithoutCancel(ctx)
+	if handlerErr != nil {
+		failure := fmt.Errorf("failed to execute handler: %w", handlerErr)
+		_ = ce.tclp.UpdateLogFailed(persistCtx, logID, failure.Error(), time.Since(started).Seconds())
+		return "", resultFormat, failure
+	}
+
+	result := database.SanitizeUTF8(output)
+	allowSummarize := slices.Contains(allowedSummarizingToolsResult, name)
+	switch {
+	case ce.summarizer != nil && allowSummarize && len(result) > DefaultResultSizeLimit:
+		summary, err := ce.summarizeResult(ctx, name, args, result)
+		if err == nil {
+			result, resultFormat = summary, database.MsglogResultFormatMarkdown
+			break
+		}
+		if ctx.Err() != nil {
+			failure := fmt.Errorf("failed to summarize result: %w", err)
+			_ = ce.tclp.UpdateLogFailed(persistCtx, logID, failure.Error(), time.Since(started).Seconds())
+			return "", resultFormat, failure
+		}
+		ce.toolCallLogger(ctx, id, name).WithError(err).Warn("failed to summarize tool result, truncating it instead")
+		result = truncateResult(result)
+	case allowSummarize:
+		result = truncateResult(result)
+	}
+
+	if err := ce.tclp.UpdateLogSuccess(persistCtx, logID, result, time.Since(started).Seconds()); err != nil {
+		obs.LogErrorOrCancel(ce.toolCallLogger(ctx, id, name), err, "failed to update toolcall result")
+	}
+	return result, resultFormat, nil
+}
+
+// publishToolResult updates memory and the operator-visible message after the tool log is closed.
+func (ce *customExecutor) publishToolResult(ctx context.Context, streamID int64, id, name string, args json.RawMessage,
+	call toolCallRecord, result string, format database.MsglogResultFormat,
+) {
+	if call.message == "" {
+		return
+	}
+	if err := ce.storeToolResult(ctx, name, result, args); err != nil {
+		obs.LogErrorOrCancel(ce.toolCallLogger(ctx, id, name), err, "failed to store tool result in long-term memory")
+	}
+	if call.messageID != 0 {
+		msgCtx, cancel := context.WithTimeout(context.WithoutCancel(ctx), closingWriteTimeout)
+		defer cancel()
+		if err := ce.mlp.UpdateMsgResult(msgCtx, call.messageID, streamID, result, format); err != nil {
+			obs.LogErrorOrCancel(ce.toolCallLogger(ctx, id, name), err, "failed to update tool call message result")
+		}
+	}
 }
 
 func (ce *customExecutor) summarizeResult(ctx context.Context, name string, args json.RawMessage, result string) (string, error) {

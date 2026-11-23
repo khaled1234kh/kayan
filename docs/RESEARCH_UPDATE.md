@@ -13,6 +13,12 @@ The [implementation overview](ARCHITECTURE.md) describes the current application
 
 The paper revision corrected the benchmark denominator (400 model-case evaluations, 402 inference attempts), the authorization diagram’s caller, and wording about scoring granularity and experimental controls. The published scores and conclusions stayed the same.
 
+The [November 16 offline Risk Plan validation](RISK_PLAN_VALIDATION_2026-11-16.md) records applicability and Option A consistency results separately from the Qwen Planner and ATT&CK mapping benchmarks.
+
+The November 20 offline mapping ablation measured 22/32 exact for field BM25 @ 5 and 26/32 for hybrid E5-192 @ 5 on 32 already inspected fictional cases. The matched interval includes zero. The interpretation prompt eliminated three unsupported pairs and missed one additional expected pair. The earlier run is preserved, and independent label review and fresh confirmation remain pending. [Complete ablation and case-level limitations](ATTACK_MAPPING_ABLATION_2026-11-20.md)
+
+The one-shot confirmation is preregistered for 24 frozen cases, with a scoring rubric for jointly required and independently sufficient evidence groups. Workflow tests used synthetic review data and mock transport. No new mapping scores were produced. Real returns, adjudication and stakeholder approval are required. [Confirmation handoff](ATTACK_CONFIRMATION_HANDOFF_2026-11-20.md)
+
 ## Proposed cloud-ready defensive review
 
 The design compares local inference, managed APIs, private cloud GPU serving, and hybrid routing. A deterministic scheduler checks dependencies. A model gateway routes approved inference requests under budget and data-transfer controls. TrustGate remains independently responsible for the policy decision on any effect. The proposed evaluation uses frozen records and inert effects.

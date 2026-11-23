@@ -11,6 +11,7 @@ import (
 	"net/http/httptest"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 	"time"
 
@@ -33,16 +34,33 @@ func TestGovernanceExternalRegistryCannotShadowMetadataHandlers(t *testing.T) {
 
 func TestGovernanceExecutorRefusesMissingActualAgentContext(t *testing.T) {
 	calls := 0
-	executor := &customExecutor{handlers: map[string]ExecutorHandler{"terminal": func(context.Context, string, json.RawMessage) (string, error) {
-		calls++
-		return "should not execute", nil
-	}}}
-	if _, err := executor.Execute(t.Context(), 1, "call", "terminal", "terminal", "", json.RawMessage(`{}`)); err == nil || calls != 0 {
-		t.Fatal("missing context dispatched a handler")
+	log := &executorToolCallLog{}
+	executor := &customExecutor{tclp: log, handlers: map[string]ExecutorHandler{
+		TerminalToolName: func(context.Context, string, json.RawMessage) (string, error) {
+			calls++
+			return "should not execute", nil
+		},
+	}}
+	for _, test := range []struct {
+		ctx    context.Context
+		denial string
+	}{
+		{t.Context(), "actual agent context missing"},
+		{PutAgentContext(t.Context(), database.MsgchainTypePrimaryAgent), "TrustGate session missing"},
+	} {
+		_, err := executor.Execute(test.ctx, 1, "call", TerminalToolName, "", "", json.RawMessage(`{}`))
+		if err == nil || !strings.Contains(err.Error(), test.denial) || calls != 0 || log.started != 0 {
+			t.Fatalf("%s: error=%v, handler calls=%d, tool logs=%d", test.denial, err, calls, log.started)
+		}
 	}
-	ctx := PutAgentContext(t.Context(), database.MsgchainTypePrimaryAgent)
-	if _, err := executor.Execute(ctx, 1, "call", "terminal", "terminal", "", json.RawMessage(`{}`)); err == nil || calls != 0 {
-		t.Fatal("missing signed session dispatched a handler")
+}
+
+func TestGovernanceUnsignedConstructorDoesNotContactDocker(t *testing.T) {
+	docker := &fakeDockerClient{}
+	executor, err := NewFlowToolsExecutor(&fakeContainerDB{}, nil, docker, nil, 1, 42)
+	if err == nil || !strings.Contains(err.Error(), "signed TrustGate execution binding is required") ||
+		executor != nil || len(docker.launches) != 0 || len(docker.probed) != 0 {
+		t.Fatalf("unsigned construction must fail before Docker: executor=%v, error=%v", executor, err)
 	}
 }
 
@@ -60,7 +78,9 @@ func TestGovernanceExecutorDispatchesApprovedHandlerOnceThenPropagatesTaint(t *t
 		json.NewDecoder(r.Body).Decode(&request)
 		observed = append(observed, request)
 		decision := "ALLOW"
-		if request.Provenance["execution_args"] == "untrusted" {
+		// Deliberately over-permissive for the unsupported browser request so the
+		// test exercises the adapter's own refusal after an ALLOW response.
+		if request.ToolName != "unmapped:browser" && request.Provenance["execution_args"] == "untrusted" {
 			decision = "DENY"
 		}
 		json.NewEncoder(w).Encode(trustgate.AuthorizeResponse{Decision: decision, Reason: "controlled gate", AuditEntryID: "unit-audit"})
@@ -82,9 +102,13 @@ func TestGovernanceExecutorDispatchesApprovedHandlerOnceThenPropagatesTaint(t *t
 		t.Fatal(err)
 	}
 	calls := 0
-	executor := &customExecutor{flowID: 999, governance: session, mlp: &executorMsgLog{}, tclp: &executorToolCallLog{}, replacer: identityReplacer{},
+	log := &executorToolCallLog{}
+	executor := &customExecutor{flowID: 999, governance: session, mlp: &executorMsgLog{}, tclp: log, replacer: identityReplacer{},
 		handlers: map[string]ExecutorHandler{"terminal": func(context.Context, string, json.RawMessage) (string, error) {
 			calls++
+			if log.started != 1 {
+				t.Error("the existing governed fixture reached the handler before logging its call")
+			}
 			return "target-environment output", nil
 		}}}
 	args, _ := json.Marshal(map[string]any{"input": command, "cwd": "/", "detach": false, "timeout": 5, "message": ""})
@@ -104,4 +128,19 @@ func TestGovernanceExecutorDispatchesApprovedHandlerOnceThenPropagatesTaint(t *t
 	if observed[2].Provenance["execution_args"] != "untrusted" {
 		t.Fatal("target provenance was not propagated")
 	}
+	// The same existing bound session cannot authorize browser dispatch, even
+	// when the mock gate returns ALLOW. Formatting and traces are tested separately.
+	browserCalls := 0
+	executor.handlers[BrowserToolName] = func(context.Context, string, json.RawMessage) (string, error) {
+		browserCalls++
+		return "", nil
+	}
+	started := log.started
+	_, err = executor.Execute(ctx, 1, "unsupported", BrowserToolName, "", "", json.RawMessage(`{}`))
+	if err == nil || !strings.Contains(err.Error(), "local bounded adapter refused unsupported execution") ||
+		len(observed) != 4 || observed[3].ToolName != "unmapped:browser" ||
+		browserCalls != 0 || log.started != started {
+		t.Fatalf("unsupported browser dispatch was not refused before bookkeeping: err=%v calls=%d", err, browserCalls)
+	}
+
 }

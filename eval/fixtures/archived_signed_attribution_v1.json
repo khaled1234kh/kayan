@@ -1,0 +1,124 @@
+{
+  "protocol": "kayan-signed-occurrence-attribution/1",
+  "notes": "Authored fixtures with inert capture values and test-only review and custody. The expected decisions concern scope and proof binding.",
+  "cases": [
+    {
+      "id": "three_roles_bound",
+      "events": [
+        {
+          "id": "alpha"
+        }
+      ],
+      "allowed": [
+        "alpha"
+      ],
+      "withheld": []
+    },
+    {
+      "id": "adverse_on_distinct_occurrence",
+      "events": [
+        {
+          "id": "alpha"
+        },
+        {
+          "id": "beta",
+          "adverse": "actor"
+        }
+      ],
+      "allowed": [
+        "alpha"
+      ],
+      "withheld": [
+        "beta"
+      ]
+    },
+    {
+      "id": "adverse_role_same_source",
+      "events": [
+        {
+          "id": "alpha"
+        },
+        {
+          "id": "beta",
+          "adverse": "other_role"
+        }
+      ],
+      "allowed": [
+        "alpha"
+      ],
+      "withheld": [
+        "beta"
+      ]
+    },
+    {
+      "id": "unscoped_adverse_source",
+      "events": [
+        {
+          "id": "alpha"
+        },
+        {
+          "id": "beta"
+        }
+      ],
+      "unbound_adverse": true,
+      "allowed": [],
+      "withheld": [
+        "alpha",
+        "beta"
+      ]
+    },
+    {
+      "id": "missing_review_one_occurrence",
+      "events": [
+        {
+          "id": "alpha"
+        },
+        {
+          "id": "beta",
+          "omit": "actor"
+        }
+      ],
+      "allowed": [
+        "alpha"
+      ],
+      "withheld": [
+        "beta"
+      ]
+    },
+    {
+      "id": "authorized_sibling",
+      "events": [
+        {
+          "id": "alpha"
+        },
+        {
+          "id": "beta",
+          "authorized": true
+        }
+      ],
+      "allowed": [
+        "alpha"
+      ],
+      "withheld": [
+        "beta"
+      ]
+    },
+    {
+      "id": "shared_adverse_source",
+      "events": [
+        {
+          "id": "alpha"
+        },
+        {
+          "id": "beta"
+        }
+      ],
+      "shared_adverse": true,
+      "allowed": [],
+      "withheld": [
+        "alpha",
+        "beta"
+      ]
+    }
+  ]
+}

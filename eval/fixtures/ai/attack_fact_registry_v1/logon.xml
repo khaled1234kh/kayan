@@ -1,0 +1,20 @@
+<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+  <System>
+    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-a5ba-3e3b0328c30d}"/>
+    <EventID>4624</EventID>
+    <Version>2</Version>
+    <TimeCreated SystemTime="2026-11-20T09:00:00.000000001Z"/>
+    <EventRecordID>21</EventRecordID>
+    <Channel>Security</Channel>
+    <Computer>JUN-4.example.invalid</Computer>
+  </System>
+  <EventData>
+    <Data Name="SubjectUserSid">S-1-5-18</Data>
+    <Data Name="SubjectLogonId">0x3e7</Data>
+    <Data Name="TargetUserSid">S-1-5-21-100-200-300-1104</Data>
+    <Data Name="TargetUserName">operator</Data>
+    <Data Name="TargetDomainName">BLUE</Data>
+    <Data Name="TargetLogonId">0x0055CD1D</Data>
+    <Data Name="LogonType">2</Data>
+  </EventData>
+</Event>
