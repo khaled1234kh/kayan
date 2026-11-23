@@ -1,7 +1,9 @@
 """Read-only access to the verified frozen 80-case role benchmark.
 
-No production code is imported or modified. The reference harness lives in the
-isolated worktree under eval/reference/role-benchmark and is loaded verbatim.
+No production code is imported or modified. The verbatim reference harness is
+bundled under this directory's ``reference/`` folder after publication; the
+pre-publication worktree path ``eval/reference/role-benchmark`` no longer
+exists in the curated tree.
 """
 from __future__ import annotations
 
@@ -14,7 +16,7 @@ from decimal import Decimal
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-REFERENCE = HERE.parent / "reference" / "role-benchmark"
+REFERENCE = HERE / "reference"
 MANIFEST = REFERENCE / "data" / "roles_frozen.json"
 EXPECTED_MANIFEST_SHA = "09b3639b388019655fbde0805a9abfbfa9c2136d58e96c94e789220ff93f8eb0"
 

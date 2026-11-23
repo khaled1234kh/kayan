@@ -1,0 +1,19 @@
+{
+  "source": "eval/reports/attack_mapping_v2_20261120/registration.json",
+  "source_sha256": "66254d7c5fa4128faac5749bf78ae3a5ba8de324ee232b505098e462d955d8c3",
+  "study": "attack-mapping-exploratory-v2",
+  "label_source": "AI-authored synthetic key",
+  "counts": {
+    "cases": 18,
+    "families": 6,
+    "planned_requests": 72,
+    "dispositions": {
+      "confirmed": 9,
+      "inconclusive": 3,
+      "benign": 4,
+      "failed": 2
+    }
+  },
+  "repeats": "Two complete passes. Reverse first-arm order by family and again between passes. No choosing better runs. Publish same-arm raw, selected-technique and complete-response agreement.",
+  "provenance_note": "Subset of the frozen registration used only for provenance audit. Full registration remains in eval/reports/attack_mapping_v2_20261120/registration.json."
+}

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="472" height="542" viewBox="0 0 472 542" font-family="Segoe UI, Arial, sans-serif">
+<rect width="100%" height="100%" fill="white"/>
+<text x="6" y="26" font-size="16" font-weight="600" fill="#12263a">qwen3:8b — canonical decision confusion</text>
+<text x="124" y="106" font-size="11" fill="#476">PREDICTED →</text>
+<text x="10" y="124" font-size="11" fill="#476">TRUE ↓</text>
+<text x="179" y="220" text-anchor="middle" font-size="12" fill="#12263a">supported</text>
+<text x="295" y="220" text-anchor="middle" font-size="12" fill="#12263a">contradicted</text>
+<text x="411" y="220" text-anchor="middle" font-size="12" fill="#12263a">abstain</text>
+<text x="108" y="183" text-anchor="end" font-size="12" fill="#12263a">supported</text>
+<rect x="124" y="124" width="110" height="110" rx="6" fill="rgb(113,145,207)" stroke="#c7d6e5"/>
+<text x="179" y="177" text-anchor="middle" font-size="19" font-weight="700" fill="#12263a">79</text>
+<text x="179" y="197" text-anchor="middle" font-size="11" fill="#36536e">79.8%</text>
+<rect x="240" y="124" width="110" height="110" rx="6" fill="rgb(211,222,242)" stroke="#c7d6e5"/>
+<text x="295" y="177" text-anchor="middle" font-size="19" font-weight="700" fill="#12263a">20</text>
+<text x="295" y="197" text-anchor="middle" font-size="11" fill="#36536e">20.2%</text>
+<rect x="356" y="124" width="110" height="110" rx="6" fill="rgb(245,249,255)" stroke="#c7d6e5"/>
+<text x="411" y="177" text-anchor="middle" font-size="19" font-weight="700" fill="#12263a">0</text>
+<text x="411" y="197" text-anchor="middle" font-size="11" fill="#36536e">0.0%</text>
+<text x="108" y="299" text-anchor="end" font-size="12" fill="#12263a">contradicted</text>
+<rect x="124" y="240" width="110" height="110" rx="6" fill="rgb(195,210,237)" stroke="#c7d6e5"/>
+<text x="179" y="293" text-anchor="middle" font-size="19" font-weight="700" fill="#12263a">29</text>
+<text x="179" y="313" text-anchor="middle" font-size="11" fill="#36536e">29.9%</text>
+<rect x="240" y="240" width="110" height="110" rx="6" fill="rgb(136,163,215)" stroke="#c7d6e5"/>
+<text x="295" y="293" text-anchor="middle" font-size="19" font-weight="700" fill="#12263a">64</text>
+<text x="295" y="313" text-anchor="middle" font-size="11" fill="#36536e">66.0%</text>
+<rect x="356" y="240" width="110" height="110" rx="6" fill="rgb(238,243,252)" stroke="#c7d6e5"/>
+<text x="411" y="293" text-anchor="middle" font-size="19" font-weight="700" fill="#12263a">4</text>
+<text x="411" y="313" text-anchor="middle" font-size="11" fill="#36536e">4.1%</text>
+<text x="108" y="415" text-anchor="end" font-size="12" fill="#12263a">abstain</text>
+<rect x="124" y="356" width="110" height="110" rx="6" fill="rgb(231,238,250)" stroke="#c7d6e5"/>
+<text x="179" y="409" text-anchor="middle" font-size="19" font-weight="700" fill="#12263a">5</text>
+<text x="179" y="429" text-anchor="middle" font-size="11" fill="#36536e">8.3%</text>
+<rect x="240" y="356" width="110" height="110" rx="6" fill="rgb(225,233,248)" stroke="#c7d6e5"/>
+<text x="295" y="409" text-anchor="middle" font-size="19" font-weight="700" fill="#12263a">7</text>
+<text x="295" y="429" text-anchor="middle" font-size="11" fill="#36536e">11.7%</text>
+<rect x="356" y="356" width="110" height="110" rx="6" fill="rgb(113,145,207)" stroke="#c7d6e5"/>
+<text x="411" y="409" text-anchor="middle" font-size="19" font-weight="700" fill="#12263a">48</text>
+<text x="411" y="429" text-anchor="middle" font-size="11" fill="#36536e">80.0%</text>
+<text x="6" y="526" font-size="10" fill="#678">Rows = true class, columns = predicted class. Percentages are row-normalized. Exact case-level accuracy is reported separately.</text>
+</svg>
