@@ -1,0 +1,18 @@
+{
+  "new_responses_recounted": 240,
+  "matching_run_arms": 10,
+  "historical_grounding_hashes_matched": 3,
+  "original_benchmark_runner_hash_matched": true,
+  "negative_oracle_context_matched": true,
+  "sha256": {
+    "manifest.json": "c77ba40f0887bd5c68f2ba7aab6c383a43d41b9c6d9be44a14ff333519056b6a",
+    "mapping.json": "96fc0bb7de49976d34ed3c9a73c03f4ee2f3415e0686d1263ba970428d7b8cd0",
+    "retrieval.json": "77c6f33ff6dd81b2c5828fc7ebdc104fabbf7204418b228095e873a58c005277",
+    "responses.jsonl": "d0ae9a0d939c407120cc42f489ccc28afc9e238a28f71e79202e144c62bb0943",
+    "retrieval_ablation.json": "9e143c70715e51655cd7c94d2a1700e1ff614ff3bb06b46cf31463d3ab35c30c"
+  },
+  "full_pytest": {
+    "passed": 201,
+    "warnings": 81
+  }
+}

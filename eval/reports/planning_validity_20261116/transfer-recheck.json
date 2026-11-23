@@ -1,0 +1,183 @@
+{
+  "dataset_sha256": "df053b5ce6e1572eddd4e1ab02893623c7b4a5f834d148852679cfd1c7fede26",
+  "case_count": 12,
+  "exact_cases": 12,
+  "correct_abstentions": 3,
+  "negative_cases": 3,
+  "cases_with_gap_mismatches": 0,
+  "cases_with_integrity_errors": 0,
+  "true_positives": 9,
+  "false_positives": 0,
+  "false_negatives": 0,
+  "micro_f1": 1.0,
+  "cases": [
+    {
+      "id": "music_merch_vendor",
+      "expected": [
+        "vendor_remote_access"
+      ],
+      "observed": [
+        "vendor_remote_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "medical_encrypted_storage",
+      "expected": [
+        "cloud_object_access"
+      ],
+      "observed": [
+        "cloud_object_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "telecom_old_still_maintained",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "port_control_review",
+      "expected": [
+        "industrial_segmentation"
+      ],
+      "observed": [
+        "industrial_segmentation"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "university_shared_login",
+      "expected": [
+        "shared_identity"
+      ],
+      "observed": [
+        "shared_identity"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "bookshop_backup_no_restore_evidence",
+      "expected": [
+        "recovery_readiness"
+      ],
+      "observed": [
+        "recovery_readiness"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "arts_submission_form",
+      "expected": [
+        "web_input_processing"
+      ],
+      "observed": [
+        "web_input_processing"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "ordering_api_cross_sentence",
+      "expected": [
+        "api_object_access"
+      ],
+      "observed": [
+        "api_object_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "disconnected_vendor_service",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "cloud_planning_question",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "sectioned_gap",
+      "expected": [
+        "recovery_readiness"
+      ],
+      "observed": [
+        "recovery_readiness"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "support_ended",
+      "expected": [
+        "legacy_components"
+      ],
+      "observed": [
+        "legacy_components"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "packet_sha256": null,
+  "taxonomy_sha256": "539a843a7b53ed9749740b2123dddae3726b1a4831841c32aca740b011b910b5",
+  "coordinator": null,
+  "originals_and_independence_verified": null,
+  "reviewers": [
+    {
+      "slot": "A",
+      "identity": null,
+      "qualification": null,
+      "completed_on": null,
+      "returned_sha256": null,
+      "issued_form_sha256": null,
+      "independently_reviewed_without_labels_or_model_outputs": null
+    },
+    {
+      "slot": "B",
+      "identity": null,
+      "qualification": null,
+      "completed_on": null,
+      "returned_sha256": null,
+      "issued_form_sha256": null,
+      "independently_reviewed_without_labels_or_model_outputs": null
+    }
+  ]
+}

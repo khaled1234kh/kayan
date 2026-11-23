@@ -1,0 +1,346 @@
+{
+  "development": {
+    "arms": {
+      "no_rag": {
+        "exact": 8,
+        "contract": 16,
+        "positive": 8,
+        "positive_hit": 1,
+        "explicit_abstention": 12,
+        "tp": 1,
+        "fp": 4,
+        "fn": 8,
+        "released_tp": 1,
+        "released_fp": 3,
+        "released_fn": 8,
+        "cases": 16,
+        "negative_cases": 8,
+        "negative_success": 8,
+        "invalid": 0,
+        "precision": 0.2,
+        "recall": 0.1111111111111111,
+        "f1": 0.14285714285714285,
+        "released_precision": 0.25,
+        "released_recall": 0.1111111111111111,
+        "released_f1": 0.15384615384615385,
+        "positive_case_recall": 0.125,
+        "negative_specificity": 1.0,
+        "abstention_rate": 0.75
+      },
+      "tfidf": {
+        "exact": 10,
+        "contract": 16,
+        "positive": 8,
+        "positive_hit": 2,
+        "explicit_abstention": 13,
+        "tp": 2,
+        "fp": 1,
+        "fn": 7,
+        "released_tp": 2,
+        "released_fp": 1,
+        "released_fn": 7,
+        "cases": 16,
+        "negative_cases": 8,
+        "negative_success": 8,
+        "invalid": 0,
+        "precision": 0.6666666666666666,
+        "recall": 0.2222222222222222,
+        "f1": 0.3333333333333333,
+        "released_precision": 0.6666666666666666,
+        "released_recall": 0.2222222222222222,
+        "released_f1": 0.3333333333333333,
+        "positive_case_recall": 0.25,
+        "negative_specificity": 1.0,
+        "abstention_rate": 0.8125
+      },
+      "challenger": {
+        "exact": 12,
+        "contract": 16,
+        "positive": 8,
+        "positive_hit": 4,
+        "explicit_abstention": 12,
+        "tp": 4,
+        "fp": 0,
+        "fn": 5,
+        "released_tp": 4,
+        "released_fp": 0,
+        "released_fn": 5,
+        "cases": 16,
+        "negative_cases": 8,
+        "negative_success": 8,
+        "invalid": 0,
+        "precision": 1.0,
+        "recall": 0.4444444444444444,
+        "f1": 0.6153846153846154,
+        "released_precision": 1.0,
+        "released_recall": 0.4444444444444444,
+        "released_f1": 0.6153846153846154,
+        "positive_case_recall": 0.5,
+        "negative_specificity": 1.0,
+        "abstention_rate": 0.75
+      },
+      "oracle": {
+        "exact": 13,
+        "contract": 16,
+        "positive": 8,
+        "positive_hit": 5,
+        "explicit_abstention": 11,
+        "tp": 5,
+        "fp": 0,
+        "fn": 4,
+        "released_tp": 5,
+        "released_fp": 0,
+        "released_fn": 4,
+        "cases": 16,
+        "negative_cases": 8,
+        "negative_success": 8,
+        "invalid": 0,
+        "precision": 1.0,
+        "recall": 0.5555555555555556,
+        "f1": 0.7142857142857143,
+        "released_precision": 1.0,
+        "released_recall": 0.5555555555555556,
+        "released_f1": 0.7142857142857143,
+        "positive_case_recall": 0.625,
+        "negative_specificity": 1.0,
+        "abstention_rate": 0.6875
+      },
+      "evidence_first": {
+        "exact": 12,
+        "contract": 16,
+        "positive": 8,
+        "positive_hit": 4,
+        "explicit_abstention": 11,
+        "tp": 4,
+        "fp": 2,
+        "fn": 5,
+        "released_tp": 4,
+        "released_fp": 2,
+        "released_fn": 5,
+        "cases": 16,
+        "negative_cases": 8,
+        "negative_success": 8,
+        "invalid": 0,
+        "precision": 0.6666666666666666,
+        "recall": 0.4444444444444444,
+        "f1": 0.5333333333333333,
+        "released_precision": 0.6666666666666666,
+        "released_recall": 0.4444444444444444,
+        "released_f1": 0.5333333333333333,
+        "positive_case_recall": 0.5,
+        "negative_specificity": 1.0,
+        "abstention_rate": 0.6875
+      }
+    },
+    "paired": {
+      "challenger_vs_tfidf": {
+        "exact_delta": 0.125,
+        "exact_interval": [
+          0.0,
+          0.3125
+        ],
+        "families": 8,
+        "positive_case_recall_interval": [
+          0.0,
+          0.625
+        ]
+      },
+      "oracle_vs_challenger": {
+        "exact_delta": 0.0625,
+        "exact_interval": [
+          0.0,
+          0.1875
+        ],
+        "families": 8,
+        "positive_case_recall_interval": [
+          0.0,
+          0.3
+        ]
+      },
+      "evidence_first_vs_challenger": {
+        "exact_delta": 0.0,
+        "exact_interval": [
+          0.0,
+          0.0
+        ],
+        "families": 8,
+        "positive_case_recall_interval": [
+          0.0,
+          0.0
+        ]
+      }
+    }
+  },
+  "evaluation": {
+    "arms": {
+      "no_rag": {
+        "exact": 16,
+        "contract": 32,
+        "positive": 16,
+        "positive_hit": 0,
+        "explicit_abstention": 26,
+        "tp": 0,
+        "fp": 6,
+        "fn": 16,
+        "released_tp": 0,
+        "released_fp": 6,
+        "released_fn": 16,
+        "cases": 32,
+        "negative_cases": 16,
+        "negative_success": 16,
+        "invalid": 0,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "released_precision": 0.0,
+        "released_recall": 0.0,
+        "released_f1": 0.0,
+        "positive_case_recall": 0.0,
+        "negative_specificity": 1.0,
+        "abstention_rate": 0.8125
+      },
+      "tfidf": {
+        "exact": 21,
+        "contract": 32,
+        "positive": 16,
+        "positive_hit": 7,
+        "explicit_abstention": 22,
+        "tp": 7,
+        "fp": 3,
+        "fn": 9,
+        "released_tp": 7,
+        "released_fp": 3,
+        "released_fn": 9,
+        "cases": 32,
+        "negative_cases": 16,
+        "negative_success": 14,
+        "invalid": 0,
+        "precision": 0.7,
+        "recall": 0.4375,
+        "f1": 0.5384615384615384,
+        "released_precision": 0.7,
+        "released_recall": 0.4375,
+        "released_f1": 0.5384615384615384,
+        "positive_case_recall": 0.4375,
+        "negative_specificity": 0.875,
+        "abstention_rate": 0.6875
+      },
+      "challenger": {
+        "exact": 24,
+        "contract": 32,
+        "positive": 16,
+        "positive_hit": 9,
+        "explicit_abstention": 19,
+        "tp": 9,
+        "fp": 4,
+        "fn": 7,
+        "released_tp": 9,
+        "released_fp": 4,
+        "released_fn": 7,
+        "cases": 32,
+        "negative_cases": 16,
+        "negative_success": 15,
+        "invalid": 0,
+        "precision": 0.6923076923076923,
+        "recall": 0.5625,
+        "f1": 0.6206896551724138,
+        "released_precision": 0.6923076923076923,
+        "released_recall": 0.5625,
+        "released_f1": 0.6206896551724138,
+        "positive_case_recall": 0.5625,
+        "negative_specificity": 0.9375,
+        "abstention_rate": 0.59375
+      },
+      "oracle": {
+        "exact": 25,
+        "contract": 32,
+        "positive": 16,
+        "positive_hit": 10,
+        "explicit_abstention": 19,
+        "tp": 10,
+        "fp": 3,
+        "fn": 6,
+        "released_tp": 10,
+        "released_fp": 3,
+        "released_fn": 6,
+        "cases": 32,
+        "negative_cases": 16,
+        "negative_success": 15,
+        "invalid": 0,
+        "precision": 0.7692307692307693,
+        "recall": 0.625,
+        "f1": 0.6896551724137931,
+        "released_precision": 0.7692307692307693,
+        "released_recall": 0.625,
+        "released_f1": 0.6896551724137931,
+        "positive_case_recall": 0.625,
+        "negative_specificity": 0.9375,
+        "abstention_rate": 0.59375
+      },
+      "evidence_first": {
+        "exact": 23,
+        "contract": 32,
+        "positive": 16,
+        "positive_hit": 8,
+        "explicit_abstention": 21,
+        "tp": 8,
+        "fp": 3,
+        "fn": 8,
+        "released_tp": 8,
+        "released_fp": 3,
+        "released_fn": 8,
+        "cases": 32,
+        "negative_cases": 16,
+        "negative_success": 15,
+        "invalid": 0,
+        "precision": 0.7272727272727273,
+        "recall": 0.5,
+        "f1": 0.5925925925925926,
+        "released_precision": 0.7272727272727273,
+        "released_recall": 0.5,
+        "released_f1": 0.5925925925925926,
+        "positive_case_recall": 0.5,
+        "negative_specificity": 0.9375,
+        "abstention_rate": 0.65625
+      }
+    },
+    "paired": {
+      "challenger_vs_tfidf": {
+        "exact_delta": 0.09375,
+        "exact_interval": [
+          -0.03125,
+          0.21875
+        ],
+        "families": 16,
+        "positive_case_recall_interval": [
+          -0.125,
+          0.375
+        ]
+      },
+      "oracle_vs_challenger": {
+        "exact_delta": 0.03125,
+        "exact_interval": [
+          0.0,
+          0.09375
+        ],
+        "families": 16,
+        "positive_case_recall_interval": [
+          0.0,
+          0.1875
+        ]
+      },
+      "evidence_first_vs_challenger": {
+        "exact_delta": -0.03125,
+        "exact_interval": [
+          -0.09375,
+          0.0
+        ],
+        "families": 16,
+        "positive_case_recall_interval": [
+          -0.1875,
+          0.0
+        ]
+      }
+    }
+  }
+}

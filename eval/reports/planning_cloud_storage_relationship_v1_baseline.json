@@ -1,0 +1,249 @@
+{
+  "dataset_sha256": "b62d647c485ed8354faaec2cffd82a0caf34dd40db50f7b5a30e39b1b1e979b9",
+  "case_count": 16,
+  "exact_cases": 9,
+  "correct_abstentions": 4,
+  "negative_cases": 8,
+  "cases_with_gap_mismatches": 2,
+  "cases_with_integrity_errors": 0,
+  "true_positives": 7,
+  "false_positives": 4,
+  "false_negatives": 1,
+  "micro_f1": 0.7368421052631579,
+  "cases": [
+    {
+      "id": "s3_holds_backups",
+      "expected": [
+        "cloud_object_access"
+      ],
+      "observed": [
+        "cloud_object_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "api_store_separate",
+      "expected": [
+        "cloud_object_access"
+      ],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [
+        "cloud_object_access"
+      ],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": false
+    },
+    {
+      "id": "supported_storage_among_decoys",
+      "expected": [
+        "cloud_object_access"
+      ],
+      "observed": [
+        "cloud_object_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "uploaded_current",
+      "expected": [
+        "cloud_object_access"
+      ],
+      "observed": [
+        "cloud_object_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "backend_keeps_records",
+      "expected": [
+        "cloud_object_access"
+      ],
+      "observed": [
+        "cloud_object_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "purpose_link",
+      "expected": [
+        "cloud_object_access"
+      ],
+      "observed": [
+        "cloud_object_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "explicit_public_storage",
+      "expected": [
+        "cloud_object_access"
+      ],
+      "observed": [
+        "cloud_object_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {
+        "cloud_object_access": {
+          "expected": true,
+          "observed": false
+        }
+      },
+      "integrity_errors": [],
+      "exact": false
+    },
+    {
+      "id": "unrelated_public_storage",
+      "expected": [
+        "cloud_object_access"
+      ],
+      "observed": [
+        "cloud_object_access"
+      ],
+      "true_positives": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {
+        "cloud_object_access": {
+          "expected": false,
+          "observed": true
+        }
+      },
+      "integrity_errors": [],
+      "exact": false
+    },
+    {
+      "id": "separate_paper_records",
+      "expected": [],
+      "observed": [
+        "cloud_object_access"
+      ],
+      "true_positives": 0,
+      "false_positives": [
+        "cloud_object_access"
+      ],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": false
+    },
+    {
+      "id": "separate_workstation_images",
+      "expected": [],
+      "observed": [
+        "cloud_object_access"
+      ],
+      "true_positives": 0,
+      "false_positives": [
+        "cloud_object_access"
+      ],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": false
+    },
+    {
+      "id": "unrelated_inventory",
+      "expected": [],
+      "observed": [
+        "cloud_object_access"
+      ],
+      "true_positives": 0,
+      "false_positives": [
+        "cloud_object_access"
+      ],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": false
+    },
+    {
+      "id": "only_training",
+      "expected": [],
+      "observed": [
+        "cloud_object_access"
+      ],
+      "true_positives": 0,
+      "false_positives": [
+        "cloud_object_access"
+      ],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": false
+    },
+    {
+      "id": "explicitly_excluded",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "retired_storage",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "unanswered_question",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    },
+    {
+      "id": "planned_location",
+      "expected": [],
+      "observed": [],
+      "true_positives": 0,
+      "false_positives": [],
+      "false_negatives": [],
+      "gap_mismatches": {},
+      "integrity_errors": [],
+      "exact": true
+    }
+  ]
+}

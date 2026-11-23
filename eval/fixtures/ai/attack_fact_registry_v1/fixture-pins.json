@@ -1,0 +1,27 @@
+{
+  "windows": {
+    "manifest_sha256": "f063054b9041ad2d21e7ec3e011f4572c9916d0608970392d7f7dfccab311a16",
+    "review_receipts": {
+      "synthetic-reviewer": [
+        "5d7d646320857436cfa01c4d3590979579786f32f3c64f4c78d0d79b1fee1173",
+        "70555c1ca1241f65d88e391d73f38a57fbfb525df8092fbb99d4049c6fe9ad96",
+        "9d47802be39014e571e6d61526a226a97f0abdef8a8f4ce46faddbcda692a44b",
+        "bbe7281597b9909475f79b01472951b44a9ce7ece43c65f2903009ce4bbf0435"
+      ]
+    }
+  },
+  "mixed": {
+    "manifest_sha256": "7161561ad1dfed831dc174ea2ac627d3a8931b2e60f10b548b4d448cb4bc0746",
+    "review_receipts": {
+      "synthetic-reviewer": [
+        "3cf70434695561c5f95ef5b18f6f4ffbf36f7405ed6157dcb17e6f14e4182e8d",
+        "7b2a569666dc11aa1ea23c1f331e5c57433677bb01ecb5db0f490eda7110cb9a",
+        "add68c3681988229d968192f7f202fe76621af37dc8e632c700115c61326079d",
+        "ecb7be2d8a9b711530ac892dbe56f84dc854a5d9f7a87e40cfe304d2fed9a05e",
+        "f1f55b665db1c0d6a34868d22e0d0d3391050ac93298c00f35df9190b35ecd5e",
+        "f4e97a54ea332e4b2d86cbfa5af6fa32dd7a396a7a9ea7d811e624d22292e260",
+        "ffa5eb9900b5ff335dcbb28d58c36a01613cc562714b5e1baa2fadcad80d6ad0"
+      ]
+    }
+  }
+}

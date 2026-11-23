@@ -11,6 +11,18 @@ KAYAN aims for dependable coordination across Planner, Recon, Web-App, Network a
 - Keep a local working baseline. Require bounded requests, explicit egress approval, effective spend controls and accurate provider attribution. The standing mission authorizes zero live cloud requests. Historical one-shot permissions have their own scope.
 - Verify security, correctness, operational, cloud, evaluation, reliability, academic and production criteria individually. Record which evidence is synthetic, owned-lab, historical, operational or independently validated. Real telemetry still requires separate approvals and custody.
 
+## Matched cloud benchmark checkpoint — 2026-11-23
+
+The recovered original 80-case role benchmark (manifest SHA-256
+`09b3639b388019655fbde0805a9abfbfa9c2136d58e96c94e789220ff93f8eb0`) was re-scored offline from
+saved outputs using the untouched harness and scorer, reproducing the saved summary byte-for-byte.
+SovereignEG/Qwen3.8-27B-FP8 measured 72/80 = 90.00% exact role-contract accuracy; the local arms
+re-scored 18/28/27/23/5. This is a retrospective matched synthetic benchmark, not a fresh blinded
+human-adjudicated holdout or a real-world accuracy estimate, and it stays separate from every other
+instrument. Negative results remain in evidence. Authorization, ROE, admission v2, scope checks
+and reviewer independence were not changed, no production cloud guard was bypassed, and no new
+live request was made. See `eval/sovereign-80-matched/BENCHMARK_RESULT_2026-11-23.md`.
+
 ## Checkpoint
 
 The authorized repository's Go CI branch head is `06e5f12`. [Ubuntu CI](https://github.com/khaled1234kh/kayan/actions/runs/44919189760) executed 180 tools tests and 10 TrustGate tests with zero failures and the existing live Cedar skip. The local checkout also contains unpublished Reporting, evidence, research and UI work. Keep that work intact and stage reviewed source and fixtures explicitly.

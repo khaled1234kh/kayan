@@ -1,6 +1,290 @@
-Written/updated 2026-11-03 (Africa/Cairo); supersedes _ARCHIVE_PRE_PIVOT_HANDOFF.md, which describes an abandoned pre-pivot version of this project and should not be used.
+Written 2026-11-04 and updated 2026-11-22 (Africa/Cairo). Supersedes _ARCHIVE_PRE_PIVOT_HANDOFF.md, which describes an abandoned pre-pivot version of this project and should not be used.
 
 # KAYAN TrustGate - canonical master handoff
+
+## Current checkpoint · Matched 80-case cloud accuracy and public release — 2026-11-23
+
+The complete validated project is published on branch `release/cloud-pivot-accuracy-2026-11-23`
+from the verified chain tip `1f63244` (39 commits ahead of remote `main` `eb6d1f3`, which is a
+clean ancestor). This branch integrates the uncommitted source/documentation work in the primary
+checkout (curated: 186 primary files + 20 sanitized benchmark files), preserves the Go CI
+checkpoint `06e5f12` history and all negative results, and excludes raw `.build` output, request
+ledgers, model responses, runtime logs, private assessment records and personal working paths.
+
+Recovered original frozen 80-case harness SHA-256
+`09b3639b388019655fbde0805a9abfbfa9c2136d58e96c94e789220ff93f8eb0`; the offline re-score of the
+saved outputs using the untouched scorer reproduced `summary.json` and `summary.csv`
+**byte-for-byte** and produced SovereignEG/Qwen3.8-27B-FP8 **72/80 = 90.00% exact** with local
+arms 18/28/27/23/5. This is exact role-contract accuracy on authored synthetic cases in a
+retrospective matched benchmark, not a fresh blinded human-adjudicated holdout or real-world
+vulnerability-detection accuracy. All five historical cloud/lab negatives are preserved. No new
+live cloud call was made for this publication; credentials stayed outside the checkout and the
+production mock-only guard was not bypassed. The previously exposed SovereignEG key must be
+rotated before any shared use.
+
+Published materials: `eval/sovereign-80-matched/` (harness, scorer, frozen inputs, protocol,
+result, consolidated findings, digests). Reports/docs updated: `README.md`, this handoff,
+`TODO.md`, `docs/ENGINEERING_MISSION.md`, `docs/ENGINEERING_ACCEPTANCE.json`. Security controls,
+signed bindings, admission v2, scope checks, reviewer independence and Go/Rust checks are
+unchanged. Cloud remains optional and disabled by default.
+
+## Current checkpoint · Archived Reporting recovery and telemetry — 2026-11-21
+
+Ubuntu Go CI passed on `06e5f12` with 180 tools tests, 10 TrustGate tests and one existing live Cedar skip. The Reporting API saves a recoverable local report when reserving a one-shot cloud attempt. The saved fallback survives an interrupted mocked request and app recreation, keeps T1486 admitted and T1490 withheld in the Slate fixture, and rejects replay. Mocked total-deadline expiry also falls back without retry. New verified cloud selections preserve finish reason and token usage in saved exports. [Engineering mission and next coding task](docs/ENGINEERING_MISSION.md) · [Acceptance criteria and limits](docs/ENGINEERING_ACCEPTANCE.json)
+
+Local checkpoint `ccee732` on `work/reporting-recovery` contains the selected Reporting source, console integration and synthetic fixtures. The isolated checkout passed 36 tests plus frontend typecheck, session-panel checks and build. The main development checkout passed 164 focused Python tests and verified 71 historical artifact hashes and five signed-off verifier hashes. The console recovery check used mock transport and synthetic Gate decisions.
+
+Local follow-up `4223c24` displays saved cloud usage, latency and finish reason in Archived Reporting. The session-panel checks and production build passed. Browser inspection remains open because Windows Computer Use could not identify the current Brave URL.
+
+Local follow-ups `f9f9692` and `fe6ae8c` bind exports to the exact displayed bytes and correct false withholding of multi-statement evidence. The console API refused stale exports after a custody change or rerun. In the signed synthetic Windows fixture, Reporting now displays the supported occurrence and its secondary record. Authorized activity stays withheld, and a missing secondary record fails verification. The isolated Reporting suite passed 40 tests and the development checkout passed 168 focused tests. The pinned Slate request, 71 historical artifacts and five verifier hashes matched. Verification used synthetic cases and mocked transport.
+
+Local commits `15419d2` and `a235f1e` freeze and run the nine-archive Reporting occurrence benchmark. The repeated-technique fix recovered 4/4 supported occurrences from 1/4, admitted 0/6 withheld occurrences, and rejected the invalid archive. Repeated-technique reports use the local composer. The isolated Reporting suite passed 44 tests, the development checkout passed 172 focused tests and the frontend build passed. All 71 historical artifact hashes and five verifier hashes matched. This measures synthetic projection, with zero provider calls. [Benchmark and reproduction](docs/ARCHIVED_REPORTING_PROJECTION_BENCHMARK.md)
+
+Local commit `2894314` adds scoped aliases for selecting evidence from repeated techniques and rechecks the exact grant and custody revision before provider setup and before result publication. Tests rejected stale scope, duplicate fields and withheld aliases. Two independently locked app instances sharing a directory made one mock request. The isolated Reporting suite passed 58 tests and the development checkout passed 186 focused tests. The approved Slate digest and the frozen projection output reproduced exactly. The new selection format has no live-provider result or authorization. [Selection contract and limits](docs/ARCHIVED_REPORTING.md#occurrence-aware-selection)
+
+Local commits `3c85ca9` and `83850e7` freeze and run 14 authored Reporting selection replays. All outcomes matched expectations and preserved the exact findings and withheld claims. The console and export now show occurrence coverage and observed-action coverage separately. The isolated Reporting suite passed 59 tests, the development checkout passed 187 focused tests and the frontend build passed. The replay and projection artifacts reproduced exactly, and all 71 historical and five verifier hashes matched. The host has a `qwen2.5:7b` manifest with six blobs at their declared sizes. Its loopback service was stopped during this check. [Replay methods and limits](docs/ARCHIVED_REPORTING_SELECTION_REPLAY.md)
+
+Local commits `db01ab6` and `8fa10db` freeze and run the synthetic Qwen2.5 Reporting ranking comparison. Six local requests selected valid evidence and the approved-only case made zero requests. Qwen recovered 10/14 preferred excerpts versus 6/14 for deterministic composition, with observed-action coverage of 2/8 versus 8/8. A post-hoc replay appending verified action excerpts recovered 8/8 action coverage and 14/14 preferred excerpts at 14/17 preference precision. All findings and withheld claims matched, and the dedicated local process was stopped after measurement. The isolated suite passed 64 tests and the development checkout passed 192 focused tests. The raw trace, pinned Slate request, 71 historical and five verifier digests matched. [Methods, results and exact scope](docs/ARCHIVED_REPORTING_LOCAL_RANKING.md)
+
+Local commits `52bf118` and `1222499` froze and evaluated the observed-action holdout. All seven local requests returned valid selections, and the authorized-only case made zero requests. Across six primary cases, the supplement raised action coverage from 1/8 to 8/8 and preferred-excerpt recovery from 9/16 to 16/16. It preserved findings, withheld claims and controls. The full eight-excerpt selection still displayed zero actions across nine occurrences. [Frozen scope and results](docs/ARCHIVED_REPORTING_ACTION_HOLDOUT.md)
+
+Local commit `344aa44` integrated the append-only supplement. The rendered 3D console showed the action label and retained T1486 supported and T1490 withheld with a synthetic Gate and mocked provider response. The browser export matched the exact saved bytes. The isolated suite passed 70 tests and the canonical suite passed 198. The frontend panel test and build passed. Three archived Reporting evaluations, the pinned Slate request, 71 historical hashes and five verifier hashes matched. No external provider request was made. [Application verification](docs/ARCHIVED_REPORTING_ACTION_HOLDOUT.md#application-verification)
+
+Local commits `f287c7a` and `c2be916` froze and evaluated six full-summary cases. Swapping excerpts increased action coverage from 9/50 to 16/50 and lost two preferred excerpts in one case. The console now preserves the selected eight-excerpt summary and displays remaining verified actions separately. In the rendered mock case, seven additional actions appeared, the ninth occurrence stayed withheld and the downloaded JSON matched the saved bytes. [Capacity results and browser evidence](docs/ARCHIVED_REPORTING_FULL_SUMMARY.md)
+
+Local commit `4436ca9` verifies stored report findings, sources and presentation before reading or export. Nine altered fixtures returned HTTP 409. The saved real Slate response passed offline without rewriting. The isolated suite passed 83 tests and the canonical suite passed 211. The latest frontend panel check and build passed. Four saved Reporting evaluations, the pinned Slate request, 71 historical digests and five verifier digests matched. Next, test local source changes during the asynchronous write decision. [Saved result verification](docs/ARCHIVED_REPORTING_FULL_SUMMARY.md#saved-result-verification)
+
+Local commit `d9273a8` rejects stale archive publication after asynchronous authorization and detects contradictions in the full scoped decision history before accepting captured evidence. Five stale HTTP 200 fixtures and six contradictory capture fixtures reproduced before the correction. The corrected controls performed zero requests for pre-inference changes and consumed one mock attempt for a change during response. The isolated suite passed 96 tests and the canonical suite passed 224. Four Reporting replays, the saved Slate response, its pinned request, 71 historical digests and five verifier digests matched. Independent TrustGate audit-chain reconciliation and interprocess atomic custody publication remain open. [Before and after results](docs/REUSABLE_REPORTING.md#publication-and-capture-consistency)
+
+Local commit `3da40c2` adds read-only reconciliation with the verified Rust audit ledger and exposes the result under Reporting evidence coverage. The Windows Python client matched one real Rust denial and found one missing reference. The isolated ledger stayed at one entry before and after reconciliation. The rendered console mock displayed both statuses while custody remained missing. The canonical suite passed 238 Python tests and Ubuntu passed 32 Rust tests. The frontend check and build passed. Windows Application Control blocked Rust dependency build scripts. The pinned Slate request, saved response, four Reporting replays, 71 historical digests and five verifier digests matched. The test service was stopped. [Verification and limits](docs/REUSABLE_REPORTING.md#trustgate-audit-reconciliation)
+
+Local commit `bcb3437` adds the opt-in cross-runtime signed-archive recovery test. Real Rust journal checks went from verified to unavailable, verified after restart, invalid on damaged journal load and verified after restoring the fixture. The same signed test-only receipt and exact saved export survived all five checks, with T1486 withheld. The report write grant was mocked. The isolated fixture sent no model requests. [Recovery and reproduction](docs/REUSABLE_REPORTING.md#signed-custody-and-audit-restart)
+
+Local commits `cff6fbe` and `d86d480` froze and fixed offline vendor-access planning on a dedicated branch. The new 16-case result improved from 9/16 to 16/16, removing seven false vendor hypotheses and retaining all eight valid matches. The historical validity and transfer suites stayed at 32/32 and 12/12. Exact input spans and Option A mitigation links passed. The canonical checkout passed 266 focused Python tests, including the live Rust restart fixture. Four Reporting replays, the new planning replay, the saved Slate result and all 76 historical/verifier digests reproduced. [Result and limits](docs/PLANNING_AND_COORDINATION_2026-11-03.md#vendor-remote-access-validity--2026-11-21)
+
+Local commits `66fe9f0` and `47d2ff7` froze and corrected saved specialist attribution. The nine-case passive replay moved from 7/9 to 9/9. An exact duplicate counts once, and conflicting captured versions are excluded from the role totals. The browser showed retained evidence separately from declared catalogue completion. The known owned-lab archive remained transcript-only across all ten records. The canonical checkout passed 278 focused tests, the frontend build and panel check passed, and six saved replays, the Slate record and all 76 evidence digests matched. [Evidence and limits](docs/REUSABLE_REPORTING.md#specialist-observation-attribution)
+
+Local commits `ef44d29` and `52a35c0` froze and verified signed occurrence attribution across all three specialist roles. The frozen cases moved from 2/7 to 7/7. Exact adverse occurrence scoping now preserves supported siblings while keeping ambiguous reviews fail-closed. Eight additional scope and intake controls passed. The canonical checkout passed 293 focused tests, seven saved evaluations reproduced, and all 76 pinned digests and the saved Slate result verified. The scope field is available through the review API. The round trip used test-only identities and source records. [Verification and remaining limits](docs/REUSABLE_REPORTING.md#signed-finding-and-occurrence-attribution)
+
+Local commit `6787adb` binds signed custody, admission and coverage to a single captured revision and checks the current source digest before advancing receipt history. The mixed two-record and three-record report is now withheld, and the stale import returns HTTP 409. The canonical suite passed 295 tests, including the isolated Rust restart. Seven saved evaluations, all 76 pinned digests and the saved Slate result verified. Next, exercise concurrent reviewer or enrollment changes at receipt import. [Regression and reproduction](docs/REUSABLE_REPORTING.md#signed-source-revision-consistency)
+
+Local commit `c11c85f` serializes review publication with receipt insertion and rechecks the active reviewer decisions and custodian assignment immediately before insertion. Four stale test-only imports now return 409 with the preceding receipt intact. A separate app instance could publish its review as soon as the receipt transaction ended. The canonical suite passed 301 tests, including the Rust restart. Seven saved evaluations, the Slate result and all 76 pinned digests verified. Next, test exact API-to-record relationships in offline Phase 1. [Before and after checks](docs/REUSABLE_REPORTING.md#current-review-and-enrollment-at-receipt-import)
+
+Local commits `3761046` and `6b90abc` freeze and verify a Phase 1 API-to-record applicability correction. Exact results improved from 12/16 to 16/16 by removing four false hypotheses. All eight expected hypotheses remained, with Option A preserving the precise relationship excerpts. Three existing planning sets stayed exact. The canonical checkout passed 303 tests, eight saved evaluations reproduced and all 76 pins and the Slate result verified. The new cases are fictional, with no inference or target access. Next, evaluate opt-in local model ranking of verified Archived Reporting excerpts under independent authorization. [Results and limits](docs/PLANNING_AND_COORDINATION_2026-11-03.md#api-to-record-relationships-in-phase-1)
+
+Local commit `8021236` adds opt-in Qwen2.5 7B selection of admitted excerpts in Archived Reporting. One actual local Ollama call through a synthetic preview gate rendered E2.1 with 221 input tokens, 52 output tokens and 5.609 s provider latency. The export matched all 2,623 bytes and retained T1486 supported and T1490 withheld. An independent isolated Rust/Cedar run denied writes without signed scope, denied inference under write-only scope, and allowed a single mocked selection under Reporting-only scope. The canonical checkout passed 321 tests, the console build and panel check passed, and eight saved evaluations and all 76 pinned digests matched. Next, test backend interruption recovery during local ranking. [Operational settings and evidence](docs/ARCHIVED_REPORTING_LOCAL_RANKING.md#opt-in-console-mode)
+
+Local commit `9a0efe7` recovers deterministic Reporting after interruption at local generation. The first-run case moved from HTTP 404 to an exact saved fallback. The existing-selection case retains the earlier report. Export after app recreation made zero inference requests. All 323 focused tests passed, including the isolated Rust cases. Eight saved evaluations, 76 digests and the saved Slate cloud result verified. Next, measure full proof disclosure in capacity-limited Reporting, separately from summary ranking. [Recovery and regression](docs/ARCHIVED_REPORTING_LOCAL_RANKING.md#interrupted-local-requests)
+
+Local commits `2d1b1d2` and `182e6ce` freeze and verify full reviewed proof per admitted occurrence. Exact role-to-source links improved from 212/215 to 215/215 and complete disclosures from 50/53 to 53/53, with unchanged summary coverage and admission. The rendered synthetic Windows finding showed joint support E1.1 and E1.2 and exported all 2,789 saved bytes. The canonical checkout passed 328 tests including isolated Rust, and the panel check and build passed. Nine saved evaluations, 76 digests and historical Slate cloud evidence verified. Next, test Phase 1 cloud storage links against unrelated asset mentions. [Proof disclosure and limits](docs/ARCHIVED_REPORTING_FULL_SUMMARY.md#full-reviewed-proof)
+
+## Current checkpoint · Signed Reporting review — 2026-11-21
+
+The saved owned-lab diagnostic exercised authenticated review, canonical package export, Ed25519 receipt signing in a separate test process, custodian import, admission v2 and report export in the rendered console. Admission evaluated the test-only receipt and withheld the candidate. The same receipt and report were readable after backend restart. No real reviewer or custodian was enrolled. The standard console has been restored. [Enrollment and commands](docs/SIGNED_REPORTING_REVIEW.md)
+
+## Previous checkpoint · Tool evidence and scoped review — 2026-11-21
+
+The owned-lab Python executor records privacy-filtered outcomes before emitting the transcript event. The artifact binds case, task, agent, tool, audit reference and outcome digest. Reporting validates the link and distinguishes execution captures from historical transcript records. A separate pinned enrolment file scopes reviewer access. The human review endpoint saves append-only submissions. New-capture admission requires an externally signed catalogue, submitted-review digest bindings and unchanged admission v2. No operational independent authority was provisioned.
+
+The browser exercised a real allowed loopback readiness request and Gate denial, both captured, then saved a test-only unresolved review and exported zero admitted findings. Disk evidence, review and export survived a backend restart. No pentest workflow or cloud request was run. Evidence is under `.build/evidence-sprint/`. 112 Python tests, frontend typecheck and session panel checks, Go TrustGate and three Go governance tests passed. The full Go tools package had 16 failing top-level tests. Normal console restored.
+
+## Previous checkpoint · Reusable Reporting — 2026-11-21
+
+The console now selects completed owned-lab assessments as well as the pinned Slate fixture. Reporting stores versioned evidence and withholds claims without separately pinned independent custody. The browser exercised mock Slate and local 7da73508 reports. Exports matched and the operational evidence snapshot survived backend restart. No cloud calls or new assessment were run. [Implementation and verified outcomes](docs/REUSABLE_REPORTING.md)
+
+## Previous checkpoint · Archived Reporting — 2026-11-21
+
+The Reporting panel now runs or reopens a local review of the pinned Slate archive. The full cloud path was exercised in the rendered console with the real Rust gate and mocked SovereignEG HTTP transport. The saved report shows one admitted finding and one withheld hypothesis. The results are exportable. The separately authorized live smoke test returned a valid model selection and the browser export matched the saved result. The one-call approval is consumed and local mode has been restored. [Launch and verification](docs/ARCHIVED_REPORTING.md)
+
+## Previous checkpoint · Citation grounding v3 probe completed — 2026-11-21
+
+The one authorized SovereignEG probe returned HTTP 200 from the approved model, with visible schema-valid JSON, a normal stop and zero reasoning tokens. It returned an empty facts array instead of the expected T1486 mechanic with E2.1 as anchor and citation. Exact grounding failed. No addresses, complete groups or review items were produced. The 106 regression tests passed and the 71 historical, five verifier and two prior cloud evidence digests matched. The one-call approval is consumed. Stage B remains unauthorized. [Probe and supporting evidence](docs/CLOUD_PIVOT_CITATION_GROUNDING_V3.md#real-provider-result--exact-grounding-failed)
+
+## Previous checkpoint · Cloud reasoning budget v2 probe complete — 2026-11-21
+
+The single authorized Stage A probe returned a visible schema-valid answer with zero reasoning tokens. It failed exact validation because both citation fields contained an event description instead of E1.1. Stage B remains blocked and zero diagnostic calls were sent. [Probe evidence and frozen contract](docs/CLOUD_PIVOT_REASONING_BUDGET_V2.md)
+
+## Previous checkpoint · Frozen SovereignEG diagnostic executed — 2026-11-21
+
+One capability probe and all 12 approved diagnostic calls completed. The probe accepted the exact schema. All diagnostics consumed the 512-token output cap in reasoning and returned no answer. Every model arm recovered 0/3 complete findings. The authored control recovered 3/3. The run used the verified Student allowance-only setting. [Results and artifact hashes](docs/CLOUD_PIVOT_REAL_EXECUTION_RESULTS_2026-11-21.md)
+
+## Previous checkpoint · Owner-authorized SovereignEG preflight — 2026-11-21
+
+The owner authorized the exact frozen 12-call diagnostic and up to one capability probe within 20 EGP. The regenerated bundle matched its approved hash. Zero requests were attempted. Credential location, effective account cap, applicable pricing, provider routing and exact structured-output support remain unresolved. [Authorization](docs/CLOUD_PIVOT_OWNER_AUTHORIZATION_2026-11-21.md) · [Execution status](docs/CLOUD_PIVOT_REAL_EXECUTION_RESULTS_2026-11-21.md)
+
+## Previous checkpoint · Real cloud comparison readiness — 2026-11-21
+
+The offline matched request bundle is frozen. Four archived local direct responses replayed at 0/3 complete findings, and the separate authored control recovered 3/3. SovereignEG results remain unavailable pending documented credential rotation, spend limits, routing and capability confirmation, and written egress authorization with maximum spend. [Readiness and comparison plan](docs/CLOUD_PIVOT_REAL_MODEL_COMPARISON.md)
+
+## Previous checkpoint · Role-constrained evidence extraction v2 — 2026-11-21
+
+In 12 actual local Qwen2.5 7B requests, structured contract validity rose from 0/4 to 2/4 and raw keyed role F1 from 5.3% to 17.6%. All automatic arms recovered 0/3 complete findings, while authored proof recovered 3/3. Stop tuning the exposed cases. Independent evaluation and cloud approval are pending. [Paired results and stopping decision](docs/CLOUD_PIVOT_EXTRACTION_V2_RESULTS.md)
+
+## Previous checkpoint · Automatic evidence construction — 2026-11-20
+
+The fixed-hypothesis local Qwen2.5 7B comparison completed eight requests on exposed synthetic development material. Direct and structured each reached 0/3 complete admitted findings. All four structured replies failed role/value validation. Authored proof groups reached 3/3. The focused suite passed 121 tests and the historical and signed-off source hashes matched. Independent evaluation and SovereignEG remain pending. [Frozen design, results and decisions](docs/CLOUD_PIVOT_AUTOMATIC_PROOF_EXPERIMENT.md)
+
+## Previous checkpoint · Offline Track A evidence checkpoint — 2026-11-20
+
+The frozen Track A runner replayed 72 archived local replies and reproduced zero complete groups. Three cloud configurations ran only through mock transport. A separate paired synthetic proof-group experiment admitted 4/4 expected items after assembly versus 0/4 without assembly. This measures supplied proof assembly, with no model improvement claim. The focused suite passed 137 tests and historical and sign-off hashes matched. The cloud candidate remains blocked pending the account and egress approvals. [Results and commands](docs/CLOUD_PIVOT_ACCURACY_CHECKPOINT.md)
+
+## Previous checkpoint · Admission feasibility study preparation — 2026-11-20
+
+Independent engineering sign-off passed for the bounded offline v2 contract. The feasibility package is ready for stakeholder review. Intake and study execution remain unauthorized pending approved data scope and privacy and ethics determinations, external custody evidence, independent reviewer arrangements and a frozen evaluation plan. [Engineering sign-off](docs/ATTACK_PROVENANCE_ADMISSION_V2_FINAL_SIGNOFF_2026-11-20.md) · [Readiness memo](docs/ATTACK_ADMISSION_FEASIBILITY_READINESS.md) · [Protocol](docs/ATTACK_ADMISSION_FEASIBILITY_PROTOCOL.md) · [Custody and approvals](docs/ATTACK_ADMISSION_FEASIBILITY_CUSTODY_AND_APPROVALS.md) · [Review and adjudication](docs/ATTACK_ADMISSION_FEASIBILITY_REVIEWER_PACKET.md) · [Draft preregistration](docs/ATTACK_ADMISSION_FEASIBILITY_PREREGISTRATION.md)
+
+## Previous checkpoint · Offline admission v2 sign-off remediation — 2026-11-20
+
+The remediation binds explicit external ancestry attestations to the assigned case and head, and scopes negative process/session assertions to the reviewed relationship. The 31 new regressions, 54 existing admission tests and 228 historical tests passed (313 total). The pinned demo and D revision 2 audit passed and all 71 historical hashes matched. [Verdict matrix and commands](docs/ATTACK_PROVENANCE_ADMISSION_V2_REMEDIATION_2026-11-20.md)
+
+## Previous checkpoint · Offline evidence admission v2 — 2026-11-20
+
+The v2 offline admission contract requires affirmative reviewed process/session proof, exact uncertainty keys and externally attested explicit collector ancestry. Its custody gate checks the byte pin before parsing and retains history validation for matching pins. The 54 focused and 228 historical offline tests passed together (282). The pinned demo and D revision 2 audit passed and all 71 historical SHA-256 values matched. Real-telemetry intake remains NO-GO pending separate engineering and operational sign-off. [Contract, verdict matrix and commands](docs/ATTACK_PROVENANCE_ADMISSION_V2_2026-11-20.md)
+
+## Previous checkpoint · Offline session correlation and synthetic custody — 2026-11-20
+
+Both P1 session defects are corrected. The separate custody gate tests active roster completeness, history and continuity, trusted time and exact case assignment. The combined suite passed 228 tests, the pinned demo and Experiment D revision 2 audit passed, and all 71 historical SHA-256 values matched. Real-telemetry feasibility remains NO-GO pending independently controlled human, source and operational custody gates. [Implementation, matrix and commands](docs/ATTACK_PROVENANCE_V1_P1_CUSTODY_2026-11-20.md)
+
+## Previous checkpoint · Offline provenance P0 remediation — 2026-11-20
+
+The adapter now preserves conflicting reviewed process/session links, treats explicitly disputed identity or time as unknown and withholds attribution where collector ancestry is disputed. The combined offline suite passed 187 tests, the pinned demo reproduced and all 71 historical digests matched. Real-telemetry feasibility remains NO-GO pending the two candidate fixes and independent custody and review gates. [Remediation evidence and next decision](docs/ATTACK_PROVENANCE_V1_P0_REMEDIATION_2026-11-20.md)
+
+## Previous checkpoint · Offline trusted fact provenance v1 — 2026-11-20
+
+The synthetic registry, Windows 1102/4624 normalizer and v4 adapter passed 74 focused and 167 combined offline tests. The demo produced an eligible Windows claim, a withheld Windows claim and a mixed slate batch with exactly one review item. The revision 2 audit passed and 71 historical digests matched. Fixture receipts test the trust boundary under authored assumptions. Real reviewer enrollment, production integration and further experiments remain separate decisions. Experiment E is deferred. [Implementation, demo and acceptance evidence](docs/ATTACK_TRUSTED_FACT_PROVENANCE_V1_RESULTS_2026-11-20.md)
+
+## Previous checkpoint · Trusted fact provenance proposal — 2026-11-20
+
+The next P0 proposal specifies a versioned offline registry, a bounded Windows Security Event XML profile and a v4 adapter with explicit mixed-batch semantics. The implementation assignment awaits approval. Experiment E remains deferred. [Provenance and normalization proposal](docs/ATTACK_TRUSTED_FACT_PROVENANCE_V1_PROPOSAL_2026-11-20.md)
+
+## Previous checkpoint · Offline event-scoped evidence guard v4 — 2026-11-20
+
+The approved v4 sibling guard resolves a cited mechanic to one reviewed case and event. Both slate claims pass together, and removing either shared attribution association withholds only its claim. The focused suite passed 28 tests and the combined offline suite passed 93. The revision 2 audit passed and 39 historical hashes matched. The v4 interface relies on independently reviewed facts. Raw identity, time and source-lineage validation remain separate work. Production integration and subsequent workstreams require separate approval. Experiment E remains deferred. [Implementation and acceptance evidence](docs/ATTACK_EVIDENCE_GUARD_V4_2026-11-20.md)
+
+## Previous checkpoint · Post-diagnostic architecture review — 2026-11-20
+
+The architectural review recounted the archived v2 and A–D responses against the frozen evidence groups. Neither positive case in D received an extraction. The first proposed implementation is a versioned offline guard correction for shared attribution in slate, pending owner approval. Experiment E is deferred. [Decision, validation gates and Sol Medium assignment](docs/ATTACK_POST_DIAGNOSTIC_ARCHITECTURE_REVIEW_2026-11-20.md)
+
+## Previous checkpoint · ATT&CK v3 Experiment D revision 2 completed — 2026-11-20
+
+All 12 authorized local attempts completed with valid responses. Complete evidence groups stayed 0/3 from D1 to D3. D3 correctly abstained once versus zero for D1, on flint after the empty extraction fallback. The conservative D3 context bound caused three of four fallbacks. The only fact-fed case, silver, gained an unsupported claim. All request hashes, fallbacks and mapping scores reproduced offline. The original manifest integrity failure is retained. Event-scoped treatment of slate's shared attribution is a separately proposed guard correction. Review these exploratory results before further work. [Experiment D report](docs/ATTACK_DIAGNOSTIC_D_RESULTS_V3_2026-11-20.md)
+
+## Previous checkpoint · ATT&CK v3 Experiments B and C completed — 2026-11-20
+
+All eight authorized single-reference requests returned valid responses. Complete evidence groups were 0/4, with three correct positive IDs backed by only partial evidence. Correct abstentions were 3/4 on negative or ambiguous cases. The model withheld findings on withdrawn, authorized and failed activity, mapped the unattributed capture in larch, and missed the attributable capture in moss. The ledger and all scores reproduced offline. This is an exploratory result on exposed fictional cases. Review the findings before any further experiments or architecture work. [B/C results and evidence](docs/ATTACK_DIAGNOSTIC_BC_RESULTS_V3_2026-11-20.md)
+
+## Previous checkpoint · ATT&CK v3 Experiment A completed — 2026-11-20
+
+The authorized ten-request candidate substitution recovered 6/6 keyed technique IDs versus 0/6 for the repeated controls. Complete evidence groups remained 0/6 in both conditions. All ten responses were valid and all five controls reproduced the original raw answer text exactly. The result also holds excluding quartz's conditional cloud label. [Experiment A results and evidence](docs/ATTACK_DIAGNOSTIC_A_RESULTS_V3_2026-11-20.md)
+
+## Previous checkpoint · ATT&CK v2 forensics completed — 2026-11-20
+
+The authorized v2 run completed all 72 cells. The offline replay verified 85 source statements, 219 citation entries, all model scores and all 72 ordered shortlists. Neither arm completed any keyed evidence group. Per pass BM25 missed five expected references and hybrid missed six. Every expected ID in a shortlist was selected without a complete chain. The separate v3 scorer projection corrects numeric metadata leaking into counts, and an offline guard verifies scoped, independently supplied evidence before analyst review. The full suite passed 265 tests with 81 warnings. [Root-cause report](docs/ATTACK_ROOT_CAUSE_V3_2026-11-20.md) · [Case matrix](eval/reports/attack_forensics_v3_20261120/matrix.md)
+
+The forensic replay prepared the ten exact Experiment A payloads on five already-exposed cases. The original human-gated confirmation remains sealed. [Diagnostic protocol](docs/ATTACK_DIAGNOSTIC_PROTOCOL_V3_2026-11-20.md)
+
+## Previous checkpoint · Joint-evidence experiment v2 — 2026-11-20
+
+The new offline study evaluates whether a retrospective ATT&CK finding has enough evidence across sources. Its 18 AI-authored cases contain nine positives, six benign/failed actions and three inconclusive cases. Every one of the ten expected technique mappings needs at least two records under the authored rubric. V2 verifies a complete answer fits both budgets and grades individual cited statements, technique selection and completed evidence groups separately. All 18 capacity proofs passed. The relevant Python suites passed 76 tests and the full Python suite passed 245 with 81 warnings. [Engineering report and regression evidence](docs/ATTACK_EVIDENCE_EXPERIMENT_V2_2026-11-20.md)
+
+The registered comparison completed 72 local Qwen generations under the project owner's explicit authorization. Exact group completion was zero across both arms and passes. The primary mean cost difference was −1.333 per case for BM25 minus hybrid, with a paired interval of [−2.944, +0.778]. [Registration](eval/reports/attack_mapping_v2_20261120/registration.json) · [Frozen run results](docs/ATTACK_EXPLORATORY_V2_RESULTS_2026-11-20.md)
+
+## Prior checkpoint · Professional AI evidence review — 2026-11-20
+
+Completed an observation-first review of all 56 fictional cases against pinned Enterprise ATT&CK 20.1. Across both cohorts the AI analyst recorded 26 supported mappings, 28 abstentions and two ambiguous cases. The diagnostic review agrees with 30/32 original decisions and disputes the forced positives on `fresh-01/E2` and `fresh-05/E2` because actor authorization or account control is unresolved. The two proposed changes remain separate from the frozen author labels. The 24 original confirmation observations were reviewed by the AI and now have a separate provisional judgment file. They are no longer AI-unseen. [Research review](docs/ATTACK_PROFESSIONAL_RESEARCH_REVIEW_2026-11-20.md) · [Case table](eval/reports/ai_professional_review_20261120/case_review.md)
+
+Keep the existing human-gated protocol sealed. No genuine human validations or approvals were supplied and no new model-evaluation requests ran. BM25 remains the reference and hybrid E5-192 the research challenger. A mock adjudication exposed a schema capacity mismatch, and a literal but irrelevant citation reproduced the documented semantic scoring limitation. Plan a new independently reviewed cohort for confirmatory claims. Any AI-labeled follow-up requires its own protocol. SovereignEG remains paused, fine-tuning deferred and the live workflow and policy remain as recorded. [Prioritized corrections](docs/ATTACK_RESEARCH_CORRECTIVE_ACTIONS_2026-11-20.md)
+
+## Previous checkpoint · Independent ATT&CK review preparation — 2026-11-20
+
+At the preparation checkpoint the diagnostic cohort was closed for optimization and the 24 cases were frozen without labels or predictions. The separate evaluation runner verifies pinned inputs and rejects missing reviewer originals, adjudication or stakeholder approval before opening model transport. The versioned scorer handles jointly required records, acceptable alternatives, abstention and unresolved ambiguity. [Review and confirmation handoff](docs/ATTACK_CONFIRMATION_HANDOFF_2026-11-20.md)
+
+Prior to final inference, recruit two qualified independent reviewers, give each only their own two blinded forms and pinned taxonomy, then retain all four returned originals. The coordinator verifies independence and records hashes. An adjudicator resolves the evidence groups for both cohorts. The stakeholder approves false-positive and missed-pair weights, minimum useful improvement, allowable specificity loss and the uncertainty rule. Keep SovereignEG paused, fine-tuning deferred and existing agent permissions and workflow intact. [Preregistered comparison](eval/reports/ai_mapping_confirmation_preparation_20261120/protocol.json)
+
+## Previous offline ATT&CK mapping checkpoint — 2026-11-20
+
+Keep field-weighted BM25 @ 5 as the offline comparator and carry hybrid E5-192 @ 5 forward as the single challenger. In 224 loopback Qwen2.5 7B evaluations on the previously inspected 32 fictional cases, BM25 produced 22/32 exact with 8 correct, 6 unsupported and 8 missed technique–record pairs. Hybrid produced 26/32 exact with 11 correct, 3 unsupported and 5 missed. The matched exact-case interval includes zero [0, +25] percentage points. The earlier hybrid result stays 24/32 with 9 / 4 / 7. Identical reference context and prompts did not reproduce every output. Dense E5-512 improved standalone recall while its hybrid performed worse than E5-192. The interpretation prompt halved unsupported mappings and lost one correct pair. [Full results and reproducibility](docs/ATTACK_MAPPING_ABLATION_2026-11-20.md)
+
+TrustGate and the live assessment path were untouched. The local cloud experiment submit, poll and reindex routes returned HTTP 503, and the selected engagement `0d6ebb9f-02d6-49db-aa74-25ed78eb0f27` kept the same status and response hash. Python passed 205 tests (201 before changes). The case trace preserves failures where valid quoted text proved neither the named behavior nor adversary action. [Case-level evidence](eval/reports/ai_mapping_ablation_20261120/case-trace.json)
+
+**Next**: Give only their separate blinded packets to two independent reviewers. Finalize adjudicated labels and the false-positive versus missed-event decision rule before running the locked comparison once on the 24 fresh fictional observations. Those observations have been frozen without labels and were never sent to the model. Keep cloud inference paused and fine-tuning deferred. [Review protocol](docs/ATTACK_LABEL_REVIEW_AND_CONFIRMATION_2026-11-20.md)
+
+## Earlier ATT&CK retrieval and evidence mapping — 2026-11-20
+
+The frozen fictional benchmark selected hybrid BM25 and local E5 on the 16-case development set. On a separate 32-case cohort, the hybrid recovered 14/16 expected techniques in its top five, versus 11/16 for TF-IDF. Local Qwen2.5 7B recovered 9/16 evidence pairs with hybrid references and 10/16 with the oracle. The experimental endpoints still return HTTP 503, and direct SovereignEG adapter construction requires a mock transport. The live five-agent path remains separate. Full Python suite: 201 passed. Independent label adjudication and a fresh confirmation remain open. [Report and evidence](docs/ATTACK_RETRIEVAL_AND_EVIDENCE_MAPPING_2026-11-20.md)
+
+## Cloud pivot security and evidence benchmark — 2026-11-20
+
+The experimental cloud job, polling and reindex endpoints now return HTTP 503. Status reads configuration without creating a provider. The analysis layer no longer signs ROEs or borrows legacy role identities. The console restart preserved its selected session. See [verified changes and offline results](docs/CLOUD_PIVOT_SECURITY_AND_EVAL.md) for current behavior, the provider credential blocker and the benchmark decision.
+
+The pinned local Enterprise 20.1 index retrieved 2/9 expected technique occurrences. Local Qwen2.5 7B scored 7/16 exact with and without lexical context in the original run. The structured 7B follow-up gained one exact case with an interval spanning zero. The structured 1.5B arm regressed with retrieval. Cloud comparison and fine-tuning remain open. The implementation notes below record the earlier checkpoint.
+
+## Historical cloud/parallel AI layer and training proposal — 2026-11-20
+
+**Historical record.** This section preserves the original additive experiment and its proposals. Decisions at the top of this file supersede the historical steps below. SovereignEG is paused and fine-tuning is deferred. Preserve the governed `pentagi/` runtime history, Gate/audit records, grounding regression and disclosed limits.
+
+### 1. What changed in this pass (implemented and verified)
+
+The user asked to start using SovereignEG `SovereignEG/Qwen3.8-27B-FP8`, build parallel agents, use MITRE ATT&CK as RAG, keep TrustGate authoritative, respect the Student Plan (2 concurrent / 20 requests per minute), and defer fine-tuning. All of that was implemented as an **additive** layer; the legacy assessment path was not rewired.
+
+| Area | Files | What it does |
+|---|---|---|
+| Config/secrets | `config/ai.json`, `.env` (git-ignored), `.gitignore`, `ai/config.py` | Non-secret provider/model/limit settings in JSON; key only via `SOVEREIGNEG_API_KEY` in local `.env`; minimal env loader; API exposes only `api_key_configured: bool` |
+| Providers | `ai/providers/{base,sovereign,ollama,registry}.py` | OpenAI-compatible chat + embeddings, reasoning-token handling, retries, Ollama fallback, usage accounting, 2-request semaphore and 20/min sliding-window limiter |
+| MITRE RAG | `ai/mitre/{stix,rag}.py` | Downloads official Enterprise STIX, keeps 706 non-revoked techniques, embedded `.npz` cache under ignored `data/mitre/`, TF-IDF fallback, cosine retrieval, deterministic removal of unverified technique IDs |
+| Parallel agents | `ai/orchestrator/{state,schemas,agents,graph}.py` | LangGraph `prepare → security/research/risk/operations (concurrent) → aggregate`, additive state reducers, strict Pydantic schemas, defensive JSON parsing, deduplicated findings/limitations |
+| TrustGate | `ai/trustgate/client.py` | Reuses `integration.trustgate_client`; signs a narrow analysis-only ROE per engagement; canonical `planner_agent`/`planning`/`llm_inference` and `reporting_agent`/`reporting`/`write_report`; tainted args and denials block inference (fail closed) |
+| HTTP API | `ai/api.py`, `console/backend/main.py` | `/ai/status`, `/ai/usage`, `/ai/mitre/reindex`, async `/ai/assess` + `/ai/assess/{job_id}` added alongside existing routes |
+| Tests/docs | `tests/test_ai_layer.py`, `docs/AI_ARCHITECTURE.md`, `README.md`, `requirements.txt` | 8 offline tests (mocked provider + fake Gate); architecture doc linked from README; added `langgraph`, `numpy`, `scikit-learn` |
+
+Verification (20 November 2026): compile/imports clean; **full suite 173 passed, 4 skipped** (8 new tests); PowerShell PowerShell-e2e query retrieved `T1059.001` first from 706 techniques; full HTTP `/ai/assess` returned 4 agents, 5 TrustGate ALLOW decisions (4 inference + 1 report write) and 15 validated MITRE findings (4 chat requests / 8,412 completion tokens / 3,719 reasoning tokens / 132 embedding tokens). TrustGate denied tainted and unscoped requests. Secret scan: key absent from candidate sources; `.env` confirmed ignored. **No accuracy or grounding gain over local baselines is claimed.**
+
+**Security note:** the API key was pasted in chat during setup. It must be **rotated before any shared/public use**; rotation means updating only the local `.env`, no source change. Never print, commit or stage it.
+
+### 2. The new plan — RAG first, then measured fine-tuning
+
+Phase A (done): cloud 27B as an inference provider + MITRE RAG + parallel analysis agents + unchanged TrustGate. This is the baseline for comparison, not the final answer.
+
+Phase B was proposed as a conditional local fine-tuning study. It was never started and remains deferred by the current decision.
+
+Why local: SovereignEG is an **inference-only** API (no training/fine-tuning endpoint was found or used). The zip `<LOCAL_USER>\Downloads\attack-stix-data-master.zip` (252 MB) is already the same source family the RAG downloads: it contains Enterprise/Mobile/ICS bundles for versions 1.0–20.1; the current RAG uses Enterprise 20.1 (`enterprise-attack-20.1.json`, 53,982 KB, identical size to the fetched `enterprise-attack.json`). Use version-pinned files from the zip, not the moving `master` URL, for any training dataset.
+
+Hardware reality checked this pass: **NVIDIA GeForce RTX 5060 with 8,151 MiB VRAM is present**, but installed torch is `2.6.0+cpu` with `cuda_available=False`. A CUDA-enabled torch plus `bitsandbytes`/`peft`/`trl` must be installed before QLoRA; 4-bit QLoRA of a 7–8B model is the realistic ceiling on 8 GB, with small per-device batch and gradient accumulation. Do not attempt full fine-tuning of 27B locally or claim the cloud 27B was trained.
+
+Training must be **instruction-style**, not raw document dumping: derive prompt/completion pairs from STIX objects (technique ID + name + description + detection + mitigations + tactics), hold out a disjoint technique-ID test split, include negative/uncertainty cases, and keep RAG in the loop because ATT&CK changes quarterly. Fine-tuning is only justified if a controlled comparison shows a need; record the reason either way.
+
+Full step-by-step training/continuation plan: [docs/AI_TRAINING_CONTINUATION_2026-11-20.md](docs/AI_TRAINING_CONTINUATION_2026-11-20.md). Read it before starting Phase B.
+
+### 3. Original sequence retained for historical reference
+
+1. Read `docs/AI_ARCHITECTURE.md`, then `docs/AI_TRAINING_CONTINUATION_2026-11-20.md`, then this section. Preserve the legacy results and negative grounding evidence in the rest of this handoff.
+2. Confirm services still start (Gate 8000 / backend 8001 / lab 8888 / office 5173; Ollama 11434 separate). Backend must be restarted after `ai/` code changes to load new routes. Re-run `python -B -m pytest tests -q -p no:cacheprovider` before any new change.
+3. **Rotate the SovereignEG key** with the user, update only `.env`, and re-check `/ai/status` shows `api_key_configured: true` without exposing the value.
+4. Extract or read the STIX zip from `<LOCAL_USER>\Downloads\attack-stix-data-master.zip`. Add a config option to `config/ai.json` + `ai/config.py` for a **local version-pinned STIX path** so RAG no longer depends on a network download (keep the URL as fallback; record version + file hash).
+5. Build the dataset builder (`ai/training/build_dataset.py`): parse STIX `attack-pattern`, `course-of-action`, `relationship` objects; emit JSONL instruction pairs with provenance (version, STIX ID, source URL), a technique-disjoint train/val/test split, and a held-out evaluation set. Do not invent labels or silently drop revoked/deprecated objects.
+6. Define the evaluation harness (`eval/ai_benchmark.py`) **before** training: same cases and scorer for `qwen2.5:7b`, `qwen3:8b`, `granite-4.2-8b`, `SovereignEG/Qwen3.8-27B-FP8`, RAG-only and any fine-tuned candidate. Track accuracy (contract pass, technique-ID exact/F1, evidence-mapping F1), latency and token cost separately. The prior external numbers (Qwen2.5 7B 22.5% exact contract, Qwen3 8B 35%, Granite 4.2 8B 0.762 evidence F1) measure different things — do not merge them into one ranking.
+7. Install CUDA torch + QLoRA dependencies, verify `torch.cuda.is_available()` is True, then train a 7–8B 4-bit QLoRA candidate on the generated dataset (PEFT adapters, checked into an ignored/local model dir, not published). Keep batch/sequence lengths inside 8 GB.
+8. Compare with the frozen harness; adopt a fine-tuned model **only** if it improves the measured metrics without breaking schema/TrustGate boundaries. If it does not, keep RAG-first and record the negative result honestly.
+9. Update `MASTER_HANDOFF.md`, `TODO.md`, `docs/AI_ARCHITECTURE.md`, evidence under `eval/reports/` and the benchmark numbers after real runs. Never write a result number without a fresh run or an explicit historical label.
+
+### 4. Rules that still apply to the new work
+
+- TrustGate stays authoritative. Fine-tuning, prompts or agent output never grant permission; every sensitive action still needs an independent ALLOW. No model gets tool/scope/approval authority.
+- Human approval remains required for destructive/high-impact actions; this layer performs analysis only.
+- Keep secrets out of datasets, prompts, logs, reports and git. Check `git status` before staging. `data/mitre/` and `.env` are ignored.
+- Preserve the documented "no grounding improvement was demonstrated" result and all historical failures. The new RAG sanity check is not a grounding benchmark.
+- Do not claim the 27B was trained, that a local model beat it, or that training improved accuracy without the controlled harness results.
+
+
+
+
+## Fresh Planner benchmark — 2026-11-04
+
+A user-requested actual-Qwen, real-Gate inference-only evaluation completed all 30 authored Planner-only cases: **24/30 (80.0%) first attempt, 26/30 (86.7%) after the deployed validation/correction path**. These are bounded contract pass rates, not general or complete semantic accuracy. The old 7/7 mixed five Planner and two Reporting cases and is not comparable to this harder dataset. Source prompts, model weights/configuration and executor/authorization code were not changed to obtain this result.
+
+Four final cases failed: P04 token-repeat generation abort, P08 an unsupported curl task assigned to Reporting and accepted by the plan validator, and R07/R08 rationales omitting recorded failure/verification gaps despite correct partial-coverage fields. Additional passing plans invent unsupported CLI options/ports/arguments; these unscored concerns are recorded without modifying the frozen score. Do not describe Planner as fully accurate or all functional issues as closed on the basis of earlier checkpoints. No specialist tools were dispatched or console session replaced. Audit verified 1,247 → 1,280 entries; 32 Planner inference requests plus ROE load, all allowed. This was not a fresh pentest and produced no real findings.
+
+Full rubric, limitations, raw failures, reproduction and doctor-facing wording: [PLANNER_ACCURACY_2026-11-04.md](docs/PLANNER_ACCURACY_2026-11-04.md). Evidence: `eval/reports/planner_accuracy_20261104_v1/`. New follow-ups are disclosed in TODO; no Planner defect was fixed during this baseline pass.
+
 
 ## Current office/functionality checkpoint — 2026-11-03
 
@@ -88,7 +372,7 @@ Both user-supplied Google Drive videos were verified as public viewers and playe
 
 ## 1. Project identity and earlier checkpoint history
 
-Canonical project: **C:\Users\khale\Downloads\kayan-trustgate\**. This document replaces the previously mixed historical/current handoff. Dated evidence remains in docs/ and eval/reports/; do not erase it or interpret its old paths as current startup instructions.
+Canonical project: **<REPO_ROOT>\**. This document replaces the previously mixed historical/current handoff. Dated evidence remains in docs/ and eval/reports/; do not erase it or interpret its old paths as current startup instructions.
 
 Implementation, TA mapping, consolidation, Planner reliability, the redesigned interface, public-video PDF, asset/chunk work and live coordinator validation are complete within the documented limits. The final normal Gate retry supersedes the earlier blocked state. Review starts no assessment or model inference. Current exact results and startup details are at the top of this document and in docs/DEMO_READY_2026-11-02.md.
 
@@ -97,11 +381,11 @@ Implementation, TA mapping, consolidation, Planner reliability, the redesigned i
 ## 2. Project locations and consolidation
 
 - All active source now lives in kayan-trustgate, including the sole frontend at `console/office/`.
-- Historical 3D location: `C:\Users\khale\Downloads\KAYAN-video\kayan-company-office\kayan-3d\`. It is not an active source/startup location. The consolidation record reports its children retired; that historical absence was not rechecked in this pass.
+- Historical 3D location: `<LOCAL_USER>\Downloads\KAYAN-video\kayan-company-office\kayan-3d\`. It is not an active source/startup location. The consolidation record reports its children retired; that historical absence was not rechecked in this pass.
 - Previously two repos communicating over HTTP/WebSocket, the components now share one canonical repository while retaining separate processes and those runtime interfaces.
 - Pre-delivery baseline HEAD was `29e72b6`; the final tested source/evidence has its own publication commit. Do not stage current private keys, mutable runtime journals or unrelated outputs wholesale.
 - `pentagi_upstream/` contains vendored Go backend source and licensing, not an upstream frontend or Git submodule.
-- Recovery location recorded in `docs/PROJECT_CONSOLIDATION_2026-11-02.md`: `C:\Users\khale\Downloads\KAYAN-recovery-2026-11-01-consolidation\`, including history bundles, patches and retired source. Its current contents were not inventoried again here.
+- Recovery location recorded in `docs/PROJECT_CONSOLIDATION_2026-11-02.md`: `<LOCAL_USER>\Downloads\KAYAN-recovery-2026-11-01-consolidation\`, including history bundles, patches and retired source. Its current contents were not inventoried again here.
 - KAYAN-video's Remotion/video project and old sibling `server/` are unrelated to the current runtime. Do not modify them as part of TrustGate work.
 
 Folder retirement advice was given, not executed: other KAYAN folders are not active runtime dependencies, but old video/planner work, recovery copies and two unused CEO FBX variants can be unique. Back them up before discarding. Four used FBX source files were previously hash-matched to physical copies in `console/office/public/models/`. No deletion was performed by that advice or this documentation pass.
@@ -207,10 +491,10 @@ Blender inquiry was closed by the user's explicit instruction to skip; no verifi
 
 ## 8. Reproduction / recovery commands
 
-Run from `C:\Users\khale\Downloads\kayan-trustgate`. Review/default startup was exercised. Default Component is now Review, not All. The launcher verifies expected HTTP identity before reusing a listener and waits for readiness after launching; it never stops an unrelated owner. Gate retry remains conditional on normal host controls. Lab commands are retained source-checked examples, not a claim the lab was restarted this pass.
+Run from `<REPO_ROOT>`. Review/default startup was exercised. Default Component is now Review, not All. The launcher verifies expected HTTP identity before reusing a listener and waits for readiness after launching; it never stops an unrelated owner. Gate retry remains conditional on normal host controls. Lab commands are retained source-checked examples, not a claim the lab was restarted this pass.
 
 ```powershell
-Set-Location C:\Users\khale\Downloads\kayan-trustgate
+Set-Location <REPO_ROOT>
 # If dependencies need installation:
 python -m pip install -r requirements.txt
 npm --prefix console/office ci
@@ -247,6 +531,7 @@ For later regression, use `python -B -m eval.functionality_checkpoint --label UN
 
 - Public-video delivery, bounded UI, asset/chunk work and actual live-coordinator/audit-restart validation are complete. Use the final readiness document and preserve older checkpoint failures as history.
 - The latest user explicitly authorized Planner/functionality fixes and the professional UI redesign. Keep those bounded to their current TODO acceptance criteria; no new agents, policy/model redesign or unrequested fresh final-demo engagement.
+- **2026-11-20 override:** the user subsequently requested the additive cloud/parallel `ai/` layer and still wants ATT&CK STIX training. The newest section at the top of this handoff and `docs/AI_TRAINING_CONTINUATION_2026-11-20.md` now define the next work; the older "no new agents/model redesign" limit applies only to the legacy 3 November scope, not to the documented AI experiment.
 - Do not call the project perfect, universally tested, production-ready or improved by grounding. Report the actual unchecked count and bounded owned-lab readiness separately from disclosed architecture limits.
 - Do not touch unrelated Remotion/video or legacy server/, resurrect archived sales handoffs, or use historical external office paths as dependencies.
 - Do not bypass Windows/browser policy, expose Docker TCP, choose cloud credentials or broaden tool authority to remove a failure.

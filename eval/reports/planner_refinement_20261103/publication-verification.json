@@ -1,0 +1,14 @@
+{
+  "local_head": "ba82f1d25878e093d46e6e0b733ed78c2485932f",
+  "remote_head": "ba82f1d25878e093d46e6e0b733ed78c2485932f",
+  "downloaded_head": "ba82f1d25878e093d46e6e0b733ed78c2485932f",
+  "source_evidence_commit": "e90298973b8ea75a84204a0bc50ef3eb1ce8093b",
+  "later_changes_documentation_only": [
+    "MASTER_HANDOFF.md",
+    "TODO.md",
+    "docs/PLANNER_REFINEMENT_2026-11-03.md"
+  ],
+  "remaining_unchecked": [
+    "- [ ] Re-run the three blocked Go groups when the host permits their ordinary test executables. Current exact error: `An Application Control policy has blocked this file.` No protection changes or bypass. See docs/BLOCKED.md and the current refinement record. Earlier 17/17 evidence stays historical."
+  ]
+}

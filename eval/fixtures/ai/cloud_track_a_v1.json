@@ -1,0 +1,24 @@
+{
+  "version": "cloud-track-a/1",
+  "cohort": "18 exposed AI-authored synthetic development cases; no holdout",
+  "files": {
+    ".build/attack_exploratory_v2/run/attempts.jsonl": "3fde89e782aa4c753aabb5b9604ed2d0ea56f90ca6fc6587bc95efca537214ca",
+    "eval/fixtures/ai/attack_mapping_v2/observations.json": "791fbcb3aedf4d8872de3f9eab0cc5244aabd3877808c519f2f61b9017831e17",
+    "eval/fixtures/ai/attack_mapping_v2/rubric.json": "1a8dd827e61dc5c3f4c769ec74102bf0676e14c7a84c25e4df01d727b5251c66",
+    "eval/reports/attack_mapping_v2_20261120/registration.json": "66254d7c5fa4128faac5749bf78ae3a5ba8de324ee232b505098e462d955d8c3"
+  },
+  "arms": {
+    "A": {"model": "qwen2.5:7b", "mode": "historical_replay", "retrieval": ["bm25_k5", "hybrid192_k5"]},
+    "B": {"model": "SovereignEG/Qwen3.8-27B-FP8", "mode": "mock", "retrieval": null},
+    "C": {"model": "SovereignEG/Qwen3.8-27B-FP8", "mode": "mock", "retrieval": "bm25_k5"},
+    "D": {"model": "SovereignEG/Qwen3.8-27B-FP8", "mode": "mock", "retrieval": "hybrid192_k5"}
+  },
+  "mock_script": "Same first-pass BM25 archived reply per case for every arm. No comparisons of mock quality.",
+  "metrics": "Original statement-level scorer, technique micro P/R/F1, recall at 5 and full target coverage, negative/ambiguous abstention, contract, archived provider metrics. Occurrence-scoped review measured only where reviewed facts exist.",
+  "proof_experiment": {
+    "windows": {"seed": {"T1685.005": ["E1.1"]}, "groups": {"T1685.005": ["E1.1", "E2.1", "E3.1"]}, "eligible": ["T1685.005"]},
+    "slate": {"seed": {"T1486": ["E2.1"], "T1490": ["E4.1"]}, "groups": {"T1486": ["E1.1", "E2.1"], "T1490": ["E1.1", "E3.1", "E4.1"]}, "eligible": ["T1486", "T1490"]},
+    "slate_missing_attribution": {"seed": {"T1486": ["E2.1"], "T1490": ["E4.1"]}, "groups": {"T1486": ["E1.1", "E2.1"], "T1490": ["E1.1", "E3.1", "E4.1"]}, "eligible": ["T1486"]},
+    "windows_abstention": {"seed": {}, "groups": {"T1685.005": ["E1.1", "E2.1", "E3.1"]}, "eligible": []}
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "command": "python -B -m eval.attack_experiment_d_v3 audit",
+  "exit_code": 1,
+  "stdout": "",
+  "stderr": "Traceback (most recent call last):\n  File \"<frozen runpy>\", line 198, in _run_module_as_main\n  File \"<frozen runpy>\", line 88, in _run_code\n  File \"C:\\Users\\khale\\Downloads\\kayan-trustgate\\eval\\attack_experiment_d_v3.py\", line 179, in <module>\n    main()\n  File \"C:\\Users\\khale\\Downloads\\kayan-trustgate\\eval\\attack_experiment_d_v3.py\", line 173, in main\n    raise ValueError(\"Frozen D request manifest mismatch\")\nValueError: Frozen D request manifest mismatch\n",
+  "source_path": "eval/attack_experiment_d_v3.py",
+  "source_length_bytes": 9494,
+  "saved_manifest_length_bytes": 53934,
+  "lineage": {
+    "prior_authorized_manifest_sha256": "c77835b4f0c42afa461f90d053c40cd3c27452aeebccba2c59478e0fb72757ba",
+    "prior_saved_manifest_sha256": "cc7ec23535c18f7e4cc66faa5c3ca8b757d52e8abd2e5cea3eaf658e6ed690cc",
+    "prior_saved_source_stamp": "39e59cfa52f7461e70612cc3344c775405ae9d455bade4a04f32b1973b5cef1e4",
+    "materialization_source_sha256": "39e59cfa52f7461e70612cc3344c775405ae9d455bade404f32b1973b5cef1e4",
+    "inserted_byte_offset_zero_based": 286,
+    "inserted_byte_hex": "61"
+  },
+  "D_run_directory_exists": false,
+  "D_generation_attempts": 0
+}

@@ -1,0 +1,172 @@
+{
+  "study": "attack-mapping-exploratory-v2",
+  "registration_sha256": "66254d7c5fa4128faac5749bf78ae3a5ba8de324ee232b505098e462d955d8c3",
+  "historical_checksum_entries_reverified": {
+    "ai_mapping_ablation_20261120": 22,
+    "ai_mapping_confirmation_preparation_20261120": 6,
+    "ai_professional_review_20261120": 7,
+    "ai_retrieval_mapping_20261120": 5
+  },
+  "original_protocol_sha256": "7dfbee0ef166d1d51bae923de766601983eef74f8dcc5fdff400244a72b8ba03",
+  "original_protocol_source_hashes_matched": 10,
+  "active_techniques": 706,
+  "families_and_dispositions": {
+    "identity": [
+      [
+        "quartz",
+        "confirmed"
+      ],
+      [
+        "silver",
+        "benign"
+      ],
+      [
+        "birch",
+        "confirmed"
+      ]
+    ],
+    "audit": [
+      [
+        "flint",
+        "inconclusive"
+      ],
+      [
+        "cedar",
+        "confirmed"
+      ],
+      [
+        "indigo",
+        "benign"
+      ]
+    ],
+    "display": [
+      [
+        "larch",
+        "inconclusive"
+      ],
+      [
+        "pearl",
+        "benign"
+      ],
+      [
+        "moss",
+        "confirmed"
+      ]
+    ],
+    "mail": [
+      [
+        "ochre",
+        "confirmed"
+      ],
+      [
+        "linen",
+        "confirmed"
+      ],
+      [
+        "hazel",
+        "failed"
+      ]
+    ],
+    "recovery": [
+      [
+        "ash",
+        "confirmed"
+      ],
+      [
+        "opal",
+        "failed"
+      ],
+      [
+        "elm",
+        "benign"
+      ]
+    ],
+    "availability": [
+      [
+        "slate",
+        "confirmed"
+      ],
+      [
+        "fern",
+        "inconclusive"
+      ],
+      [
+        "coral",
+        "confirmed"
+      ]
+    ]
+  },
+  "technique_occurrences": 10,
+  "minimal_sufficient_groups": 11,
+  "targets_with_alternative_groups": 1,
+  "single_source_only_checks_without_complete_group": 26,
+  "leave_one_statement_out_checks_without_complete_group": 27,
+  "max_witness_entries": 5,
+  "worst_prompt_token_bound": 2929,
+  "worst_witness_token_bound": 198,
+  "synthetic_same_record_wrong_statement": {
+    "v1_exact": true,
+    "v1_binding_blocks": [],
+    "v2": {
+      "disposition": "confirmed",
+      "contract": true,
+      "error": null,
+      "abstain": false,
+      "exact": false,
+      "tech_tp": 1,
+      "tech_fp": 0,
+      "tech_fn": 0,
+      "groups_complete": 0,
+      "targets": 1,
+      "unsupported": 1,
+      "missed": 1,
+      "citations": 2,
+      "keyed": 1,
+      "corroborating": 0,
+      "bad_cites": 1,
+      "pair_tp": 1,
+      "pair_fp": 1,
+      "pair_fn": 1,
+      "trace": [
+        {
+          "technique": "T1685.005",
+          "cite": "E1.2",
+          "text": "The keyboard was serviced.",
+          "status": "topic_only",
+          "roles": []
+        },
+        {
+          "technique": "T1685.005",
+          "cite": "E2.1",
+          "text": "The session belonged to the unauthorized intruder.",
+          "status": "keyed_support",
+          "roles": [
+            "actor",
+            "authorization"
+          ]
+        }
+      ],
+      "completed": [],
+      "selected": [
+        "T1685.005"
+      ],
+      "cost": 4
+    }
+  },
+  "scope": {
+    "study_inference_requests": 0,
+    "original_confirmation_run_dir_exists": false,
+    "exploratory_run_dir_exists": false,
+    "console_ai_status": {
+      "http": 200,
+      "enabled": false
+    },
+    "local_ollama_version": "0.40.13",
+    "tags_model_digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+    "e5_files_sha256_verified": 3
+  },
+  "tests": {
+    "targeted": "76 passed in 7.75s",
+    "full": "245 passed, 81 warnings in 21.37s"
+  }
+}

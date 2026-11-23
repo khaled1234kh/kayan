@@ -1,0 +1,17 @@
+{
+  "rubric": "attack-evidence-sets-v1",
+  "comparison": "attack-confirmation-v1",
+  "stakeholder": null,
+  "approved_on": null,
+  "adjudications_sha256": {
+    "diagnostic": null,
+    "confirmation": null
+  },
+  "protocol_sha256": null,
+  "unsupported_pair_weight": null,
+  "missed_pair_weight": null,
+  "min_weighted_improvement_per_case": null,
+  "max_negative_specificity_loss": null,
+  "interval_requirement": null,
+  "rationale": null
+}

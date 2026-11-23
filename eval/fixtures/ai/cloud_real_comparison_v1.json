@@ -1,0 +1,59 @@
+{
+  "version": "cloud-real-comparison/1",
+  "cohort": "Four exposed synthetic defensive development cells; no confirmation cohort",
+  "cases": [
+    "windows",
+    "slate",
+    "windows_incomplete",
+    "windows_authorized"
+  ],
+  "cloud_model": "SovereignEG/Qwen3.8-27B-FP8",
+  "retrieval_k": 5,
+  "retrieval": "Pinned Enterprise 20.1 FieldBM25, maximum score across addressed records, 220-character excerpts, fixed hypotheses remain unchanged.",
+  "arms": {
+    "A": "Replay actual local direct response",
+    "B": "Prepared direct request",
+    "C": "Prepared direct plus lexical references",
+    "D": "Prepared structured v2 request"
+  },
+  "scoring": {
+    "unit": "case by technique and scoped occurrence",
+    "support": "Complete reviewed evidence under unchanged admission v2, authored oracle separate",
+    "roles": "Exact role key for extraction only; report direct citation and occurrence evidence overlap separately",
+    "abstention": "Empty contract-valid output is structural abstention. Credit semantic abstention only with a case-specific rationale corroborated by reviewed evidence. Direct arms cannot establish it through their output schema.",
+    "missing": "Cloud results null while blocked. Retain all future errors without retries."
+  },
+  "authorizations": {
+    "credential_rotation": null,
+    "account_spend_and_overage": null,
+    "provider_routing_and_capability": null,
+    "project_synthetic_egress_and_maximum_spend": null
+  },
+  "files": {
+    "eval/cloud_automatic_proof_v1.py": "22f08e63adf2bb09a5fe738daf99a89adc57e530c26ebd2a0de6c635dd2f88f8",
+    "eval/fixtures/ai/attack_mapping_v2/observations.json": "791fbcb3aedf4d8872de3f9eab0cc5244aabd3877808c519f2f61b9017831e17",
+    "eval/fixtures/ai/attack_fact_registry_v1/demo.py": "c137bdf6afe491095d68d1e2fb0751ef0ee57ae2a42d7d08081ec19211967f41",
+    "eval/fixtures/ai/attack_admission_v2.py": "a3aa3750343b083faa6c8ff8d84de45c818fe71cc24eace224df9be4bb29ac61",
+    "eval/attack_evidence_admission_v2.py": "f69c16febd155c59d9caff5512b7500dd5a2c2aa723437340c7c31236584f9e0",
+    "eval/attack_fact_guard_adapter_v1.py": "4f0389c2cd132d211883321915b9b211c630fc820cbdeb0c9f7173aa0340eeca",
+    "eval/attack_fact_registry_v1.py": "f326331b224c85b09f4684859e2668d6543eaa8235b7b4c714a57ecd7db932fb",
+    "eval/attack_evidence_custody_v1.py": "ae54a40132eab5e2c5d21504ea6dd859df21ca89772f0da256ca5abac0ebcb7d",
+    "eval/attack_evidence_guard_v3.py": "73e54559ef04b8aecb6e0e375713a591b1d7735081524e42ce65d6722c0c9e6a",
+    "eval/attack_evidence_guard_v4.py": "61a9553088599f648d87b0ca8bf564a71ea0eca8e738bfa370490a28ad1d50f3",
+    "eval/attack_evidence_v2.py": "7fcd1a4b1c758f12ad65bef8b1e33f981ec408aaaef3b358e3b4cfa8d1090929",
+    "eval/attack_experiment_d_guard_v3.py": "a64560a9749ac8120c06b395ddafbf74101491d8b468ca23f6b6ede3f8f7dc22",
+    "eval/fixtures/ai/attack_fact_registry_v1/clear.xml": "2e254a0bc0201a91e7f7c790e093b3450a7ef3d28dca6c88da850bae3b8a1865",
+    "eval/fixtures/ai/attack_fact_registry_v1/logon.xml": "19b6596084ae170340ca2853b1b161f9a61c14fee42db83c15f490b7f29b8f18",
+    "eval/fixtures/ai/attack_fact_registry_v1/permission.txt": "248852177cfc98e65ce7352ef1cf06c90dda96ebe5f31327a7f6ea5d182136d7",
+    "eval/fixtures/ai/attack_fact_registry_v1/custody.txt": "8393253a92531a40a97fd55829794bc55e469eb41cc6a3af380ef6f920a1f4cc",
+    "eval/fixtures/ai/cloud_automatic_proof_v1.json": "1fc3ae08798b43b2216094eba80f3f95e2f857f9ab1ebcae81626d94ee58b36c",
+    "eval/cloud_extraction_v2.py": "ae0ad22901cd070a9541bb63ddf962b2cb205698de5ac43c123efbb86c0899eb",
+    "eval/attack_experiment_d_v3.py": "39e59cfa52f7461e70612cc3344c775405ae9d455bade404f32b1973b5cef1e4",
+    ".build/cloud-automatic-proof-v1.jsonl": "cd3497dc9d19298829fdd4cf73e01e0e37901edbcc0fd773f211e9eeb1808085",
+    "eval/fixtures/ai/cloud_extraction_v2.json": "2782c88b42d90c85e651965c5f38a7cecc6961ab1f668f525fe956249ba46b58",
+    ".build/cloud-extraction-v2.jsonl": "7fa5c9f119b1a90af3a9a7ce339f74796fa4b97df224f2ee8727e736673023c4",
+    "eval/cloud_real_comparison_prep.py": "4f13d6f34670f403fdae462ccdace5b4b616d523bfe0d7df89887715bc45a2cc",
+    "ai/mitre/ranking.py": "df28146625928f88efac841ab071eb5fb9308196a0559e6d7123c4c06379bb95",
+    "ai/mitre/stix.py": "994d5a9818b88ab5722546e30325de29d5255af7cb21e25ac0ca8d1b3e154f84"
+  }
+}

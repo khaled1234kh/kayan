@@ -1,0 +1,58 @@
+{
+  "fresh_case_count": 24,
+  "fresh_evaluation_requests": 0,
+  "genuine_returns": 0,
+  "approved_rule": null,
+  "real_run_directory_exists": false,
+  "review_packets": {
+    "diagnostic": {
+      "sha256": "71bc4242a63cd860bc4f8ee06edacf7c0b3d12b9fd6a2ce9bbc50eb4afa51cc9",
+      "forms": {
+        "A": "19d793ae6ccab8f7ccd91fe1631c621a9ea033ba27d4a02d05f7068c07ae4b76",
+        "B": "6aefdc4d359857bb2dc95574a0c8a79d80fa49108905b46156fc8ff6e94ae797"
+      },
+      "cases": 32
+    },
+    "confirmation": {
+      "sha256": "9451fde497ce8fa228f0eb0a7de2e836f514e6e5a8c165771637691d1f35d50c",
+      "forms": {
+        "A": "d759340603de9253cf9bec016129dcb74b3201b7f90982cd475958ee97f8c833",
+        "B": "92b1af22de709bfd7762851ee61a3cb498a5099b52a54e219677fe1264fd4c3e"
+      },
+      "cases": 24
+    }
+  },
+  "historical_checksums_matched": 22,
+  "preregistered_protocol_hash": "7dfbee0ef166d1d51bae923de766601983eef74f8dcc5fdff400244a72b8ba03",
+  "protocol_recomputed_matches": true,
+  "local_ollama_version_metadata": "0.40.13",
+  "mock_workflow_checks": 12,
+  "targeted_tests_passed": 48,
+  "full_python_suite": {
+    "before": 205,
+    "after": 217,
+    "warnings": 81
+  },
+  "mock_scope": "pytest temporary observations, review returns, approval and HTTP mock transport only",
+  "console_before": {
+    "engagement_id": "0d6ebb9f-02d6-49db-aa74-25ed78eb0f27",
+    "status": "failed",
+    "engagement_response_sha256": "f19351d23a973d92df2d4fd216945f33ec24158cf0458abc0a158df757574985",
+    "paused_http_codes": [
+      503,
+      503,
+      503
+    ]
+  },
+  "console_after": {
+    "paused_http_codes": [
+      503,
+      503,
+      503
+    ],
+    "engagement_id": "0d6ebb9f-02d6-49db-aa74-25ed78eb0f27",
+    "status": "failed",
+    "engagement_response_sha256": "f19351d23a973d92df2d4fd216945f33ec24158cf0458abc0a158df757574985"
+  },
+  "staged_paths": []
+}

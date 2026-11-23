@@ -1,0 +1,57 @@
+{
+  "pre_change_full_pytest": {
+    "passed": 201,
+    "warnings": 81
+  },
+  "post_change_full_pytest": {
+    "passed": 205,
+    "warnings": 81
+  },
+  "targeted_pytest": {
+    "passed": 36
+  },
+  "main_responses": 224,
+  "combined_scores_recounted": 384,
+  "injected_references_and_controls_abstained": 8,
+  "new_fixture_sha256": "9451fde497ce8fa228f0eb0a7de2e836f514e6e5a8c165771637691d1f35d50c",
+  "blinded_forms_sha256": {
+    "review/confirmation-reviewer-a.json": "d759340603de9253cf9bec016129dcb74b3201b7f90982cd475958ee97f8c833",
+    "review/confirmation-reviewer-b.json": "92b1af22de709bfd7762851ee61a3cb498a5099b52a54e219677fe1264fd4c3e",
+    "review/diagnostic-reviewer-a.json": "19d793ae6ccab8f7ccd91fe1631c621a9ea033ba27d4a02d05f7068c07ae4b76",
+    "review/diagnostic-reviewer-b.json": "6aefdc4d359857bb2dc95574a0c8a79d80fa49108905b46156fc8ff6e94ae797"
+  },
+  "historical_artifacts_unchanged": {
+    "manifest.json": "c77ba40f0887bd5c68f2ba7aab6c383a43d41b9c6d9be44a14ff333519056b6a",
+    "mapping.json": "96fc0bb7de49976d34ed3c9a73c03f4ee2f3415e0686d1263ba970428d7b8cd0",
+    "retrieval.json": "77c6f33ff6dd81b2c5828fc7ebdc104fabbf7204418b228095e873a58c005277",
+    "responses.jsonl": "d0ae9a0d939c407120cc42f489ccc28afc9e238a28f71e79202e144c62bb0943",
+    "retrieval_ablation.json": "9e143c70715e51655cd7c94d2a1700e1ff614ff3bb06b46cf31463d3ab35c30c"
+  },
+  "historical_ranker_preserved": true,
+  "experiment_source_snapshots_match_manifest": true,
+  "current_source_sha256": {
+    "ai/mitre/ranking.py": "df28146625928f88efac841ab071eb5fb9308196a0559e6d7123c4c06379bb95",
+    "eval/ai_mapping_ablation.py": "56a47c42aae9dc81a2ff35dffabc1261705e30e1c9774b02c85314627f4bde01",
+    "eval/ai_mapping_injection.py": "16a5c12e5c955497edf0adc0152085849777c2590272ac1f41fd39dd1d5e44da",
+    "eval/ai_mapping_review.py": "2395bcbbdd7f6689f42646dae7196affca2b872a78aaff51ed10d633da1ee6c7",
+    "eval/ai_mapping_trace.py": "f0c7138a4db46d67dbe9e3a04e4bab683073420f95e95b91bd2b96d48a277c6e",
+    "tests/test_ai_mapping_ablation.py": "342e653de6348bdb798937dec7afa2677ebd27cfb278cf88fc444281939dd1bf"
+  },
+  "scope": {
+    "outbound_model_requests": 0,
+    "new_assessments": 0,
+    "selected_session_matched": true,
+    "paused_http_codes": [
+      503,
+      503,
+      503
+    ],
+    "env_ignored_and_untracked": true,
+    "staged_paths": []
+  },
+  "additional_suites": {
+    "rust": "not run",
+    "go": "not run",
+    "frontend": "not run"
+  }
+}

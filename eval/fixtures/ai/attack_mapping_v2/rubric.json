@@ -1,0 +1,448 @@
+{
+  "version": "attack-mapping-exploratory-v2",
+  "provenance": "AI-authored synthetic case key, frozen before model inference. No independent human adjudication.",
+  "cases": {
+    "cedar": {
+      "disposition": "confirmed",
+      "targets": {
+        "T1685.005": {
+          "groups": [
+            [
+              "E2.1",
+              "E3.1"
+            ]
+          ],
+          "atoms": {
+            "E2.1": [
+              "action",
+              "asset",
+              "outcome"
+            ],
+            "E3.1": [
+              "actor",
+              "authorization"
+            ]
+          }
+        }
+      },
+      "exceptions": {
+        "T1685.005": {
+          "E1.1": "topic_only",
+          "E3.2": "unlinked"
+        }
+      },
+      "rationale": "The journal supplies the operation and host. Custody binds the same session to the unauthorized actor."
+    },
+    "flint": {
+      "disposition": "inconclusive",
+      "targets": {},
+      "exceptions": {
+        "T1685.005": {
+          "E1.1": "superseded",
+          "E1.2": "topic_only",
+          "E2.1": "unresolved",
+          "E3.1": "superseded"
+        }
+      },
+      "rationale": "A withdrawn allegation and a collection gap cannot establish what happened locally."
+    },
+    "indigo": {
+      "disposition": "benign",
+      "targets": {},
+      "exceptions": {
+        "T1685.005": {
+          "E1.1": "topic_only",
+          "E1.2": "contradicts"
+        },
+        "T1685.001": {
+          "E2.2": "contradicts"
+        }
+      },
+      "rationale": "The independent record sequence explains the apparent gap and contradicts a journal clear."
+    },
+    "birch": {
+      "disposition": "confirmed",
+      "targets": {
+        "T1098.003": {
+          "groups": [
+            [
+              "E1.1",
+              "E2.1"
+            ]
+          ],
+          "atoms": {
+            "E1.1": [
+              "action",
+              "asset",
+              "outcome"
+            ],
+            "E2.1": [
+              "actor",
+              "authorization"
+            ]
+          }
+        }
+      },
+      "exceptions": {
+        "T1098.003": {
+          "E1.2": "unlinked",
+          "E2.2": "topic_only"
+        }
+      },
+      "rationale": "The grant establishes persistence potential. The independent identity record establishes who controlled its beneficiary."
+    },
+    "silver": {
+      "disposition": "benign",
+      "targets": {},
+      "exceptions": {
+        "T1098.003": {
+          "E1.1": "action_only",
+          "E2.1": "authorized",
+          "E2.2": "unlinked"
+        }
+      },
+      "rationale": "The approved role change and the unrelated principal share a display name across different tenants."
+    },
+    "quartz": {
+      "disposition": "confirmed",
+      "targets": {
+        "T1098.003": {
+          "groups": [
+            [
+              "E1.2",
+              "E2.1",
+              "E3.1"
+            ]
+          ],
+          "atoms": {
+            "E1.2": [
+              "authorization"
+            ],
+            "E2.1": [
+              "action",
+              "asset",
+              "outcome"
+            ],
+            "E3.1": [
+              "actor"
+            ]
+          }
+        }
+      },
+      "exceptions": {
+        "T1098.003": {
+          "E1.1": "unlinked",
+          "E2.2": "topic_only",
+          "E3.2": "unlinked"
+        }
+      },
+      "rationale": "Three sources resolve the apparent approval, the completed grant and the recipient's control."
+    },
+    "linen": {
+      "disposition": "confirmed",
+      "targets": {
+        "T1114.003": {
+          "groups": [
+            [
+              "E1.1",
+              "E3.1"
+            ]
+          ],
+          "atoms": {
+            "E1.1": [
+              "action",
+              "asset",
+              "outcome"
+            ],
+            "E3.1": [
+              "actor",
+              "authorization"
+            ]
+          }
+        }
+      },
+      "exceptions": {
+        "T1114.003": {
+          "E2.1": "corroborating",
+          "E2.2": "topic_only"
+        }
+      },
+      "rationale": "A committed forwarding rule and attribution suffice. Mail delivery corroborates the result but cannot identify the rule's author or configuration alone."
+    },
+    "ochre": {
+      "disposition": "confirmed",
+      "targets": {
+        "T1114.003": {
+          "groups": [
+            [
+              "E1.1",
+              "E3.1"
+            ],
+            [
+              "E2.1",
+              "E3.1"
+            ]
+          ],
+          "atoms": {
+            "E1.1": [
+              "action",
+              "asset",
+              "outcome"
+            ],
+            "E2.1": [
+              "action",
+              "asset",
+              "outcome"
+            ],
+            "E3.1": [
+              "actor",
+              "authorization"
+            ]
+          }
+        }
+      },
+      "exceptions": {
+        "T1114.003": {
+          "E2.2": "superseded",
+          "E3.2": "unlinked"
+        }
+      },
+      "rationale": "Either independent configuration record establishes the same effective rule. Both alternatives require the session attribution."
+    },
+    "hazel": {
+      "disposition": "failed",
+      "targets": {},
+      "exceptions": {
+        "T1114.003": {
+          "E1.2": "topic_only",
+          "E2.1": "contradicts",
+          "E2.2": "unlinked"
+        }
+      },
+      "rationale": "The service rejected the change before any rule existed."
+    },
+    "larch": {
+      "disposition": "inconclusive",
+      "targets": {},
+      "exceptions": {
+        "T1113": {
+          "E1.1": "action_only",
+          "E1.2": "unresolved",
+          "E2.2": "unresolved"
+        }
+      },
+      "rationale": "The captures are real. Two concurrent sessions leave the identity of the capturing party unresolved."
+    },
+    "pearl": {
+      "disposition": "benign",
+      "targets": {},
+      "exceptions": {
+        "T1113": {
+          "E1.1": "contradicts",
+          "E1.2": "superseded",
+          "E2.2": "superseded"
+        }
+      },
+      "rationale": "The image was imported from the helpdesk library and cannot support a capture on this device."
+    },
+    "moss": {
+      "disposition": "confirmed",
+      "targets": {
+        "T1113": {
+          "groups": [
+            [
+              "E1.2",
+              "E2.1",
+              "E3.1"
+            ]
+          ],
+          "atoms": {
+            "E1.2": [
+              "actor",
+              "authorization"
+            ],
+            "E2.1": [
+              "action",
+              "asset",
+              "outcome"
+            ],
+            "E3.1": [
+              "link"
+            ]
+          }
+        }
+      },
+      "exceptions": {
+        "T1113": {
+          "E3.2": "superseded",
+          "E1.1": "unlinked",
+          "E2.2": "topic_only"
+        }
+      },
+      "rationale": "The process belonged to two sessions on different dates. Contemporary process binding connects the frames to the intruder."
+    },
+    "ash": {
+      "disposition": "confirmed",
+      "targets": {
+        "T1490": {
+          "groups": [
+            [
+              "E2.1",
+              "E3.1",
+              "E1.1"
+            ]
+          ],
+          "atoms": {
+            "E1.1": [
+              "asset",
+              "outcome"
+            ],
+            "E2.1": [
+              "action",
+              "link"
+            ],
+            "E3.1": [
+              "actor",
+              "authorization"
+            ]
+          }
+        }
+      },
+      "exceptions": {
+        "T1490": {
+          "E1.2": "topic_only"
+        }
+      },
+      "rationale": "Inventory identifies what P lost. The generic purge entry connects the removal to the session and custody attributes its purpose."
+    },
+    "opal": {
+      "disposition": "failed",
+      "targets": {},
+      "exceptions": {
+        "T1490": {
+          "E1.1": "topic_only",
+          "E2.1": "contradicts",
+          "E2.2": "contradicts",
+          "E3.1": "topic_only"
+        }
+      },
+      "rationale": "A denied request and successful point restore do not show completed inhibition."
+    },
+    "elm": {
+      "disposition": "benign",
+      "targets": {},
+      "exceptions": {
+        "T1490": {
+          "E1.1": "action_only",
+          "E2.1": "authorized",
+          "E2.2": "contradicts"
+        }
+      },
+      "rationale": "Routine retention occurred under the owner's instructions."
+    },
+    "coral": {
+      "disposition": "confirmed",
+      "targets": {
+        "T1486": {
+          "groups": [
+            [
+              "E1.1",
+              "E2.1",
+              "E3.1"
+            ]
+          ],
+          "atoms": {
+            "E1.1": [
+              "actor",
+              "authorization"
+            ],
+            "E2.1": [
+              "action",
+              "asset",
+              "outcome"
+            ],
+            "E3.1": [
+              "link"
+            ]
+          }
+        }
+      },
+      "exceptions": {
+        "T1486": {
+          "E1.2": "unlinked"
+        }
+      },
+      "rationale": "The endpoint identifies encryption and loss of access, while the process ledger links the writer to the intruder."
+    },
+    "slate": {
+      "disposition": "confirmed",
+      "targets": {
+        "T1486": {
+          "groups": [
+            [
+              "E1.1",
+              "E2.1"
+            ]
+          ],
+          "atoms": {
+            "E1.1": [
+              "actor",
+              "authorization"
+            ],
+            "E2.1": [
+              "action",
+              "asset",
+              "outcome"
+            ]
+          }
+        },
+        "T1490": {
+          "groups": [
+            [
+              "E1.1",
+              "E3.1",
+              "E4.1"
+            ]
+          ],
+          "atoms": {
+            "E1.1": [
+              "actor",
+              "authorization"
+            ],
+            "E3.1": [
+              "asset",
+              "outcome"
+            ],
+            "E4.1": [
+              "action",
+              "link"
+            ]
+          }
+        }
+      },
+      "exceptions": {
+        "T1490": {
+          "E3.2": "unlinked",
+          "E4.2": "unlinked"
+        },
+        "T1486": {
+          "E2.2": "topic_only"
+        }
+      },
+      "rationale": "Two separately observable effects share a session. Proving one does not prove the other."
+    },
+    "fern": {
+      "disposition": "inconclusive",
+      "targets": {},
+      "exceptions": {
+        "T1486": {
+          "E1.1": "topic_only",
+          "E1.2": "topic_only",
+          "E2.1": "unresolved",
+          "E3.1": "unlinked"
+        }
+      },
+      "rationale": "Availability impact alone cannot distinguish encryption from corruption or establish the actor."
+    }
+  }
+}

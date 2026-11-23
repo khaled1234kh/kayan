@@ -1,0 +1,424 @@
+{
+  "version": 1,
+  "scope": "Fictional retrospective SOC records. No execution or target access.",
+  "label_provenance": "Author-authored reference decisions. Independently reviewed labels pending.",
+  "split": "Frozen evaluation families created separately from historical development cases.",
+  "cases": [
+    {
+      "id": "fresh-01",
+      "family": "fresh-domain-session",
+      "records": {
+        "E1": "The service desk logged a routine shift handover.",
+        "E2": "An incident examiner reconciled two session journals and confirmed that an outsider performed a completed staff-directory update under an existing Active Directory domain account."
+      },
+      "expected": {
+        "T1078.002": [
+          "E2"
+        ]
+      },
+      "label_rationale": "The observed session used an established domain account without authorization.",
+      "slice": "observed"
+    },
+    {
+      "id": "fresh-02",
+      "family": "fresh-domain-session",
+      "records": {
+        "E1": "The service desk logged a routine shift handover.",
+        "E2": "The domain account appeared in an alert, but the controller recorded a rejected sign-on. The only completed directory update came from the approved service account."
+      },
+      "expected": {},
+      "label_rationale": "The attempted sign-on failed, and the observed update was approved.",
+      "slice": "excluded"
+    },
+    {
+      "id": "fresh-03",
+      "family": "fresh-cloud-session",
+      "records": {
+        "E1": "Cloud activity records verified a completed session under the already-issued cloud billing account. The nominated owner and the incident panel confirmed that the operator had no consent.",
+        "E2": "Facilities confirmed that the meeting room monitor was online."
+      },
+      "expected": {
+        "T1078.004": [
+          "E1"
+        ]
+      },
+      "label_rationale": "The verified unauthorized use involved a specifically identified existing cloud account.",
+      "slice": "observed"
+    },
+    {
+      "id": "fresh-04",
+      "family": "fresh-cloud-session",
+      "records": {
+        "E1": "A cloud billing session was investigated because it looked unusual. The audit confirmed that the assigned billing delegate performed it under written approval.",
+        "E2": "Facilities confirmed that the meeting room monitor was online."
+      },
+      "expected": {},
+      "label_rationale": "The reviewed cloud account use was authorized.",
+      "slice": "excluded"
+    },
+    {
+      "id": "fresh-05",
+      "family": "fresh-cloud-role-change",
+      "records": {
+        "E1": "A separate stock ledger reconciled ordinary office supplies.",
+        "E2": "The post-incident snapshot and change log confirmed an unapproved additional cloud administrator role was assigned to an existing account. The alert about session use was withdrawn."
+      },
+      "expected": {
+        "T1098.003": [
+          "E2"
+        ]
+      },
+      "label_rationale": "An unauthorized cloud role grant took effect, while session misuse lacked support.",
+      "slice": "observed"
+    },
+    {
+      "id": "fresh-06",
+      "family": "fresh-cloud-role-change",
+      "records": {
+        "E1": "A separate stock ledger reconciled ordinary office supplies.",
+        "E2": "A draft showed an additional cloud administrator role for an existing account. The reviewer confirmed the request was rejected and the role never took effect."
+      },
+      "expected": {},
+      "label_rationale": "No account privilege change took effect.",
+      "slice": "excluded"
+    },
+    {
+      "id": "fresh-07",
+      "family": "fresh-account-access-removal",
+      "records": {
+        "E1": "The helpdesk reconciled the directory records and verified that an intruder disabled existing staff accounts, immediately preventing the owners from signing in.",
+        "E2": "The schedule had an approved lunch break for the facilities team."
+      },
+      "expected": {
+        "T1531": [
+          "E1"
+        ]
+      },
+      "label_rationale": "The corroborated activity removed legitimate users' access to their accounts.",
+      "slice": "observed"
+    },
+    {
+      "id": "fresh-08",
+      "family": "fresh-account-access-removal",
+      "records": {
+        "E1": "The directory showed accounts disabled under the signed offboarding list. The affected employees' departures and the approved change were verified.",
+        "E2": "The schedule had an approved lunch break for the facilities team."
+      },
+      "expected": {},
+      "label_rationale": "Disabling the accounts was authorized offboarding.",
+      "slice": "excluded"
+    },
+    {
+      "id": "fresh-09",
+      "family": "fresh-desktop-screen-capture",
+      "records": {
+        "E1": "The service desk logged a routine shift handover.",
+        "E2": "An examiner found images of the live desktop and matched their timestamps to telemetry showing an intruder acquiring those screen images."
+      },
+      "expected": {
+        "T1113": [
+          "E2"
+        ]
+      },
+      "label_rationale": "The incident records establish that an intruder captured screen images.",
+      "slice": "observed"
+    },
+    {
+      "id": "fresh-10",
+      "family": "fresh-desktop-screen-capture",
+      "records": {
+        "E1": "The service desk logged a routine shift handover.",
+        "E2": "A desktop-image alert was traced to images generated by the approved usability test. They depicted a mock desktop and no incident capture occurred."
+      },
+      "expected": {},
+      "label_rationale": "The images came from an approved simulation.",
+      "slice": "excluded"
+    },
+    {
+      "id": "fresh-11",
+      "family": "fresh-stored-local-reports",
+      "records": {
+        "E1": "The endpoint investigator verified the intruder copied stored project reports from the local workstation for collection. The record identifies the source as files already stored on that workstation.",
+        "E2": "Facilities confirmed that the meeting room monitor was online."
+      },
+      "expected": {
+        "T1005": [
+          "E1"
+        ]
+      },
+      "label_rationale": "The source and confirmed collection were local workstation files.",
+      "slice": "observed"
+    },
+    {
+      "id": "fresh-12",
+      "family": "fresh-stored-local-reports",
+      "records": {
+        "E1": "A report claimed a set of local reports was copied. The only source is a forwarded rumor, and the examiner could find no trusted read or copy event.",
+        "E2": "Facilities confirmed that the meeting room monitor was online."
+      },
+      "expected": {},
+      "label_rationale": "The alleged local collection is uncorroborated.",
+      "slice": "excluded"
+    },
+    {
+      "id": "fresh-13",
+      "family": "fresh-remote-mail-collection",
+      "records": {
+        "E1": "A separate stock ledger reconciled ordinary office supplies.",
+        "E2": "The investigation verified that an intruder collected messages directly from the organization's remote mailbox service. It found no collection from local mailbox files."
+      },
+      "expected": {
+        "T1114.002": [
+          "E2"
+        ]
+      },
+      "label_rationale": "The recorded collection source was the remote mail service.",
+      "slice": "observed"
+    },
+    {
+      "id": "fresh-14",
+      "family": "fresh-remote-mail-collection",
+      "records": {
+        "E1": "A separate stock ledger reconciled ordinary office supplies.",
+        "E2": "Remote mailbox access in the log belongs to a sanctioned archive job. No independently verified retrieval by an intruder appears in the report."
+      },
+      "expected": {},
+      "label_rationale": "The corroborated remote mail collection was sanctioned.",
+      "slice": "excluded"
+    },
+    {
+      "id": "fresh-15",
+      "family": "fresh-local-mail-collection",
+      "records": {
+        "E1": "A forensic review identified an intruder gathering stored messages from a local mailbox archive on a workstation. The account's remote mail service showed no matching access.",
+        "E2": "The schedule had an approved lunch break for the facilities team."
+      },
+      "expected": {
+        "T1114.001": [
+          "E1"
+        ]
+      },
+      "label_rationale": "The analyzed messages came from the existing local archive.",
+      "slice": "observed"
+    },
+    {
+      "id": "fresh-16",
+      "family": "fresh-local-mail-collection",
+      "records": {
+        "E1": "An employee's local mailbox archive was included in a scheduled backup. Review linked the event to the authorized backup identity.",
+        "E2": "The schedule had an approved lunch break for the facilities team."
+      },
+      "expected": {},
+      "label_rationale": "The collection event was an approved backup.",
+      "slice": "excluded"
+    },
+    {
+      "id": "fresh-17",
+      "family": "fresh-system-shutdown",
+      "records": {
+        "E1": "The service desk logged a routine shift handover.",
+        "E2": "The incident team confirmed that the intruder powered down the whole workstation. System lifecycle records show a complete shutdown across all services."
+      },
+      "expected": {
+        "T1529": [
+          "E2"
+        ]
+      },
+      "label_rationale": "The confirmed effect was complete system shutdown.",
+      "slice": "observed"
+    },
+    {
+      "id": "fresh-18",
+      "family": "fresh-system-shutdown",
+      "records": {
+        "E1": "The service desk logged a routine shift handover.",
+        "E2": "The workstation shut down at the start of a scheduled electrical maintenance window. The records trace it to the scheduled and authorized operation."
+      },
+      "expected": {},
+      "label_rationale": "The system shutdown was part of approved maintenance.",
+      "slice": "excluded"
+    },
+    {
+      "id": "fresh-19",
+      "family": "fresh-service-disruption-new",
+      "records": {
+        "E1": "The application health log and incident sign-off establish that the intruder deliberately terminated the payroll worker service. The host remained online and other services continued.",
+        "E2": "Facilities confirmed that the meeting room monitor was online."
+      },
+      "expected": {
+        "T1489": [
+          "E1"
+        ]
+      },
+      "label_rationale": "The observed disruption specifically stopped a service while the host stayed online.",
+      "slice": "observed"
+    },
+    {
+      "id": "fresh-20",
+      "family": "fresh-service-disruption-new",
+      "records": {
+        "E1": "The payroll service became unhealthy during a rollout. The cause was never corroborated, and the incident note does not confirm deliberate service termination.",
+        "E2": "Facilities confirmed that the meeting room monitor was online."
+      },
+      "expected": {},
+      "label_rationale": "Service health alone does not establish intentional termination.",
+      "slice": "excluded"
+    },
+    {
+      "id": "fresh-21",
+      "family": "fresh-windows-event-clear",
+      "records": {
+        "E1": "A separate stock ledger reconciled ordinary office supplies.",
+        "E2": "The independent collector preserved a record of the intruder emptying the Windows event logs. Review confirmed those logs had contained entries just before the clearing."
+      },
+      "expected": {
+        "T1685.005": [
+          "E2"
+        ]
+      },
+      "label_rationale": "The evidence identifies intentional clearing of Windows event logs.",
+      "slice": "observed"
+    },
+    {
+      "id": "fresh-22",
+      "family": "fresh-windows-event-clear",
+      "records": {
+        "E1": "A separate stock ledger reconciled ordinary office supplies.",
+        "E2": "A forwarded summary said someone cleared the Windows event logs, but the independent collector had a gap and the examiner found no corroboration."
+      },
+      "expected": {},
+      "label_rationale": "The claimed clear event is unresolved.",
+      "slice": "excluded"
+    },
+    {
+      "id": "fresh-23",
+      "family": "fresh-windows-event-disable",
+      "records": {
+        "E1": "Two change sources confirm an intruder disabled future Windows event logging. Older records remained present and no log-clearing event was found.",
+        "E2": "The schedule had an approved lunch break for the facilities team."
+      },
+      "expected": {
+        "T1685.001": [
+          "E1"
+        ]
+      },
+      "label_rationale": "The observed change disabled Windows event logging while leaving existing records present.",
+      "slice": "observed"
+    },
+    {
+      "id": "fresh-24",
+      "family": "fresh-windows-event-disable",
+      "records": {
+        "E1": "An alert said Windows event logging was disabled. The corrected record shows normal event capture and traces the alert to a tabletop scenario.",
+        "E2": "The schedule had an approved lunch break for the facilities team."
+      },
+      "expected": {},
+      "label_rationale": "The corrected record rules out the alleged logging change.",
+      "slice": "excluded"
+    },
+    {
+      "id": "fresh-25",
+      "family": "fresh-process-inventory",
+      "records": {
+        "E1": "The service desk logged a routine shift handover.",
+        "E2": "Telemetry and the final incident summary corroborate that an intruder listed processes currently running on the affected workstation."
+      },
+      "expected": {
+        "T1057": [
+          "E2"
+        ]
+      },
+      "label_rationale": "The observed enumeration concerns running processes.",
+      "slice": "observed"
+    },
+    {
+      "id": "fresh-26",
+      "family": "fresh-process-inventory",
+      "records": {
+        "E1": "The service desk logged a routine shift handover.",
+        "E2": "A record of a process list came from the approved support tool during the documented diagnostics appointment."
+      },
+      "expected": {},
+      "label_rationale": "The process listing was authorized.",
+      "slice": "excluded"
+    },
+    {
+      "id": "fresh-27",
+      "family": "fresh-system-inventory",
+      "records": {
+        "E1": "The incident examiner confirmed that the intruder gathered the affected system's operating system version and machine architecture. The reviewed events mention no process listing.",
+        "E2": "Facilities confirmed that the meeting room monitor was online."
+      },
+      "expected": {
+        "T1082": [
+          "E1"
+        ]
+      },
+      "label_rationale": "The collected facts describe the system and operating environment.",
+      "slice": "observed"
+    },
+    {
+      "id": "fresh-28",
+      "family": "fresh-system-inventory",
+      "records": {
+        "E1": "A request to collect system details appeared in an untrusted ticket. The endpoint review found no corresponding activity.",
+        "E2": "Facilities confirmed that the meeting room monitor was online."
+      },
+      "expected": {},
+      "label_rationale": "Request text alone cannot establish system discovery.",
+      "slice": "excluded"
+    },
+    {
+      "id": "fresh-29",
+      "family": "fresh-browser-inventory",
+      "records": {
+        "E1": "A separate stock ledger reconciled ordinary office supplies.",
+        "E2": "The case review confirmed that an intruder enumerated the user's browser bookmarks and browsing history. The recovered record contains those browser artifacts."
+      },
+      "expected": {
+        "T1217": [
+          "E2"
+        ]
+      },
+      "label_rationale": "The confirmed discovery specifically concerns browser information.",
+      "slice": "observed"
+    },
+    {
+      "id": "fresh-30",
+      "family": "fresh-browser-inventory",
+      "records": {
+        "E1": "A separate stock ledger reconciled ordinary office supplies.",
+        "E2": "An evidence note contains the words browser bookmarks and insists on a technique label. Review confirmed that the words came from an unrelated exercise and there was no browser enumeration."
+      },
+      "expected": {},
+      "label_rationale": "An embedded instruction and exercise do not establish observed activity.",
+      "slice": "excluded"
+    },
+    {
+      "id": "fresh-31",
+      "family": "fresh-security-software-inventory",
+      "records": {
+        "E1": "An independent endpoint review confirmed that an intruder enumerated the security products installed on the workstation, including the endpoint protection agent.",
+        "E2": "The schedule had an approved lunch break for the facilities team."
+      },
+      "expected": {
+        "T1518.001": [
+          "E1"
+        ]
+      },
+      "label_rationale": "The observed inventory targeted security software.",
+      "slice": "observed"
+    },
+    {
+      "id": "fresh-32",
+      "family": "fresh-security-software-inventory",
+      "records": {
+        "E1": "Endpoint security inventory was gathered by the scheduled compliance job. The signed record confirms it was approved and linked to that job.",
+        "E2": "The schedule had an approved lunch break for the facilities team."
+      },
+      "expected": {},
+      "label_rationale": "The verified inventory was approved administration.",
+      "slice": "excluded"
+    }
+  ]
+}

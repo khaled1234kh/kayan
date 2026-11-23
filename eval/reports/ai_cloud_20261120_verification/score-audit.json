@@ -1,0 +1,29 @@
+{
+  "runs": {
+    "retrieval": {
+      "fixture_matches": true,
+      "retrieval_verified": true,
+      "responses_verified": 0,
+      "results_sha256": "337290b619de777ef90d874400e790cefab76af1e05c721b48c15f6263cbfcbd"
+    },
+    "qwen25_7b": {
+      "fixture_matches": true,
+      "retrieval_verified": true,
+      "responses_verified": 32,
+      "results_sha256": "b485c760ef59a3054f6afcbcbf5f619ab95fb7f56448bf316727cae9b05a74a5"
+    },
+    "qwen25_7b_structured": {
+      "fixture_matches": true,
+      "retrieval_verified": true,
+      "responses_verified": 32,
+      "results_sha256": "8c7bb8c625f6f12c9aae7bba891ca7527cb53faa814b64937f7d65bf21a5ba43"
+    },
+    "qwen25_15b_structured": {
+      "fixture_matches": true,
+      "retrieval_verified": true,
+      "responses_verified": 32,
+      "results_sha256": "86408ae5be85d1b0b8bdb5bad44fb38092f9ef9efe03d903bb7bf0a595dff324"
+    }
+  },
+  "historical_artifact_hashes_verified": 3
+}

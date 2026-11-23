@@ -1,5 +1,143 @@
 # KAYAN TrustGate — current TODO and delivery queue
 
+## Public release — 2026-11-23
+
+- [x] Preserve all local/Codex/eval work with recoverable checkpoints before integration. Checkpoint
+  branch `checkpoint/primary-worktree-2026-11-23` (`90ee0c17`) snapshots all 2,858 worktree files;
+  no reset, deletion, overwrite or force-push was performed.
+- [x] Integrate the linear Codex chain `06e5f12`→`1f63244` and the curated uncommitted source/doc/
+  test work into `release/cloud-pivot-accuracy-2026-11-23`; exclude raw logs, ledgers, responses,
+  private assessment records, personal working paths and mutable journals.
+- [x] Reproduce 72/80 offline from saved outputs with the original scorer (byte-identical summary)
+  and publish sanitized benchmark material with exact hashes and caveats under
+  `eval/sovereign-80-matched/`.
+- [x] Keep the benchmarks separate: the 90.00% figure applies only to the frozen 80-case role
+  contract instrument and must not be merged with the Planner 24/30, ATT&CK mapping, 18/19-case
+  extraction diagnostics or the different 19-case `eval/ai_benchmark.py`.
+- [x] Keep the negative results (12/12 truncated cloud run, failed exact citation probe, 0/3
+  complete evidence groups, failed Cedar build on Windows) intact.
+- [x] Keep cloud optional/disabled by default; make no new SovereignEG request for publication;
+  rotate the previously exposed key before any shared use.
+- [ ] Obtain owner/team review and merge the validated PR into `main` if branch protection requires it.
+
+## Signed evidence review
+
+- [x] Complete the test-only reviewer and custodian receipt exchange with scoped permissions, package binding, signature verification and admission-v2 Reporting. [Implementation and enrollment](docs/SIGNED_REPORTING_REVIEW.md)
+- [ ] Enroll genuine independent people and distribute separately held custodian keys.
+- [x] Replace legacy unsigned Go dispatch assumptions with direct bookkeeping coverage and separate fail-closed regressions. Ubuntu CI on Go 1.26.5 passed 180 tools and 10 TrustGate tests, with the existing live Cedar test skipped. [Successful CI run](https://github.com/khaled1234kh/kayan/actions/runs/44919189760)
+
+## Operational evidence custody and review
+
+- [x] Capture privacy-filtered execution artifacts at the governed Python tool boundary. Verify digest, task, case and TrustGate decision before displaying them in Reporting.
+- [x] Add assessment-scoped reviewer assignments and immutable assertion submissions. Require a separately supplied signed catalogue, matching submitted receipt hashes and unchanged admission v2.
+- [ ] Provision a genuine independent reviewer and custodian and verify operational receipt exchange. Test-only browser review granted no independent finding.
+- [x] Verify the Go tools and TrustGate regression suites in Ubuntu CI. See the run under Signed evidence review above for the live Cedar skip and exact totals.
+
+## Reusable Reporting — 2026-11-21
+
+- [x] Add completed assessment selection, immutable evidence capture, assessment-bound admission and persisted export. Verify both rendered examples with real TrustGate and mocked cloud transport. [Implementation and verification](docs/REUSABLE_REPORTING.md)
+- [ ] Independently issued custody for completed operational cases is unavailable. The console withholds these candidates.
+
+## Archived Reporting — 2026-11-21
+
+- [x] Persist the one-shot local fallback before cloud egress and verify interruption, restart, export and replay protection with mocked transport.
+- [x] Persist validated provider usage and completion metadata. Reject invalid token counts with the local evidence fallback.
+- [x] Add a total Reporting request deadline and verify export and replay protection when the mocked response progresses but exceeds the overall time limit.
+- [x] Render saved provider usage and completion metadata in the Reporting panel, with automated cases for partial historical results, genuine zero and local fallback.
+- [x] Verify the saved Reporting metrics and action label in the rendered desktop console using mocked transport. [Browser evidence](docs/ARCHIVED_REPORTING_ACTION_HOLDOUT.md#application-verification)
+- [x] Bind the console export to the exact saved report bytes and reject stale downloads after custody changes or a rerun.
+- [x] Preserve secondary supporting statements without proposing them as separate facts. Verify the supported, missing-record and authorized Windows cases.
+- [x] Measure and correct occurrence projection on nine frozen synthetic archives, including disputed evidence, missing support and authorized activity. [Benchmark and limits](docs/ARCHIVED_REPORTING_PROJECTION_BENCHMARK.md)
+- [x] Test occurrence-aware selection, stale-scope refusal and competing reservations offline while preserving the approved Slate request digest.
+- [x] Freeze and replay Reporting selection cases to measure ranking, unsupported choices, coverage and fallback. [Replay results](docs/ARCHIVED_REPORTING_SELECTION_REPLAY.md)
+- [x] Run pinned local Qwen against the deterministic composer on a separate frozen ranking set. [Raw replies, scoring and ablation](docs/ARCHIVED_REPORTING_LOCAL_RANKING.md)
+- [x] Evaluate the action supplement on distinct frozen case families, with separate precision, order and capacity measurements. [Results and scope](docs/ARCHIVED_REPORTING_ACTION_HOLDOUT.md)
+- [x] Integrate the bounded action supplement and verify the label, unchanged decisions and exact browser export. [Application verification](docs/ARCHIVED_REPORTING_ACTION_HOLDOUT.md#application-verification)
+- [x] Evaluate capacity-aware selection on six frozen cases. Preserve the rejected swap results and offer remaining verified actions separately in the console and export. [Comparison and browser check](docs/ARCHIVED_REPORTING_FULL_SUMMARY.md)
+- [x] Recheck persisted reports and interrupted fallbacks before loading or exporting. Reject corrupt results without consuming another request or changing the original file. [Verification and limits](docs/ARCHIVED_REPORTING_FULL_SUMMARY.md#saved-result-verification)
+- [x] Reject stale report publication across awaited write, inference and response boundaries. [Race tests and limits](docs/REUSABLE_REPORTING.md#publication-and-capture-consistency)
+- [x] Reject contradictory scoped authorization events even after the captured outcome. Keep valid duplicate and unrelated decisions isolated. [Capture checks](docs/REUSABLE_REPORTING.md#publication-and-capture-consistency)
+- [x] Reconcile capture references with the read-only verified Rust ledger and display missing or invalid results without changing custody. [Tests, real loopback check and browser evidence](docs/REUSABLE_REPORTING.md#trustgate-audit-reconciliation)
+- [x] Exercise signed-custody availability and the audit check across a real isolated service restart, journal damage and restoration. [Five lifecycle checks](docs/REUSABLE_REPORTING.md#signed-custody-and-audit-restart)
+- [x] Verify saved observation attribution for Recon, Web-App and Network, including duplicate delivery and conflicting source revisions. [Frozen replay and browser evidence](docs/REUSABLE_REPORTING.md#specialist-observation-attribution)
+- [x] Preserve exact source roles and occurrence verdicts through signed review, custody, admission and export. Exercise shared, unknown and mismatched adverse scope. [Synthetic signed round trip](docs/REUSABLE_REPORTING.md#signed-finding-and-occurrence-attribution)
+- [x] Bind Reporting admission and coverage to one captured revision and reject a source change observed before receipt insertion. [Before and after](docs/REUSABLE_REPORTING.md#signed-source-revision-consistency)
+- [x] Reject concurrent stale review and custodian state at receipt import, and serialize review publication with receipt insertion. [Synthetic controls and limits](docs/REUSABLE_REPORTING.md#current-review-and-enrollment-at-receipt-import)
+- [x] Require a stated API-to-record relationship in offline Phase 1 and preserve its exact evidence in Option A. [Frozen comparisons](docs/PLANNING_AND_COORDINATION_2026-11-03.md#api-to-record-relationships-in-phase-1)
+- [x] Add opt-in local model ranking for admitted Archived Reporting excerpts with bounded input, independent action checks and deterministic fallback. [Real local model, isolated Rust checks and browser export](docs/ARCHIVED_REPORTING_LOCAL_RANKING.md#opt-in-console-mode)
+- [x] Recover an exact deterministic report after interruption during local ranking. Preserve a prior verified result and verify export after application restart. [Both offline fixture cases](docs/ARCHIVED_REPORTING_LOCAL_RANKING.md#interrupted-local-requests)
+- [x] Preserve complete reviewed proof per occurrence in the expanded finding and verified export, independently of summary ranking. [Frozen comparison and browser result](docs/ARCHIVED_REPORTING_FULL_SUMMARY.md#full-reviewed-proof)
+- [ ] Test whether offline Phase 1 links a named asset to the correct cloud storage path. Keep exact evidence in Option A and preserve valid associations.
+
+- [x] Verify the pinned synthetic archive through unchanged admission v2, gate Reporting, and render and export the persisted result in the 3D console. Browser check used real TrustGate and mocked provider transport. [Implementation and evidence](docs/ARCHIVED_REPORTING.md)
+- [x] Verify Student-only controls and execute the one owner-approved SovereignEG Reporting smoke test. Real provider selection rendered and export matched. Local mode restored. [Smoke result](docs/ARCHIVED_REPORTING.md#real-smoke-test-completed)
+
+## Current ATT&CK evidence mapping checkpoint — 2026-11-20
+
+- [x] Register a separate AI-labelled v2 study with cross-record evidence, statement-level citation grading and a proof that each complete answer fits. Verify all 18 cases, both historical regressions and the isolated study runner. [Engineering report](docs/ATTACK_EVIDENCE_EXPERIMENT_V2_2026-11-20.md)
+- [x] Obtain stakeholder authorization and complete all 72 frozen v2 generations. Retain both passes and primary uncertainty. [Frozen results](docs/ATTACK_EXPLORATORY_V2_RESULTS_2026-11-20.md)
+- [x] Reconstruct and audit all 72 responses, ordered shortlists and scores. Verify the v3 metric projection and offline evidence-checking prototype. [Forensic report](docs/ATTACK_ROOT_CAUSE_V3_2026-11-20.md)
+- [x] Execute ten separately authorized Experiment A requests and reproduce the paired scoring from the saved ledger. Candidate substitution recovered six technique IDs and zero complete evidence groups. [Experiment A report](docs/ATTACK_DIAGNOSTIC_A_RESULTS_V3_2026-11-20.md)
+- [x] Execute the eight authorized B/C fixed-technique attempts and verify frozen-payload integrity and scoring. Complete evidence groups were 0/4 and correct negative or ambiguous abstentions were 3/4. [B/C results](docs/ATTACK_DIAGNOSTIC_BC_RESULTS_V3_2026-11-20.md)
+- [x] Execute Experiment D revision 2 and reproduce all frozen mapping scores and fallback decisions offline. Complete groups stayed 0/3. Three of four extractions used the empty context-bound fallback, including the new correct abstention. Preserve the original revision 1 failure. [D results](docs/ATTACK_DIAGNOSTIC_D_RESULTS_V3_2026-11-20.md)
+- [x] Complete the post-diagnostic architectural review of Experiment D and the event-scoped slate guard proposal. [Decision and validation gates](docs/ATTACK_POST_DIAGNOSTIC_ARCHITECTURE_REVIEW_2026-11-20.md)
+- [x] Implement and verify the approved v4 offline evidence guard. Both slate findings pass together, with per-event withholding when shared attribution is removed. Experiment E remains deferred. [Regression results and integrity audit](docs/ATTACK_EVIDENCE_GUARD_V4_2026-11-20.md)
+- [x] Prepare the P0 fact provenance and normalization contract, fixture matrix and mixed-batch disposition proposal. [Design](docs/ATTACK_TRUSTED_FACT_PROVENANCE_V1_PROPOSAL_2026-11-20.md)
+- [x] Implement and verify the approved offline provenance prototype, bounded Windows XML profiles and mixed-batch guard adapter. [Acceptance and historical integrity evidence](docs/ATTACK_TRUSTED_FACT_PROVENANCE_V1_RESULTS_2026-11-20.md)
+- [x] Correct the three offline provenance P0 defects and reproduce the historical integrity inventory. [Results](docs/ATTACK_PROVENANCE_V1_P0_REMEDIATION_2026-11-20.md)
+- [x] Fix both P1 session-candidate defects and verify the synthetic custody boundary. [Results](docs/ATTACK_PROVENANCE_V1_P1_CUSTODY_2026-11-20.md)
+- [x] Complete the versioned offline admission correction and verify process/session semantics, uncertainty keys, independent ancestry and custody pin ordering. [Results and commands](docs/ATTACK_PROVENANCE_ADMISSION_V2_2026-11-20.md)
+- [x] Correct both independent sign-off findings for offline admission v2. [Remediation and 313-test verification](docs/ATTACK_PROVENANCE_ADMISSION_V2_REMEDIATION_2026-11-20.md)
+- [x] Independently rerun engineering sign-off for offline admission v2. PASS with 313 tests. [Final decision](docs/ATTACK_PROVENANCE_ADMISSION_V2_FINAL_SIGNOFF_2026-11-20.md)
+- [x] Prepare the feasibility documentation package. [Protocol](docs/ATTACK_ADMISSION_FEASIBILITY_PROTOCOL.md) · [Custody and approvals](docs/ATTACK_ADMISSION_FEASIBILITY_CUSTODY_AND_APPROVALS.md) · [Reviewer and adjudication forms](docs/ATTACK_ADMISSION_FEASIBILITY_REVIEWER_PACKET.md) · [Draft preregistration](docs/ATTACK_ADMISSION_FEASIBILITY_PREREGISTRATION.md) · [Readiness memo](docs/ATTACK_ADMISSION_FEASIBILITY_READINESS.md)
+- [ ] Obtain written data-owner permissions and institutional privacy and ethics determinations. Verify external custody, source lineage, time and receipt authority. Document independent reviewer arrangements. Ratify the protocol and thresholds. [Owner and evidence matrix](docs/ATTACK_ADMISSION_FEASIBILITY_CUSTODY_AND_APPROVALS.md#responsibility-and-gono-go-matrix)
+- [ ] Obtain a separate written intake decision after all prerequisites clear. Current status is NO-GO. [Decision memo](docs/ATTACK_ADMISSION_FEASIBILITY_READINESS.md)
+
+- [x] Measure field BM25 versus hybrid at matched settings, plus top-k, E5-512, shortlist reranking and the interpretation prompt. Preserve the original hybrid run and all new results. [Decision and metrics](docs/ATTACK_MAPPING_ABLATION_2026-11-20.md)
+- [x] Audit the local E5 and STIX path, publish case-level failure traces, and verify the disabled routes and unchanged selected engagement.
+- [x] Freeze 24 unseen fictional observations and prepare two blinded forms for each cohort with an agreement and adjudication protocol.
+- [x] Verify packet integrity, implement and test joint-evidence scoring and adjudication with mock data, and preregister the separate one-shot runner.
+- [x] Complete the 56-case AI analyst review, compare all 32 historical labels and preserve the 24 provisional AI judgments separately. [Professional review](docs/ATTACK_PROFESSIONAL_RESEARCH_REVIEW_2026-11-20.md)
+- **Original confirmation remains blocked.** Genuine human labels and stakeholder authorization are absent. The 24 cases have now been AI-reviewed and are ineligible for an AI-unseen confirmation claim.
+- [ ] Establish a separate independently labelled confirmation cohort, obtain adjudication and stakeholder approval for the confirmatory cost rule, and bind those labels to a feasibility-checked response contract. V2 exercises these engineering checks using an AI-authored synthetic rubric. [Prioritized corrections](docs/ATTACK_RESEARCH_CORRECTIVE_ACTIONS_2026-11-20.md)
+
+## Cloud evidence analysis and evaluation — 2026-11-20
+
+[Current implementation and benchmark evidence](docs/CLOUD_PIVOT_SECURITY_AND_EVAL.md)
+
+- [x] Freeze and run Track A historical replay, mocked cloud configuration tests and one controlled reviewed proof assembly experiment. [Checkpoint and commands](docs/CLOUD_PIVOT_ACCURACY_CHECKPOINT.md)
+- [x] Run bounded paired evidence-role extraction and direct mapping on exposed synthetic development fixtures. Both recovered 0/3 complete findings. [Results and archived failures](docs/CLOUD_PIVOT_AUTOMATIC_PROOF_EXPERIMENT.md)
+- [x] Test schema-enforced role/value pairs on the exposed synthetic development cases. Contract validity improved to 2/4 and complete findings stayed 0/3. [Paired results](docs/CLOUD_PIVOT_EXTRACTION_V2_RESULTS.md)
+- [ ] Obtain independent labels and separate approval for a fresh evaluation cohort. Keep the exposed results as development evidence. [Scope and stopping decision](docs/CLOUD_PIVOT_EXTRACTION_V2_RESULTS.md#reproduction-and-decision)
+
+- [x] Pause experimental HTTP execution, remove analysis-side ROE issuance and suppress report output on denial.
+- [x] Load official Enterprise ATT&CK 20.1 locally with verified digest and record provenance.
+- [x] Freeze and run the defensive evidence benchmark with lexical retrieval and installed local Qwen baselines.
+- [x] Record the project owner's key revocation and replacement attestation and exact synthetic-only authorization. [Owner record](docs/CLOUD_PIVOT_OWNER_AUTHORIZATION_2026-11-21.md)
+- [x] Freeze the real-model diagnostic comparison offline and replay the archived local direct arm. [Readiness and results](docs/CLOUD_PIVOT_REAL_MODEL_COMPARISON.md)
+- [x] Verify the replacement credential location, allowance-only account controls, catalogue pricing and exact schema acceptance. [Execution preflight](docs/CLOUD_PIVOT_REAL_EXECUTION_RESULTS_2026-11-21.md#preflight-that-cleared-execution)
+- [x] Complete the frozen SovereignEG diagnostic. All 12 responses truncated at 512 reasoning tokens and all cloud arms reached 0/3 complete findings. [Measured results](docs/CLOUD_PIVOT_REAL_EXECUTION_RESULTS_2026-11-21.md#matched-results)
+- [x] Freeze the reasoning-disabled correction and verify answer capacity with local tokenization. [v2 manifest and checks](docs/CLOUD_PIVOT_REASONING_BUDGET_V2.md)
+- [x] Record Stage A approval, verify allowance-only settings and run the one nonempty probe. It produced a visible answer with zero reasoning tokens and failed exact citation grounding. [Probe result](docs/CLOUD_PIVOT_REASONING_BUDGET_V2.md#stage-a-result--exact-citation-check-failed)
+- [ ] Stage B remains blocked. The frozen probe failed and there is no Stage B authorization. [Frozen criteria](docs/CLOUD_PIVOT_REASONING_BUDGET_V2.md#execution-and-results-record)
+- [x] Freeze case-scoped citation enums and test wrong-but-valid addresses against reviewed evidence and signed-off admission. [Offline v3 results](docs/CLOUD_PIVOT_CITATION_GROUNDING_V3.md)
+- [x] Record owner approval, recheck Student allowance controls and run the one frozen v3 probe. It returned schema-valid empty output and failed the exact T1486/E2.1 check. Stage B remains unauthorized. [Probe result](docs/CLOUD_PIVOT_CITATION_GROUNDING_V3.md#real-provider-result--exact-grounding-failed)
+- [ ] Establish a separately authorized, synthetic-only remote benchmark boundary for a matched comparison.
+- [x] Compare lexical, dense and hybrid retrieval and gold-reference oracle on frozen fictional cases. See [results and verification](docs/ATTACK_RETRIEVAL_AND_EVIDENCE_MAPPING_2026-11-20.md).
+- [ ] Independently review the blinded labels and repeat the comparison on fresh evidence. Measure single versus parallel defensive review separately.
+- [ ] Revisit fine-tuning after a fresh benchmark reproduces a persistent modelling defect.
+
+## Newly reproduced Planner quality gaps — 2026-11-04
+
+Fresh baseline: **80.0% first-attempt / 86.7% after deployed validation on 30 controlled Planner cases**; not general accuracy. Preserve this baseline and unscored concerns. See `docs/PLANNER_ACCURACY_2026-11-04.md`.
+
+- [x] Run a fresh, frozen, Planner-only actual-Qwen/real-Gate evaluation with independent scoring, retained raw outputs and no target execution. All 30 cases completed; nine evaluator checks passed; no production source/config changes.
+- [ ] Fix P08: reject unsupported execution intent/commands in Planner assignment prose, including evidence collection delegated to Reporting, while retaining legitimate read-only references. Keep separate executor/TrustGate boundaries; do not claim a curl command executed in this evaluation.
+- [ ] Fix incomplete or token-repetition-aborted plan generation (P01 corrected; P04 did not), with bounded recovery and no fabricated fallback. Preserve original latency/output limits evidence before changing budgets/prompts.
+- [ ] Improve grounded review rationales: R07/R08 omit the recorded failure/verification issue; do not let a correct enum substitute for a useful explanation.
+- [ ] Address unsupported CLI/port/function-argument detail and ungrounded prose flagged in the manual review. Freeze an expanded semantic rubric before a future validation run; retain the original 24/30 and 26/30 unchanged rather than retroactively rescoring them.
+
+
 ## UI/UX, 3D environment and presentation quality — requested 2026-11-03
 
 Current bounded redesign and rendered acceptance are complete; no claim of aesthetic perfection or universal device coverage. Preserve all historical completion/evidence below. Each task needs actual rendered acceptance; build/geometry/SSR alone cannot close it. Full user briefs: docs/design/UI_UX_WORKSTREAM_2026-11-03.md and docs/design/PLANNING_CONTEXT_REDESIGN_2026-11-03.md.
@@ -86,7 +224,7 @@ External revalidation of the earlier block (ordinary retry completed later the s
 
 - [x] Re-run the three previously blocked Go groups normally. Final `planner_context_final_20261103_v4` passed all three and 17/17 groups overall; no protection changes or bypass. Earlier exact `An Application Control policy has blocked this file.` failures remain in docs/BLOCKED.md. The reason for changed host permission is unknown.
 
-Updated 2026-11-02 (Africa/Cairo). Canonical project: C:\Users\khale\Downloads\kayan-trustgate. [MASTER_HANDOFF.md](MASTER_HANDOFF.md) is authoritative for commands, exact blockers and evidence. Checked boxes mean the stated bounded work is verified; they do not mean the entire platform is finished.
+Updated 2026-11-02 (Africa/Cairo). Canonical project: <REPO_ROOT>. [MASTER_HANDOFF.md](MASTER_HANDOFF.md) is authoritative for commands, exact blockers and evidence. Checked boxes mean the stated bounded work is verified; they do not mean the entire platform is finished.
 
 ## Active priorities — Planner reliability and doctor-facing redesign (2026-11-02)
 
@@ -289,6 +427,7 @@ Evidence and bounds: [TA_DELIVERABLES_ALIGNMENT.md](docs/TA_DELIVERABLES_ALIGNME
 ### 2. Phase 1 Risk Plan
 
 - [x] Build standalone pentagi/risk_plan.py using the existing pinned ATT&CK/OWASP TF-IDF index. Up to three hypothetical risks; text-relevance ranking is not measured likelihood/severity.
+- [x] Reject unrelated vendor and VPN cue pairs in Phase 1 and trace valid access relationships into Option A. [Frozen cases and before/after scores](docs/PLANNING_AND_COORDINATION_2026-11-03.md#vendor-remote-access-validity--2026-11-21)
 - [x] Return explicit insufficient-context/no-match results. References, source URLs and uncertainty remain attached.
 - [x] Verify CLI/API agreement and offline network/subprocess/tool/gate guards. No live runtime, model, target access or authorization call.
 

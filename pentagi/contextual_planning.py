@@ -47,6 +47,22 @@ API_RECORD_LINK = (
     rf'{INTERFACE_RECORD}\s+(?:(?:is|are)\s+(?:available|accessible|served)\s+)?'
     rf'(?:via|through|from)\s+(?:(?:the|an?|public|internal)\s+)*{RECORD_INTERFACE}',
 )
+CLOUD_STORE = r'\b(?:cloud\s+object\s+storage|S3|storage\s+buckets?|blob\s+storage)\b'
+CLOUD_LOCATION = rf'(?:(?:the|an?|encrypted|private|public|managed|dedicated)\s+){{0,4}}{CLOUD_STORE}'
+CLOUD_ASSET = r'\b(?:images?|backups?|documents?|records?|receipts?)\b'
+NAMED_CLOUD_ASSET = (
+    rf'(?:(?:the|our|customer|product|diagnostic|weekly|daily|maintenance|internal|digital|'
+    rf'financial|sensitive|member|patient)\s+){{0,4}}{CLOUD_ASSET}'
+)
+STORAGE_ASSET_LINK = (
+    rf'{CLOUD_LOCATION}\s+(?:(?:is|are)\s+used\s+)?'
+    rf'(?:stores?|holds?|contains?|retains?|hosts?|archives?|for)\s+{NAMED_CLOUD_ASSET}',
+    rf'{NAMED_CLOUD_ASSET}(?:\s+and\s+{NAMED_CLOUD_ASSET})?\s+'
+    rf'(?:uses?|(?:(?:is|are)\s+)?(?:stored|held|kept|retained|uploaded|archived|backed\s+up)\s+'
+    rf'(?:in|on|to))\s+{CLOUD_LOCATION}',
+    rf'\b(?:keep|store|hold|retain|host|archive|upload)(?:s)?\s+{NAMED_CLOUD_ASSET}\s+'
+    rf'(?:in|on|to)\s+{CLOUD_LOCATION}',
+)
 
 
 RULES = [
@@ -97,8 +113,9 @@ RULES = [
          validation=['Review representative query construction and output templates with the application owner.', 'Define an authorized follow-up test for each named input boundary; no payloads or requests are sent here.']),
     dict(id='cloud_object_access', title='Review access to cloud-held objects and backups', reference='T1530',
          same_clause=True,
-         groups={'cloud objects': [r'\bcloud\s+object\s+storage\b', r'\bS3\b', r'\bstorage\s+buckets?\b', r'\bblob\s+storage\b'], 'stored assets': [r'\bimages?\b', r'\bbackups?\b', r'\bdocuments?\b', r'\brecords?\b']},
-         gaps=[r'\bpublic\s+buckets?\b', r'\bbroad\s+permissions\b'],
+         groups={'cloud objects': [CLOUD_LOCATION], 'stored assets': [CLOUD_ASSET]},
+         relationship=STORAGE_ASSET_LINK, scope_evidence_to_relationship='cloud-storage-to-asset link',
+         gaps=[r'\bpublic\s+(?:storage\s+)?buckets?\b'], gap_within_relationship=True,
          consequence='If object permissions or link-sharing settings are broader than intended, sensitive objects or recovery copies could be exposed to unintended readers.',
          why='Data from Cloud Storage concerns collection from cloud storage services. The description names both an object-storage service and assets held there.',
          assumptions='No public bucket, exposed object or excessive permission has been verified.',
@@ -232,12 +249,15 @@ def contextual_candidates(context,index):
                 evidence = [entry for signal, patterns in rule['groups'].items()
                             for entry in _matches(phrase, patterns, signal).values()]
             evidence.append(link)
-        gaps = _matches(clauses, rule['gaps'], 'stated control gap')
-        # A separate vendor-access review sentence can qualify when it names the external party.
-        gap = next((item for scope, item in gaps.items() if scope in evidence_scopes
-                    or (rule['id'] == 'vendor_remote_access'
-                        and scope[0] == evidence_scopes[0][0]
-                        and re.search(r'\b(?:vendors?|contractors?|third.party)\b', clauses[scope], re.I))), None)
+        if rule.get('gap_within_relationship'):
+            gap = next(iter(_matches(phrase, rule['gaps'], 'stated control gap').values()), None)
+        else:
+            gaps = _matches(clauses, rule['gaps'], 'stated control gap')
+            # A separate vendor-access review sentence can qualify when it names the external party.
+            gap = next((item for scope, item in gaps.items() if scope in evidence_scopes
+                        or (rule['id'] == 'vendor_remote_access'
+                            and scope[0] == evidence_scopes[0][0]
+                            and re.search(r'\b(?:vendors?|contractors?|third.party)\b', clauses[scope], re.I))), None)
         if gap:
             evidence.append(gap)
         score=round(len(groups)+0.1*len({e['field'] for e in evidence})+(2 if gap else 0),2)

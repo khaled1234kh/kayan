@@ -1,0 +1,44 @@
+[
+  {
+    "method": "Post",
+    "path": "/ai/assess",
+    "status": 503,
+    "body": {
+      "detail": "The cloud experiment is paused. Evidence comparison is available offline."
+    }
+  },
+  {
+    "method": "Get",
+    "path": "/ai/assess/00000000-0000-0000-0000-000000000000",
+    "status": 503,
+    "body": {
+      "detail": "The cloud experiment is paused. Evidence comparison is available offline."
+    }
+  },
+  {
+    "method": "Post",
+    "path": "/ai/mitre/reindex",
+    "status": 503,
+    "body": {
+      "detail": "The cloud experiment is paused. Evidence comparison is available offline."
+    }
+  },
+  {
+    "method": "Get",
+    "path": "/ai/status",
+    "status": 200,
+    "body": {
+      "provider": "sovereigneg",
+      "chat_model": "SovereignEG/Qwen3.8-27B-FP8",
+      "enabled": false,
+      "status": "offline_evaluation",
+      "reason": "The cloud experiment is paused. Evidence comparison is available offline."
+    }
+  },
+  {
+    "method": "Get",
+    "path": "/ai/usage",
+    "status": 200,
+    "body": {}
+  }
+]

@@ -1,0 +1,322 @@
+{
+  "method": "AI analyst-normalized fictional facts, no extraction model",
+  "v3_guard_sha256": "73e54559ef04b8aecb6e0e375713a591b1d7735081524e42ce65d6722c0c9e6a",
+  "definitions": {
+    "cedar": [
+      {
+        "cite": "E2.1",
+        "source": "security-journal",
+        "event": {
+          "tenant": "fixture",
+          "asset": "JUN-4",
+          "occurrence": "security-journal-clear"
+        },
+        "kind": "mechanic",
+        "value": "windows_event_log_clear",
+        "session": "6M",
+        "process": ""
+      },
+      {
+        "cite": "E2.1",
+        "source": "security-journal",
+        "event": {
+          "tenant": "fixture",
+          "asset": "JUN-4",
+          "occurrence": "security-journal-clear"
+        },
+        "kind": "outcome",
+        "value": "completed",
+        "session": "6M",
+        "process": ""
+      },
+      {
+        "cite": "E3.1",
+        "source": "incident-custody",
+        "event": {
+          "tenant": "fixture",
+          "asset": "JUN-4",
+          "occurrence": "security-journal-clear"
+        },
+        "kind": "actor",
+        "value": "adversary",
+        "session": "6M",
+        "process": ""
+      },
+      {
+        "cite": "E3.1",
+        "source": "incident-custody",
+        "event": {
+          "tenant": "fixture",
+          "asset": "JUN-4",
+          "occurrence": "security-journal-clear"
+        },
+        "kind": "authorization",
+        "value": "unauthorized",
+        "session": "6M",
+        "process": ""
+      }
+    ],
+    "slate_encryption": [
+      {
+        "cite": "E2.1",
+        "source": "filesystem-ledger",
+        "event": {
+          "tenant": "fixture",
+          "asset": "SE-2",
+          "occurrence": "archive-encryption"
+        },
+        "kind": "mechanic",
+        "value": "availability_impact_encryption",
+        "session": "B19",
+        "process": ""
+      },
+      {
+        "cite": "E2.1",
+        "source": "filesystem-ledger",
+        "event": {
+          "tenant": "fixture",
+          "asset": "SE-2",
+          "occurrence": "archive-encryption"
+        },
+        "kind": "outcome",
+        "value": "completed",
+        "session": "B19",
+        "process": ""
+      },
+      {
+        "cite": "E1.1",
+        "source": "incident-response",
+        "event": {
+          "tenant": "fixture",
+          "asset": "SE-2",
+          "occurrence": "archive-encryption"
+        },
+        "kind": "actor",
+        "value": "adversary",
+        "session": "B19",
+        "process": ""
+      },
+      {
+        "cite": "E1.1",
+        "source": "incident-response",
+        "event": {
+          "tenant": "fixture",
+          "asset": "SE-2",
+          "occurrence": "archive-encryption"
+        },
+        "kind": "authorization",
+        "value": "unauthorized",
+        "session": "B19",
+        "process": ""
+      }
+    ],
+    "slate_recovery": [
+      {
+        "cite": "E4.1",
+        "source": "backup-service",
+        "event": {
+          "tenant": "fixture",
+          "asset": "SE-2",
+          "occurrence": "snapshot-purge-Z"
+        },
+        "kind": "mechanic",
+        "value": "recovery_inhibition",
+        "session": "B19",
+        "process": ""
+      },
+      {
+        "cite": "E3.1",
+        "source": "backup-inventory",
+        "event": {
+          "tenant": "fixture",
+          "asset": "SE-2",
+          "occurrence": "snapshot-purge-Z"
+        },
+        "kind": "outcome",
+        "value": "completed",
+        "session": "B19",
+        "process": ""
+      },
+      {
+        "cite": "E1.1",
+        "source": "incident-response",
+        "event": {
+          "tenant": "fixture",
+          "asset": "SE-2",
+          "occurrence": "snapshot-purge-Z"
+        },
+        "kind": "actor",
+        "value": "adversary",
+        "session": "B19",
+        "process": ""
+      },
+      {
+        "cite": "E1.1",
+        "source": "incident-response",
+        "event": {
+          "tenant": "fixture",
+          "asset": "SE-2",
+          "occurrence": "snapshot-purge-Z"
+        },
+        "kind": "authorization",
+        "value": "unauthorized",
+        "session": "B19",
+        "process": ""
+      }
+    ],
+    "silver": [
+      {
+        "cite": "E1.1",
+        "source": "blue-role-ledger",
+        "event": {
+          "tenant": "Blue",
+          "asset": "finance-review",
+          "occurrence": "grant-418"
+        },
+        "kind": "mechanic",
+        "value": "cloud_role_grant",
+        "session": "grant-418",
+        "process": ""
+      },
+      {
+        "cite": "E1.1",
+        "source": "blue-role-ledger",
+        "event": {
+          "tenant": "Blue",
+          "asset": "finance-review",
+          "occurrence": "grant-418"
+        },
+        "kind": "outcome",
+        "value": "completed",
+        "session": "grant-418",
+        "process": ""
+      },
+      {
+        "cite": "E2.1",
+        "source": "signed-schedule",
+        "event": {
+          "tenant": "Blue",
+          "asset": "finance-review",
+          "occurrence": "grant-418"
+        },
+        "kind": "authorization",
+        "value": "authorized",
+        "session": "grant-418",
+        "process": ""
+      }
+    ],
+    "flint": [
+      {
+        "cite": "E2.1",
+        "source": "examiner",
+        "event": {
+          "tenant": "fixture",
+          "asset": "WC-14",
+          "occurrence": "retracted-clear-allegation"
+        },
+        "kind": "outcome",
+        "value": "unconfirmed",
+        "session": "",
+        "process": ""
+      },
+      {
+        "cite": "E3.1",
+        "source": "incident-record",
+        "event": {
+          "tenant": "fixture",
+          "asset": "WC-14",
+          "occurrence": "retracted-clear-allegation"
+        },
+        "kind": "veto",
+        "value": "retracted",
+        "session": "",
+        "process": ""
+      }
+    ]
+  },
+  "outcomes": {
+    "cedar_complete": {
+      "status": "eligible_for_analyst_review",
+      "findings": [
+        {
+          "technique": "T1685.005",
+          "citations": [
+            "E2.1",
+            "E3.1"
+          ]
+        }
+      ],
+      "rejected": {}
+    },
+    "cedar_action_only": {
+      "status": "withheld",
+      "findings": [],
+      "rejected": {
+        "T1685.005": [
+          "authorization_unverified",
+          "independent_attribution_missing"
+        ]
+      }
+    },
+    "slate_encryption": {
+      "status": "eligible_for_analyst_review",
+      "findings": [
+        {
+          "technique": "T1486",
+          "citations": [
+            "E1.1",
+            "E2.1"
+          ]
+        }
+      ],
+      "rejected": {}
+    },
+    "slate_recovery": {
+      "status": "eligible_for_analyst_review",
+      "findings": [
+        {
+          "technique": "T1490",
+          "citations": [
+            "E1.1",
+            "E3.1",
+            "E4.1"
+          ]
+        }
+      ],
+      "rejected": {}
+    },
+    "slate_shared_address": {
+      "status": "withheld",
+      "findings": [],
+      "rejected": {
+        "T1486": [
+          "source_or_event_mismatch"
+        ],
+        "T1490": [
+          "source_or_event_mismatch"
+        ]
+      }
+    },
+    "silver_omit_authorization": {
+      "status": "withheld",
+      "findings": [],
+      "rejected": {
+        "T1098.003": [
+          "authorization_unverified",
+          "conflicting_or_superseded_evidence",
+          "independent_attribution_missing"
+        ]
+      }
+    },
+    "flint_retracted": {
+      "status": "withheld",
+      "findings": [],
+      "rejected": {
+        "T1685.005": [
+          "ambiguous_or_missing_action",
+          "mechanic_or_objective_unverified"
+        ]
+      }
+    }
+  }
+}

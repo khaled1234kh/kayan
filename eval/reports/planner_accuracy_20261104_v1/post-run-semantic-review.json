@@ -1,0 +1,47 @@
+{
+  "scored_results_unchanged": true,
+  "type": "Post-run exploratory agent review; not a blinded independent rating or a replacement for the frozen rubric",
+  "additional_unscored_concerns": [
+    {
+      "cases": [
+        "P03",
+        "P05",
+        "P07",
+        "P09",
+        "P10"
+      ],
+      "observation": "These graded-pass plan tasks contain invented CLI options, port ranges, URLs/paths or positional function arguments not specified in the fixture or supported by the fixed LabTools interface. Some fixture contexts do not provide the actual lab port/signatures, so this review flags unsupported specificity rather than retrospectively rescoring target violations."
+    },
+    {
+      "cases": [
+        "R01",
+        "R11"
+      ],
+      "observation": "Rationales refer to reconnaissance findings or lab verification not explicitly supplied in the minimal synthetic outcomes; narrative grounding was not comprehensively scored."
+    },
+    {
+      "cases": [
+        "R07"
+      ],
+      "observation": "Already fails the frozen gap-explanation check. Rationale says retry service_scan, although this fixture records a Web-App failure and no earlier Network service_scan."
+    }
+  ],
+  "known_scored_failures": [
+    {
+      "case": "P04",
+      "finding": "Actual generation aborted: prediction aborted, token repeat limit reached. Runtime failure counted as an unsuccessful case, not silently omitted."
+    },
+    {
+      "case": "P08",
+      "finding": "Reporting assigned curl to collect new evidence. The production plan validator accepted the task text. No executor was invoked in this evaluation; this is not evidence that a curl call was attempted or denied by Gate."
+    },
+    {
+      "case": "R07",
+      "finding": "Correct partial-coverage enum and next role, but rationale omits the recorded specialist failure."
+    },
+    {
+      "case": "R08",
+      "finding": "Correct partial-coverage enum and next role, but rationale omits the failed independent verification."
+    }
+  ]
+}

@@ -118,6 +118,35 @@ def test_api_record_evidence_excludes_same_clause_decoys():
     assert recommendation['context_evidence'] == risk['context_evidence']
 
 
+def test_cloud_storage_validity_requires_stated_asset_relationship():
+    from eval.planning_validity_eval import FIXTURE, run
+
+    result = run(FIXTURE.with_name('planning_cloud_storage_relationship_v1.json'))
+    assert result['exact_cases'] == result['case_count'] == 16, [
+        case for case in result['cases'] if not case['exact']
+    ]
+    assert result['correct_abstentions'] == 8
+
+
+def test_cloud_storage_proof_pins_stored_asset_and_excludes_another_services_gap():
+    context = {
+        'data_storage': 'A team lists public buckets in inventory and separate customer records are stored in private blob storage.',
+    }
+    plan = build_risk_plan(context)
+    risk, = plan['risks']
+    assert risk['scenario_id'] == 'cloud_object_access'
+    by_signal = {entry['signal']: entry for entry in risk['context_evidence']}
+    assert by_signal['cloud objects']['matched_text'] == 'private blob storage'
+    assert by_signal['stored assets']['matched_text'] == 'records'
+    assert 'stated control gap' not in by_signal
+    link = by_signal['cloud-storage-to-asset link']
+    assert link['excerpt'] == 'customer records are stored in private blob storage'
+    assert context[link['field']][link['start']:link['end']] == link['excerpt']
+    report = ReportingAgent('fictional').generate_direct_mitigation(plan)
+    recommendation, = report['mitigation_plan']['recommendations']
+    assert recommendation['context_evidence'] == risk['context_evidence']
+
+
 def test_question_is_not_an_operating_fact_and_untested_restore_is_a_review_gap():
     plan = build_risk_plan({
         'data_storage':'The inventory database is backed up daily. We have not checked whether it can be restored.'

@@ -18,6 +18,12 @@ data/runtime/
 .build/
 .venv/
 
+# Local secrets and AI working data — never commit.
+.env
+.env.*
+data/mitre/
+ai/**/__pycache__/
+
 # Runtime/private working data and duplicate local delivery/recovery exports.
 audit_log.jsonl
 output/backups/

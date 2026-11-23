@@ -1,0 +1,16 @@
+{
+  "started_at": "2026-11-04T08:34:28.061974+00:00",
+  "dataset_sha256": "46692264b5eb9ef301c67c3c38f5c52e9e35fa6b27695df746070a7bc6d646e9",
+  "git_commit": "421b908bc07d16ee624e850b0f49e5c94a1ce6ba",
+  "source_hashes": {
+    "pentagi/live_engagement.py": "7671667025d781972113247e82389412371102443e6859d34a90733dedaf3ad7",
+    "pentagi/inference_context.py": "bad51648180d47b559153d135f6e2b5bc100d78d8a0cf5462862628fe6c33f0a",
+    "pentagi/ollama_client.py": "c0acf8bb40cbedf9106cc7ec4e0bb4b6f9958233a8ed70c4cf3f8ad7260c01c0",
+    "config/llm.json": "8aaa06766595bc7ef847cd81f01b984d82d313debcc4a595c669e76828e1e1a3",
+    "eval/planner_accuracy.py": "c432d7e897a97350dedabfe524dd97dcaa7223847f50b1d2a371a4726617e594"
+  },
+  "rubric": "Planner only. 30 cases, six groups of five. Each case passes only if every independent published assertion passes. Report raw first attempt and final model output after at most the deployed one correction separately. A degraded deterministic fallback is not a model pass. No model/prompt changes during this evaluation. Review contexts use the deployed interface, which explicitly supplies required roles, eligible tools, evidence IDs and coverage action.",
+  "model_target": "qwen2.5:7b",
+  "temperature": 0,
+  "inference_only": true
+}
