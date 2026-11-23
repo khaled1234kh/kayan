@@ -3,6 +3,15 @@ Written 2026-11-04 and updated 2026-11-22 (Africa/Cairo). Supersedes _ARCHIVE_PR
 # KAYAN TrustGate - canonical master handoff
 
 ## Current checkpoint · Matched 80-case cloud accuracy and public release — 2026-11-23
+**Final publication state (23 November 2026).** PR #1
+(https://github.com/khaled1234kh/kayan/pull/1) was opened from
+`release/cloud-pivot-accuracy-2026-11-23` (`b6869051d072c9f0f47f6ee146fc2bd4dedb1e43`) into `main`
+(`eb6d1f34aac11a5983995b76100ddd2684d6d681`) and merged with merge commit
+`2da8b19646e68804738b999ccf290e8b2561016c`; `main` now contains the complete validated project.
+GitHub Actions run https://github.com/khaled1234kh/kayan/actions/runs/45153228641 passed: 180
+`pkg/tools` tests and 10 `pkg/trustgate` tests passed, with the single expected `TestCedarLiveProfile`
+skip. Branch protection reported no required reviews, so no approval was bypassed.
+
 
 The complete validated project is published on branch `release/cloud-pivot-accuracy-2026-11-23`
 from the verified chain tip `1f63244` (39 commits ahead of remote `main` `eb6d1f3`, which is a

@@ -18,7 +18,11 @@
   complete evidence groups, failed Cedar build on Windows) intact.
 - [x] Keep cloud optional/disabled by default; make no new SovereignEG request for publication;
   rotate the previously exposed key before any shared use.
-- [ ] Obtain owner/team review and merge the validated PR into `main` if branch protection requires it.
+- [x] Opened PR #1 into `main` (https://github.com/khaled1234kh/kayan/pull/1), ran Actions
+  (https://github.com/khaled1234kh/kayan/actions/runs/45153228641 — 180 tools + 10 TrustGate passed,
+  1 expected live-Cedar skip), and merged with a history-preserving merge commit
+  `2da8b19646e68804738b999ccf290e8b2561016c`. No branch protection or required review existed, so no
+  approval was bypassed; `main` is updated and the release branch/PR remain available for audit.
 
 ## Signed evidence review
 
