@@ -1,0 +1,6 @@
+# Optional DeepEval judge dependency for the decision-evaluation framework.
+# Intentionally NOT part of the main requirements.txt: all deterministic
+# scoring, offline re-analysis and tests run without it. Install only when a
+# live judge run has been explicitly authorized, and confirm the installed
+# version matches deepeval_adapter.PINNED_DEEPEVAL_VERSION before use.
+deepeval==4.3.4

@@ -1,0 +1,4236 @@
+{
+  "study": "offline-reanalysis-2026-11-23",
+  "rubric_version": "role-contract-frozen+diagnostics-v1",
+  "manifest_sha256": "09b3639b388019655fbde0805a9abfbfa9c2136d58e96c94e789220ff93f8eb0",
+  "dataset": "frozen 80-case role holdout (authored synthetic, retrospective)",
+  "source": "saved local request ledgers and saved cloud responses only; zero new requests",
+  "arms": [
+    {
+      "arm": "SovereignEG/Qwen3.8-27B-FP8",
+      "rubric_version": "role-contract-frozen+diagnostics-v1",
+      "exact": {
+        "passes": 72,
+        "cases": 80,
+        "rate": 0.9,
+        "wilson_ci95": [
+          0.814893,
+          0.948452
+        ],
+        "note": "Exact role-contract pass. Separate from confusion-matrix metrics."
+      },
+      "classification_overall": {
+        "confusion": {
+          "labels": [
+            "supported",
+            "contradicted",
+            "abstain"
+          ],
+          "matrix": [
+            [
+              87,
+              12,
+              0
+            ],
+            [
+              0,
+              95,
+              2
+            ],
+            [
+              0,
+              0,
+              60
+            ]
+          ],
+          "row_normalized": [
+            [
+              0.878788,
+              0.121212,
+              0.0
+            ],
+            [
+              0.0,
+              0.979381,
+              0.020619
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ],
+          "support": [
+            99,
+            97,
+            60
+          ],
+          "total": 256
+        },
+        "per_class": {
+          "supported": {
+            "tp": 87,
+            "fp": 0,
+            "fn": 12,
+            "tn": 157,
+            "support": 99,
+            "precision": 1.0,
+            "recall": 0.878788,
+            "f1": 0.935484
+          },
+          "contradicted": {
+            "tp": 95,
+            "fp": 12,
+            "fn": 2,
+            "tn": 147,
+            "support": 97,
+            "precision": 0.88785,
+            "recall": 0.979381,
+            "f1": 0.931373
+          },
+          "abstain": {
+            "tp": 60,
+            "fp": 2,
+            "fn": 0,
+            "tn": 194,
+            "support": 60,
+            "precision": 0.967742,
+            "recall": 1.0,
+            "f1": 0.983607
+          }
+        },
+        "accuracy": 0.945312,
+        "macro_f1": 0.950155,
+        "micro_f1": 0.945312,
+        "weighted_f1": 0.945205,
+        "balanced_accuracy": 0.952723,
+        "support": 256,
+        "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+      },
+      "abstention_overall": {
+        "counts": {
+          "tp": 60,
+          "fp": 2,
+          "fn": 0,
+          "tn": 194,
+          "support": 60
+        },
+        "precision": 0.967742,
+        "recall": 1.0,
+        "f1": 0.983607,
+        "false_abstention_rate": 1.0,
+        "abstention_coverage": 1.0
+      },
+      "error_cases": {
+        "invalid_output": 0,
+        "unsupported_affirmative": 0,
+        "false_abstention": 2,
+        "missed_abstention": 0,
+        "missed_finding": 8,
+        "incorrect_admission": 0,
+        "incorrect_withholding": 6,
+        "bad_citation": 8,
+        "wrong_attribution": 0,
+        "incomplete_chain": 8,
+        "missing_items": 0,
+        "duplicate_items": 0,
+        "unknown_items": 0
+      },
+      "invalid_outputs": 0,
+      "tokens": {
+        "prompt": 35897,
+        "completion": 15155
+      },
+      "attempts": 80,
+      "latency_ms": {
+        "p50": 1164.0,
+        "p90": 1547.6,
+        "p95": 1693.3,
+        "note": "Cloud and local endpoint times are not comparable; reported, never used for ranking."
+      },
+      "by_agent": {
+        "Planner": {
+          "exact_pass": 11,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  20,
+                  11,
+                  0
+                ],
+                [
+                  0,
+                  33,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "row_normalized": [
+                [
+                  0.645161,
+                  0.354839,
+                  0.0
+                ],
+                [
+                  0.0,
+                  1.0,
+                  0.0
+                ],
+                [
+                  null,
+                  null,
+                  null
+                ]
+              ],
+              "support": [
+                31,
+                33,
+                0
+              ],
+              "total": 64
+            },
+            "per_class": {
+              "supported": {
+                "tp": 20,
+                "fp": 0,
+                "fn": 11,
+                "tn": 33,
+                "support": 31,
+                "precision": 1.0,
+                "recall": 0.645161,
+                "f1": 0.784314
+              },
+              "contradicted": {
+                "tp": 33,
+                "fp": 11,
+                "fn": 0,
+                "tn": 20,
+                "support": 33,
+                "precision": 0.75,
+                "recall": 1.0,
+                "f1": 0.857143
+              },
+              "abstain": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 0,
+                "tn": 64,
+                "support": 0,
+                "precision": null,
+                "recall": null,
+                "f1": null
+              }
+            },
+            "accuracy": 0.828125,
+            "macro_f1": 0.820728,
+            "micro_f1": 0.828125,
+            "weighted_f1": 0.821866,
+            "balanced_accuracy": 0.82258,
+            "support": 64,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "tn": 64,
+              "support": 0
+            },
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "false_abstention_rate": null,
+            "abstention_coverage": null
+          }
+        },
+        "Recon": {
+          "exact_pass": 16,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  17,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  16,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  15
+                ]
+              ],
+              "row_normalized": [
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  1.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "support": [
+                17,
+                16,
+                15
+              ],
+              "total": 48
+            },
+            "per_class": {
+              "supported": {
+                "tp": 17,
+                "fp": 0,
+                "fn": 0,
+                "tn": 31,
+                "support": 17,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "contradicted": {
+                "tp": 16,
+                "fp": 0,
+                "fn": 0,
+                "tn": 32,
+                "support": 16,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "abstain": {
+                "tp": 15,
+                "fp": 0,
+                "fn": 0,
+                "tn": 33,
+                "support": 15,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            },
+            "accuracy": 1.0,
+            "macro_f1": 1.0,
+            "micro_f1": 1.0,
+            "weighted_f1": 1.0,
+            "balanced_accuracy": 1.0,
+            "support": 48,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 15,
+              "fp": 0,
+              "fn": 0,
+              "tn": 33,
+              "support": 15
+            },
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "false_abstention_rate": null,
+            "abstention_coverage": 1.0
+          }
+        },
+        "Web-App": {
+          "exact_pass": 16,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  17,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  16,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  15
+                ]
+              ],
+              "row_normalized": [
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  1.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "support": [
+                17,
+                16,
+                15
+              ],
+              "total": 48
+            },
+            "per_class": {
+              "supported": {
+                "tp": 17,
+                "fp": 0,
+                "fn": 0,
+                "tn": 31,
+                "support": 17,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "contradicted": {
+                "tp": 16,
+                "fp": 0,
+                "fn": 0,
+                "tn": 32,
+                "support": 16,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "abstain": {
+                "tp": 15,
+                "fp": 0,
+                "fn": 0,
+                "tn": 33,
+                "support": 15,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              }
+            },
+            "accuracy": 1.0,
+            "macro_f1": 1.0,
+            "micro_f1": 1.0,
+            "weighted_f1": 1.0,
+            "balanced_accuracy": 1.0,
+            "support": 48,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 15,
+              "fp": 0,
+              "fn": 0,
+              "tn": 33,
+              "support": 15
+            },
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "false_abstention_rate": null,
+            "abstention_coverage": 1.0
+          }
+        },
+        "Network": {
+          "exact_pass": 15,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  17,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  15,
+                  1
+                ],
+                [
+                  0,
+                  0,
+                  15
+                ]
+              ],
+              "row_normalized": [
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.9375,
+                  0.0625
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "support": [
+                17,
+                16,
+                15
+              ],
+              "total": 48
+            },
+            "per_class": {
+              "supported": {
+                "tp": 17,
+                "fp": 0,
+                "fn": 0,
+                "tn": 31,
+                "support": 17,
+                "precision": 1.0,
+                "recall": 1.0,
+                "f1": 1.0
+              },
+              "contradicted": {
+                "tp": 15,
+                "fp": 0,
+                "fn": 1,
+                "tn": 32,
+                "support": 16,
+                "precision": 1.0,
+                "recall": 0.9375,
+                "f1": 0.967742
+              },
+              "abstain": {
+                "tp": 15,
+                "fp": 1,
+                "fn": 0,
+                "tn": 32,
+                "support": 15,
+                "precision": 0.9375,
+                "recall": 1.0,
+                "f1": 0.967742
+              }
+            },
+            "accuracy": 0.979167,
+            "macro_f1": 0.978495,
+            "micro_f1": 0.979167,
+            "weighted_f1": 0.979167,
+            "balanced_accuracy": 0.979167,
+            "support": 48,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 15,
+              "fp": 1,
+              "fn": 0,
+              "tn": 32,
+              "support": 15
+            },
+            "precision": 0.9375,
+            "recall": 1.0,
+            "f1": 0.967742,
+            "false_abstention_rate": 1.0,
+            "abstention_coverage": 1.0
+          }
+        },
+        "Reporting": {
+          "exact_pass": 14,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  16,
+                  1,
+                  0
+                ],
+                [
+                  0,
+                  15,
+                  1
+                ],
+                [
+                  0,
+                  0,
+                  15
+                ]
+              ],
+              "row_normalized": [
+                [
+                  0.941176,
+                  0.058824,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.9375,
+                  0.0625
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "support": [
+                17,
+                16,
+                15
+              ],
+              "total": 48
+            },
+            "per_class": {
+              "supported": {
+                "tp": 16,
+                "fp": 0,
+                "fn": 1,
+                "tn": 31,
+                "support": 17,
+                "precision": 1.0,
+                "recall": 0.941176,
+                "f1": 0.969697
+              },
+              "contradicted": {
+                "tp": 15,
+                "fp": 1,
+                "fn": 1,
+                "tn": 31,
+                "support": 16,
+                "precision": 0.9375,
+                "recall": 0.9375,
+                "f1": 0.9375
+              },
+              "abstain": {
+                "tp": 15,
+                "fp": 1,
+                "fn": 0,
+                "tn": 32,
+                "support": 15,
+                "precision": 0.9375,
+                "recall": 1.0,
+                "f1": 0.967742
+              }
+            },
+            "accuracy": 0.958333,
+            "macro_f1": 0.958313,
+            "micro_f1": 0.958333,
+            "weighted_f1": 0.958354,
+            "balanced_accuracy": 0.959559,
+            "support": 48,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 15,
+              "fp": 1,
+              "fn": 0,
+              "tn": 32,
+              "support": 15
+            },
+            "precision": 0.9375,
+            "recall": 1.0,
+            "f1": 0.967742,
+            "false_abstention_rate": 1.0,
+            "abstention_coverage": 1.0
+          }
+        }
+      }
+    },
+    {
+      "arm": "qwen2.5:7b",
+      "rubric_version": "role-contract-frozen+diagnostics-v1",
+      "exact": {
+        "passes": 18,
+        "cases": 80,
+        "rate": 0.225,
+        "wilson_ci95": [
+          0.147332,
+          0.327868
+        ],
+        "note": "Exact role-contract pass. Separate from confusion-matrix metrics."
+      },
+      "classification_overall": {
+        "confusion": {
+          "labels": [
+            "supported",
+            "contradicted",
+            "abstain"
+          ],
+          "matrix": [
+            [
+              62,
+              16,
+              0
+            ],
+            [
+              25,
+              48,
+              6
+            ],
+            [
+              6,
+              4,
+              32
+            ]
+          ],
+          "row_normalized": [
+            [
+              0.794872,
+              0.205128,
+              0.0
+            ],
+            [
+              0.316456,
+              0.607595,
+              0.075949
+            ],
+            [
+              0.142857,
+              0.095238,
+              0.761905
+            ]
+          ],
+          "support": [
+            78,
+            79,
+            42
+          ],
+          "total": 199
+        },
+        "per_class": {
+          "supported": {
+            "tp": 62,
+            "fp": 31,
+            "fn": 16,
+            "tn": 90,
+            "support": 78,
+            "precision": 0.666667,
+            "recall": 0.794872,
+            "f1": 0.725146
+          },
+          "contradicted": {
+            "tp": 48,
+            "fp": 20,
+            "fn": 31,
+            "tn": 100,
+            "support": 79,
+            "precision": 0.705882,
+            "recall": 0.607595,
+            "f1": 0.653061
+          },
+          "abstain": {
+            "tp": 32,
+            "fp": 6,
+            "fn": 10,
+            "tn": 151,
+            "support": 42,
+            "precision": 0.842105,
+            "recall": 0.761905,
+            "f1": 0.8
+          }
+        },
+        "accuracy": 0.713568,
+        "macro_f1": 0.726069,
+        "micro_f1": 0.713568,
+        "weighted_f1": 0.712328,
+        "balanced_accuracy": 0.721457,
+        "support": 199,
+        "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+      },
+      "abstention_overall": {
+        "counts": {
+          "tp": 32,
+          "fp": 6,
+          "fn": 10,
+          "tn": 151,
+          "support": 42
+        },
+        "precision": 0.842105,
+        "recall": 0.761905,
+        "f1": 0.8,
+        "false_abstention_rate": 0.375,
+        "abstention_coverage": 0.761905
+      },
+      "error_cases": {
+        "invalid_output": 0,
+        "unsupported_affirmative": 53,
+        "false_abstention": 6,
+        "missed_abstention": 10,
+        "missed_finding": 55,
+        "incorrect_admission": 27,
+        "incorrect_withholding": 14,
+        "bad_citation": 62,
+        "wrong_attribution": 23,
+        "incomplete_chain": 59,
+        "missing_items": 19,
+        "duplicate_items": 0,
+        "unknown_items": 23
+      },
+      "invalid_outputs": 0,
+      "tokens": {
+        "prompt": 35577,
+        "completion": 10735
+      },
+      "attempts": 80,
+      "latency_ms": {
+        "p50": 2167.714,
+        "p90": 3565.751,
+        "p95": 3779.001,
+        "note": "Cloud and local endpoint times are not comparable; reported, never used for ranking."
+      },
+      "by_agent": {
+        "Planner": {
+          "exact_pass": 3,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  26,
+                  5,
+                  0
+                ],
+                [
+                  7,
+                  26,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "row_normalized": [
+                [
+                  0.83871,
+                  0.16129,
+                  0.0
+                ],
+                [
+                  0.212121,
+                  0.787879,
+                  0.0
+                ],
+                [
+                  null,
+                  null,
+                  null
+                ]
+              ],
+              "support": [
+                31,
+                33,
+                0
+              ],
+              "total": 64
+            },
+            "per_class": {
+              "supported": {
+                "tp": 26,
+                "fp": 7,
+                "fn": 5,
+                "tn": 26,
+                "support": 31,
+                "precision": 0.787879,
+                "recall": 0.83871,
+                "f1": 0.8125
+              },
+              "contradicted": {
+                "tp": 26,
+                "fp": 5,
+                "fn": 7,
+                "tn": 26,
+                "support": 33,
+                "precision": 0.83871,
+                "recall": 0.787879,
+                "f1": 0.8125
+              },
+              "abstain": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 0,
+                "tn": 64,
+                "support": 0,
+                "precision": null,
+                "recall": null,
+                "f1": null
+              }
+            },
+            "accuracy": 0.8125,
+            "macro_f1": 0.8125,
+            "micro_f1": 0.8125,
+            "weighted_f1": 0.8125,
+            "balanced_accuracy": 0.813295,
+            "support": 64,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "tn": 64,
+              "support": 0
+            },
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "false_abstention_rate": null,
+            "abstention_coverage": null
+          }
+        },
+        "Recon": {
+          "exact_pass": 5,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  10,
+                  4,
+                  0
+                ],
+                [
+                  6,
+                  5,
+                  1
+                ],
+                [
+                  1,
+                  2,
+                  10
+                ]
+              ],
+              "row_normalized": [
+                [
+                  0.714286,
+                  0.285714,
+                  0.0
+                ],
+                [
+                  0.5,
+                  0.416667,
+                  0.083333
+                ],
+                [
+                  0.076923,
+                  0.153846,
+                  0.769231
+                ]
+              ],
+              "support": [
+                14,
+                12,
+                13
+              ],
+              "total": 39
+            },
+            "per_class": {
+              "supported": {
+                "tp": 10,
+                "fp": 7,
+                "fn": 4,
+                "tn": 18,
+                "support": 14,
+                "precision": 0.588235,
+                "recall": 0.714286,
+                "f1": 0.645161
+              },
+              "contradicted": {
+                "tp": 5,
+                "fp": 6,
+                "fn": 7,
+                "tn": 21,
+                "support": 12,
+                "precision": 0.454545,
+                "recall": 0.416667,
+                "f1": 0.434783
+              },
+              "abstain": {
+                "tp": 10,
+                "fp": 1,
+                "fn": 3,
+                "tn": 25,
+                "support": 13,
+                "precision": 0.909091,
+                "recall": 0.769231,
+                "f1": 0.833333
+              }
+            },
+            "accuracy": 0.641026,
+            "macro_f1": 0.637759,
+            "micro_f1": 0.641026,
+            "weighted_f1": 0.643153,
+            "balanced_accuracy": 0.633395,
+            "support": 39,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 10,
+              "fp": 1,
+              "fn": 3,
+              "tn": 25,
+              "support": 13
+            },
+            "precision": 0.909091,
+            "recall": 0.769231,
+            "f1": 0.833333,
+            "false_abstention_rate": 0.25,
+            "abstention_coverage": 0.769231
+          }
+        },
+        "Web-App": {
+          "exact_pass": 6,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  15,
+                  2,
+                  0
+                ],
+                [
+                  6,
+                  9,
+                  1
+                ],
+                [
+                  4,
+                  1,
+                  10
+                ]
+              ],
+              "row_normalized": [
+                [
+                  0.882353,
+                  0.117647,
+                  0.0
+                ],
+                [
+                  0.375,
+                  0.5625,
+                  0.0625
+                ],
+                [
+                  0.266667,
+                  0.066667,
+                  0.666667
+                ]
+              ],
+              "support": [
+                17,
+                16,
+                15
+              ],
+              "total": 48
+            },
+            "per_class": {
+              "supported": {
+                "tp": 15,
+                "fp": 10,
+                "fn": 2,
+                "tn": 21,
+                "support": 17,
+                "precision": 0.6,
+                "recall": 0.882353,
+                "f1": 0.714286
+              },
+              "contradicted": {
+                "tp": 9,
+                "fp": 3,
+                "fn": 7,
+                "tn": 29,
+                "support": 16,
+                "precision": 0.75,
+                "recall": 0.5625,
+                "f1": 0.642857
+              },
+              "abstain": {
+                "tp": 10,
+                "fp": 1,
+                "fn": 5,
+                "tn": 32,
+                "support": 15,
+                "precision": 0.909091,
+                "recall": 0.666667,
+                "f1": 0.769231
+              }
+            },
+            "accuracy": 0.708333,
+            "macro_f1": 0.708791,
+            "micro_f1": 0.708333,
+            "weighted_f1": 0.707647,
+            "balanced_accuracy": 0.70384,
+            "support": 48,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 10,
+              "fp": 1,
+              "fn": 5,
+              "tn": 32,
+              "support": 15
+            },
+            "precision": 0.909091,
+            "recall": 0.666667,
+            "f1": 0.769231,
+            "false_abstention_rate": 0.166667,
+            "abstention_coverage": 0.666667
+          }
+        },
+        "Network": {
+          "exact_pass": 1,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  3,
+                  0,
+                  0
+                ],
+                [
+                  1,
+                  5,
+                  0
+                ],
+                [
+                  1,
+                  1,
+                  1
+                ]
+              ],
+              "row_normalized": [
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.166667,
+                  0.833333,
+                  0.0
+                ],
+                [
+                  0.333333,
+                  0.333333,
+                  0.333333
+                ]
+              ],
+              "support": [
+                3,
+                6,
+                3
+              ],
+              "total": 12
+            },
+            "per_class": {
+              "supported": {
+                "tp": 3,
+                "fp": 2,
+                "fn": 0,
+                "tn": 7,
+                "support": 3,
+                "precision": 0.6,
+                "recall": 1.0,
+                "f1": 0.75
+              },
+              "contradicted": {
+                "tp": 5,
+                "fp": 1,
+                "fn": 1,
+                "tn": 5,
+                "support": 6,
+                "precision": 0.833333,
+                "recall": 0.833333,
+                "f1": 0.833333
+              },
+              "abstain": {
+                "tp": 1,
+                "fp": 0,
+                "fn": 2,
+                "tn": 9,
+                "support": 3,
+                "precision": 1.0,
+                "recall": 0.333333,
+                "f1": 0.5
+              }
+            },
+            "accuracy": 0.75,
+            "macro_f1": 0.694444,
+            "micro_f1": 0.75,
+            "weighted_f1": 0.729166,
+            "balanced_accuracy": 0.722222,
+            "support": 12,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 1,
+              "fp": 0,
+              "fn": 2,
+              "tn": 9,
+              "support": 3
+            },
+            "precision": 1.0,
+            "recall": 0.333333,
+            "f1": 0.5,
+            "false_abstention_rate": 0.0,
+            "abstention_coverage": 0.333333
+          }
+        },
+        "Reporting": {
+          "exact_pass": 3,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  8,
+                  5,
+                  0
+                ],
+                [
+                  5,
+                  3,
+                  4
+                ],
+                [
+                  0,
+                  0,
+                  11
+                ]
+              ],
+              "row_normalized": [
+                [
+                  0.615385,
+                  0.384615,
+                  0.0
+                ],
+                [
+                  0.416667,
+                  0.25,
+                  0.333333
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "support": [
+                13,
+                12,
+                11
+              ],
+              "total": 36
+            },
+            "per_class": {
+              "supported": {
+                "tp": 8,
+                "fp": 5,
+                "fn": 5,
+                "tn": 18,
+                "support": 13,
+                "precision": 0.615385,
+                "recall": 0.615385,
+                "f1": 0.615385
+              },
+              "contradicted": {
+                "tp": 3,
+                "fp": 5,
+                "fn": 9,
+                "tn": 19,
+                "support": 12,
+                "precision": 0.375,
+                "recall": 0.25,
+                "f1": 0.3
+              },
+              "abstain": {
+                "tp": 11,
+                "fp": 4,
+                "fn": 0,
+                "tn": 21,
+                "support": 11,
+                "precision": 0.733333,
+                "recall": 1.0,
+                "f1": 0.846154
+              }
+            },
+            "accuracy": 0.611111,
+            "macro_f1": 0.58718,
+            "micro_f1": 0.611111,
+            "weighted_f1": 0.580769,
+            "balanced_accuracy": 0.621795,
+            "support": 36,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 11,
+              "fp": 4,
+              "fn": 0,
+              "tn": 21,
+              "support": 11
+            },
+            "precision": 0.733333,
+            "recall": 1.0,
+            "f1": 0.846154,
+            "false_abstention_rate": 1.0,
+            "abstention_coverage": 1.0
+          }
+        }
+      }
+    },
+    {
+      "arm": "qwen3:8b",
+      "rubric_version": "role-contract-frozen+diagnostics-v1",
+      "exact": {
+        "passes": 28,
+        "cases": 80,
+        "rate": 0.35,
+        "wilson_ci95": [
+          0.254546,
+          0.4592
+        ],
+        "note": "Exact role-contract pass. Separate from confusion-matrix metrics."
+      },
+      "classification_overall": {
+        "confusion": {
+          "labels": [
+            "supported",
+            "contradicted",
+            "abstain"
+          ],
+          "matrix": [
+            [
+              79,
+              20,
+              0
+            ],
+            [
+              29,
+              64,
+              4
+            ],
+            [
+              5,
+              7,
+              48
+            ]
+          ],
+          "row_normalized": [
+            [
+              0.79798,
+              0.20202,
+              0.0
+            ],
+            [
+              0.298969,
+              0.659794,
+              0.041237
+            ],
+            [
+              0.083333,
+              0.116667,
+              0.8
+            ]
+          ],
+          "support": [
+            99,
+            97,
+            60
+          ],
+          "total": 256
+        },
+        "per_class": {
+          "supported": {
+            "tp": 79,
+            "fp": 34,
+            "fn": 20,
+            "tn": 123,
+            "support": 99,
+            "precision": 0.699115,
+            "recall": 0.79798,
+            "f1": 0.745283
+          },
+          "contradicted": {
+            "tp": 64,
+            "fp": 27,
+            "fn": 33,
+            "tn": 132,
+            "support": 97,
+            "precision": 0.703297,
+            "recall": 0.659794,
+            "f1": 0.680851
+          },
+          "abstain": {
+            "tp": 48,
+            "fp": 4,
+            "fn": 12,
+            "tn": 192,
+            "support": 60,
+            "precision": 0.923077,
+            "recall": 0.8,
+            "f1": 0.857143
+          }
+        },
+        "accuracy": 0.746094,
+        "macro_f1": 0.761092,
+        "micro_f1": 0.746094,
+        "weighted_f1": 0.747086,
+        "balanced_accuracy": 0.752591,
+        "support": 256,
+        "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+      },
+      "abstention_overall": {
+        "counts": {
+          "tp": 48,
+          "fp": 4,
+          "fn": 12,
+          "tn": 192,
+          "support": 60
+        },
+        "precision": 0.923077,
+        "recall": 0.8,
+        "f1": 0.857143,
+        "false_abstention_rate": 0.25,
+        "abstention_coverage": 0.8
+      },
+      "error_cases": {
+        "invalid_output": 0,
+        "unsupported_affirmative": 36,
+        "false_abstention": 4,
+        "missed_abstention": 12,
+        "missed_finding": 48,
+        "incorrect_admission": 33,
+        "incorrect_withholding": 16,
+        "bad_citation": 52,
+        "wrong_attribution": 6,
+        "incomplete_chain": 49,
+        "missing_items": 0,
+        "duplicate_items": 0,
+        "unknown_items": 0
+      },
+      "invalid_outputs": 0,
+      "tokens": {
+        "prompt": 36269,
+        "completion": 10482
+      },
+      "attempts": 82,
+      "latency_ms": {
+        "p50": 2373.625,
+        "p90": 3562.358,
+        "p95": 3812.086,
+        "note": "Cloud and local endpoint times are not comparable; reported, never used for ranking."
+      },
+      "by_agent": {
+        "Planner": {
+          "exact_pass": 3,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  18,
+                  13,
+                  0
+                ],
+                [
+                  1,
+                  32,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "row_normalized": [
+                [
+                  0.580645,
+                  0.419355,
+                  0.0
+                ],
+                [
+                  0.030303,
+                  0.969697,
+                  0.0
+                ],
+                [
+                  null,
+                  null,
+                  null
+                ]
+              ],
+              "support": [
+                31,
+                33,
+                0
+              ],
+              "total": 64
+            },
+            "per_class": {
+              "supported": {
+                "tp": 18,
+                "fp": 1,
+                "fn": 13,
+                "tn": 32,
+                "support": 31,
+                "precision": 0.947368,
+                "recall": 0.580645,
+                "f1": 0.72
+              },
+              "contradicted": {
+                "tp": 32,
+                "fp": 13,
+                "fn": 1,
+                "tn": 18,
+                "support": 33,
+                "precision": 0.711111,
+                "recall": 0.969697,
+                "f1": 0.820513
+              },
+              "abstain": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 0,
+                "tn": 64,
+                "support": 0,
+                "precision": null,
+                "recall": null,
+                "f1": null
+              }
+            },
+            "accuracy": 0.78125,
+            "macro_f1": 0.770257,
+            "micro_f1": 0.78125,
+            "weighted_f1": 0.771827,
+            "balanced_accuracy": 0.775171,
+            "support": 64,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "tn": 64,
+              "support": 0
+            },
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "false_abstention_rate": null,
+            "abstention_coverage": null
+          }
+        },
+        "Recon": {
+          "exact_pass": 7,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  17,
+                  0,
+                  0
+                ],
+                [
+                  6,
+                  8,
+                  2
+                ],
+                [
+                  1,
+                  2,
+                  12
+                ]
+              ],
+              "row_normalized": [
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.375,
+                  0.5,
+                  0.125
+                ],
+                [
+                  0.066667,
+                  0.133333,
+                  0.8
+                ]
+              ],
+              "support": [
+                17,
+                16,
+                15
+              ],
+              "total": 48
+            },
+            "per_class": {
+              "supported": {
+                "tp": 17,
+                "fp": 7,
+                "fn": 0,
+                "tn": 24,
+                "support": 17,
+                "precision": 0.708333,
+                "recall": 1.0,
+                "f1": 0.829268
+              },
+              "contradicted": {
+                "tp": 8,
+                "fp": 2,
+                "fn": 8,
+                "tn": 30,
+                "support": 16,
+                "precision": 0.8,
+                "recall": 0.5,
+                "f1": 0.615385
+              },
+              "abstain": {
+                "tp": 12,
+                "fp": 2,
+                "fn": 3,
+                "tn": 31,
+                "support": 15,
+                "precision": 0.857143,
+                "recall": 0.8,
+                "f1": 0.827586
+              }
+            },
+            "accuracy": 0.770833,
+            "macro_f1": 0.757413,
+            "micro_f1": 0.770833,
+            "weighted_f1": 0.757448,
+            "balanced_accuracy": 0.766667,
+            "support": 48,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 12,
+              "fp": 2,
+              "fn": 3,
+              "tn": 31,
+              "support": 15
+            },
+            "precision": 0.857143,
+            "recall": 0.8,
+            "f1": 0.827586,
+            "false_abstention_rate": 0.4,
+            "abstention_coverage": 0.8
+          }
+        },
+        "Web-App": {
+          "exact_pass": 7,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  16,
+                  1,
+                  0
+                ],
+                [
+                  6,
+                  9,
+                  1
+                ],
+                [
+                  2,
+                  1,
+                  12
+                ]
+              ],
+              "row_normalized": [
+                [
+                  0.941176,
+                  0.058824,
+                  0.0
+                ],
+                [
+                  0.375,
+                  0.5625,
+                  0.0625
+                ],
+                [
+                  0.133333,
+                  0.066667,
+                  0.8
+                ]
+              ],
+              "support": [
+                17,
+                16,
+                15
+              ],
+              "total": 48
+            },
+            "per_class": {
+              "supported": {
+                "tp": 16,
+                "fp": 8,
+                "fn": 1,
+                "tn": 23,
+                "support": 17,
+                "precision": 0.666667,
+                "recall": 0.941176,
+                "f1": 0.780488
+              },
+              "contradicted": {
+                "tp": 9,
+                "fp": 2,
+                "fn": 7,
+                "tn": 30,
+                "support": 16,
+                "precision": 0.818182,
+                "recall": 0.5625,
+                "f1": 0.666667
+              },
+              "abstain": {
+                "tp": 12,
+                "fp": 1,
+                "fn": 3,
+                "tn": 32,
+                "support": 15,
+                "precision": 0.923077,
+                "recall": 0.8,
+                "f1": 0.857143
+              }
+            },
+            "accuracy": 0.770833,
+            "macro_f1": 0.768099,
+            "micro_f1": 0.770833,
+            "weighted_f1": 0.766502,
+            "balanced_accuracy": 0.767892,
+            "support": 48,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 12,
+              "fp": 1,
+              "fn": 3,
+              "tn": 32,
+              "support": 15
+            },
+            "precision": 0.923077,
+            "recall": 0.8,
+            "f1": 0.857143,
+            "false_abstention_rate": 0.25,
+            "abstention_coverage": 0.8
+          }
+        },
+        "Network": {
+          "exact_pass": 8,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  16,
+                  1,
+                  0
+                ],
+                [
+                  6,
+                  10,
+                  0
+                ],
+                [
+                  0,
+                  2,
+                  13
+                ]
+              ],
+              "row_normalized": [
+                [
+                  0.941176,
+                  0.058824,
+                  0.0
+                ],
+                [
+                  0.375,
+                  0.625,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.133333,
+                  0.866667
+                ]
+              ],
+              "support": [
+                17,
+                16,
+                15
+              ],
+              "total": 48
+            },
+            "per_class": {
+              "supported": {
+                "tp": 16,
+                "fp": 6,
+                "fn": 1,
+                "tn": 25,
+                "support": 17,
+                "precision": 0.727273,
+                "recall": 0.941176,
+                "f1": 0.820513
+              },
+              "contradicted": {
+                "tp": 10,
+                "fp": 3,
+                "fn": 6,
+                "tn": 29,
+                "support": 16,
+                "precision": 0.769231,
+                "recall": 0.625,
+                "f1": 0.689655
+              },
+              "abstain": {
+                "tp": 13,
+                "fp": 0,
+                "fn": 2,
+                "tn": 33,
+                "support": 15,
+                "precision": 1.0,
+                "recall": 0.866667,
+                "f1": 0.928571
+              }
+            },
+            "accuracy": 0.8125,
+            "macro_f1": 0.812913,
+            "micro_f1": 0.8125,
+            "weighted_f1": 0.810662,
+            "balanced_accuracy": 0.810948,
+            "support": 48,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 13,
+              "fp": 0,
+              "fn": 2,
+              "tn": 33,
+              "support": 15
+            },
+            "precision": 1.0,
+            "recall": 0.866667,
+            "f1": 0.928571,
+            "false_abstention_rate": 0.0,
+            "abstention_coverage": 0.866667
+          }
+        },
+        "Reporting": {
+          "exact_pass": 3,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  12,
+                  5,
+                  0
+                ],
+                [
+                  10,
+                  5,
+                  1
+                ],
+                [
+                  2,
+                  2,
+                  11
+                ]
+              ],
+              "row_normalized": [
+                [
+                  0.705882,
+                  0.294118,
+                  0.0
+                ],
+                [
+                  0.625,
+                  0.3125,
+                  0.0625
+                ],
+                [
+                  0.133333,
+                  0.133333,
+                  0.733333
+                ]
+              ],
+              "support": [
+                17,
+                16,
+                15
+              ],
+              "total": 48
+            },
+            "per_class": {
+              "supported": {
+                "tp": 12,
+                "fp": 12,
+                "fn": 5,
+                "tn": 19,
+                "support": 17,
+                "precision": 0.5,
+                "recall": 0.705882,
+                "f1": 0.585366
+              },
+              "contradicted": {
+                "tp": 5,
+                "fp": 7,
+                "fn": 11,
+                "tn": 25,
+                "support": 16,
+                "precision": 0.416667,
+                "recall": 0.3125,
+                "f1": 0.357143
+              },
+              "abstain": {
+                "tp": 11,
+                "fp": 1,
+                "fn": 4,
+                "tn": 32,
+                "support": 15,
+                "precision": 0.916667,
+                "recall": 0.733333,
+                "f1": 0.814815
+              }
+            },
+            "accuracy": 0.583333,
+            "macro_f1": 0.585775,
+            "micro_f1": 0.583333,
+            "weighted_f1": 0.580994,
+            "balanced_accuracy": 0.583905,
+            "support": 48,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 11,
+              "fp": 1,
+              "fn": 4,
+              "tn": 32,
+              "support": 15
+            },
+            "precision": 0.916667,
+            "recall": 0.733333,
+            "f1": 0.814815,
+            "false_abstention_rate": 0.2,
+            "abstention_coverage": 0.733333
+          }
+        }
+      }
+    },
+    {
+      "arm": "granite4.2:8b",
+      "rubric_version": "role-contract-frozen+diagnostics-v1",
+      "exact": {
+        "passes": 27,
+        "cases": 80,
+        "rate": 0.3375,
+        "wilson_ci95": [
+          0.243456,
+          0.446435
+        ],
+        "note": "Exact role-contract pass. Separate from confusion-matrix metrics."
+      },
+      "classification_overall": {
+        "confusion": {
+          "labels": [
+            "supported",
+            "contradicted",
+            "abstain"
+          ],
+          "matrix": [
+            [
+              85,
+              13,
+              1
+            ],
+            [
+              34,
+              59,
+              4
+            ],
+            [
+              5,
+              4,
+              51
+            ]
+          ],
+          "row_normalized": [
+            [
+              0.858586,
+              0.131313,
+              0.010101
+            ],
+            [
+              0.350515,
+              0.608247,
+              0.041237
+            ],
+            [
+              0.083333,
+              0.066667,
+              0.85
+            ]
+          ],
+          "support": [
+            99,
+            97,
+            60
+          ],
+          "total": 256
+        },
+        "per_class": {
+          "supported": {
+            "tp": 85,
+            "fp": 39,
+            "fn": 14,
+            "tn": 118,
+            "support": 99,
+            "precision": 0.685484,
+            "recall": 0.858586,
+            "f1": 0.762332
+          },
+          "contradicted": {
+            "tp": 59,
+            "fp": 17,
+            "fn": 38,
+            "tn": 142,
+            "support": 97,
+            "precision": 0.776316,
+            "recall": 0.608247,
+            "f1": 0.682081
+          },
+          "abstain": {
+            "tp": 51,
+            "fp": 5,
+            "fn": 9,
+            "tn": 191,
+            "support": 60,
+            "precision": 0.910714,
+            "recall": 0.85,
+            "f1": 0.87931
+          }
+        },
+        "accuracy": 0.761719,
+        "macro_f1": 0.774574,
+        "micro_f1": 0.761719,
+        "weighted_f1": 0.759341,
+        "balanced_accuracy": 0.772278,
+        "support": 256,
+        "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+      },
+      "abstention_overall": {
+        "counts": {
+          "tp": 51,
+          "fp": 5,
+          "fn": 9,
+          "tn": 191,
+          "support": 60
+        },
+        "precision": 0.910714,
+        "recall": 0.85,
+        "f1": 0.87931,
+        "false_abstention_rate": 0.357143,
+        "abstention_coverage": 0.85
+      },
+      "error_cases": {
+        "invalid_output": 0,
+        "unsupported_affirmative": 37,
+        "false_abstention": 5,
+        "missed_abstention": 9,
+        "missed_finding": 50,
+        "incorrect_admission": 37,
+        "incorrect_withholding": 10,
+        "bad_citation": 50,
+        "wrong_attribution": 0,
+        "incomplete_chain": 50,
+        "missing_items": 0,
+        "duplicate_items": 0,
+        "unknown_items": 0
+      },
+      "invalid_outputs": 0,
+      "tokens": {
+        "prompt": 37647,
+        "completion": 14837
+      },
+      "attempts": 80,
+      "latency_ms": {
+        "p50": 3574.931,
+        "p90": 4823.49,
+        "p95": 5039.082,
+        "note": "Cloud and local endpoint times are not comparable; reported, never used for ranking."
+      },
+      "by_agent": {
+        "Planner": {
+          "exact_pass": 7,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  21,
+                  10,
+                  0
+                ],
+                [
+                  0,
+                  33,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "row_normalized": [
+                [
+                  0.677419,
+                  0.322581,
+                  0.0
+                ],
+                [
+                  0.0,
+                  1.0,
+                  0.0
+                ],
+                [
+                  null,
+                  null,
+                  null
+                ]
+              ],
+              "support": [
+                31,
+                33,
+                0
+              ],
+              "total": 64
+            },
+            "per_class": {
+              "supported": {
+                "tp": 21,
+                "fp": 0,
+                "fn": 10,
+                "tn": 33,
+                "support": 31,
+                "precision": 1.0,
+                "recall": 0.677419,
+                "f1": 0.807692
+              },
+              "contradicted": {
+                "tp": 33,
+                "fp": 10,
+                "fn": 0,
+                "tn": 21,
+                "support": 33,
+                "precision": 0.767442,
+                "recall": 1.0,
+                "f1": 0.868421
+              },
+              "abstain": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 0,
+                "tn": 64,
+                "support": 0,
+                "precision": null,
+                "recall": null,
+                "f1": null
+              }
+            },
+            "accuracy": 0.84375,
+            "macro_f1": 0.838056,
+            "micro_f1": 0.84375,
+            "weighted_f1": 0.839005,
+            "balanced_accuracy": 0.838709,
+            "support": 64,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "tn": 64,
+              "support": 0
+            },
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "false_abstention_rate": null,
+            "abstention_coverage": null
+          }
+        },
+        "Recon": {
+          "exact_pass": 4,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  17,
+                  0,
+                  0
+                ],
+                [
+                  8,
+                  7,
+                  1
+                ],
+                [
+                  2,
+                  1,
+                  12
+                ]
+              ],
+              "row_normalized": [
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.5,
+                  0.4375,
+                  0.0625
+                ],
+                [
+                  0.133333,
+                  0.066667,
+                  0.8
+                ]
+              ],
+              "support": [
+                17,
+                16,
+                15
+              ],
+              "total": 48
+            },
+            "per_class": {
+              "supported": {
+                "tp": 17,
+                "fp": 10,
+                "fn": 0,
+                "tn": 21,
+                "support": 17,
+                "precision": 0.62963,
+                "recall": 1.0,
+                "f1": 0.772727
+              },
+              "contradicted": {
+                "tp": 7,
+                "fp": 1,
+                "fn": 9,
+                "tn": 31,
+                "support": 16,
+                "precision": 0.875,
+                "recall": 0.4375,
+                "f1": 0.583333
+              },
+              "abstain": {
+                "tp": 12,
+                "fp": 1,
+                "fn": 3,
+                "tn": 32,
+                "support": 15,
+                "precision": 0.923077,
+                "recall": 0.8,
+                "f1": 0.857143
+              }
+            },
+            "accuracy": 0.75,
+            "macro_f1": 0.737734,
+            "micro_f1": 0.75,
+            "weighted_f1": 0.735976,
+            "balanced_accuracy": 0.745833,
+            "support": 48,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 12,
+              "fp": 1,
+              "fn": 3,
+              "tn": 32,
+              "support": 15
+            },
+            "precision": 0.923077,
+            "recall": 0.8,
+            "f1": 0.857143,
+            "false_abstention_rate": 0.25,
+            "abstention_coverage": 0.8
+          }
+        },
+        "Web-App": {
+          "exact_pass": 7,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  17,
+                  0,
+                  0
+                ],
+                [
+                  7,
+                  9,
+                  0
+                ],
+                [
+                  1,
+                  2,
+                  12
+                ]
+              ],
+              "row_normalized": [
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.4375,
+                  0.5625,
+                  0.0
+                ],
+                [
+                  0.066667,
+                  0.133333,
+                  0.8
+                ]
+              ],
+              "support": [
+                17,
+                16,
+                15
+              ],
+              "total": 48
+            },
+            "per_class": {
+              "supported": {
+                "tp": 17,
+                "fp": 8,
+                "fn": 0,
+                "tn": 23,
+                "support": 17,
+                "precision": 0.68,
+                "recall": 1.0,
+                "f1": 0.809524
+              },
+              "contradicted": {
+                "tp": 9,
+                "fp": 2,
+                "fn": 7,
+                "tn": 30,
+                "support": 16,
+                "precision": 0.818182,
+                "recall": 0.5625,
+                "f1": 0.666667
+              },
+              "abstain": {
+                "tp": 12,
+                "fp": 0,
+                "fn": 3,
+                "tn": 33,
+                "support": 15,
+                "precision": 1.0,
+                "recall": 0.8,
+                "f1": 0.888889
+              }
+            },
+            "accuracy": 0.791667,
+            "macro_f1": 0.78836,
+            "micro_f1": 0.791667,
+            "weighted_f1": 0.786707,
+            "balanced_accuracy": 0.7875,
+            "support": 48,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 12,
+              "fp": 0,
+              "fn": 3,
+              "tn": 33,
+              "support": 15
+            },
+            "precision": 1.0,
+            "recall": 0.8,
+            "f1": 0.888889,
+            "false_abstention_rate": 0.0,
+            "abstention_coverage": 0.8
+          }
+        },
+        "Network": {
+          "exact_pass": 4,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  17,
+                  0,
+                  0
+                ],
+                [
+                  10,
+                  6,
+                  0
+                ],
+                [
+                  2,
+                  1,
+                  12
+                ]
+              ],
+              "row_normalized": [
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  0.625,
+                  0.375,
+                  0.0
+                ],
+                [
+                  0.133333,
+                  0.066667,
+                  0.8
+                ]
+              ],
+              "support": [
+                17,
+                16,
+                15
+              ],
+              "total": 48
+            },
+            "per_class": {
+              "supported": {
+                "tp": 17,
+                "fp": 12,
+                "fn": 0,
+                "tn": 19,
+                "support": 17,
+                "precision": 0.586207,
+                "recall": 1.0,
+                "f1": 0.73913
+              },
+              "contradicted": {
+                "tp": 6,
+                "fp": 1,
+                "fn": 10,
+                "tn": 31,
+                "support": 16,
+                "precision": 0.857143,
+                "recall": 0.375,
+                "f1": 0.521739
+              },
+              "abstain": {
+                "tp": 12,
+                "fp": 0,
+                "fn": 3,
+                "tn": 33,
+                "support": 15,
+                "precision": 1.0,
+                "recall": 0.8,
+                "f1": 0.888889
+              }
+            },
+            "accuracy": 0.729167,
+            "macro_f1": 0.716586,
+            "micro_f1": 0.729167,
+            "weighted_f1": 0.713466,
+            "balanced_accuracy": 0.725,
+            "support": 48,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 12,
+              "fp": 0,
+              "fn": 3,
+              "tn": 33,
+              "support": 15
+            },
+            "precision": 1.0,
+            "recall": 0.8,
+            "f1": 0.888889,
+            "false_abstention_rate": 0.0,
+            "abstention_coverage": 0.8
+          }
+        },
+        "Reporting": {
+          "exact_pass": 5,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  13,
+                  3,
+                  1
+                ],
+                [
+                  9,
+                  4,
+                  3
+                ],
+                [
+                  0,
+                  0,
+                  15
+                ]
+              ],
+              "row_normalized": [
+                [
+                  0.764706,
+                  0.176471,
+                  0.058824
+                ],
+                [
+                  0.5625,
+                  0.25,
+                  0.1875
+                ],
+                [
+                  0.0,
+                  0.0,
+                  1.0
+                ]
+              ],
+              "support": [
+                17,
+                16,
+                15
+              ],
+              "total": 48
+            },
+            "per_class": {
+              "supported": {
+                "tp": 13,
+                "fp": 9,
+                "fn": 4,
+                "tn": 22,
+                "support": 17,
+                "precision": 0.590909,
+                "recall": 0.764706,
+                "f1": 0.666667
+              },
+              "contradicted": {
+                "tp": 4,
+                "fp": 3,
+                "fn": 12,
+                "tn": 29,
+                "support": 16,
+                "precision": 0.571429,
+                "recall": 0.25,
+                "f1": 0.347826
+              },
+              "abstain": {
+                "tp": 15,
+                "fp": 4,
+                "fn": 0,
+                "tn": 29,
+                "support": 15,
+                "precision": 0.789474,
+                "recall": 1.0,
+                "f1": 0.882353
+              }
+            },
+            "accuracy": 0.666667,
+            "macro_f1": 0.632282,
+            "micro_f1": 0.666667,
+            "weighted_f1": 0.627789,
+            "balanced_accuracy": 0.671569,
+            "support": 48,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 15,
+              "fp": 4,
+              "fn": 0,
+              "tn": 29,
+              "support": 15
+            },
+            "precision": 0.789474,
+            "recall": 1.0,
+            "f1": 0.882353,
+            "false_abstention_rate": 1.0,
+            "abstention_coverage": 1.0
+          }
+        }
+      }
+    },
+    {
+      "arm": "llama3.1:8b",
+      "rubric_version": "role-contract-frozen+diagnostics-v1",
+      "exact": {
+        "passes": 23,
+        "cases": 80,
+        "rate": 0.2875,
+        "wilson_ci95": [
+          0.199869,
+          0.394603
+        ],
+        "note": "Exact role-contract pass. Separate from confusion-matrix metrics."
+      },
+      "classification_overall": {
+        "confusion": {
+          "labels": [
+            "supported",
+            "contradicted",
+            "abstain"
+          ],
+          "matrix": [
+            [
+              75,
+              24,
+              0
+            ],
+            [
+              33,
+              55,
+              8
+            ],
+            [
+              3,
+              7,
+              50
+            ]
+          ],
+          "row_normalized": [
+            [
+              0.757576,
+              0.242424,
+              0.0
+            ],
+            [
+              0.34375,
+              0.572917,
+              0.083333
+            ],
+            [
+              0.05,
+              0.116667,
+              0.833333
+            ]
+          ],
+          "support": [
+            99,
+            96,
+            60
+          ],
+          "total": 255
+        },
+        "per_class": {
+          "supported": {
+            "tp": 75,
+            "fp": 36,
+            "fn": 24,
+            "tn": 120,
+            "support": 99,
+            "precision": 0.675676,
+            "recall": 0.757576,
+            "f1": 0.714286
+          },
+          "contradicted": {
+            "tp": 55,
+            "fp": 31,
+            "fn": 41,
+            "tn": 128,
+            "support": 96,
+            "precision": 0.639535,
+            "recall": 0.572917,
+            "f1": 0.604396
+          },
+          "abstain": {
+            "tp": 50,
+            "fp": 8,
+            "fn": 10,
+            "tn": 187,
+            "support": 60,
+            "precision": 0.862069,
+            "recall": 0.833333,
+            "f1": 0.847458
+          }
+        },
+        "accuracy": 0.705882,
+        "macro_f1": 0.722047,
+        "micro_f1": 0.705882,
+        "weighted_f1": 0.70425,
+        "balanced_accuracy": 0.721275,
+        "support": 255,
+        "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+      },
+      "abstention_overall": {
+        "counts": {
+          "tp": 50,
+          "fp": 8,
+          "fn": 10,
+          "tn": 187,
+          "support": 60
+        },
+        "precision": 0.862069,
+        "recall": 0.833333,
+        "f1": 0.847458,
+        "false_abstention_rate": 0.444444,
+        "abstention_coverage": 0.833333
+      },
+      "error_cases": {
+        "invalid_output": 0,
+        "unsupported_affirmative": 32,
+        "false_abstention": 8,
+        "missed_abstention": 10,
+        "missed_finding": 54,
+        "incorrect_admission": 32,
+        "incorrect_withholding": 22,
+        "bad_citation": 53,
+        "wrong_attribution": 4,
+        "incomplete_chain": 54,
+        "missing_items": 1,
+        "duplicate_items": 0,
+        "unknown_items": 0
+      },
+      "invalid_outputs": 0,
+      "tokens": {
+        "prompt": 35737,
+        "completion": 11372
+      },
+      "attempts": 80,
+      "latency_ms": {
+        "p50": 2532.456,
+        "p90": 3848.474,
+        "p95": 3921.437,
+        "note": "Cloud and local endpoint times are not comparable; reported, never used for ranking."
+      },
+      "by_agent": {
+        "Planner": {
+          "exact_pass": 0,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  23,
+                  8,
+                  0
+                ],
+                [
+                  10,
+                  22,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "row_normalized": [
+                [
+                  0.741935,
+                  0.258065,
+                  0.0
+                ],
+                [
+                  0.3125,
+                  0.6875,
+                  0.0
+                ],
+                [
+                  null,
+                  null,
+                  null
+                ]
+              ],
+              "support": [
+                31,
+                32,
+                0
+              ],
+              "total": 63
+            },
+            "per_class": {
+              "supported": {
+                "tp": 23,
+                "fp": 10,
+                "fn": 8,
+                "tn": 22,
+                "support": 31,
+                "precision": 0.69697,
+                "recall": 0.741935,
+                "f1": 0.71875
+              },
+              "contradicted": {
+                "tp": 22,
+                "fp": 8,
+                "fn": 10,
+                "tn": 23,
+                "support": 32,
+                "precision": 0.733333,
+                "recall": 0.6875,
+                "f1": 0.709677
+              },
+              "abstain": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 0,
+                "tn": 63,
+                "support": 0,
+                "precision": null,
+                "recall": null,
+                "f1": null
+              }
+            },
+            "accuracy": 0.714286,
+            "macro_f1": 0.714214,
+            "micro_f1": 0.714286,
+            "weighted_f1": 0.714141,
+            "balanced_accuracy": 0.714718,
+            "support": 63,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "tn": 63,
+              "support": 0
+            },
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "false_abstention_rate": null,
+            "abstention_coverage": null
+          }
+        },
+        "Recon": {
+          "exact_pass": 5,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  11,
+                  6,
+                  0
+                ],
+                [
+                  7,
+                  8,
+                  1
+                ],
+                [
+                  1,
+                  1,
+                  13
+                ]
+              ],
+              "row_normalized": [
+                [
+                  0.647059,
+                  0.352941,
+                  0.0
+                ],
+                [
+                  0.4375,
+                  0.5,
+                  0.0625
+                ],
+                [
+                  0.066667,
+                  0.066667,
+                  0.866667
+                ]
+              ],
+              "support": [
+                17,
+                16,
+                15
+              ],
+              "total": 48
+            },
+            "per_class": {
+              "supported": {
+                "tp": 11,
+                "fp": 8,
+                "fn": 6,
+                "tn": 23,
+                "support": 17,
+                "precision": 0.578947,
+                "recall": 0.647059,
+                "f1": 0.611111
+              },
+              "contradicted": {
+                "tp": 8,
+                "fp": 7,
+                "fn": 8,
+                "tn": 25,
+                "support": 16,
+                "precision": 0.533333,
+                "recall": 0.5,
+                "f1": 0.516129
+              },
+              "abstain": {
+                "tp": 13,
+                "fp": 1,
+                "fn": 2,
+                "tn": 32,
+                "support": 15,
+                "precision": 0.928571,
+                "recall": 0.866667,
+                "f1": 0.896552
+              }
+            },
+            "accuracy": 0.666667,
+            "macro_f1": 0.674597,
+            "micro_f1": 0.666667,
+            "weighted_f1": 0.668651,
+            "balanced_accuracy": 0.671242,
+            "support": 48,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 13,
+              "fp": 1,
+              "fn": 2,
+              "tn": 32,
+              "support": 15
+            },
+            "precision": 0.928571,
+            "recall": 0.866667,
+            "f1": 0.896552,
+            "false_abstention_rate": 0.333333,
+            "abstention_coverage": 0.866667
+          }
+        },
+        "Web-App": {
+          "exact_pass": 5,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  14,
+                  3,
+                  0
+                ],
+                [
+                  5,
+                  7,
+                  4
+                ],
+                [
+                  2,
+                  2,
+                  11
+                ]
+              ],
+              "row_normalized": [
+                [
+                  0.823529,
+                  0.176471,
+                  0.0
+                ],
+                [
+                  0.3125,
+                  0.4375,
+                  0.25
+                ],
+                [
+                  0.133333,
+                  0.133333,
+                  0.733333
+                ]
+              ],
+              "support": [
+                17,
+                16,
+                15
+              ],
+              "total": 48
+            },
+            "per_class": {
+              "supported": {
+                "tp": 14,
+                "fp": 7,
+                "fn": 3,
+                "tn": 24,
+                "support": 17,
+                "precision": 0.666667,
+                "recall": 0.823529,
+                "f1": 0.736842
+              },
+              "contradicted": {
+                "tp": 7,
+                "fp": 5,
+                "fn": 9,
+                "tn": 27,
+                "support": 16,
+                "precision": 0.583333,
+                "recall": 0.4375,
+                "f1": 0.5
+              },
+              "abstain": {
+                "tp": 11,
+                "fp": 4,
+                "fn": 4,
+                "tn": 29,
+                "support": 15,
+                "precision": 0.733333,
+                "recall": 0.733333,
+                "f1": 0.733333
+              }
+            },
+            "accuracy": 0.666667,
+            "macro_f1": 0.656725,
+            "micro_f1": 0.666667,
+            "weighted_f1": 0.656798,
+            "balanced_accuracy": 0.664787,
+            "support": 48,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 11,
+              "fp": 4,
+              "fn": 4,
+              "tn": 29,
+              "support": 15
+            },
+            "precision": 0.733333,
+            "recall": 0.733333,
+            "f1": 0.733333,
+            "false_abstention_rate": 0.5,
+            "abstention_coverage": 0.733333
+          }
+        },
+        "Network": {
+          "exact_pass": 7,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  15,
+                  2,
+                  0
+                ],
+                [
+                  6,
+                  10,
+                  0
+                ],
+                [
+                  0,
+                  3,
+                  12
+                ]
+              ],
+              "row_normalized": [
+                [
+                  0.882353,
+                  0.117647,
+                  0.0
+                ],
+                [
+                  0.375,
+                  0.625,
+                  0.0
+                ],
+                [
+                  0.0,
+                  0.2,
+                  0.8
+                ]
+              ],
+              "support": [
+                17,
+                16,
+                15
+              ],
+              "total": 48
+            },
+            "per_class": {
+              "supported": {
+                "tp": 15,
+                "fp": 6,
+                "fn": 2,
+                "tn": 25,
+                "support": 17,
+                "precision": 0.714286,
+                "recall": 0.882353,
+                "f1": 0.789474
+              },
+              "contradicted": {
+                "tp": 10,
+                "fp": 5,
+                "fn": 6,
+                "tn": 27,
+                "support": 16,
+                "precision": 0.666667,
+                "recall": 0.625,
+                "f1": 0.645161
+              },
+              "abstain": {
+                "tp": 12,
+                "fp": 0,
+                "fn": 3,
+                "tn": 33,
+                "support": 15,
+                "precision": 1.0,
+                "recall": 0.8,
+                "f1": 0.888889
+              }
+            },
+            "accuracy": 0.770833,
+            "macro_f1": 0.774508,
+            "micro_f1": 0.770833,
+            "weighted_f1": 0.772437,
+            "balanced_accuracy": 0.769118,
+            "support": 48,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 12,
+              "fp": 0,
+              "fn": 3,
+              "tn": 33,
+              "support": 15
+            },
+            "precision": 1.0,
+            "recall": 0.8,
+            "f1": 0.888889,
+            "false_abstention_rate": 0.0,
+            "abstention_coverage": 0.8
+          }
+        },
+        "Reporting": {
+          "exact_pass": 6,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  12,
+                  5,
+                  0
+                ],
+                [
+                  5,
+                  8,
+                  3
+                ],
+                [
+                  0,
+                  1,
+                  14
+                ]
+              ],
+              "row_normalized": [
+                [
+                  0.705882,
+                  0.294118,
+                  0.0
+                ],
+                [
+                  0.3125,
+                  0.5,
+                  0.1875
+                ],
+                [
+                  0.0,
+                  0.066667,
+                  0.933333
+                ]
+              ],
+              "support": [
+                17,
+                16,
+                15
+              ],
+              "total": 48
+            },
+            "per_class": {
+              "supported": {
+                "tp": 12,
+                "fp": 5,
+                "fn": 5,
+                "tn": 26,
+                "support": 17,
+                "precision": 0.705882,
+                "recall": 0.705882,
+                "f1": 0.705882
+              },
+              "contradicted": {
+                "tp": 8,
+                "fp": 6,
+                "fn": 8,
+                "tn": 26,
+                "support": 16,
+                "precision": 0.571429,
+                "recall": 0.5,
+                "f1": 0.533333
+              },
+              "abstain": {
+                "tp": 14,
+                "fp": 3,
+                "fn": 1,
+                "tn": 30,
+                "support": 15,
+                "precision": 0.823529,
+                "recall": 0.933333,
+                "f1": 0.875
+              }
+            },
+            "accuracy": 0.708333,
+            "macro_f1": 0.704738,
+            "micro_f1": 0.708333,
+            "weighted_f1": 0.701215,
+            "balanced_accuracy": 0.713072,
+            "support": 48,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 14,
+              "fp": 3,
+              "fn": 1,
+              "tn": 30,
+              "support": 15
+            },
+            "precision": 0.823529,
+            "recall": 0.933333,
+            "f1": 0.875,
+            "false_abstention_rate": 0.75,
+            "abstention_coverage": 0.933333
+          }
+        }
+      }
+    },
+    {
+      "arm": "qwen2.5:1.5b",
+      "rubric_version": "role-contract-frozen+diagnostics-v1",
+      "exact": {
+        "passes": 5,
+        "cases": 80,
+        "rate": 0.0625,
+        "wilson_ci95": [
+          0.026989,
+          0.138101
+        ],
+        "note": "Exact role-contract pass. Separate from confusion-matrix metrics."
+      },
+      "classification_overall": {
+        "confusion": {
+          "labels": [
+            "supported",
+            "contradicted",
+            "abstain"
+          ],
+          "matrix": [
+            [
+              84,
+              6,
+              9
+            ],
+            [
+              66,
+              20,
+              11
+            ],
+            [
+              16,
+              29,
+              15
+            ]
+          ],
+          "row_normalized": [
+            [
+              0.848485,
+              0.060606,
+              0.090909
+            ],
+            [
+              0.680412,
+              0.206186,
+              0.113402
+            ],
+            [
+              0.266667,
+              0.483333,
+              0.25
+            ]
+          ],
+          "support": [
+            99,
+            97,
+            60
+          ],
+          "total": 256
+        },
+        "per_class": {
+          "supported": {
+            "tp": 84,
+            "fp": 82,
+            "fn": 15,
+            "tn": 75,
+            "support": 99,
+            "precision": 0.506024,
+            "recall": 0.848485,
+            "f1": 0.633962
+          },
+          "contradicted": {
+            "tp": 20,
+            "fp": 35,
+            "fn": 77,
+            "tn": 124,
+            "support": 97,
+            "precision": 0.363636,
+            "recall": 0.206186,
+            "f1": 0.263158
+          },
+          "abstain": {
+            "tp": 15,
+            "fp": 20,
+            "fn": 45,
+            "tn": 176,
+            "support": 60,
+            "precision": 0.428571,
+            "recall": 0.25,
+            "f1": 0.315789
+          }
+        },
+        "accuracy": 0.464844,
+        "macro_f1": 0.404303,
+        "micro_f1": 0.464844,
+        "weighted_f1": 0.41889,
+        "balanced_accuracy": 0.43489,
+        "support": 256,
+        "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+      },
+      "abstention_overall": {
+        "counts": {
+          "tp": 15,
+          "fp": 20,
+          "fn": 45,
+          "tn": 176,
+          "support": 60
+        },
+        "precision": 0.428571,
+        "recall": 0.25,
+        "f1": 0.315789,
+        "false_abstention_rate": 0.307692,
+        "abstention_coverage": 0.25
+      },
+      "error_cases": {
+        "invalid_output": 0,
+        "unsupported_affirmative": 52,
+        "false_abstention": 12,
+        "missed_abstention": 36,
+        "missed_finding": 72,
+        "incorrect_admission": 51,
+        "incorrect_withholding": 14,
+        "bad_citation": 73,
+        "wrong_attribution": 4,
+        "incomplete_chain": 75,
+        "missing_items": 0,
+        "duplicate_items": 0,
+        "unknown_items": 0
+      },
+      "invalid_outputs": 0,
+      "tokens": {
+        "prompt": 35577,
+        "completion": 12684
+      },
+      "attempts": 80,
+      "latency_ms": {
+        "p50": 1124.015,
+        "p90": 1499.242,
+        "p95": 1562.91,
+        "note": "Cloud and local endpoint times are not comparable; reported, never used for ranking."
+      },
+      "by_agent": {
+        "Planner": {
+          "exact_pass": 1,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  31,
+                  0,
+                  0
+                ],
+                [
+                  33,
+                  0,
+                  0
+                ],
+                [
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "row_normalized": [
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  0.0,
+                  0.0
+                ],
+                [
+                  null,
+                  null,
+                  null
+                ]
+              ],
+              "support": [
+                31,
+                33,
+                0
+              ],
+              "total": 64
+            },
+            "per_class": {
+              "supported": {
+                "tp": 31,
+                "fp": 33,
+                "fn": 0,
+                "tn": 0,
+                "support": 31,
+                "precision": 0.484375,
+                "recall": 1.0,
+                "f1": 0.652632
+              },
+              "contradicted": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 33,
+                "tn": 31,
+                "support": 33,
+                "precision": null,
+                "recall": 0.0,
+                "f1": 0.0
+              },
+              "abstain": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 0,
+                "tn": 64,
+                "support": 0,
+                "precision": null,
+                "recall": null,
+                "f1": null
+              }
+            },
+            "accuracy": 0.484375,
+            "macro_f1": 0.326316,
+            "micro_f1": 0.484375,
+            "weighted_f1": 0.316119,
+            "balanced_accuracy": 0.5,
+            "support": 64,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 0,
+              "tn": 64,
+              "support": 0
+            },
+            "precision": null,
+            "recall": null,
+            "f1": null,
+            "false_abstention_rate": null,
+            "abstention_coverage": null
+          }
+        },
+        "Recon": {
+          "exact_pass": 1,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  15,
+                  2,
+                  0
+                ],
+                [
+                  12,
+                  4,
+                  0
+                ],
+                [
+                  6,
+                  9,
+                  0
+                ]
+              ],
+              "row_normalized": [
+                [
+                  0.882353,
+                  0.117647,
+                  0.0
+                ],
+                [
+                  0.75,
+                  0.25,
+                  0.0
+                ],
+                [
+                  0.4,
+                  0.6,
+                  0.0
+                ]
+              ],
+              "support": [
+                17,
+                16,
+                15
+              ],
+              "total": 48
+            },
+            "per_class": {
+              "supported": {
+                "tp": 15,
+                "fp": 18,
+                "fn": 2,
+                "tn": 13,
+                "support": 17,
+                "precision": 0.454545,
+                "recall": 0.882353,
+                "f1": 0.6
+              },
+              "contradicted": {
+                "tp": 4,
+                "fp": 11,
+                "fn": 12,
+                "tn": 21,
+                "support": 16,
+                "precision": 0.266667,
+                "recall": 0.25,
+                "f1": 0.258065
+              },
+              "abstain": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 15,
+                "tn": 33,
+                "support": 15,
+                "precision": null,
+                "recall": 0.0,
+                "f1": 0.0
+              }
+            },
+            "accuracy": 0.395833,
+            "macro_f1": 0.286022,
+            "micro_f1": 0.395833,
+            "weighted_f1": 0.298522,
+            "balanced_accuracy": 0.377451,
+            "support": 48,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 15,
+              "tn": 33,
+              "support": 15
+            },
+            "precision": null,
+            "recall": 0.0,
+            "f1": 0.0,
+            "false_abstention_rate": 0.0,
+            "abstention_coverage": 0.0
+          }
+        },
+        "Web-App": {
+          "exact_pass": 1,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  13,
+                  3,
+                  1
+                ],
+                [
+                  7,
+                  9,
+                  0
+                ],
+                [
+                  3,
+                  10,
+                  2
+                ]
+              ],
+              "row_normalized": [
+                [
+                  0.764706,
+                  0.176471,
+                  0.058824
+                ],
+                [
+                  0.4375,
+                  0.5625,
+                  0.0
+                ],
+                [
+                  0.2,
+                  0.666667,
+                  0.133333
+                ]
+              ],
+              "support": [
+                17,
+                16,
+                15
+              ],
+              "total": 48
+            },
+            "per_class": {
+              "supported": {
+                "tp": 13,
+                "fp": 10,
+                "fn": 4,
+                "tn": 21,
+                "support": 17,
+                "precision": 0.565217,
+                "recall": 0.764706,
+                "f1": 0.65
+              },
+              "contradicted": {
+                "tp": 9,
+                "fp": 13,
+                "fn": 7,
+                "tn": 19,
+                "support": 16,
+                "precision": 0.409091,
+                "recall": 0.5625,
+                "f1": 0.473684
+              },
+              "abstain": {
+                "tp": 2,
+                "fp": 1,
+                "fn": 13,
+                "tn": 32,
+                "support": 15,
+                "precision": 0.666667,
+                "recall": 0.133333,
+                "f1": 0.222222
+              }
+            },
+            "accuracy": 0.5,
+            "macro_f1": 0.448635,
+            "micro_f1": 0.5,
+            "weighted_f1": 0.457547,
+            "balanced_accuracy": 0.486846,
+            "support": 48,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 2,
+              "fp": 1,
+              "fn": 13,
+              "tn": 32,
+              "support": 15
+            },
+            "precision": 0.666667,
+            "recall": 0.133333,
+            "f1": 0.222222,
+            "false_abstention_rate": 0.071429,
+            "abstention_coverage": 0.133333
+          }
+        },
+        "Network": {
+          "exact_pass": 0,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  16,
+                  1,
+                  0
+                ],
+                [
+                  9,
+                  7,
+                  0
+                ],
+                [
+                  5,
+                  10,
+                  0
+                ]
+              ],
+              "row_normalized": [
+                [
+                  0.941176,
+                  0.058824,
+                  0.0
+                ],
+                [
+                  0.5625,
+                  0.4375,
+                  0.0
+                ],
+                [
+                  0.333333,
+                  0.666667,
+                  0.0
+                ]
+              ],
+              "support": [
+                17,
+                16,
+                15
+              ],
+              "total": 48
+            },
+            "per_class": {
+              "supported": {
+                "tp": 16,
+                "fp": 14,
+                "fn": 1,
+                "tn": 17,
+                "support": 17,
+                "precision": 0.533333,
+                "recall": 0.941176,
+                "f1": 0.680851
+              },
+              "contradicted": {
+                "tp": 7,
+                "fp": 11,
+                "fn": 9,
+                "tn": 21,
+                "support": 16,
+                "precision": 0.388889,
+                "recall": 0.4375,
+                "f1": 0.411765
+              },
+              "abstain": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 15,
+                "tn": 33,
+                "support": 15,
+                "precision": null,
+                "recall": 0.0,
+                "f1": 0.0
+              }
+            },
+            "accuracy": 0.479167,
+            "macro_f1": 0.364205,
+            "micro_f1": 0.479167,
+            "weighted_f1": 0.37839,
+            "balanced_accuracy": 0.459559,
+            "support": 48,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 0,
+              "fp": 0,
+              "fn": 15,
+              "tn": 33,
+              "support": 15
+            },
+            "precision": null,
+            "recall": 0.0,
+            "f1": 0.0,
+            "false_abstention_rate": 0.0,
+            "abstention_coverage": 0.0
+          }
+        },
+        "Reporting": {
+          "exact_pass": 2,
+          "cases": 16,
+          "classification": {
+            "confusion": {
+              "labels": [
+                "supported",
+                "contradicted",
+                "abstain"
+              ],
+              "matrix": [
+                [
+                  9,
+                  0,
+                  8
+                ],
+                [
+                  5,
+                  0,
+                  11
+                ],
+                [
+                  2,
+                  0,
+                  13
+                ]
+              ],
+              "row_normalized": [
+                [
+                  0.529412,
+                  0.0,
+                  0.470588
+                ],
+                [
+                  0.3125,
+                  0.0,
+                  0.6875
+                ],
+                [
+                  0.133333,
+                  0.0,
+                  0.866667
+                ]
+              ],
+              "support": [
+                17,
+                16,
+                15
+              ],
+              "total": 48
+            },
+            "per_class": {
+              "supported": {
+                "tp": 9,
+                "fp": 7,
+                "fn": 8,
+                "tn": 24,
+                "support": 17,
+                "precision": 0.5625,
+                "recall": 0.529412,
+                "f1": 0.545455
+              },
+              "contradicted": {
+                "tp": 0,
+                "fp": 0,
+                "fn": 16,
+                "tn": 32,
+                "support": 16,
+                "precision": null,
+                "recall": 0.0,
+                "f1": 0.0
+              },
+              "abstain": {
+                "tp": 13,
+                "fp": 19,
+                "fn": 2,
+                "tn": 14,
+                "support": 15,
+                "precision": 0.40625,
+                "recall": 0.866667,
+                "f1": 0.553191
+              }
+            },
+            "accuracy": 0.458333,
+            "macro_f1": 0.366215,
+            "micro_f1": 0.458333,
+            "weighted_f1": 0.366054,
+            "balanced_accuracy": 0.46536,
+            "support": 48,
+            "note": "In single-label multiclass, micro-F1 equals accuracy. Exact case-level pass rate is reported separately."
+          },
+          "abstention": {
+            "counts": {
+              "tp": 13,
+              "fp": 19,
+              "fn": 2,
+              "tn": 14,
+              "support": 15
+            },
+            "precision": 0.40625,
+            "recall": 0.866667,
+            "f1": 0.553191,
+            "false_abstention_rate": 0.904762,
+            "abstention_coverage": 0.866667
+          }
+        }
+      }
+    }
+  ],
+  "comparisons": [
+    {
+      "candidate": "SovereignEG/Qwen3.8-27B-FP8",
+      "reference": "qwen2.5:7b",
+      "exact_pass_difference": {
+        "estimate": 0.675,
+        "ci95": [
+          0.5625,
+          0.775
+        ],
+        "replicates": 5000,
+        "seed": 20261123,
+        "n": 80,
+        "clusters": null,
+        "unit": "case"
+      },
+      "family_clustered_exact_pass_difference": {
+        "estimate": 0.675,
+        "ci95": [
+          0.55,
+          0.7875
+        ],
+        "replicates": 5000,
+        "seed": 20261123,
+        "n": 80,
+        "clusters": 20,
+        "unit": "scenario family"
+      },
+      "mcnemar": {
+        "b_only_a": 55,
+        "c_only_b": 1,
+        "discordant": 56,
+        "p_two_sided": 0.0,
+        "note": "Exact binomial. Ties are excluded. Repeats are not independent cases."
+      }
+    },
+    {
+      "candidate": "SovereignEG/Qwen3.8-27B-FP8",
+      "reference": "qwen3:8b",
+      "exact_pass_difference": {
+        "estimate": 0.55,
+        "ci95": [
+          0.4375,
+          0.6625
+        ],
+        "replicates": 5000,
+        "seed": 20261123,
+        "n": 80,
+        "clusters": null,
+        "unit": "case"
+      },
+      "family_clustered_exact_pass_difference": {
+        "estimate": 0.55,
+        "ci95": [
+          0.4375,
+          0.6625
+        ],
+        "replicates": 5000,
+        "seed": 20261123,
+        "n": 80,
+        "clusters": 20,
+        "unit": "scenario family"
+      },
+      "mcnemar": {
+        "b_only_a": 44,
+        "c_only_b": 0,
+        "discordant": 44,
+        "p_two_sided": 0.0,
+        "note": "Exact binomial. Ties are excluded. Repeats are not independent cases."
+      }
+    },
+    {
+      "candidate": "SovereignEG/Qwen3.8-27B-FP8",
+      "reference": "granite4.2:8b",
+      "exact_pass_difference": {
+        "estimate": 0.5625,
+        "ci95": [
+          0.45,
+          0.675
+        ],
+        "replicates": 5000,
+        "seed": 20261123,
+        "n": 80,
+        "clusters": null,
+        "unit": "case"
+      },
+      "family_clustered_exact_pass_difference": {
+        "estimate": 0.5625,
+        "ci95": [
+          0.4375,
+          0.6875
+        ],
+        "replicates": 5000,
+        "seed": 20261123,
+        "n": 80,
+        "clusters": 20,
+        "unit": "scenario family"
+      },
+      "mcnemar": {
+        "b_only_a": 46,
+        "c_only_b": 1,
+        "discordant": 47,
+        "p_two_sided": 0.0,
+        "note": "Exact binomial. Ties are excluded. Repeats are not independent cases."
+      }
+    },
+    {
+      "candidate": "SovereignEG/Qwen3.8-27B-FP8",
+      "reference": "llama3.1:8b",
+      "exact_pass_difference": {
+        "estimate": 0.6125,
+        "ci95": [
+          0.5125,
+          0.7125
+        ],
+        "replicates": 5000,
+        "seed": 20261123,
+        "n": 80,
+        "clusters": null,
+        "unit": "case"
+      },
+      "family_clustered_exact_pass_difference": {
+        "estimate": 0.6125,
+        "ci95": [
+          0.475,
+          0.75
+        ],
+        "replicates": 5000,
+        "seed": 20261123,
+        "n": 80,
+        "clusters": 20,
+        "unit": "scenario family"
+      },
+      "mcnemar": {
+        "b_only_a": 49,
+        "c_only_b": 0,
+        "discordant": 49,
+        "p_two_sided": 0.0,
+        "note": "Exact binomial. Ties are excluded. Repeats are not independent cases."
+      }
+    },
+    {
+      "candidate": "SovereignEG/Qwen3.8-27B-FP8",
+      "reference": "qwen2.5:1.5b",
+      "exact_pass_difference": {
+        "estimate": 0.8375,
+        "ci95": [
+          0.7625,
+          0.9125
+        ],
+        "replicates": 5000,
+        "seed": 20261123,
+        "n": 80,
+        "clusters": null,
+        "unit": "case"
+      },
+      "family_clustered_exact_pass_difference": {
+        "estimate": 0.8375,
+        "ci95": [
+          0.7375,
+          0.925
+        ],
+        "replicates": 5000,
+        "seed": 20261123,
+        "n": 80,
+        "clusters": 20,
+        "unit": "scenario family"
+      },
+      "mcnemar": {
+        "b_only_a": 67,
+        "c_only_b": 0,
+        "discordant": 67,
+        "p_two_sided": 0.0,
+        "note": "Exact binomial. Ties are excluded. Repeats are not independent cases."
+      }
+    }
+  ]
+}
