@@ -122,6 +122,12 @@ Network 15/16 and Reporting 14/16; paired 95% intervals against every local arm 
 - [Frozen manifest SHA-256](eval/sovereign-80-matched/SHA256SUMS.txt):
   `09b3639b388019655fbde0805a9abfbfa9c2136d58e96c94e789220ff93f8eb0`
 
+**Publication state.** The release is merged into `main` via
+[PR #1](https://github.com/khaled1234kh/kayan/pull/1) (merge commit `2da8b19646e6880`); the
+[Go tools regression run](https://github.com/khaled1234kh/kayan/actions/runs/45153228641) passed
+with 180 tools tests and 10 TrustGate tests (one expected live-Cedar skip). No live cloud call was
+made for publication, and the previously exposed key must be rotated before any shared use.
+
 **What 90.00% means and does not mean.** It is exact contract accuracy on **80 authored synthetic
 cases** in a **retrospective matched benchmark** using the project's own frozen instrument. It is
 **not** a fresh blinded human-adjudicated holdout, **not** real-world vulnerability-detection
